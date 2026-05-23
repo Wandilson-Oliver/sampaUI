@@ -1,0 +1,23 @@
+@import "tailwindcss" source(none);
+
+@source "../views";
+
+@theme {
+  --color-primary: #747F64;
+  --color-secondary: #5C757A;
+  --color-accent: #D9A450;
+  --color-danger: #CB7A5B;
+  --color-light: #E8E2D8;
+
+  --radius-default: 1rem;
+  --radius-lg: 1.5rem;
+
+  --shadow-default: 0 10px 25px rgba(0, 0, 0, .08);
+}
+
+@source inline("bg-primary text-primary border-primary hover:bg-primary hover:text-white focus:ring-primary/20 focus:ring-primary/30");
+@source inline("bg-secondary text-secondary placeholder:text-secondary/50 hover:bg-light/30");
+@source inline("bg-accent bg-danger text-danger bg-light border-light rounded-default shadow-default");
+@source inline("px-3 py-2 px-4 py-2.5 px-5 py-3 px-6 py-4 px-8 py-5");
+@source inline("w-8 h-8 w-10 h-10 w-12 h-12 w-14 h-14 w-16 h-16");
+@source inline("relative absolute inset-y-0 right-4 pr-11 appearance-none");

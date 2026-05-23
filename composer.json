@@ -1,0 +1,60 @@
+{
+  "name": "sampaui/sampaui",
+  "description": "UI Components for Laravel + Livewire + Tailwind + Alpine",
+  "type": "library",
+  "license": "MIT",
+  "keywords": [
+    "laravel",
+    "livewire",
+    "tailwindcss",
+    "blade",
+    "ui",
+    "components"
+  ],
+  "homepage": "https://github.com/sampaui/sampaui",
+  "support": {
+    "issues": "https://github.com/sampaui/sampaui/issues",
+    "source": "https://github.com/sampaui/sampaui"
+  },
+  "authors": [
+    {
+      "name": "SampaUI"
+    }
+  ],
+
+  "autoload": {
+    "files": [
+      "src/Support/Helpers.php"
+    ],
+    "psr-4": {
+      "SampaUI\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "SampaUI\\Tests\\": "tests/"
+    }
+  },
+
+  "extra": {
+    "laravel": {
+      "providers": [
+        "SampaUI\\Providers\\SampaUIServiceProvider"
+      ]
+    }
+  },
+
+  "require": {
+    "php": "^8.3",
+    "laravel/framework": "^13.0",
+    "livewire/livewire": "^4.0"
+  },
+  "require-dev": {
+    "orchestra/testbench": "^11.0",
+    "phpunit/phpunit": "^12.0"
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit",
+    "build": "npm run build"
+  }
+}
