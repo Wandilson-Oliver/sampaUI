@@ -8,7 +8,18 @@ Inclua uma vez no layout:
 <x-sampaui::toast />
 ```
 
-Dispare um evento browser:
+Adicione um botao para abrir o toast:
+
+```blade
+<x-sampaui::button
+    icon="bell"
+    onclick="window.dispatchEvent(new CustomEvent('toast', { detail: { type: 'success', title: 'Salvo', message: 'Alteracoes publicadas.' } }))"
+>
+    Abrir toast
+</x-sampaui::button>
+```
+
+Ou dispare o mesmo evento browser via JavaScript:
 
 ```js
 window.dispatchEvent(new CustomEvent('toast', {

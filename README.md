@@ -7,6 +7,7 @@ SampaUI e um pacote de componentes Blade para Laravel 13, Livewire 4 e Tailwind 
 - PHP 8.3+
 - Laravel 13+
 - Livewire 4+
+- AlpineJS
 - Bootstrap Icons
 
 ## Instalacao
@@ -114,6 +115,13 @@ Inclua uma vez no layout e dispare eventos `toast` no browser:
 
 ```blade
 <x-sampaui::toast />
+
+<x-sampaui::button
+    icon="bell"
+    onclick="window.dispatchEvent(new CustomEvent('toast', { detail: { type: 'success', title: 'Salvo', message: 'Alteracoes publicadas.' } }))"
+>
+    Abrir toast
+</x-sampaui::button>
 ```
 
 ```js
