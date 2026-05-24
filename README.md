@@ -27,12 +27,6 @@ Inclua o CSS publicado no layout da aplicacao:
 <link rel="stylesheet" href="{{ asset('vendor/sampaui/sampaui.css') }}">
 ```
 
-Se for usar o `Textarea` com editor Markdown, inclua tambem o JavaScript publicado:
-
-```blade
-<script type="module" src="{{ asset('vendor/sampaui/sampaui.js') }}"></script>
-```
-
 Instale Bootstrap Icons no projeto consumidor:
 
 ```bash
@@ -82,15 +76,9 @@ npm install bootstrap-icons
 
 <x-sampaui::textarea
     name="description"
-    label="Descricao com editor"
-    editor
-/>
-
-<x-sampaui::textarea
-    name="article"
-    label="Artigo"
-    editor="markdown"
-    wire:model.live.debounce.700ms="article"
+    label="Descricao"
+    error="Inclua uma descricao antes de continuar."
+    wire:model.live.debounce.700ms="description"
 />
 ```
 

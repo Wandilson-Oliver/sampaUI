@@ -2,7 +2,7 @@
 
 Campo de texto longo.
 
-Por padrao, renderiza um `<textarea>` nativo. Para Markdown com toolbar simples, use `editor`, que inicializa EasyMDE via `dist/sampaui.js`.
+Renderiza um `<textarea>` nativo com label opcional, estado de erro e suporte direto a atributos Livewire/Alpine.
 
 ## Uso
 
@@ -23,25 +23,13 @@ Cliente precisa priorizar lancamento mobile no proximo trimestre.
 </x-sampaui::textarea>
 ```
 
-Com editor e Livewire:
+Com erro manual:
 
 ```blade
 <x-sampaui::textarea
-    name="article"
-    label="Artigo"
-    editor="markdown"
-    wire:model.live.debounce.700ms="article"
-/>
-```
-
-## Com editor
-
-```blade
-<x-sampaui::textarea
-    name="description"
-    label="Descricao"
-    editor
-    editor-min-height="240px"
+    name="notes"
+    label="Observacoes"
+    error="Inclua uma observacao antes de continuar."
 />
 ```
 
@@ -51,7 +39,5 @@ Com editor e Livewire:
 - `name`
 - `rows`
 - `placeholder`
-- `editor`: `false`, `true`, `easymde` ou `markdown`
-- `editor-min-height`
 - `error`
 - `disabled`

@@ -50,8 +50,6 @@ Props:
 
 ```blade
 <x-sampaui::textarea name="notes" label="Observacoes" rows="6" />
-
-<x-sampaui::textarea name="body" label="Conteudo" editor />
 ```
 
 ## Checkbox
