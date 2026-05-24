@@ -7,6 +7,19 @@ const syncTextarea = (textarea) => {
   textarea.dispatchEvent(new Event('change', { bubbles: true }));
 };
 
+const toolbar = [
+  { name: 'bold', action: EasyMDE.toggleBold, text: 'B', title: 'Negrito' },
+  { name: 'italic', action: EasyMDE.toggleItalic, text: 'I', title: 'Italico' },
+  { name: 'heading', action: EasyMDE.toggleHeadingSmaller, text: 'H', title: 'Titulo' },
+  '|',
+  { name: 'quote', action: EasyMDE.toggleBlockquote, text: 'Quote', title: 'Citacao' },
+  { name: 'unordered-list', action: EasyMDE.toggleUnorderedList, text: 'Lista', title: 'Lista simples' },
+  { name: 'ordered-list', action: EasyMDE.toggleOrderedList, text: '1.', title: 'Lista numerada' },
+  '|',
+  { name: 'link', action: EasyMDE.drawLink, text: 'Link', title: 'Link' },
+  { name: 'preview', action: EasyMDE.togglePreview, text: 'Preview', title: 'Preview' },
+];
+
 const initEasyMde = (textarea) => {
   if (textarea.dataset.sampauiEditorReady === 'true' || ! truthy(textarea.dataset.sampauiEditor)) {
     return;
@@ -18,22 +31,12 @@ const initEasyMde = (textarea) => {
     element: textarea,
     autoDownloadFontAwesome: false,
     forceSync: true,
+    lineWrapping: true,
     spellChecker: false,
     status: false,
     minHeight: textarea.dataset.sampauiEditorMinHeight || '180px',
     placeholder: textarea.getAttribute('placeholder') || undefined,
-    toolbar: [
-      'bold',
-      'italic',
-      'heading',
-      '|',
-      'quote',
-      'unordered-list',
-      'ordered-list',
-      '|',
-      'link',
-      'preview',
-    ],
+    toolbar,
   });
 
   editor.codemirror.on('change', () => {

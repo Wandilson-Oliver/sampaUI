@@ -85,6 +85,13 @@ npm install bootstrap-icons
     label="Descricao com editor"
     editor
 />
+
+<x-sampaui::textarea
+    name="article"
+    label="Artigo"
+    editor="markdown"
+    wire:model.live.debounce.700ms="article"
+/>
 ```
 
 ### Checkbox

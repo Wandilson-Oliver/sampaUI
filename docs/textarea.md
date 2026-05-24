@@ -15,6 +15,25 @@ Por padrao, renderiza um `<textarea>` nativo. Para Markdown com toolbar simples,
 />
 ```
 
+Com valor inicial:
+
+```blade
+<x-sampaui::textarea name="briefing" label="Briefing">
+Cliente precisa priorizar lancamento mobile no proximo trimestre.
+</x-sampaui::textarea>
+```
+
+Com editor e Livewire:
+
+```blade
+<x-sampaui::textarea
+    name="article"
+    label="Artigo"
+    editor="markdown"
+    wire:model.live.debounce.700ms="article"
+/>
+```
+
 ## Com editor
 
 ```blade

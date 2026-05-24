@@ -29,4 +29,13 @@ class TextareaTest extends TestCase
         $html->assertSee('data-sampaui-editor-min-height="240px"', false);
         $html->assertSee('wire:model.live="description"', false);
     }
+
+    public function test_it_can_enable_the_editor_using_named_modes(): void
+    {
+        $html = $this->blade(
+            '<x-sampaui::textarea name="body" label="Conteudo" editor="markdown">Texto</x-sampaui::textarea>'
+        );
+
+        $html->assertSee('data-sampaui-editor="easymde"', false);
+    }
 }

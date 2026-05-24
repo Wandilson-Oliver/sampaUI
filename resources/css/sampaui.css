@@ -27,11 +27,21 @@
 @source inline("relative absolute inset-y-0 right-4 pr-11 appearance-none");
 
 @layer components {
+  .EasyMDEContainer {
+    width: 100%;
+    min-width: 0;
+  }
+
   .EasyMDEContainer .CodeMirror {
     border-color: var(--color-light);
     border-radius: var(--radius-default);
     color: var(--color-secondary);
     box-shadow: var(--shadow-default);
+    width: 100%;
+    min-width: 0;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
   }
 
   .EasyMDEContainer .editor-toolbar {
@@ -39,10 +49,22 @@
     border-top-left-radius: var(--radius-default);
     border-top-right-radius: var(--radius-default);
     background: #fff;
+    display: flex;
+    flex-wrap: wrap;
+    gap: .25rem;
+    opacity: 1;
   }
 
   .EasyMDEContainer .editor-toolbar button {
     color: var(--color-secondary);
+    min-width: auto;
+    height: 2rem;
+    border-radius: .6rem;
+    padding: 0 .65rem;
+    font-family: var(--font-sans);
+    font-size: .78rem;
+    font-weight: 700;
+    line-height: 1;
   }
 
   .EasyMDEContainer .editor-toolbar button:hover,
@@ -60,5 +82,20 @@
 
   .EasyMDEContainer .editor-statusbar {
     color: var(--color-secondary);
+  }
+
+  .EasyMDEContainer .CodeMirror-scroll {
+    overflow-x: hidden !important;
+  }
+
+  .EasyMDEContainer .CodeMirror pre.CodeMirror-line,
+  .EasyMDEContainer .CodeMirror pre.CodeMirror-line-like {
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .EasyMDEContainer .editor-preview {
+    color: var(--color-secondary);
+    background: #fff;
   }
 }
