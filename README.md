@@ -78,7 +78,7 @@ npm install bootstrap-icons
 ### Checkbox
 
 ```blade
-<x-sampaui::checkbox name="terms" label="Aceito os termos" wire:model="terms" />
+<x-sampaui::checkbox name="terms" label="Aceito os termos" color="accent" wire:model="terms" />
 ```
 
 ## Customizacao

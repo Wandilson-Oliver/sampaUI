@@ -16,8 +16,11 @@
 }
 
 @source inline("bg-primary text-primary border-primary hover:bg-primary hover:text-white focus:ring-primary/20 focus:ring-primary/30");
-@source inline("bg-secondary text-secondary placeholder:text-secondary/50 hover:bg-light/30");
-@source inline("bg-accent bg-danger text-danger bg-light border-light rounded-default shadow-default");
+@source inline("bg-secondary text-secondary border-secondary accent-secondary focus:ring-secondary/20 placeholder:text-secondary/50 hover:bg-light/30");
+@source inline("bg-accent text-accent border-accent accent-accent focus:ring-accent/20");
+@source inline("bg-danger text-danger border-danger accent-danger focus:ring-danger/20");
+@source inline("bg-light border-light accent-light focus:ring-light/40 rounded-default shadow-default");
+@source inline("accent-primary");
 @source inline("px-3 py-2 px-4 py-2.5 px-5 py-3 px-6 py-4 px-8 py-5");
 @source inline("w-8 h-8 w-10 h-10 w-12 h-12 w-14 h-14 w-16 h-16");
 @source inline("relative absolute inset-y-0 right-4 pr-11 appearance-none");

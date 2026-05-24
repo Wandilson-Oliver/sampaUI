@@ -55,7 +55,7 @@ Props:
 ## Checkbox
 
 ```blade
-<x-sampaui::checkbox name="active" label="Ativo" checked />
+<x-sampaui::checkbox name="active" label="Ativo" color="accent" checked />
 ```
 
 ## Livewire e Alpine

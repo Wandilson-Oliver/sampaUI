@@ -8,6 +8,7 @@ Campo booleano com label e suporte a Livewire.
 <x-sampaui::checkbox
     name="terms"
     label="Aceito os termos"
+    color="accent"
     wire:model="terms"
 />
 ```
@@ -18,5 +19,6 @@ Campo booleano com label e suporte a Livewire.
 - `name`
 - `value`
 - `checked`
+- `color`: `primary`, `secondary`, `accent`, `danger`, `light`
 - `error`
 - `disabled`
