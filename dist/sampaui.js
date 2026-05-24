@@ -10861,12 +10861,12 @@ const or = /* @__PURE__ */ Qs(mf), xf = (ue) => !["false", "0", "off", "none", "
   { name: "italic", action: or.toggleItalic, text: "I", title: "Italico" },
   { name: "heading", action: or.toggleHeadingSmaller, text: "H", title: "Titulo" },
   "|",
-  { name: "quote", action: or.toggleBlockquote, text: "Quote", title: "Citacao" },
-  { name: "unordered-list", action: or.toggleUnorderedList, text: "Lista", title: "Lista simples" },
-  { name: "ordered-list", action: or.toggleOrderedList, text: "1.", title: "Lista numerada" },
+  { name: "quote", action: or.toggleBlockquote, text: "Q", title: "Citacao" },
+  { name: "unordered-list", action: or.toggleUnorderedList, text: "UL", title: "Lista simples" },
+  { name: "ordered-list", action: or.toggleOrderedList, text: "OL", title: "Lista numerada" },
   "|",
   { name: "link", action: or.drawLink, text: "Link", title: "Link" },
-  { name: "preview", action: or.togglePreview, text: "Preview", title: "Preview" }
+  { name: "preview", action: or.togglePreview, text: "View", title: "Preview" }
 ], bf = (ue) => {
   if (ue.dataset.sampauiEditorReady === "true" || !xf(ue.dataset.sampauiEditor))
     return;

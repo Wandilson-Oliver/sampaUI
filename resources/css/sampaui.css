@@ -30,38 +30,45 @@
   .EasyMDEContainer {
     width: 100%;
     min-width: 0;
+    border-radius: var(--radius-default);
+    box-shadow: var(--shadow-default);
   }
 
   .EasyMDEContainer .CodeMirror {
     border-color: var(--color-light);
-    border-radius: var(--radius-default);
+    border-radius: 0 0 var(--radius-default) var(--radius-default);
     color: var(--color-secondary);
-    box-shadow: var(--shadow-default);
+    box-shadow: none;
     width: 100%;
     min-width: 0;
-    font-family: var(--font-sans);
-    font-size: 1rem;
-    line-height: 1.6;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: .95rem;
+    line-height: 1.55;
   }
 
   .EasyMDEContainer .editor-toolbar {
     border-color: var(--color-light);
     border-top-left-radius: var(--radius-default);
     border-top-right-radius: var(--radius-default);
+    border-bottom: 0;
     background: #fff;
     display: flex;
-    flex-wrap: wrap;
-    gap: .25rem;
+    flex-wrap: nowrap;
+    gap: .15rem;
+    overflow-x: auto;
+    overflow-y: hidden;
     opacity: 1;
+    white-space: nowrap;
   }
 
   .EasyMDEContainer .editor-toolbar button {
     color: var(--color-secondary);
-    min-width: auto;
-    height: 2rem;
-    border-radius: .6rem;
-    padding: 0 .65rem;
-    font-family: var(--font-sans);
+    flex: 0 0 auto;
+    min-width: 1.9rem;
+    height: 1.9rem;
+    border-radius: .45rem;
+    padding: 0 .45rem;
+    font-family: inherit;
     font-size: .78rem;
     font-weight: 700;
     line-height: 1;

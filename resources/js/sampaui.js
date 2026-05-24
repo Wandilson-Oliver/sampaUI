@@ -12,12 +12,12 @@ const toolbar = [
   { name: 'italic', action: EasyMDE.toggleItalic, text: 'I', title: 'Italico' },
   { name: 'heading', action: EasyMDE.toggleHeadingSmaller, text: 'H', title: 'Titulo' },
   '|',
-  { name: 'quote', action: EasyMDE.toggleBlockquote, text: 'Quote', title: 'Citacao' },
-  { name: 'unordered-list', action: EasyMDE.toggleUnorderedList, text: 'Lista', title: 'Lista simples' },
-  { name: 'ordered-list', action: EasyMDE.toggleOrderedList, text: '1.', title: 'Lista numerada' },
+  { name: 'quote', action: EasyMDE.toggleBlockquote, text: 'Q', title: 'Citacao' },
+  { name: 'unordered-list', action: EasyMDE.toggleUnorderedList, text: 'UL', title: 'Lista simples' },
+  { name: 'ordered-list', action: EasyMDE.toggleOrderedList, text: 'OL', title: 'Lista numerada' },
   '|',
   { name: 'link', action: EasyMDE.drawLink, text: 'Link', title: 'Link' },
-  { name: 'preview', action: EasyMDE.togglePreview, text: 'Preview', title: 'Preview' },
+  { name: 'preview', action: EasyMDE.togglePreview, text: 'View', title: 'Preview' },
 ];
 
 const initEasyMde = (textarea) => {
