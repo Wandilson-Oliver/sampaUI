@@ -1,4 +1,5 @@
 @import "tailwindcss" source(none);
+@import "easymde/dist/easymde.min.css";
 
 @source "../views";
 
@@ -24,3 +25,40 @@
 @source inline("px-3 py-2 px-4 py-2.5 px-5 py-3 px-6 py-4 px-8 py-5");
 @source inline("w-8 h-8 w-10 h-10 w-12 h-12 w-14 h-14 w-16 h-16");
 @source inline("relative absolute inset-y-0 right-4 pr-11 appearance-none");
+
+@layer components {
+  .EasyMDEContainer .CodeMirror {
+    border-color: var(--color-light);
+    border-radius: var(--radius-default);
+    color: var(--color-secondary);
+    box-shadow: var(--shadow-default);
+  }
+
+  .EasyMDEContainer .editor-toolbar {
+    border-color: var(--color-light);
+    border-top-left-radius: var(--radius-default);
+    border-top-right-radius: var(--radius-default);
+    background: #fff;
+  }
+
+  .EasyMDEContainer .editor-toolbar button {
+    color: var(--color-secondary);
+  }
+
+  .EasyMDEContainer .editor-toolbar button:hover,
+  .EasyMDEContainer .editor-toolbar button.active {
+    border-color: var(--color-light);
+    background: var(--color-light);
+    color: var(--color-primary);
+  }
+
+  .EasyMDEContainer .CodeMirror-focused {
+    border-color: var(--color-primary);
+    outline: 2px solid color-mix(in srgb, var(--color-primary) 20%, transparent);
+    outline-offset: 0;
+  }
+
+  .EasyMDEContainer .editor-statusbar {
+    color: var(--color-secondary);
+  }
+}

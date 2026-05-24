@@ -2,7 +2,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "tailwindcss -i ./resources/css/sampaui.css -o ./dist/sampaui.css --minify"
+    "build": "npm run build:css && npm run build:js",
+    "build:css": "tailwindcss -i ./resources/css/sampaui.css -o ./dist/sampaui.css --minify",
+    "build:js": "vite build"
   },
   "devDependencies": {
     "@tailwindcss/cli": "^4.0.0",
@@ -10,6 +12,7 @@
     "vite": "^7.0.0"
   },
   "dependencies": {
-    "bootstrap-icons": "^1.11.3"
+    "bootstrap-icons": "^1.11.3",
+    "easymde": "^2.21.0"
   }
 }

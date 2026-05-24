@@ -3,11 +3,15 @@
     'name' => null,
     'rows' => 4,
     'placeholder' => null,
+    'editor' => false,
+    'editorMinHeight' => '180px',
     'error' => null,
     'disabled' => false,
 ])
 
 @php
+    $editorValue = is_bool($editor) ? $editor : strtolower((string) $editor);
+    $editorEnabled = $editor === true || in_array($editorValue, ['true', '1', 'easymde', 'markdown'], true);
     $id = $attributes->get('id') ?? $name ?? 'sampaui-textarea-'.uniqid();
     $errorBag = $errors ?? null;
     $errorMessage = $error ?: ($name && $errorBag?->has($name) ? $errorBag->first($name) : null);
@@ -27,6 +31,7 @@
     rows="{{ $rows }}"
     @if ($name) name="{{ $name }}" @endif
     @if ($placeholder) placeholder="{{ $placeholder }}" @endif
+    @if ($editorEnabled) data-sampaui-editor="easymde" data-sampaui-editor-min-height="{{ $editorMinHeight }}" @endif
     @disabled($disabled)
     @if ($errorMessage) aria-invalid="true" aria-describedby="{{ $id }}-error" @endif
     {{ $attributes->except('id')->merge(['class' => $classes]) }}

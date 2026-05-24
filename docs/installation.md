@@ -16,6 +16,7 @@ O comando publica:
 
 - `config/sampaui.php`
 - `public/vendor/sampaui/sampaui.css`
+- `public/vendor/sampaui/sampaui.js`
 - views customizaveis, quando confirmado no prompt
 
 Tambem e possivel publicar cada grupo manualmente:
@@ -30,6 +31,12 @@ Inclua o CSS no layout principal:
 
 ```blade
 <link rel="stylesheet" href="{{ asset('vendor/sampaui/sampaui.css') }}">
+```
+
+Se usar o `Textarea` com `editor`, inclua tambem o JavaScript publicado:
+
+```blade
+<script type="module" src="{{ asset('vendor/sampaui/sampaui.js') }}"></script>
 ```
 
 Para icones, use Bootstrap Icons no projeto consumidor:

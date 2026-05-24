@@ -27,6 +27,12 @@ Inclua o CSS publicado no layout da aplicacao:
 <link rel="stylesheet" href="{{ asset('vendor/sampaui/sampaui.css') }}">
 ```
 
+Se for usar o `Textarea` com editor Markdown, inclua tambem o JavaScript publicado:
+
+```blade
+<script type="module" src="{{ asset('vendor/sampaui/sampaui.js') }}"></script>
+```
+
 Instale Bootstrap Icons no projeto consumidor:
 
 ```bash
@@ -73,6 +79,12 @@ npm install bootstrap-icons
 
 ```blade
 <x-sampaui::textarea name="description" label="Descricao" rows="5" />
+
+<x-sampaui::textarea
+    name="description"
+    label="Descricao com editor"
+    editor
+/>
 ```
 
 ### Checkbox
