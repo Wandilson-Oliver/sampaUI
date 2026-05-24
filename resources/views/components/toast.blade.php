@@ -72,13 +72,14 @@
             };
 
             this.toasts.unshift(toast);
+            const reactiveToast = this.toasts[0];
 
             while (this.toasts.length > this.max) {
                 const olderToast = this.toasts.pop();
                 this.clearTimers(olderToast);
             }
 
-            this.startTimer(toast);
+            this.startTimer(reactiveToast);
         },
         startTimer(toast) {
             if (toast.duration === 0) {
