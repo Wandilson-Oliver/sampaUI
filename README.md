@@ -88,6 +88,40 @@ npm install bootstrap-icons
 <x-sampaui::checkbox name="terms" label="Aceito os termos" color="accent" wire:model="terms" />
 ```
 
+### Alert
+
+```blade
+<x-sampaui::alert variant="success" title="Lead atualizado">
+    As alteracoes foram sincronizadas.
+</x-sampaui::alert>
+```
+
+### Card
+
+```blade
+<x-sampaui::card title="Contrato" description="Em analise" variant="primary">
+    Proposta aguardando revisao juridica.
+
+    <x-slot:footer>
+        Atualizado ha 3 minutos.
+    </x-slot:footer>
+</x-sampaui::card>
+```
+
+### Toast
+
+Inclua uma vez no layout e dispare eventos `toast` no browser:
+
+```blade
+<x-sampaui::toast />
+```
+
+```js
+window.dispatchEvent(new CustomEvent('toast', {
+    detail: { type: 'success', title: 'Salvo', message: 'Alteracoes publicadas.' }
+}))
+```
+
 ## Customizacao
 
 Todos os componentes aceitam `class=""` e preservam atributos Livewire/Alpine:

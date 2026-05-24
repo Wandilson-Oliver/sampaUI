@@ -17,6 +17,9 @@ class ServiceProviderTest extends TestCase
     public function test_it_registers_views_and_components(): void
     {
         $this->assertTrue(View::exists('sampaui::components.button'));
+        $this->assertTrue(View::exists('sampaui::components.alert'));
+        $this->assertTrue(View::exists('sampaui::components.card'));
+        $this->assertTrue(View::exists('sampaui::components.toast'));
 
         $html = $this->blade('<x-sampaui::button>Salvar</x-sampaui::button>');
 

@@ -9,6 +9,9 @@ Documentacao individual:
 - [Select](select.md)
 - [Textarea](textarea.md)
 - [Checkbox](checkbox.md)
+- [Alert](alert.md)
+- [Card](card.md)
+- [Toast](toast.md)
 
 ## Button
 
@@ -56,6 +59,28 @@ Props:
 
 ```blade
 <x-sampaui::checkbox name="active" label="Ativo" color="accent" checked />
+```
+
+## Alert
+
+```blade
+<x-sampaui::alert variant="warning" title="Revisao pendente">
+    Confira os dados antes de publicar.
+</x-sampaui::alert>
+```
+
+## Card
+
+```blade
+<x-sampaui::card title="Resumo" description="Dados principais">
+    Conteudo do card.
+</x-sampaui::card>
+```
+
+## Toast
+
+```blade
+<x-sampaui::toast position="bottom-right" max="3" />
 ```
 
 ## Livewire e Alpine
