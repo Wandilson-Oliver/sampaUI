@@ -7,14 +7,11 @@
 ])
 
 @php
-    $id = $attributes->get('id') ?? $name ?? 'sampaui-select-'.uniqid();
-    $errorBag = $errors ?? null;
-    $errorMessage = $error ?: ($name && $errorBag?->has($name) ? $errorBag->first($name) : null);
-    $classes = collect([
-        'block w-full appearance-none rounded-default border bg-white px-4 py-2.5 pr-11 text-base text-secondary shadow-sm transition focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20',
-        $errorMessage ? 'border-danger' : 'border-light',
-        $disabled ? 'opacity-50 pointer-events-none' : null,
-    ])->filter()->implode(' ');
+    $id = sampaui_id($attributes, $name, 'sampaui-select');
+    $errorMessage = sampaui_error($name, $error, $errors ?? null);
+    $classes = sampaui_field_classes($errorMessage, $disabled, [
+        'cursor-pointer appearance-none pr-11',
+    ]);
 @endphp
 
 @if ($label)

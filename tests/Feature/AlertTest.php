@@ -15,6 +15,7 @@ class AlertTest extends TestCase
         $html->assertSee('Erro');
         $html->assertSee('Mensagem');
         $html->assertSee('role="alert"', false);
+        $html->assertSee('rounded-default border px-4 py-4', false);
         $html->assertSee('border-danger', false);
         $html->assertSee('mt-4', false);
     }
@@ -25,6 +26,7 @@ class AlertTest extends TestCase
             '<x-sampaui::alert type="success" wire:show="saved">Salvo</x-sampaui::alert>'
         );
 
+        $html->assertSee('bg-light', false);
         $html->assertSee('border-primary', false);
         $html->assertSee('wire:show="saved"', false);
     }

@@ -1,8 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800;900&display=swap");
 @import "tailwindcss" source(none);
 
 @source "../views";
 
 @theme {
+  --font-sans: "Plus Jakarta Sans", "Outfit", ui-sans-serif, system-ui, sans-serif;
   --color-primary: #747F64;
   --color-secondary: #5C757A;
   --color-accent: #D9A450;
@@ -12,15 +14,38 @@
   --radius-default: 1rem;
   --radius-lg: 1.5rem;
 
-  --shadow-default: 0 10px 25px rgba(0, 0, 0, .08);
 }
 
-@source inline("bg-primary text-primary border-primary hover:bg-primary hover:text-white focus:ring-primary/20 focus:ring-primary/30");
+@source inline("bg-primary text-primary border-primary hover:bg-primary hover:text-white focus:border-primary focus:ring-primary/20 focus:ring-primary/30");
 @source inline("bg-secondary text-secondary border-secondary accent-secondary focus:ring-secondary/20 placeholder:text-secondary/50 hover:bg-light/30");
 @source inline("bg-accent text-accent border-accent accent-accent focus:ring-accent/20");
 @source inline("bg-danger text-danger border-danger accent-danger focus:ring-danger/20");
-@source inline("bg-light border-light accent-light focus:ring-light/40 rounded-default shadow-default");
+@source inline("bg-light border-light accent-light focus:ring-light/40 rounded-default border-0");
 @source inline("accent-primary");
 @source inline("px-3 py-2 px-4 py-2.5 px-5 py-3 px-6 py-4 px-8 py-5");
 @source inline("w-8 h-8 w-10 h-10 w-12 h-12 w-14 h-14 w-16 h-16");
 @source inline("relative absolute inset-y-0 right-4 pr-11 appearance-none");
+@source inline("rounded-l-default rounded-r-default rounded-t-default rounded-b-default max-w-sm max-w-md max-w-lg max-w-xl max-w-2xl max-w-full max-h-full max-h-[18rem] max-h-[24rem] max-h-[32rem] max-h-[40rem] max-h-[48rem]");
+@source inline("translate-x-0 translate-y-0 translate-x-full -translate-x-full translate-y-full -translate-y-full opacity-0 opacity-100 backdrop-blur-none backdrop-blur-[2px] transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]");
+
+[x-cloak] {
+  display: none !important;
+}
+
+.sampaui-sidebar-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklab, var(--color-secondary) 35%, transparent) transparent;
+}
+
+.sampaui-sidebar-scroll::-webkit-scrollbar {
+  width: 0.35rem;
+}
+
+.sampaui-sidebar-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sampaui-sidebar-scroll::-webkit-scrollbar-thumb {
+  background: color-mix(in oklab, var(--color-secondary) 30%, transparent);
+  border-radius: 999px;
+}

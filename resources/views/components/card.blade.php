@@ -25,10 +25,10 @@
     $pad = $paddings[$padding] ?? $paddings['md'];
     $tone = $variants[$variant] ?? $variants['default'];
     $hasHeader = filled($title) || filled($description) || isset($header) || isset($actions);
-    $classes = collect([
-        'overflow-hidden rounded-default border shadow-default',
+    $classes = sampaui_classes([
+        'overflow-hidden rounded-default border',
         $tone,
-    ])->implode(' ');
+    ]);
 @endphp
 
 <div {{ $attributes->merge(['class' => $classes]) }}>

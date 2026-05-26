@@ -21,6 +21,8 @@ BLADE);
         $html->assertSee('Abrir');
         $html->assertSee('Conteudo');
         $html->assertSee('Rodape');
+        $html->assertSee('rounded-default border', false);
+        $html->assertDontSee('shadow-default', false);
         $html->assertSee('border-accent', false);
     }
 

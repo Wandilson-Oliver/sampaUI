@@ -39,10 +39,10 @@
     $ui = $variants[$tone] ?? $variants['info'];
     $iconName = $icon === false ? null : ($icon ?: $ui['defaultIcon']);
     $alertRole = $role ?: $ui['role'];
-    $classes = collect([
-        'flex w-full items-start gap-3 rounded-default border px-4 py-4 text-sm shadow-default',
+    $classes = sampaui_classes([
+        'flex w-full items-start gap-3 rounded-default border px-4 py-4 text-sm',
         $ui['wrap'],
-    ])->implode(' ');
+    ]);
 @endphp
 
 <div role="{{ $alertRole }}" {{ $attributes->merge(['class' => $classes]) }}>

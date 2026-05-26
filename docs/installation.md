@@ -32,6 +32,8 @@ Inclua o CSS no layout principal:
 <link rel="stylesheet" href="{{ asset('vendor/sampaui/sampaui.css') }}">
 ```
 
+O CSS publicado importa `Plus Jakarta Sans` e usa `Outfit` como fallback visual do pacote.
+
 Para icones, use Bootstrap Icons no projeto consumidor:
 
 ```bash

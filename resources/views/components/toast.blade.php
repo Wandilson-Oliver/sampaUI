@@ -26,28 +26,28 @@
             const id = `${Date.now()}-${Math.random()}`;
             const tones = {
                 success: {
-                    wrap: 'border-primary bg-white text-secondary',
+                    wrap: 'border border-primary bg-white text-secondary',
                     icon: 'text-primary',
                     progress: 'bg-primary',
                     symbol: 'check2-circle',
                     title: 'Sucesso',
                 },
                 error: {
-                    wrap: 'border-danger bg-white text-secondary',
+                    wrap: 'border border-danger bg-white text-secondary',
                     icon: 'text-danger',
                     progress: 'bg-danger',
                     symbol: 'exclamation-octagon',
                     title: 'Erro',
                 },
                 warning: {
-                    wrap: 'border-accent bg-white text-secondary',
+                    wrap: 'border border-accent bg-white text-secondary',
                     icon: 'text-accent',
                     progress: 'bg-accent',
                     symbol: 'exclamation-triangle',
                     title: 'Atencao',
                 },
                 info: {
-                    wrap: 'border-secondary bg-white text-secondary',
+                    wrap: 'border border-secondary bg-white text-secondary',
                     icon: 'text-secondary',
                     progress: 'bg-secondary',
                     symbol: 'info-circle',
@@ -65,7 +65,7 @@
                 progress: 100,
                 timerId: null,
                 intervalId: null,
-                wrap: tone.wrap,
+                wrap: [tone.wrap, incoming.class].filter(Boolean).join(' '),
                 icon: tone.icon,
                 progressClass: tone.progress,
                 symbol: tone.symbol,
@@ -151,7 +151,7 @@
             x-transition:leave="transition ease-in duration-150"
             x-transition:leave-start="opacity-100"
             x-transition:leave-end="translate-y-1 opacity-0"
-            class="pointer-events-auto overflow-hidden rounded-default border shadow-default"
+            class="pointer-events-auto overflow-hidden rounded-default"
             :class="toast.wrap"
             @mouseenter="pauseTimer(toast)"
             @mouseleave="resumeTimer(toast)"
@@ -168,7 +168,7 @@
 
                 <button
                     type="button"
-                    class="text-lg leading-none text-secondary transition hover:text-primary"
+                    class="cursor-pointer text-lg leading-none text-secondary transition hover:text-primary"
                     @click="remove(toast.id)"
                     aria-label="Fechar notificacao"
                 >&times;</button>

@@ -1,6 +1,6 @@
 # SampaUI
 
-SampaUI e um pacote de componentes Blade para Laravel 13, Livewire 4 e Tailwind CSS 4, com visual premium para aplicacoes corporativas, imobiliarias e SaaS.
+SampaUI e um pacote de componentes Blade exclusivo para aplicacoes a partir de Laravel 13, Livewire 4, Tailwind CSS 4 e AlpineJS, com visual premium para aplicacoes corporativas, imobiliarias e SaaS.
 
 ## Requisitos
 
@@ -28,6 +28,8 @@ Inclua o CSS publicado no layout da aplicacao:
 <link rel="stylesheet" href="{{ asset('vendor/sampaui/sampaui.css') }}">
 ```
 
+O CSS compilado ja importa a fonte padrao do pacote: `Plus Jakarta Sans`, com `Outfit` como fallback visual.
+
 Instale Bootstrap Icons no projeto consumidor:
 
 ```bash
@@ -35,6 +37,18 @@ npm install bootstrap-icons
 ```
 
 ## Componentes
+
+## Fundamentos adotados
+
+O SampaUI segue o conceito Blade-first: componentes anonimos, CSS compilado, Bootstrap Icons, tokens oficiais e customizacao por `class=""`. A refatoracao de referencia incorporou boas praticas dos frameworks mais usados em 2025 sem mudar a identidade do pacote:
+
+- stack fechado e previsivel: Laravel 13+, Livewire 4+, Tailwind 4 e AlpineJS;
+- helpers internos para padronizar foco, erro, disabled, triggers e cores;
+- exemplos copiaveis e composicao por slots;
+- props previsiveis para variantes, tamanhos e estados;
+- foco em acessibilidade, `aria-*`, labels e estados desabilitados;
+- preservacao de atributos Livewire/Alpine no elemento real;
+- documentacao com preview renderizado, API completa e checklist de uso.
 
 ### Button
 
@@ -70,6 +84,22 @@ npm install bootstrap-icons
 </x-sampaui::select>
 ```
 
+### Select Search
+
+```blade
+<x-sampaui::select-search
+    name="owner"
+    label="Responsavel"
+    placeholder="Selecione um responsavel"
+    wire:model.live="owner"
+    :options="[
+        'ana' => 'Ana Souza',
+        'bruno' => 'Bruno Lima',
+        'carla' => 'Carla Martins',
+    ]"
+/>
+```
+
 ### Textarea
 
 ```blade
@@ -87,6 +117,31 @@ npm install bootstrap-icons
 
 ```blade
 <x-sampaui::checkbox name="terms" label="Aceito os termos" color="accent" wire:model="terms" />
+```
+
+### Radio
+
+```blade
+<x-sampaui::radio
+    name="status"
+    label="Status"
+    value="active"
+    inline
+    :options="['active' => 'Ativo', 'paused' => 'Pausado']"
+/>
+```
+
+### DatePicker
+
+```blade
+<x-sampaui::date-picker
+    name="scheduled_at"
+    label="Data do agendamento"
+    min="2026-05-01"
+    max="2026-12-31"
+    clearable
+    wire:model.live="scheduledAt"
+/>
 ```
 
 ### Alert
@@ -109,6 +164,37 @@ npm install bootstrap-icons
 </x-sampaui::card>
 ```
 
+### Header
+
+```blade
+<x-sampaui::header
+    title="Clientes"
+    subtitle="Gerencie relacionamentos comerciais"
+    eyebrow="CRM"
+    status="Atualizado agora"
+>
+    <x-slot:actions>
+        <x-sampaui::button icon="plus">Novo cliente</x-sampaui::button>
+    </x-slot:actions>
+</x-sampaui::header>
+```
+
+### Sidebar
+
+```blade
+<x-sampaui::sidebar
+    brand="LIACOR"
+    initial-state="open"
+    brand-href="/dashboard"
+    active-color="#7057F6"
+    :user="['name' => 'Administrador Lia', 'email' => 'admin@liacorretora.com']"
+    :items="[
+        ['label' => 'Dashboard', 'href' => '/dashboard', 'icon' => 'grid', 'active' => true],
+        ['label' => 'Clientes', 'href' => '/clients', 'icon' => 'people', 'navigate' => true],
+    ]"
+/>
+```
+
 ### Toast
 
 Inclua uma vez no layout e dispare eventos `toast` no browser:
@@ -122,6 +208,34 @@ Inclua uma vez no layout e dispare eventos `toast` no browser:
 >
     Abrir toast
 </x-sampaui::button>
+```
+
+### Table
+
+```blade
+<x-sampaui::table
+    :columns="[
+        'name' => 'Cliente',
+        'status' => 'Status',
+        'amount' => ['label' => 'Valor', 'key' => 'amount', 'align' => 'right'],
+    ]"
+    :rows="[
+        ['name' => 'Ana Souza', 'status' => 'Ativo', 'amount' => 'R$ 1.200,00'],
+    ]"
+/>
+```
+
+### Pagination
+
+```blade
+<x-sampaui::pagination
+    :current-page="2"
+    :last-page="8"
+    :total="80"
+    :per-page="10"
+    previous-url="/clientes?page=1"
+    next-url="/clientes?page=3"
+/>
 ```
 
 ```js
@@ -139,7 +253,7 @@ Todos os componentes aceitam `class=""` e preservam atributos Livewire/Alpine:
     variant="accent"
     size="2xl"
     icon="plus"
-    class="w-full shadow-none bg-danger"
+    class="w-full bg-danger"
     wire:click="save"
 >
     Salvar

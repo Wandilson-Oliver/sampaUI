@@ -1,0 +1,46 @@
+# Select Search
+
+Select pesquisavel com busca local em Alpine e valor real em input hidden.
+
+Use para listas medias carregadas no HTML. Para milhares de registros ou busca remota, prefira criar uma integracao Livewire especifica.
+
+```blade
+<x-sampaui::select-search
+    name="owner"
+    label="Responsavel"
+    placeholder="Selecione um responsavel"
+    search-placeholder="Buscar por nome"
+    :options="[
+        'ana' => 'Ana Souza',
+        'bruno' => 'Bruno Lima',
+        'carla' => 'Carla Martins',
+    ]"
+/>
+```
+
+Com valor inicial:
+
+```blade
+<x-sampaui::select-search
+    name="city"
+    label="Cidade"
+    value="campinas"
+    :options="[
+        ['value' => 'sp', 'label' => 'Sao Paulo'],
+        ['value' => 'campinas', 'label' => 'Campinas'],
+    ]"
+/>
+```
+
+Com Livewire:
+
+```blade
+<x-sampaui::select-search
+    name="customer_id"
+    label="Cliente"
+    wire:model.live="customerId"
+    :options="$customers"
+/>
+```
+
+O componente tambem dispara `select-search:changed` com `id`, `name`, `value` e `label`.

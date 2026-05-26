@@ -40,14 +40,14 @@
     $isIconOnly = filled($icon) && trim($slot->toHtml()) === '';
     $isDisabled = $disabled || $loading;
 
-    $classes = collect([
-        'inline-flex items-center justify-center gap-2 font-medium transition focus:outline-none focus:ring-2 focus:ring-primary/30 focus:ring-offset-2',
+    $classes = sampaui_classes([
+        'inline-flex cursor-pointer items-center justify-center gap-2 font-medium transition focus:outline-none focus:ring-2 focus:ring-primary/30 focus:ring-offset-2',
         $variantClasses[$variant] ?? $variantClasses['primary'],
         $isIconOnly ? ($iconOnlySizeClasses[$size] ?? $iconOnlySizeClasses['md']).' aspect-square' : ($sizeClasses[$size] ?? $sizeClasses['md']),
         $rounded || $isIconOnly ? 'rounded-full' : 'rounded-default',
         $full ? 'w-full' : null,
-        $isDisabled ? 'opacity-50 pointer-events-none' : null,
-    ])->filter()->implode(' ');
+        $isDisabled ? 'cursor-not-allowed opacity-50' : null,
+    ]);
 @endphp
 
 <button

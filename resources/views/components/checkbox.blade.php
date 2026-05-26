@@ -9,23 +9,14 @@
 ])
 
 @php
-    $colorClasses = [
-        'primary' => 'accent-primary text-primary focus:ring-primary/20',
-        'secondary' => 'accent-secondary text-secondary focus:ring-secondary/20',
-        'accent' => 'accent-accent text-accent focus:ring-accent/20',
-        'danger' => 'accent-danger text-danger focus:ring-danger/20',
-        'light' => 'accent-light text-secondary focus:ring-light/40',
-    ];
-
-    $id = $attributes->get('id') ?? $name ?? 'sampaui-checkbox-'.uniqid();
-    $errorBag = $errors ?? null;
-    $errorMessage = $error ?: ($name && $errorBag?->has($name) ? $errorBag->first($name) : null);
-    $classes = collect([
-        'h-5 w-5 rounded border shadow-sm transition focus:ring-2 focus:ring-offset-2',
-        $colorClasses[$color] ?? $colorClasses['primary'],
-        $errorMessage ? 'border-danger' : 'border-light',
-        $disabled ? 'opacity-50 pointer-events-none' : null,
-    ])->filter()->implode(' ');
+    $id = sampaui_id($attributes, $name, 'sampaui-checkbox');
+    $errorMessage = sampaui_error($name, $error, $errors ?? null);
+    $classes = sampaui_classes([
+        'h-5 w-5 cursor-pointer rounded border border-light transition focus:ring-2 focus:ring-offset-2',
+        sampaui_control_color_classes($color),
+        $errorMessage ? 'border-danger ring-2 ring-danger/20' : null,
+        $disabled ? 'cursor-not-allowed opacity-50' : null,
+    ]);
 @endphp
 
 <div class="flex items-start gap-3">
@@ -41,7 +32,7 @@
     >
 
     @if ($label || trim($slot->toHtml()) !== '')
-        <label for="{{ $id }}" class="text-sm font-medium text-secondary">
+        <label for="{{ $id }}" @class(['text-sm font-medium text-secondary', 'cursor-pointer' => ! $disabled, 'cursor-not-allowed opacity-50' => $disabled])>
             {{ $label ?: $slot }}
         </label>
     @endif

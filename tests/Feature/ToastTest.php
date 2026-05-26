@@ -16,5 +16,10 @@ class ToastTest extends TestCase
         $html->assertSee('max: 3', false);
         $html->assertSee('custom-toast', false);
         $html->assertSee('wire:ignore', false);
+        $html->assertSee('rounded-default', false);
+        $html->assertDontSee('shadow-default', false);
+        $html->assertSee('wrap: [tone.wrap, incoming.class].filter(Boolean).join(\' \')', false);
+        $html->assertSee('border border-primary bg-white', false);
+        $html->assertSee('border border-danger bg-white', false);
     }
 }

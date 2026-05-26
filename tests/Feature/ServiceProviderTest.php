@@ -19,6 +19,15 @@ class ServiceProviderTest extends TestCase
         $this->assertTrue(View::exists('sampaui::components.button'));
         $this->assertTrue(View::exists('sampaui::components.alert'));
         $this->assertTrue(View::exists('sampaui::components.card'));
+        $this->assertTrue(View::exists('sampaui::components.drawer'));
+        $this->assertTrue(View::exists('sampaui::components.header'));
+        $this->assertTrue(View::exists('sampaui::components.date-picker'));
+        $this->assertTrue(View::exists('sampaui::components.pagination'));
+        $this->assertTrue(View::exists('sampaui::components.radio'));
+        $this->assertTrue(View::exists('sampaui::components.select-search'));
+        $this->assertTrue(View::exists('sampaui::components.sidebar'));
+        $this->assertTrue(View::exists('sampaui::components.table'));
+        $this->assertTrue(View::exists('sampaui::components.modal'));
         $this->assertTrue(View::exists('sampaui::components.toast'));
 
         $html = $this->blade('<x-sampaui::button>Salvar</x-sampaui::button>');
