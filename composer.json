@@ -1,6 +1,6 @@
 {
   "name": "sampaui/sampaui",
-  "description": "UI Components for Laravel + Livewire + Tailwind + Alpine",
+  "description": "Livewire-first Blade UI components for Laravel 13, Tailwind CSS 4 and AlpineJS",
   "type": "library",
   "license": "MIT",
   "keywords": [
@@ -11,10 +11,10 @@
     "ui",
     "components"
   ],
-  "homepage": "https://github.com/sampaui/sampaui",
+  "homepage": "https://github.com/Wandilson-Oliver/sampaUI",
   "support": {
-    "issues": "https://github.com/sampaui/sampaui/issues",
-    "source": "https://github.com/sampaui/sampaui"
+    "issues": "https://github.com/Wandilson-Oliver/sampaUI/issues",
+    "source": "https://github.com/Wandilson-Oliver/sampaUI"
   },
   "authors": [
     {

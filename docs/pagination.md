@@ -1,6 +1,6 @@
 # Pagination
 
-Paginacao para Laravel paginator ou valores manuais, com suporte a Livewire via `wire-method`.
+Paginacao Livewire-first para Laravel paginator ou valores manuais. Em telas Livewire, prefira `wire-method` apontando para o metodo de troca de pagina.
 
 ```blade
 <x-sampaui::pagination
@@ -8,8 +8,7 @@ Paginacao para Laravel paginator ou valores manuais, com suporte a Livewire via 
     :last-page="8"
     :total="80"
     :per-page="10"
-    previous-url="/clientes?page=1"
-    next-url="/clientes?page=3"
+    wire-method="gotoPage"
 />
 ```
 
@@ -22,4 +21,3 @@ Paginacao para Laravel paginator ou valores manuais, com suporte a Livewire via 
 ```
 
 Props principais: `paginator`, `currentPage`, `lastPage`, `total`, `perPage`, `previousUrl`, `nextUrl`, `window`, `wireMethod`, `simple`.
-

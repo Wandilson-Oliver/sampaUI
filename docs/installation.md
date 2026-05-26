@@ -6,6 +6,8 @@ Instale o pacote via Composer:
 composer require sampaui/sampaui
 ```
 
+O pacote e exclusivo para projetos com Laravel 13+, Livewire 4+, Tailwind CSS 4 e AlpineJS. Os componentes interativos assumem Alpine carregado pelo projeto e os atributos `wire:*` sao preservados para o Livewire.
+
 Execute o instalador:
 
 ```bash

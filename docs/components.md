@@ -1,6 +1,6 @@
 # Componentes
 
-Os componentes sao publicados no namespace `sampaui`.
+Os componentes sao publicados no namespace `sampaui` e foram desenhados para uso direto em telas Livewire 4.
 
 Documentacao individual:
 
@@ -178,14 +178,13 @@ Props:
     :last-page="8"
     :total="80"
     :per-page="10"
-    previous-url="/clientes?page=1"
-    next-url="/clientes?page=3"
+    wire-method="gotoPage"
 />
 ```
 
 ## Livewire e Alpine
 
-Atributos dinamicos sao repassados para o elemento principal:
+Atributos dinamicos sao repassados para o elemento principal. Use `wire:model`, `wire:click`, `wire:navigate` e eventos Alpine/Livewire diretamente nos componentes:
 
 ```blade
 <x-sampaui::input name="search" wire:model.live="search" x-on:keydown.escape="$wire.clear()" />

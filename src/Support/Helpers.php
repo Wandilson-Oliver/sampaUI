@@ -10,7 +10,19 @@ if (! function_exists('sampaui_asset')) {
 if (! function_exists('sampaui_id')) {
     function sampaui_id(mixed $attributes, ?string $name, string $prefix): string
     {
-        return (string) ($attributes->get('id') ?? $name ?? $prefix.'-'.uniqid());
+        if ($attributes->get('id')) {
+            return (string) $attributes->get('id');
+        }
+
+        if ($name) {
+            $id = trim((string) preg_replace('/[^A-Za-z0-9\-_:.]+/', '-', $name), '-');
+
+            if ($id !== '') {
+                return $id;
+            }
+        }
+
+        return $prefix.'-'.uniqid();
     }
 }
 

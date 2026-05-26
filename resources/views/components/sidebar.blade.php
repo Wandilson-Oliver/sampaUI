@@ -2,15 +2,21 @@
     'brand' => 'SampaUI',
     'brandHref' => '#',
     'brandIcon' => null,
+    'logo' => null,
+    'logoAlt' => null,
     'items' => [],
     'sections' => [],
     'user' => null,
+    'avatar' => null,
+    'avatarAlt' => null,
     'initialState' => null,
     'collapsed' => false,
     'collapsible' => true,
     'activeColor' => null,
     'closeEvent' => 'sampaui:sidebar-close',
     'openEvent' => 'sampaui:sidebar-open',
+    'stateEvent' => 'sampaui:sidebar-state',
+    'rail' => true,
     'logoutHref' => null,
     'logoutLabel' => 'Sair do sistema',
 ])
@@ -32,23 +38,29 @@
     $sidebarId = $attributes->get('id') ?? 'sampaui-sidebar-'.\Illuminate\Support\Str::random(6);
     $userName = is_array($user) ? ($user['name'] ?? 'Usuario') : null;
     $userEmail = is_array($user) ? ($user['email'] ?? null) : null;
+    $userAvatar = is_array($user) ? ($user['avatar'] ?? $avatar) : $avatar;
+    $userAvatarAlt = $avatarAlt ?? $userName ?? 'Avatar';
     $activeStyle = $activeColor ? 'background-color: '.$activeColor.';' : null;
     $activeTextStyle = $activeColor ? 'color: '.$activeColor.';' : null;
     $startsCollapsed = $initialState ? in_array($initialState, ['closed', 'collapsed'], true) : (bool) $collapsed;
+    $logoAltText = $logoAlt ?? $brand;
 @endphp
 
 <aside
     id="{{ $sidebarId }}"
-    {{ $attributes->except('id')->merge(['class' => 'fixed inset-y-0 left-0 z-50 flex h-screen flex-col border-r border-light bg-white text-secondary transition-[width,transform] duration-300 ease-out md:sticky md:translate-x-0']) }}
+    {{ $attributes->except('id')->merge(['class' => 'fixed inset-y-0 left-0 z-50 flex h-screen flex-col border-r border-light bg-white text-secondary transition-[width,transform] duration-300 ease-out md:translate-x-0']) }}
     style="width: {{ $startsCollapsed ? '6rem' : '18rem' }};"
-    x-data="{ open: false, collapsed: @js($startsCollapsed), toggle() { this.collapsed = ! this.collapsed } }"
-    x-on:{{ $openEvent }}.window="open = true; collapsed = false"
-    x-on:{{ $closeEvent }}.window="open = false; collapsed = true"
+    x-data="{ open: false, collapsed: @js($startsCollapsed), stateEvent: @js($stateEvent), sidebarId: @js($sidebarId), width() { return this.collapsed ? '6rem' : '18rem' }, emitState() { window.dispatchEvent(new CustomEvent(this.stateEvent, { detail: { id: this.sidebarId, collapsed: this.collapsed, width: this.width() } })) }, setCollapsed(value) { this.collapsed = value; this.emitState() }, toggle() { this.setCollapsed(! this.collapsed) } }"
+    x-init="emitState()"
+    x-on:{{ $openEvent }}.window="open = true; setCollapsed(false)"
+    x-on:{{ $closeEvent }}.window="open = false; setCollapsed(true)"
     x-bind:class="open ? 'translate-x-0' : '-translate-x-full md:translate-x-0'"
-    x-bind:style="collapsed ? 'width: 6rem;' : 'width: 18rem;'"
+    x-bind:style="`width: ${width()};`"
     aria-label="Navegacao principal"
 >
-    <span class="pointer-events-none absolute inset-y-0 -right-7 hidden w-7 bg-light/50 md:block" aria-hidden="true"></span>
+    @if ($rail)
+        <span class="pointer-events-none absolute inset-y-0 -right-7 hidden w-7 bg-light/50 md:block" aria-hidden="true"></span>
+    @endif
 
     @if ($collapsible)
         <button
@@ -64,8 +76,10 @@
 
     <div class="shrink-0 pb-11 pt-10" x-bind:class="collapsed ? 'px-0' : 'px-8'">
         <a href="{{ $brandHref }}" class="flex cursor-pointer items-center gap-4 text-slate-950" x-bind:class="collapsed ? 'justify-center' : ''">
-            @isset($logo)
+            @if ($logo instanceof \Illuminate\View\ComponentSlot)
                 {{ $logo }}
+            @elseif (is_string($logo) && $logo !== '')
+                <img src="{{ $logo }}" alt="{{ $logoAltText }}" class="block h-11 w-16 shrink-0 object-contain">
             @elseif (isset($brandMark))
                 {{ $brandMark }}
             @else
@@ -91,8 +105,8 @@
         <div class="shrink-0 pb-11" x-bind:class="collapsed ? 'px-0' : 'px-8'">
             <div class="flex min-w-0 items-center gap-5" x-bind:class="collapsed ? 'justify-center' : ''">
                 <span class="inline-flex aspect-square h-14 min-h-14 w-14 min-w-14 shrink-0 items-center justify-center overflow-hidden rounded-full bg-light text-base font-semibold text-primary">
-                    @if (! empty($user['avatar']))
-                        <img src="{{ $user['avatar'] }}" alt="{{ $userName }}" class="block aspect-square h-14 min-h-14 w-14 min-w-14 rounded-full object-cover">
+                    @if ($userAvatar)
+                        <img src="{{ $userAvatar }}" alt="{{ $userAvatarAlt }}" class="block aspect-square h-full min-h-full w-full min-w-full rounded-full object-cover">
                     @else
                         {{ \Illuminate\Support\Str::upper(\Illuminate\Support\Str::substr($userName, 0, 1)) }}
                     @endif

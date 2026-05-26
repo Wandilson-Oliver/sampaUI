@@ -36,13 +36,16 @@ BLADE);
         $html->assertSee('Sair');
         $html->assertSee('aria-current="page"', false);
         $html->assertSee('border-r border-light bg-white', false);
+        $html->assertDontSee('md:sticky', false);
         $html->assertSee('style="width: 18rem;"', false);
         $html->assertSee('collapsed: false', false);
-        $html->assertSee('toggle() { this.collapsed = ! this.collapsed }', false);
-        $html->assertSee('x-on:sampaui:sidebar-open.window="open = true; collapsed = false"', false);
-        $html->assertSee('x-on:sampaui:sidebar-close.window="open = false; collapsed = true"', false);
+        $html->assertSee('stateEvent: \'sampaui:sidebar-state\'', false);
+        $html->assertSee('toggle() { this.setCollapsed(! this.collapsed) }', false);
+        $html->assertSee('x-init="emitState()"', false);
+        $html->assertSee('x-on:sampaui:sidebar-open.window="open = true; setCollapsed(false)"', false);
+        $html->assertSee('x-on:sampaui:sidebar-close.window="open = false; setCollapsed(true)"', false);
         $html->assertSee('x-on:click.prevent.stop="toggle()"', false);
-        $html->assertSee('x-bind:style="collapsed ? \'width: 6rem;\' : \'width: 18rem;\'"', false);
+        $html->assertSee('x-bind:style="`width: ${width()};`"', false);
         $html->assertSee('bg-light/50', false);
         $html->assertSee('bi-chevron-left', false);
         $html->assertSee('bi-chevron-right', false);
@@ -69,6 +72,7 @@ BLADE);
     class="custom-sidebar"
     open-event="open-sidebar"
     close-event="close-sidebar"
+    state-event="sidebar-state"
     :items="[
         ['label' => 'Relatorios', 'href' => '/reports', 'icon' => 'bar-chart', 'navigate' => true],
     ]"
@@ -77,8 +81,9 @@ BLADE);
 
         $html->assertSee('id="main-nav"', false);
         $html->assertSee('custom-sidebar', false);
-        $html->assertSee('x-on:open-sidebar.window="open = true; collapsed = false"', false);
-        $html->assertSee('x-on:close-sidebar.window="open = false; collapsed = true"', false);
+        $html->assertSee('stateEvent: \'sidebar-state\'', false);
+        $html->assertSee('x-on:open-sidebar.window="open = true; setCollapsed(false)"', false);
+        $html->assertSee('x-on:close-sidebar.window="open = false; setCollapsed(true)"', false);
         $html->assertSee('wire:navigate', false);
         $html->assertSee('Relatorios');
     }
@@ -134,5 +139,60 @@ BLADE);
         $html->assertSee('LIACOR');
         $html->assertSee('/dashboard', false);
         $html->assertDontSee('rounded-t-full rounded-bl-full', false);
+    }
+
+    public function test_it_accepts_logo_and_avatar_props(): void
+    {
+        $html = $this->blade(<<<'BLADE'
+<x-sampaui::sidebar
+    brand="LIACOR"
+    logo="/images/liacor.svg"
+    logo-alt="Logo LIACOR"
+    avatar="/images/admin.jpg"
+    avatar-alt="Foto do administrador"
+    :user="['name' => 'Administrador Lia', 'email' => 'admin@liacorretora.com']"
+    :items="[
+        ['label' => 'Dashboard', 'href' => '/dashboard', 'icon' => 'grid'],
+    ]"
+/>
+BLADE);
+
+        $html->assertSee('<img src="/images/liacor.svg" alt="Logo LIACOR"', false);
+        $html->assertSee('<img src="/images/admin.jpg" alt="Foto do administrador"', false);
+        $html->assertSee('Administrador Lia');
+        $html->assertDontSee('rounded-t-full rounded-bl-full', false);
+    }
+
+    public function test_user_avatar_array_has_priority_over_avatar_prop(): void
+    {
+        $html = $this->blade(<<<'BLADE'
+<x-sampaui::sidebar
+    brand="App"
+    avatar="/images/fallback.jpg"
+    :user="['name' => 'Ana Silva', 'avatar' => '/images/ana.jpg']"
+    :items="[
+        ['label' => 'Dashboard', 'href' => '/dashboard', 'icon' => 'grid'],
+    ]"
+/>
+BLADE);
+
+        $html->assertSee('<img src="/images/ana.jpg" alt="Ana Silva"', false);
+        $html->assertDontSee('/images/fallback.jpg', false);
+    }
+
+    public function test_it_can_hide_the_layout_rail(): void
+    {
+        $html = $this->blade(<<<'BLADE'
+<x-sampaui::sidebar
+    brand="App"
+    :rail="false"
+    :items="[
+        ['label' => 'Dashboard', 'href' => '/dashboard', 'icon' => 'grid'],
+    ]"
+/>
+BLADE);
+
+        $html->assertDontSee('-right-7 hidden w-7 bg-light/50', false);
+        $html->assertSee('Dashboard');
     }
 }

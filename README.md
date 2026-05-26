@@ -1,6 +1,6 @@
 # SampaUI
 
-SampaUI e um pacote de componentes Blade exclusivo para aplicacoes a partir de Laravel 13, Livewire 4, Tailwind CSS 4 e AlpineJS, com visual premium para aplicacoes corporativas, imobiliarias e SaaS.
+SampaUI e um pacote de componentes Blade Livewire-first, exclusivo para aplicacoes a partir de Laravel 13, Livewire 4, Tailwind CSS 4 e AlpineJS, com visual premium para aplicacoes corporativas, imobiliarias e SaaS.
 
 ## Requisitos
 
@@ -43,6 +43,7 @@ npm install bootstrap-icons
 O SampaUI segue o conceito Blade-first: componentes anonimos, CSS compilado, Bootstrap Icons, tokens oficiais e customizacao por `class=""`. A refatoracao de referencia incorporou boas praticas dos frameworks mais usados em 2025 sem mudar a identidade do pacote:
 
 - stack fechado e previsivel: Laravel 13+, Livewire 4+, Tailwind 4 e AlpineJS;
+- API publica pensada para Livewire: `wire:model`, `wire:click`, `wire:navigate`, eventos do browser e estados reativos sem adaptadores extras;
 - helpers internos para padronizar foco, erro, disabled, triggers e cores;
 - exemplos copiaveis e composicao por slots;
 - props previsiveis para variantes, tamanhos e estados;
@@ -233,8 +234,7 @@ Inclua uma vez no layout e dispare eventos `toast` no browser:
     :last-page="8"
     :total="80"
     :per-page="10"
-    previous-url="/clientes?page=1"
-    next-url="/clientes?page=3"
+    wire-method="gotoPage"
 />
 ```
 

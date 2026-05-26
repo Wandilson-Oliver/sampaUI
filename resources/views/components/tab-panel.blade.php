@@ -1,0 +1,5 @@
+@props(['name'])
+
+<div x-cloak x-show="active === @js($name)" role="tabpanel" {{ $attributes }}>
+    {{ $slot }}
+</div>
