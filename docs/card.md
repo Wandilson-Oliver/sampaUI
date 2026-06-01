@@ -18,6 +18,6 @@ Container para agrupar conteudo com header, actions e footer opcionais.
 
 - `title`
 - `description`
-- `variant`: `default`, `muted`, `primary`, `secondary`, `accent` ou `danger`
+- `variant`: `default`, `muted`, `primary`, `secondary`, `accent`, `danger`, `success`, `warning`, `info` ou `purple`
 - `padding`: `sm`, `md` ou `lg`
-- `divided`
+- `divided`: `false` por padrao. Use `:divided="true"` quando precisar separar header e conteudo.

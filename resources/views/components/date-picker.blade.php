@@ -172,7 +172,7 @@
                     x-cloak
                     role="button"
                     tabindex="-1"
-                    class="inline-flex h-6 w-6 items-center justify-center rounded-full text-secondary/70 transition hover:bg-light hover:text-primary"
+                    class="inline-flex h-6 w-6 items-center justify-center rounded-full text-secondary/70 transition hover:bg-light/30 hover:text-primary"
                     x-on:click.stop="clear()"
                     aria-label="Limpar data"
                 >
@@ -198,13 +198,13 @@
         aria-label="Selecionar data"
     >
         <div class="mb-4 flex items-center justify-between gap-3">
-            <button type="button" class="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-secondary transition hover:bg-light hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20" x-on:click="previousMonth()" aria-label="Mes anterior">
+            <button type="button" class="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-secondary transition hover:bg-light/30 hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20" x-on:click="previousMonth()" aria-label="Mes anterior">
                 <i class="bi bi-chevron-left"></i>
             </button>
 
             <p class="text-sm font-semibold capitalize text-primary" x-text="monthLabel()"></p>
 
-            <button type="button" class="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-secondary transition hover:bg-light hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20" x-on:click="nextMonth()" aria-label="Proximo mes">
+            <button type="button" class="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-secondary transition hover:bg-light/30 hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20" x-on:click="nextMonth()" aria-label="Proximo mes">
                 <i class="bi bi-chevron-right"></i>
             </button>
         </div>
@@ -219,11 +219,11 @@
             <template x-for="day in days()" x-bind:key="day.iso">
                 <button
                     type="button"
-                    class="inline-flex h-10 cursor-pointer items-center justify-center rounded-xl text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-primary/20"
+                    class="inline-flex h-10 cursor-pointer items-center justify-center rounded-default text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-primary/20"
                     x-bind:class="{
                         'bg-primary text-white hover:bg-primary': day.selected,
                         'text-primary ring-1 ring-primary/20': day.today && ! day.selected,
-                        'text-secondary hover:bg-light': day.currentMonth && ! day.selected && ! day.disabled,
+                        'text-secondary hover:bg-light/30': day.currentMonth && ! day.selected && ! day.disabled,
                         'text-secondary/35': ! day.currentMonth && ! day.selected,
                         'cursor-not-allowed opacity-35 hover:bg-transparent': day.disabled,
                     }"

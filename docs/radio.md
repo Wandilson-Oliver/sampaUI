@@ -19,3 +19,4 @@ Grupo de opcoes exclusivas com suporte a arrays, slot manual, cores oficiais, er
 
 Props principais: `label`, `name`, `value`, `options`, `color`, `inline`, `error`, `disabled`.
 
+`color` aceita os tokens oficiais: `primary`, `secondary`, `accent`, `danger`, `success`, `warning`, `info`, `purple`, `muted` e `light`.

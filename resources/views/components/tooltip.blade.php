@@ -14,7 +14,7 @@
 
 <span {{ $attributes->merge(['class' => 'group relative inline-flex']) }}>
     {{ $slot }}
-    <span class="pointer-events-none absolute {{ $positions[$position] ?? $positions['top'] }} z-50 whitespace-nowrap rounded-default bg-slate-950 px-2.5 py-1.5 text-xs font-medium text-white opacity-0 transition group-hover:opacity-100 group-focus-within:opacity-100" role="tooltip">
+    <span class="pointer-events-none absolute {{ $positions[$position] ?? $positions['top'] }} z-50 whitespace-nowrap rounded-default bg-primary px-2.5 py-1.5 text-xs font-medium text-white opacity-0 transition group-hover:opacity-100 group-focus-within:opacity-100" role="tooltip">
         {{ $text }}
     </span>
 </span>

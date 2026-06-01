@@ -2,6 +2,8 @@
 
 SampaUI e um pacote de componentes Blade Livewire-first, exclusivo para aplicacoes a partir de Laravel 13, Livewire 4, Tailwind CSS 4 e AlpineJS, com visual premium para aplicacoes corporativas, imobiliarias e SaaS.
 
+Versao atual: `v0.1.0`.
+
 ## Requisitos
 
 - PHP 8.3+
@@ -40,16 +42,33 @@ npm install bootstrap-icons
 
 ## Fundamentos adotados
 
-O SampaUI segue o conceito Blade-first: componentes anonimos, CSS compilado, Bootstrap Icons, tokens oficiais e customizacao por `class=""`. A refatoracao de referencia incorporou boas praticas dos frameworks mais usados em 2025 sem mudar a identidade do pacote:
+O SampaUI segue o conceito Blade-first: componentes anonimos, CSS compilado, Bootstrap Icons e customizacao por `class=""`. A refatoracao de referencia incorporou boas praticas dos frameworks mais usados em 2025 sem mudar a identidade do pacote:
 
 - stack fechado e previsivel: Laravel 13+, Livewire 4+, Tailwind 4 e AlpineJS;
 - API publica pensada para Livewire: `wire:model`, `wire:click`, `wire:navigate`, eventos do browser e estados reativos sem adaptadores extras;
-- helpers internos para padronizar foco, erro, disabled, triggers e cores;
+- helpers internos para padronizar foco, erro, disabled, triggers e variantes com a paleta semantica SampaUI;
 - exemplos copiaveis e composicao por slots;
 - props previsiveis para variantes, tamanhos e estados;
 - foco em acessibilidade, `aria-*`, labels e estados desabilitados;
 - preservacao de atributos Livewire/Alpine no elemento real;
 - documentacao com preview renderizado, API completa e checklist de uso.
+
+## Paleta oficial
+
+O SampaUI usa uma paleta semantica personalizada, publicada em `config/sampaui.php` e compilada no CSS do pacote:
+
+```txt
+primary, secondary, accent, danger, light, success, warning, info, purple, muted
+```
+
+Use classes como `bg-primary`, `text-secondary`, `border-light`, `bg-accent/10` e `focus:ring-primary/20`. A customizacao local deve preferir `class=""` e tokens oficiais antes de usar hexadecimais diretos.
+
+Variantes principais:
+
+- `Button`: `primary`, `secondary`, `accent`, `danger`, `success`, `warning`, `info`, `purple`, `muted`, `light`, `ghost`, `outline`
+- `Badge` e `Progress`: `primary`, `secondary`, `accent`, `danger`, `success`, `warning`, `info`, `purple`, `muted`, `light`
+- `Alert`: `success`, `danger`/`error`, `warning`, `info`
+- `Card` e `Drawer`: `default`, `muted`, `primary`, `secondary`, `accent`, `danger`, `success`, `warning`, `info`, `purple`
 
 ### Button
 
@@ -71,9 +90,21 @@ O SampaUI segue o conceito Blade-first: componentes anonimos, CSS compilado, Boo
 <x-sampaui::input
     name="email"
     label="Email"
+    icon="envelope"
     placeholder="voce@empresa.com"
     wire:model.live="email"
 />
+
+<x-sampaui::input name="password" type="password" label="Senha">
+    <x-slot:prefix>
+        <i class="bi bi-lock"></i>
+    </x-slot:prefix>
+    <x-slot:suffix>
+        <button type="button" aria-label="Mostrar senha">
+            <i class="bi bi-eye"></i>
+        </button>
+    </x-slot:suffix>
+</x-sampaui::input>
 ```
 
 ### Select
@@ -187,7 +218,6 @@ O SampaUI segue o conceito Blade-first: componentes anonimos, CSS compilado, Boo
     brand="LIACOR"
     initial-state="open"
     brand-href="/dashboard"
-    active-color="#7057F6"
     :user="['name' => 'Administrador Lia', 'email' => 'admin@liacorretora.com']"
     :items="[
         ['label' => 'Dashboard', 'href' => '/dashboard', 'icon' => 'grid', 'active' => true],

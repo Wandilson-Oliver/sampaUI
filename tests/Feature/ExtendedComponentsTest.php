@@ -8,6 +8,11 @@ class ExtendedComponentsTest extends TestCase
 {
     public function test_badge_avatar_indicator_skeleton_and_progress_render(): void
     {
+        $this->blade('<x-sampaui::brand-mark />')
+            ->assertSee('rounded-br-md bg-primary', false)
+            ->assertSee('rounded-br-[1.4rem] rounded-tl-[1.4rem] bg-secondary', false)
+            ->assertSee('bg-accent', false);
+
         $this->blade('<x-sampaui::badge variant="accent" icon="star">Novo</x-sampaui::badge>')
             ->assertSee('Novo')
             ->assertSee('bi bi-star', false)
@@ -16,7 +21,7 @@ class ExtendedComponentsTest extends TestCase
         $this->blade('<x-sampaui::avatar src="/ana.jpg" name="Ana Silva" status="online" />')
             ->assertSee('src="/ana.jpg"', false)
             ->assertSee('alt="Ana Silva"', false)
-            ->assertSee('bg-primary', false);
+            ->assertSee('bg-success', false);
 
         $this->blade('<x-sampaui::avatar name="Ana Silva" size="2xl" status="busy" />')
             ->assertSee('h-20 w-20', false)
@@ -37,6 +42,16 @@ class ExtendedComponentsTest extends TestCase
 
         $this->blade('<x-sampaui::progress :value="20" variant="danger" />')
             ->assertSee('bg-danger', false);
+
+        $this->blade('<x-sampaui::badge variant="purple">Especial</x-sampaui::badge>')
+            ->assertSee('bg-purple/10', false)
+            ->assertSee('text-purple', false);
+
+        $this->blade('<x-sampaui::progress :value="60" variant="info" />')
+            ->assertSee('bg-info', false);
+
+        $this->blade('<x-sampaui::progress :value="60" variant="invalid" />')
+            ->assertSee('bg-primary', false);
     }
 
     public function test_dropdown_tabs_toggle_tooltip_and_breadcrumb_render(): void
@@ -44,10 +59,13 @@ class ExtendedComponentsTest extends TestCase
         $this->blade(<<<'BLADE'
 <x-sampaui::dropdown label="Acoes">
     <x-sampaui::dropdown-item href="/edit" icon="pencil">Editar</x-sampaui::dropdown-item>
+    <x-sampaui::dropdown-item type="button" icon="trash" wire:click="remove">Remover</x-sampaui::dropdown-item>
 </x-sampaui::dropdown>
 BLADE)
             ->assertSee('Acoes')
             ->assertSee('Editar')
+            ->assertSee('Remover')
+            ->assertSee('wire:click="remove"', false)
             ->assertSee('sampaui-dropdown relative inline-flex w-max', false)
             ->assertSee('role="menu"', false);
 
@@ -65,6 +83,9 @@ BLADE)
             ->assertSee('wire:model.live="active"', false)
             ->assertSee('items-center rounded-full', false)
             ->assertSee('peer-checked:bg-accent', false);
+
+        $this->blade('<x-sampaui::toggle name="special" color="purple" checked />')
+            ->assertSee('peer-checked:bg-purple', false);
 
         $this->blade('<x-sampaui::tooltip text="Copiar"><button>Icone</button></x-sampaui::tooltip>')
             ->assertSee('Copiar')

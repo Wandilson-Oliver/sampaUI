@@ -11,7 +11,10 @@ class ServiceProviderTest extends TestCase
     public function test_it_loads_default_config(): void
     {
         $this->assertSame('sampaui', config('sampaui.component_prefix'));
-        $this->assertSame('#747F64', config('sampaui.theme.primary'));
+        $this->assertSame('vendor/sampaui/sampaui.css', config('sampaui.assets.css'));
+        $this->assertTrue(config('sampaui.assets.load_compiled_css'));
+        $this->assertSame('#5574C9', config('sampaui.theme.primary'));
+        $this->assertSame('#79C8BC', config('sampaui.theme.success'));
     }
 
     public function test_it_registers_views_and_components(): void

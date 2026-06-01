@@ -28,6 +28,10 @@ BLADE);
 
         $html->assertSee('SampaUI');
         $html->assertSee('/dashboard', false);
+        $html->assertSee('rounded-br-md bg-primary', false);
+        $html->assertSee('rounded-br-[1.4rem] rounded-tl-[1.4rem] bg-secondary', false);
+        $html->assertSee('bg-accent', false);
+        $html->assertSee('bi bi-boxes', false);
         $html->assertSee('Ana Silva');
         $html->assertSee('ana@example.com');
         $html->assertSee('Dashboard');
@@ -44,7 +48,9 @@ BLADE);
         $html->assertSee('x-init="emitState()"', false);
         $html->assertSee('x-on:sampaui:sidebar-open.window="open = true; setCollapsed(false)"', false);
         $html->assertSee('x-on:sampaui:sidebar-close.window="open = false; setCollapsed(true)"', false);
-        $html->assertSee('x-on:click.prevent.stop="toggle()"', false);
+        $html->assertSee("x-on:click.prevent.stop=\"window.matchMedia('(max-width: 767px)').matches ? (open = false, setCollapsed(true)) : toggle()\"", false);
+        $html->assertSee("x-bind:aria-label=\"window.matchMedia('(max-width: 767px)').matches ? 'Fechar navegacao' : (collapsed ? 'Expandir navegacao' : 'Recolher navegacao')\"", false);
+        $html->assertSee("x-bind:class=\"collapsed ? 'justify-center px-0 py-1' : 'py-1'\"", false);
         $html->assertSee('x-bind:style="`width: ${width()};`"', false);
         $html->assertSee('bg-light/50', false);
         $html->assertSee('bi-chevron-left', false);
@@ -52,13 +58,13 @@ BLADE);
         $html->assertSee('hover:bg-white', false);
         $html->assertSee('bg-primary text-white', false);
         $html->assertSee('sampaui-sidebar-scroll min-h-0 flex-1 overflow-y-auto overscroll-contain', false);
-        $html->assertSee('flex flex-col gap-4', false);
-        $html->assertSee('flex flex-col gap-2', false);
+        $html->assertSee('flex flex-col gap-[0.4rem]', false);
+        $html->assertSee('flex flex-col gap-[0.2rem]', false);
         $html->assertSee('shrink-0 pb-11 pt-10', false);
         $html->assertSee('shrink-0 pb-10 pt-4', false);
         $html->assertSee('flex cursor-pointer items-center gap-4', false);
         $html->assertSee('group flex cursor-pointer items-center gap-5', false);
-        $html->assertSee('group-hover:bg-light/50', false);
+        $html->assertSee('group-hover:bg-light/50 ', false);
         $html->assertDontSee('hover:bg-light/30', false);
         $html->assertDontSee('shadow', false);
     }
@@ -102,7 +108,7 @@ BLADE);
 
         $open->assertSee('style="width: 18rem;"', false);
         $open->assertSee('collapsed: false', false);
-        $open->assertSee('x-on:click.prevent.stop="toggle()"', false);
+        $open->assertSee("x-on:click.prevent.stop=\"window.matchMedia('(max-width: 767px)').matches ? (open = false, setCollapsed(true)) : toggle()\"", false);
 
         $closed = $this->blade(<<<'BLADE'
 <x-sampaui::sidebar
@@ -116,7 +122,7 @@ BLADE);
 
         $closed->assertSee('style="width: 6rem;"', false);
         $closed->assertSee('collapsed: true', false);
-        $closed->assertSee('x-on:click.prevent.stop="toggle()"', false);
+        $closed->assertSee("x-on:click.prevent.stop=\"window.matchMedia('(max-width: 767px)').matches ? (open = false, setCollapsed(true)) : toggle()\"", false);
     }
 
     public function test_it_accepts_logo_slot_for_custom_brand_mark(): void

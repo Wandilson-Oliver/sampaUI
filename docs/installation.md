@@ -41,3 +41,21 @@ Para icones, use Bootstrap Icons no projeto consumidor:
 ```bash
 npm install bootstrap-icons
 ```
+
+## Checklist de release
+
+Antes de publicar uma nova versao do pacote:
+
+```bash
+composer test
+npm run build
+```
+
+Depois valide em um app consumidor:
+
+```bash
+php artisan vendor:publish --tag=sampaui-assets --force
+php artisan view:clear
+```
+
+Confirme tambem que a documentacao renderiza os componentes principais, exemplos Livewire preservam `wire:*` e a paleta personalizada continua alinhada entre `config/sampaui.php` e `resources/css/sampaui.css`.

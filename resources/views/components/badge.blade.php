@@ -6,17 +6,6 @@
 ])
 
 @php
-    $variants = [
-        'primary' => 'border-primary/25 bg-primary/10 text-primary',
-        'secondary' => 'border-secondary/25 bg-secondary/10 text-secondary',
-        'accent' => 'border-accent/30 bg-accent/10 text-accent',
-        'danger' => 'border-danger/30 bg-danger/10 text-danger',
-        'light' => 'border-light bg-light text-secondary',
-        'success' => 'border-primary/25 bg-primary/10 text-primary',
-        'warning' => 'border-accent/30 bg-accent/10 text-accent',
-        'info' => 'border-secondary/25 bg-secondary/10 text-secondary',
-    ];
-
     $sizes = [
         'sm' => 'px-2 py-0.5 text-xs',
         'md' => 'px-2.5 py-1 text-sm',
@@ -25,7 +14,7 @@
 
     $classes = sampaui_classes([
         'inline-flex items-center gap-1.5 border font-medium leading-none',
-        $variants[$variant] ?? $variants['primary'],
+        sampaui_badge_variant_classes($variant),
         $sizes[$size] ?? $sizes['md'],
         $rounded ? 'rounded-full' : 'rounded-default',
     ]);

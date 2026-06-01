@@ -19,6 +19,6 @@ Campo booleano com label e suporte a Livewire.
 - `name`
 - `value`
 - `checked`
-- `color`: `primary`, `secondary`, `accent`, `danger`, `light`
+- `color`: `primary`, `secondary`, `accent`, `danger`, `success`, `warning`, `info`, `purple`, `muted`, `light`
 - `error`
 - `disabled`

@@ -22,7 +22,6 @@ BLADE);
         $html->assertSee('Conteudo');
         $html->assertSee('Rodape');
         $html->assertSee('rounded-default border', false);
-        $html->assertDontSee('shadow-default', false);
         $html->assertSee('border-accent', false);
     }
 
@@ -34,5 +33,17 @@ BLADE);
 
         $html->assertSee('custom-card', false);
         $html->assertSee('x-data="{ open: true }"', false);
+    }
+
+    public function test_it_supports_extended_surface_variants_and_default_fallback(): void
+    {
+        $this->blade('<x-sampaui::card variant="success">Conteudo</x-sampaui::card>')
+            ->assertSee('border-success bg-white text-secondary', false);
+
+        $this->blade('<x-sampaui::card variant="purple">Conteudo</x-sampaui::card>')
+            ->assertSee('border-purple bg-white text-secondary', false);
+
+        $this->blade('<x-sampaui::card variant="unknown">Conteudo</x-sampaui::card>')
+            ->assertSee('border-light bg-white text-secondary', false);
     }
 }

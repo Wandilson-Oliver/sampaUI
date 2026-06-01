@@ -12,7 +12,7 @@ Mensagem contextual no fluxo da pagina.
 
 ## Props
 
-- `variant`: `success`, `error`, `warning` ou `info`
+- `variant`: `success`, `danger`/`error`, `warning` ou `info`
 - `type`: alias opcional de `variant`
 - `title`
 - `icon`

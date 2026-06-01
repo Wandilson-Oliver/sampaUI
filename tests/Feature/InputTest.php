@@ -23,4 +23,29 @@ class InputTest extends TestCase
         $html->assertSee('ring-2 ring-danger/20', false);
         $html->assertSee('disabled', false);
     }
+
+    public function test_it_renders_icon_and_prefix_suffix_slots(): void
+    {
+        $this->blade('<x-sampaui::input name="email" label="Email" icon="envelope" />')
+            ->assertSee('bi bi-envelope', false)
+            ->assertSee('pl-11', false);
+
+        $this->blade(<<<'BLADE'
+<x-sampaui::input name="password" type="password" label="Senha">
+    <x-slot:prefix>
+        <i class="bi bi-lock"></i>
+    </x-slot:prefix>
+    <x-slot:suffix>
+        <button type="button" aria-label="Mostrar senha">
+            <i class="bi bi-eye"></i>
+        </button>
+    </x-slot:suffix>
+</x-sampaui::input>
+BLADE)
+            ->assertSee('bi bi-lock', false)
+            ->assertSee('bi bi-eye', false)
+            ->assertSee('aria-label="Mostrar senha"', false)
+            ->assertSee('pl-11', false)
+            ->assertSee('pr-11', false);
+    }
 }

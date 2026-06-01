@@ -26,7 +26,7 @@
                     <p class="text-xs font-semibold uppercase tracking-[0.22em] text-primary">{{ $eyebrow }}</p>
                 @endif
 
-                <h1 class="truncate text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">
+                <h1 class="truncate text-2xl font-semibold tracking-tight text-primary md:text-3xl">
                     {{ $title }}
                 </h1>
 

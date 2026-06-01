@@ -12,7 +12,7 @@ Botao principal do SampaUI.
 
 ## Props
 
-- `variant`: `primary`, `secondary`, `accent`, `danger`, `outline`, `ghost`, `light`
+- `variant`: `primary`, `secondary`, `accent`, `danger`, `success`, `warning`, `info`, `purple`, `muted`, `outline`, `ghost`, `light`
 - `size`: `sm`, `md`, `lg`, `xl`, `2xl`
 - `icon`: nome do Bootstrap Icon sem o prefixo `bi-`
 - `icon-position`: `left` ou `right`

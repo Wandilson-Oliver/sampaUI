@@ -14,9 +14,28 @@ Documentacao individual:
 - [Radio](radio.md)
 - [DatePicker](date-picker.md)
 - [Alert](alert.md)
+- [Avatar](avatar.md)
+- [Badge](badge.md)
+- [Brand Mark](brand-mark.md)
+- [Breadcrumb](breadcrumb.md)
 - [Card](card.md)
+- [Command Palette](command-palette.md)
+- [Drawer](drawer.md)
+- [Dropdown](dropdown.md)
+- [Dropdown Item](dropdown-item.md)
+- [Empty State](empty-state.md)
+- [File Upload](file-upload.md)
+- [Indicator](indicator.md)
 - [Header](header.md)
+- [Modal](modal.md)
+- [Progress](progress.md)
 - [Sidebar](sidebar.md)
+- [Skeleton](skeleton.md)
+- [Stepper](stepper.md)
+- [Tabs](tabs.md)
+- [Tab Panel](tab-panel.md)
+- [Toggle](toggle.md)
+- [Tooltip](tooltip.md)
 - [Toast](toast.md)
 - [Table](table.md)
 - [Pagination](pagination.md)
@@ -25,7 +44,7 @@ Documentacao individual:
 
 Props:
 
-- `variant`: `primary`, `secondary`, `accent`, `danger`, `outline`, `ghost`, `light`
+- `variant`: `primary`, `secondary`, `accent`, `danger`, `success`, `warning`, `info`, `purple`, `muted`, `light`, `outline`, `ghost`
 - `size`: `sm`, `md`, `lg`, `xl`, `2xl`
 - `icon`: nome Bootstrap Icons sem o prefixo `bi-`
 - `icon-position`: `left` ou `right`
@@ -43,9 +62,25 @@ Props:
 <x-sampaui::input
     name="email"
     label="Email"
+    icon="envelope"
     error="Email obrigatorio"
     wire:model.live="email"
 />
+```
+
+Slots internos para icones ou acoes:
+
+```blade
+<x-sampaui::input name="password" type="password" label="Senha">
+    <x-slot:prefix>
+        <i class="bi bi-lock"></i>
+    </x-slot:prefix>
+    <x-slot:suffix>
+        <button type="button" aria-label="Mostrar senha">
+            <i class="bi bi-eye"></i>
+        </button>
+    </x-slot:suffix>
+</x-sampaui::input>
 ```
 
 ## Select
@@ -144,7 +179,6 @@ Props:
     brand="LIACOR"
     initial-state="open"
     brand-href="/dashboard"
-    active-color="#7057F6"
     :user="['name' => 'Administrador Lia', 'email' => 'admin@liacorretora.com']"
     :items="[
         ['label' => 'Dashboard', 'href' => '/dashboard', 'icon' => 'grid', 'active' => true],

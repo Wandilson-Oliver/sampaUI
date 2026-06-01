@@ -12,11 +12,11 @@
     'initialState' => null,
     'collapsed' => false,
     'collapsible' => true,
-    'activeColor' => null,
     'closeEvent' => 'sampaui:sidebar-close',
     'openEvent' => 'sampaui:sidebar-open',
     'stateEvent' => 'sampaui:sidebar-state',
     'rail' => true,
+    'activeColor' => null,
     'logoutHref' => null,
     'logoutLabel' => 'Sair do sistema',
 ])
@@ -40,10 +40,10 @@
     $userEmail = is_array($user) ? ($user['email'] ?? null) : null;
     $userAvatar = is_array($user) ? ($user['avatar'] ?? $avatar) : $avatar;
     $userAvatarAlt = $avatarAlt ?? $userName ?? 'Avatar';
-    $activeStyle = $activeColor ? 'background-color: '.$activeColor.';' : null;
-    $activeTextStyle = $activeColor ? 'color: '.$activeColor.';' : null;
     $startsCollapsed = $initialState ? in_array($initialState, ['closed', 'collapsed'], true) : (bool) $collapsed;
     $logoAltText = $logoAlt ?? $brand;
+    $activeStyle = $activeColor ? 'background-color: '.$activeColor.';' : null;
+    $activeTextStyle = $activeColor ? 'color: '.$activeColor.';' : null;
 @endphp
 
 <aside
@@ -65,9 +65,9 @@
     @if ($collapsible)
         <button
             type="button"
-            class="absolute -right-5 top-8 z-10 hidden h-11 w-11 cursor-pointer items-center justify-center rounded-[1.1rem] border border-light bg-white text-secondary transition hover:border-primary hover:bg-white hover:text-primary md:inline-flex"
-            x-on:click.prevent.stop="toggle()"
-            x-bind:aria-label="collapsed ? 'Expandir navegacao' : 'Recolher navegacao'"
+            class="absolute -right-5 top-8 z-10 inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-[1.1rem] border border-light bg-white text-secondary transition hover:border-primary hover:bg-white hover:text-primary"
+            x-on:click.prevent.stop="window.matchMedia('(max-width: 767px)').matches ? (open = false, setCollapsed(true)) : toggle()"
+            x-bind:aria-label="window.matchMedia('(max-width: 767px)').matches ? 'Fechar navegacao' : (collapsed ? 'Expandir navegacao' : 'Recolher navegacao')"
         >
             <i class="bi bi-chevron-left text-lg leading-none" x-show="! collapsed" aria-hidden="true"></i>
             <i class="bi bi-chevron-right text-lg leading-none" x-show="collapsed" x-cloak aria-hidden="true"></i>
@@ -75,7 +75,7 @@
     @endif
 
     <div class="shrink-0 pb-11 pt-10" x-bind:class="collapsed ? 'px-0' : 'px-8'">
-        <a href="{{ $brandHref }}" class="flex cursor-pointer items-center gap-4 text-slate-950" x-bind:class="collapsed ? 'justify-center' : ''">
+        <a href="{{ $brandHref }}" class="flex cursor-pointer items-center gap-4 text-primary" x-bind:class="collapsed ? 'justify-center' : ''">
             @if ($logo instanceof \Illuminate\View\ComponentSlot)
                 {{ $logo }}
             @elseif (is_string($logo) && $logo !== '')
@@ -83,19 +83,10 @@
             @elseif (isset($brandMark))
                 {{ $brandMark }}
             @else
-                <span class="relative block h-11 w-16 shrink-0" aria-hidden="true">
-                    <span class="absolute left-0 top-0 h-9 w-7 rounded-t-full rounded-bl-full bg-primary"></span>
-                    <span class="absolute left-7 top-0 h-9 w-7 rounded-full bg-primary/45"></span>
-                    <span class="absolute bottom-0 left-0 h-6 w-6 rounded-br-full rounded-tl-full bg-secondary"></span>
-                    @if ($brandIcon)
-                        <span class="absolute inset-0 flex items-center justify-center text-white">
-                            <i class="bi bi-{{ $brandIcon }} text-lg leading-none"></i>
-                        </span>
-                    @endif
-                </span>
+                <x-sampaui::brand-mark :icon="$brandIcon" />
             @endisset
 
-            <span class="truncate text-2xl font-black leading-none tracking-tight text-slate-950" x-bind:class="collapsed ? 'md:hidden' : ''">
+            <span class="truncate text-2xl font-black leading-none tracking-tight text-primary" x-bind:class="collapsed ? 'md:hidden' : ''">
                 {{ $brand }}
             </span>
         </a>
@@ -113,7 +104,7 @@
                 </span>
 
                 <div class="min-w-0" x-bind:class="collapsed ? 'md:hidden' : ''">
-                    <p class="truncate text-base font-semibold leading-tight text-slate-950">{{ $userName }}</p>
+                    <p class="truncate text-base font-semibold leading-tight text-primary">{{ $userName }}</p>
                     @if ($userEmail)
                         <p class="truncate text-sm leading-tight text-secondary/65">{{ $userEmail }}</p>
                     @endif
@@ -123,16 +114,16 @@
     @endif
 
     <nav class="sampaui-sidebar-scroll min-h-0 flex-1 overflow-y-auto overscroll-contain pb-8" x-bind:class="collapsed ? 'px-0' : 'px-8'" aria-label="Menu">
-        <div class="flex flex-col gap-4">
+        <div class="flex flex-col gap-[0.4rem]">
             @foreach ($normalizedSections as $section)
-                <div class="flex flex-col gap-2">
+                <div class="flex flex-col gap-[0.2rem]">
                     @if ($section['label'])
                         <p class="px-3 text-sm font-medium text-secondary/35" x-bind:class="collapsed ? 'md:hidden' : ''">
                             {{ $section['label'] }}
                         </p>
                     @endif
 
-                    <div class="flex flex-col gap-2">
+                    <div class="flex flex-col gap-[0.2rem]">
                         @foreach ($section['items'] as $item)
                             @php
                                 $active = (bool) ($item['active'] ?? false);
@@ -145,14 +136,15 @@
                                 href="{{ $href }}"
                                 @if (($item['navigate'] ?? false) && $href !== '#') wire:navigate @endif
                                 class="group flex cursor-pointer items-center gap-5 rounded-[1.35rem] text-base font-medium transition hover:text-primary"
-                                x-bind:class="collapsed ? 'justify-center px-0 py-2' : 'px-3 py-2'"
+                                @if ($active && $activeTextStyle) style="{{ $activeTextStyle }}" @endif
+                                x-bind:class="collapsed ? 'justify-center px-0 py-1' : 'py-1'"
                                 @if ($active) aria-current="page" @endif
                                 x-on:click="open = false"
                             >
-                                <span class="inline-flex aspect-square h-12 min-h-12 w-12 min-w-12 shrink-0 items-center justify-center">
+                                <span class="inline-flex aspect-square h-14 min-h-14 w-14 min-w-14 shrink-0 items-center justify-center">
                                     <span
                                         @class([
-                                            'inline-flex aspect-square h-12 min-h-12 w-12 min-w-12 items-center justify-center rounded-full transition',
+                                            'inline-flex aspect-square h-14 min-h-14 w-14 min-w-14 items-center justify-center rounded-full transition',
                                             'bg-primary text-white' => $active,
                                             'text-secondary/70 group-hover:bg-light/50 group-hover:text-primary' => ! $active,
                                         ])
@@ -168,7 +160,7 @@
                                         'font-semibold' => $active,
                                         'text-secondary group-hover:text-primary' => ! $active,
                                     ])
-                                    @if ($activeTextStyle) style="{{ $activeTextStyle }}" @endif
+                                    @if ($active && $activeTextStyle) style="{{ $activeTextStyle }}" @endif
                                     x-bind:class="collapsed ? 'md:hidden' : ''"
                                 >
                                     {{ $label }}

@@ -47,7 +47,7 @@
             @else
                 <tbody class="divide-y divide-light">
                     @forelse ($rows as $rowIndex => $row)
-                        <tr @class([$rowClasses, 'bg-light/20' => $striped && $rowIndex % 2 === 1])>
+                        <tr @class([$rowClasses, 'bg-light/30' => $striped && $rowIndex % 2 === 1])>
                             @foreach ($columns as $columnKey => $columnLabel)
                                 @php
                                     $key = is_array($columnLabel) ? ($columnLabel['key'] ?? $columnKey) : $columnKey;

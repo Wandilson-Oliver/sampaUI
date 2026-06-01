@@ -18,7 +18,7 @@
     ];
 
     $statusClasses = [
-        'online' => 'bg-primary',
+        'online' => 'bg-success',
         'busy' => 'bg-danger',
         'away' => 'bg-accent',
         'offline' => 'bg-secondary/40',

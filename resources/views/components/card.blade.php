@@ -3,7 +3,7 @@
     'description' => null,
     'variant' => 'default',
     'padding' => 'md',
-    'divided' => true,
+    'divided' => false,
 ])
 
 @php
@@ -13,17 +13,8 @@
         'lg' => 'px-6 py-6',
     ];
 
-    $variants = [
-        'default' => 'border-light bg-white text-secondary',
-        'muted' => 'border-light bg-light text-secondary',
-        'primary' => 'border-primary bg-white text-secondary',
-        'secondary' => 'border-secondary bg-white text-secondary',
-        'accent' => 'border-accent bg-white text-secondary',
-        'danger' => 'border-danger bg-white text-secondary',
-    ];
-
     $pad = $paddings[$padding] ?? $paddings['md'];
-    $tone = $variants[$variant] ?? $variants['default'];
+    $tone = sampaui_surface_variant_classes($variant);
     $hasHeader = filled($title) || filled($description) || isset($header) || isset($actions);
     $classes = sampaui_classes([
         'overflow-hidden rounded-default border',

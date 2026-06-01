@@ -70,6 +70,11 @@
         'secondary' => 'border-secondary',
         'accent' => 'border-accent',
         'danger' => 'border-danger',
+        'success' => 'border-success',
+        'warning' => 'border-warning',
+        'info' => 'border-info',
+        'purple' => 'border-purple',
+        'muted' => 'border-muted',
     ];
 
     $placementUi = $placements[$normalizedPlacement];

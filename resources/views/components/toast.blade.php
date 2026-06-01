@@ -26,9 +26,9 @@
             const id = `${Date.now()}-${Math.random()}`;
             const tones = {
                 success: {
-                    wrap: 'border border-primary bg-white text-secondary',
-                    icon: 'text-primary',
-                    progress: 'bg-primary',
+                    wrap: 'border border-success bg-white text-secondary',
+                    icon: 'text-success',
+                    progress: 'bg-success',
                     symbol: 'check2-circle',
                     title: 'Sucesso',
                 },
@@ -40,16 +40,16 @@
                     title: 'Erro',
                 },
                 warning: {
-                    wrap: 'border border-accent bg-white text-secondary',
-                    icon: 'text-accent',
-                    progress: 'bg-accent',
+                    wrap: 'border border-warning bg-white text-secondary',
+                    icon: 'text-warning',
+                    progress: 'bg-warning',
                     symbol: 'exclamation-triangle',
                     title: 'Atencao',
                 },
                 info: {
-                    wrap: 'border border-secondary bg-white text-secondary',
-                    icon: 'text-secondary',
-                    progress: 'bg-secondary',
+                    wrap: 'border border-info bg-white text-secondary',
+                    icon: 'text-info',
+                    progress: 'bg-info',
                     symbol: 'info-circle',
                     title: 'Aviso',
                 },

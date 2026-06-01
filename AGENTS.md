@@ -46,93 +46,25 @@ Evitar:
 
 # Paleta oficial
 
-Primary:
+Usar a paleta semantica personalizada do SampaUI como fonte unica de verdade:
 
 ```txt
-#747F64
+primary, secondary, accent, danger, light, success, warning, info, purple, muted
 ```
 
-Secondary:
-
-```txt
-#5C757A
-```
-
-Accent:
-
-```txt
-#D9A450
-```
-
-Danger:
-
-```txt
-#CB7A5B
-```
-
-Light:
-
-```txt
-#E8E2D8
-```
+As cores ficam declaradas em `config/sampaui.php` e refletidas no CSS compilado do pacote.
 
 ---
 
 # Tailwind Theme
 
-Toda customização deve existir apenas em:
+Nao criar uma segunda paleta, tema paralelo ou tokens concorrentes.
+O pacote deve usar somente os tokens semanticos oficiais do SampaUI.
 
-```txt
-resources/css/sampaui.css
-```
-
-Exemplo obrigatório:
+Base obrigatoria:
 
 ```css
 @import "tailwindcss";
-
-@theme {
-
---color-primary:
-#747F64;
-
---color-secondary:
-#5C757A;
-
---color-accent:
-#D9A450;
-
---color-danger:
-#CB7A5B;
-
---color-light:
-#E8E2D8;
-
-
-/*
-Radius
-*/
-
---radius-default:
-1rem;
-
---radius-lg:
-1.5rem;
-
-
-/*
-Shadow
-*/
-
---shadow-default:
-0 10px 25px rgba(
-0,
-0,
-0,
-.08
-);
-
-}
 ```
 
 ---
@@ -152,16 +84,16 @@ border-light
 
 rounded-default
 
-shadow-default
+shadow-xl
 ```
 
 Evitar:
 
 ```blade
-bg-[#747F64]
+bg-[custom-hex]
 ```
 
-quando existir token.
+quando existir token semantico oficial equivalente.
 
 ---
 
@@ -182,6 +114,10 @@ theme.css
 components.css
 
 tokens.css
+
+tema CSS paralelo
+
+classes semanticas novas de cor, borda ou raio fora da paleta oficial
 ```
 
 Nunca usar:
@@ -848,7 +784,7 @@ Preferir:
 ```txt
 shadow-sm
 
-shadow-default
+shadow-xl
 ```
 
 Evitar:
@@ -1029,10 +965,6 @@ Tailwind utilities
 
 +
 
-Tailwind @theme
-
-+
-
 Bootstrap Icons
 
 ao invés de:
@@ -1046,7 +978,7 @@ bg-primary
 
 rounded-default
 
-shadow-default
+shadow-xl
 ```
 
 e evitar:

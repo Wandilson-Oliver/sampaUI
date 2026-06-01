@@ -70,4 +70,13 @@ BLADE);
         $html->assertSee('border border-primary/20', false);
         $html->assertDontSee('aria-label="Fechar drawer"', false);
     }
+
+    public function test_it_supports_extended_border_variants(): void
+    {
+        $this->blade('<x-sampaui::drawer model="open" variant="info">Conteudo</x-sampaui::drawer>')
+            ->assertSee('border-info', false);
+
+        $this->blade('<x-sampaui::drawer model="open" variant="purple">Conteudo</x-sampaui::drawer>')
+            ->assertSee('border-purple', false);
+    }
 }

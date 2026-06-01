@@ -11,16 +11,6 @@
 ])
 
 @php
-    $variantClasses = [
-        'primary' => 'bg-primary text-white hover:opacity-90',
-        'secondary' => 'bg-secondary text-white hover:opacity-90',
-        'accent' => 'bg-accent text-white hover:opacity-90',
-        'danger' => 'bg-danger text-white hover:opacity-90',
-        'light' => 'bg-light text-secondary hover:opacity-90',
-        'ghost' => 'bg-transparent text-secondary hover:bg-light/30',
-        'outline' => 'bg-transparent border border-primary text-primary hover:bg-primary hover:text-white',
-    ];
-
     $sizeClasses = [
         'sm' => 'px-3 py-2 text-sm',
         'md' => 'px-4 py-2.5 text-base',
@@ -42,7 +32,7 @@
 
     $classes = sampaui_classes([
         'inline-flex cursor-pointer items-center justify-center gap-2 font-medium transition focus:outline-none focus:ring-2 focus:ring-primary/30 focus:ring-offset-2',
-        $variantClasses[$variant] ?? $variantClasses['primary'],
+        sampaui_button_variant_classes($variant),
         $isIconOnly ? ($iconOnlySizeClasses[$size] ?? $iconOnlySizeClasses['md']).' aspect-square' : ($sizeClasses[$size] ?? $sizeClasses['md']),
         $rounded || $isIconOnly ? 'rounded-full' : 'rounded-default',
         $full ? 'w-full' : null,

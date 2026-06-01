@@ -8,35 +8,7 @@
 
 @php
     $tone = $type ?? $variant;
-
-    $variants = [
-        'success' => [
-            'wrap' => 'border-primary bg-light text-secondary',
-            'icon' => 'text-primary',
-            'defaultIcon' => 'check2-circle',
-            'role' => 'status',
-        ],
-        'error' => [
-            'wrap' => 'border-danger bg-white text-secondary',
-            'icon' => 'text-danger',
-            'defaultIcon' => 'exclamation-octagon',
-            'role' => 'alert',
-        ],
-        'warning' => [
-            'wrap' => 'border-accent bg-white text-secondary',
-            'icon' => 'text-accent',
-            'defaultIcon' => 'exclamation-triangle',
-            'role' => 'status',
-        ],
-        'info' => [
-            'wrap' => 'border-secondary bg-white text-secondary',
-            'icon' => 'text-secondary',
-            'defaultIcon' => 'info-circle',
-            'role' => 'status',
-        ],
-    ];
-
-    $ui = $variants[$tone] ?? $variants['info'];
+    $ui = sampaui_alert_tone($tone);
     $iconName = $icon === false ? null : ($icon ?: $ui['defaultIcon']);
     $alertRole = $role ?: $ui['role'];
     $classes = sampaui_classes([

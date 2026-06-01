@@ -1,27 +1,40 @@
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800;900&display=swap");
 @import "tailwindcss" source(none);
 
-@source "../views";
-
 @theme {
   --font-sans: "Plus Jakarta Sans", "Outfit", ui-sans-serif, system-ui, sans-serif;
-  --color-primary: #747F64;
-  --color-secondary: #5C757A;
-  --color-accent: #D9A450;
-  --color-danger: #CB7A5B;
-  --color-light: #E8E2D8;
+  --color-primary: #5574C9;
+  --color-secondary: #2E314A;
+  --color-accent: #FDB82E;
+  --color-danger: #E84586;
+  --color-light: #F4F6FA;
+  --color-success: #79C8BC;
+  --color-warning: #FF7D3D;
+  --color-info: #43BEE3;
+  --color-purple: #895FC4;
+  --color-muted: #B7B8C5;
 
   --radius-default: 1rem;
   --radius-lg: 1.5rem;
-
 }
 
-@source inline("bg-primary text-primary border-primary hover:bg-primary hover:text-white focus:border-primary focus:ring-primary/20 focus:ring-primary/30");
-@source inline("bg-secondary text-secondary border-secondary accent-secondary focus:ring-secondary/20 placeholder:text-secondary/50 hover:bg-light/30");
-@source inline("bg-accent text-accent border-accent accent-accent focus:ring-accent/20");
-@source inline("bg-danger text-danger border-danger accent-danger focus:ring-danger/20");
-@source inline("bg-light border-light accent-light focus:ring-light/40 rounded-default border-0");
-@source inline("accent-primary");
+@source "../views";
+
+@source inline("bg-primary text-primary border-primary border-primary/25 hover:bg-primary hover:bg-primary/90 hover:text-white focus:border-primary focus:ring-primary/20 focus:ring-primary/30 accent-primary");
+@source inline("bg-secondary text-secondary border-secondary border-secondary/40 hover:bg-secondary/90 accent-secondary focus:ring-secondary/20 placeholder:text-secondary/50 hover:bg-light/30");
+@source inline("bg-accent text-accent border-accent border-accent/30 hover:bg-accent/90 accent-accent focus:ring-accent/20");
+@source inline("bg-danger text-danger border-danger border-danger/30 hover:bg-danger/90 accent-danger focus:ring-danger/20");
+@source inline("bg-success text-success border-success border-success/30 hover:bg-success/90 accent-success focus:ring-success/20");
+@source inline("bg-warning text-warning border-warning border-warning/30 hover:bg-warning/90 accent-warning focus:ring-warning/20");
+@source inline("bg-info text-info border-info border-info/30 hover:bg-info/90 accent-info focus:ring-info/20");
+@source inline("bg-purple text-purple border-purple border-purple/30 hover:bg-purple/90 accent-purple focus:ring-purple/20");
+@source inline("bg-muted text-muted border-muted border-muted/30 hover:bg-muted/90 accent-muted focus:ring-muted/20 focus:ring-muted/30");
+@source inline("bg-light border-light accent-light hover:bg-light/80 focus:ring-light/40 rounded-default border-0");
+@source inline("bg-white text-white divide-light ring-danger/20 bg-primary/40 bg-light/30 bg-light/40 bg-light/50 bg-light/60 bg-primary/10 bg-secondary/10 bg-accent/10 bg-danger/10 bg-success/10 bg-warning/10 bg-info/10 bg-purple/10 bg-muted/10");
+@source inline("rounded-default rounded-lg border-0");
+@source inline("peer-checked:border-primary peer-checked:bg-primary peer-focus:ring-primary/20 peer-checked:border-secondary peer-checked:bg-secondary peer-focus:ring-secondary/20 peer-checked:border-accent peer-checked:bg-accent peer-focus:ring-accent/20");
+@source inline("peer-checked:border-danger peer-checked:bg-danger peer-focus:ring-danger/20 peer-checked:border-success peer-checked:bg-success peer-focus:ring-success/20 peer-checked:border-warning peer-checked:bg-warning peer-focus:ring-warning/20");
+@source inline("peer-checked:border-info peer-checked:bg-info peer-focus:ring-info/20 peer-checked:border-purple peer-checked:bg-purple peer-focus:ring-purple/20 peer-checked:border-muted peer-checked:bg-muted peer-focus:ring-muted/30 peer-checked:border-light peer-checked:bg-light peer-focus:ring-light/40");
 @source inline("px-3 py-2 px-4 py-2.5 px-5 py-3 px-6 py-4 px-8 py-5");
 @source inline("w-8 h-8 w-10 h-10 w-12 h-12 w-14 h-14 w-16 h-16");
 @source inline("relative absolute inset-y-0 right-4 pr-11 appearance-none");

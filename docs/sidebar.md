@@ -9,7 +9,6 @@ Sem secoes:
     brand="LIACOR"
     initial-state="open"
     brand-href="/dashboard"
-    active-color="#7057F6"
     :user="[
         'name' => 'Administrador Lia',
         'email' => 'admin@liacorretora.com',
@@ -55,7 +54,6 @@ Com secoes:
 - `initial-state`: `open`, `closed` ou `collapsed`. Define se inicia aberta ou recolhida.
 - `collapsed`: alias legado para iniciar recolhida em desktop.
 - `collapsible`: exibe botao flutuante para recolher/expandir.
-- `activeColor`: cor do item ativo.
 - `openEvent`: evento Alpine para abrir no mobile.
 - `closeEvent`: evento Alpine para fechar no mobile.
 - `logoutHref`: exibe link de saida quando informado.
