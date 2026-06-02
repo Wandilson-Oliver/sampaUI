@@ -67,6 +67,8 @@ BLADE)
             ->assertSee('Remover')
             ->assertSee('wire:click="remove"', false)
             ->assertSee('sampaui-dropdown relative inline-flex w-max', false)
+            ->assertSee("x-bind:class=\"open ? 'z-[90]' : 'z-10'\"", false)
+            ->assertSee('z-[100]', false)
             ->assertSee('role="menu"', false);
 
         $this->blade(<<<'BLADE'

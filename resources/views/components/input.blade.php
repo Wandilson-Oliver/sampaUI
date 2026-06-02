@@ -7,13 +7,17 @@
     'error' => null,
     'disabled' => false,
     'icon' => null,
+    'revealable' => true,
 ])
 
 @php
     $id = sampaui_id($attributes, $name, 'sampaui-input');
     $errorMessage = sampaui_error($name, $error, $errors ?? null);
+    $isPassword = $type === 'password';
+    $hasCustomSuffix = isset($suffix);
+    $hasPasswordToggle = $isPassword && $revealable && ! $hasCustomSuffix;
     $hasPrefix = filled($icon) || isset($prefix);
-    $hasSuffix = isset($suffix);
+    $hasSuffix = $hasCustomSuffix || $hasPasswordToggle;
     $classes = sampaui_field_classes($errorMessage, $disabled, [
         'pl-11' => $hasPrefix,
         'pr-11' => $hasSuffix,
@@ -25,7 +29,7 @@
         <label for="{{ $id }}" class="mb-2 block text-sm font-medium text-secondary">{{ $label }}</label>
     @endif
 
-    <div @class(['relative' => $hasPrefix || $hasSuffix])>
+    <div @class(['relative' => $hasPrefix || $hasSuffix]) @if ($isPassword) x-data="{ showPassword: false }" @endif>
         @if ($hasPrefix)
             <span class="pointer-events-none absolute inset-y-0 left-4 flex items-center text-secondary/60" aria-hidden="true">
                 @isset($prefix)
@@ -39,6 +43,7 @@
         <input
             id="{{ $id }}"
             type="{{ $type }}"
+            @if ($isPassword && $revealable) x-bind:type="showPassword ? 'text' : 'password'" @endif
             @if ($name) name="{{ $name }}" @endif
             @if (! is_null($value)) value="{{ $value }}" @endif
             @if ($placeholder) placeholder="{{ $placeholder }}" @endif
@@ -49,7 +54,19 @@
 
         @if ($hasSuffix)
             <span class="absolute inset-y-0 right-4 flex items-center text-secondary/60">
-                {{ $suffix }}
+                @isset($suffix)
+                    {{ $suffix }}
+                @else
+                    <button
+                        type="button"
+                        class="inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-full text-secondary/70 transition hover:bg-light hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                        x-on:click="showPassword = ! showPassword"
+                        x-bind:aria-label="showPassword ? 'Ocultar senha' : 'Mostrar senha'"
+                        x-bind:aria-pressed="showPassword.toString()"
+                    >
+                        <i class="bi" x-bind:class="showPassword ? 'bi-eye-slash' : 'bi-eye'" aria-hidden="true"></i>
+                    </button>
+                @endisset
             </span>
         @endif
     </div>

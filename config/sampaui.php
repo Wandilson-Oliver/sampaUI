@@ -5,6 +5,7 @@ return [
 
     'assets' => [
         'css' => 'vendor/sampaui/sampaui.css',
+        'js' => 'vendor/sampaui/sampaui.js',
         'load_compiled_css' => true,
     ],
 

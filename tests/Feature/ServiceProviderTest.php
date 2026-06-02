@@ -12,6 +12,7 @@ class ServiceProviderTest extends TestCase
     {
         $this->assertSame('sampaui', config('sampaui.component_prefix'));
         $this->assertSame('vendor/sampaui/sampaui.css', config('sampaui.assets.css'));
+        $this->assertSame('vendor/sampaui/sampaui.js', config('sampaui.assets.js'));
         $this->assertTrue(config('sampaui.assets.load_compiled_css'));
         $this->assertSame('#5574C9', config('sampaui.theme.primary'));
         $this->assertSame('#79C8BC', config('sampaui.theme.success'));
@@ -44,5 +45,56 @@ class ServiceProviderTest extends TestCase
         $commands = Artisan::all();
 
         $this->assertArrayHasKey('sampaui:install', $commands);
+    }
+
+    public function test_install_command_registers_frontend_imports(): void
+    {
+        $cssPath = resource_path('css/app.css');
+        $jsPath = resource_path('js/app.js');
+        $originalCss = file_exists($cssPath) ? file_get_contents($cssPath) : null;
+        $originalJs = file_exists($jsPath) ? file_get_contents($jsPath) : null;
+
+        try {
+            if (! is_dir(dirname($cssPath))) {
+                mkdir(dirname($cssPath), 0777, true);
+            }
+
+            if (! is_dir(dirname($jsPath))) {
+                mkdir(dirname($jsPath), 0777, true);
+            }
+
+            file_put_contents($cssPath, '@import "tailwindcss";'.PHP_EOL.PHP_EOL.'@theme {'.PHP_EOL.'}'.PHP_EOL);
+            file_put_contents($jsPath, 'import "./bootstrap";'.PHP_EOL);
+
+            Artisan::call('sampaui:install', [
+                '--no-interaction' => true,
+                '--force' => true,
+            ]);
+
+            $this->assertStringContainsString(
+                '@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans',
+                file_get_contents($cssPath)
+            );
+            $this->assertStringContainsString(
+                '@import "../../vendor/sampaui/sampaui/dist/sampaui.css";',
+                file_get_contents($cssPath)
+            );
+            $this->assertStringContainsString(
+                'import "../../vendor/sampaui/sampaui/dist/sampaui.js";',
+                file_get_contents($jsPath)
+            );
+
+            Artisan::call('sampaui:install', [
+                '--no-interaction' => true,
+                '--force' => true,
+            ]);
+
+            $this->assertSame(1, substr_count(file_get_contents($cssPath), 'vendor/sampaui/sampaui/dist/sampaui.css'));
+            $this->assertSame(1, substr_count(file_get_contents($cssPath), 'fonts.googleapis.com/css2?family=Plus+Jakarta+Sans'));
+            $this->assertSame(1, substr_count(file_get_contents($jsPath), 'vendor/sampaui/sampaui/dist/sampaui.js'));
+        } finally {
+            $originalCss === null ? @unlink($cssPath) : file_put_contents($cssPath, $originalCss);
+            $originalJs === null ? @unlink($jsPath) : file_put_contents($jsPath, $originalJs);
+        }
     }
 }

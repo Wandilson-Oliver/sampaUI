@@ -71,16 +71,13 @@ Props:
 Slots internos para icones ou acoes:
 
 ```blade
-<x-sampaui::input name="password" type="password" label="Senha">
-    <x-slot:prefix>
-        <i class="bi bi-lock"></i>
-    </x-slot:prefix>
-    <x-slot:suffix>
-        <button type="button" aria-label="Mostrar senha">
-            <i class="bi bi-eye"></i>
-        </button>
-    </x-slot:suffix>
-</x-sampaui::input>
+<x-sampaui::input
+    name="password"
+    type="password"
+    label="Senha"
+    icon="lock"
+    wire:model="password"
+/>
 ```
 
 ## Select

@@ -30,6 +30,18 @@ class InputTest extends TestCase
             ->assertSee('bi bi-envelope', false)
             ->assertSee('pl-11', false);
 
+        $this->blade('<x-sampaui::input name="password" type="password" label="Senha" icon="lock" />')
+            ->assertSee('x-data="{ showPassword: false }"', false)
+            ->assertSee('x-bind:type="showPassword ? \'text\' : \'password\'"', false)
+            ->assertSee('x-on:click="showPassword = ! showPassword"', false)
+            ->assertSee('bi-eye-slash', false)
+            ->assertSee('Mostrar senha', false)
+            ->assertSee('pr-11', false);
+
+        $this->blade('<x-sampaui::input name="password" type="password" label="Senha" :revealable="false" />')
+            ->assertDontSee('x-bind:type="showPassword ? \'text\' : \'password\'"', false)
+            ->assertDontSee('x-on:click="showPassword = ! showPassword"', false);
+
         $this->blade(<<<'BLADE'
 <x-sampaui::input name="password" type="password" label="Senha">
     <x-slot:prefix>

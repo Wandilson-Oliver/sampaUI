@@ -18,7 +18,22 @@ O comando publica:
 
 - `config/sampaui.php`
 - `public/vendor/sampaui/sampaui.css`
+- `public/vendor/sampaui/sampaui.js`
+- import do CSS em `resources/css/app.css`
+- import do JS em `resources/js/app.js`
 - views customizaveis, quando confirmado no prompt
+
+Depois rode o build do projeto consumidor:
+
+```bash
+npm run build
+```
+
+O pacote passa a ser compilado junto com o `app.css` e `app.js` da aplicacao. Se voce quiser somente publicar arquivos sem tocar nos imports do Vite, use:
+
+```bash
+php artisan sampaui:install --skip-frontend
+```
 
 Tambem e possivel publicar cada grupo manualmente:
 
@@ -28,19 +43,7 @@ php artisan vendor:publish --tag=sampaui-assets
 php artisan vendor:publish --tag=sampaui-views
 ```
 
-Inclua o CSS no layout principal:
-
-```blade
-<link rel="stylesheet" href="{{ asset('vendor/sampaui/sampaui.css') }}">
-```
-
-O CSS publicado importa `Plus Jakarta Sans` e usa `Outfit` como fallback visual do pacote.
-
-Para icones, use Bootstrap Icons no projeto consumidor:
-
-```bash
-npm install bootstrap-icons
-```
+O instalador adiciona o import de `Plus Jakarta Sans`/`Outfit` no topo do `app.css`. O CSS compilado do pacote ja inclui Bootstrap Icons e as fontes necessarias para os icones `bi`.
 
 ## Checklist de release
 

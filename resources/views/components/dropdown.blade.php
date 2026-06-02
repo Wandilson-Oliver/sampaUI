@@ -12,6 +12,7 @@
 <div
     {{ $attributes->merge(['class' => 'sampaui-dropdown relative inline-flex w-max']) }}
     x-data="{ open: false }"
+    x-bind:class="open ? 'z-[90]' : 'z-10'"
     x-on:keydown.escape.window="open = false"
     x-on:click.outside="open = false"
 >
@@ -29,7 +30,7 @@
         x-cloak
         x-show="open"
         x-transition.opacity.duration.150ms
-        class="absolute {{ $alignClasses }} top-full z-40 mt-2 rounded-default border border-light bg-white p-1"
+        class="absolute {{ $alignClasses }} top-full z-[100] mt-2 rounded-default border border-light bg-white p-1 shadow-default"
         style="width: {{ $width }};"
         role="menu"
     >

@@ -2,7 +2,7 @@
 
 SampaUI e um pacote de componentes Blade Livewire-first, exclusivo para aplicacoes a partir de Laravel 13, Livewire 4, Tailwind CSS 4 e AlpineJS, com visual premium para aplicacoes corporativas, imobiliarias e SaaS.
 
-Versao atual: `v0.1.0`.
+Versao atual: `v0.1.1`.
 
 ## Requisitos
 
@@ -10,7 +10,7 @@ Versao atual: `v0.1.0`.
 - Laravel 13+
 - Livewire 4+
 - AlpineJS
-- Bootstrap Icons
+- Bootstrap Icons incluido no CSS compilado do pacote
 
 ## Instalacao
 
@@ -18,25 +18,31 @@ Versao atual: `v0.1.0`.
 composer require sampaui/sampaui
 ```
 
-Publique os assets compilados e a configuracao:
+Finalize a instalacao:
 
 ```bash
 php artisan sampaui:install
 ```
 
-Inclua o CSS publicado no layout da aplicacao:
+O instalador publica a configuracao/assets e registra o pacote no build principal do Vite:
 
-```blade
-<link rel="stylesheet" href="{{ asset('vendor/sampaui/sampaui.css') }}">
+```css
+/* resources/css/app.css */
+@import "../../vendor/sampaui/sampaui/dist/sampaui.css";
 ```
 
-O CSS compilado ja importa a fonte padrao do pacote: `Plus Jakarta Sans`, com `Outfit` como fallback visual.
+```js
+// resources/js/app.js
+import "../../vendor/sampaui/sampaui/dist/sampaui.js";
+```
 
-Instale Bootstrap Icons no projeto consumidor:
+Depois rode o build normal do projeto consumidor:
 
 ```bash
-npm install bootstrap-icons
+npm run build
 ```
+
+O CSS compilado ja importa a fonte padrao do pacote: `Plus Jakarta Sans`, com `Outfit` como fallback visual. O arquivo JS registra `window.SampaUI` e mantem um ponto unico para comportamentos futuros do pacote.
 
 ## Componentes
 
@@ -95,16 +101,13 @@ Variantes principais:
     wire:model.live="email"
 />
 
-<x-sampaui::input name="password" type="password" label="Senha">
-    <x-slot:prefix>
-        <i class="bi bi-lock"></i>
-    </x-slot:prefix>
-    <x-slot:suffix>
-        <button type="button" aria-label="Mostrar senha">
-            <i class="bi bi-eye"></i>
-        </button>
-    </x-slot:suffix>
-</x-sampaui::input>
+<x-sampaui::input
+    name="password"
+    type="password"
+    label="Senha"
+    icon="lock"
+    wire:model="password"
+/>
 ```
 
 ### Select
