@@ -2,6 +2,17 @@
 
 Todas as mudanças notáveis do SampaUI serão documentadas neste arquivo.
 
+## v0.1.3 - 2026-06-04
+
+### Corrigido
+
+- `select-search` agora usa `border-secondary/50` tanto no trigger principal quanto no campo de busca interno.
+- Bordas padrao de `checkbox`, `radio`, `toggle`, `date-picker` e `file-upload` foram alinhadas aos demais componentes de formulario.
+
+### Testes
+
+- Adicionada cobertura consolidada para garantir `border-secondary/50` em todos os componentes de formulario.
+
 ## v0.1.2 - 2026-06-04
 
 ### Adicionado

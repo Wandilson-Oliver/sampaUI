@@ -4,6 +4,8 @@ Campo booleano com label e suporte a Livewire.
 
 Para um booleano Livewire, `wire:model` e suficiente; a prop `value` so e necessaria em grupos que precisam enviar valores especificos.
 
+O controle usa `border-secondary/50` como borda padrao.
+
 ## Uso
 
 ```blade

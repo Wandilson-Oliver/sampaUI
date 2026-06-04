@@ -30,7 +30,7 @@ BLADE);
         $html->assertSee('value="ana"', false);
         $html->assertSee('role="listbox"', false);
         $html->assertSee('role="option"', false);
-        $html->assertSee('border border-light', false);
+        $html->assertSee('border border-secondary/50', false);
         $html->assertSee('bi bi-search', false);
         $html->assertSee('bi bi-chevron-down', false);
     }

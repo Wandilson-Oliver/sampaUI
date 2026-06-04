@@ -31,7 +31,7 @@
         ->values();
 
     $inputClasses = sampaui_classes([
-        'h-5 w-5 cursor-pointer border-light transition focus:ring-2 focus:ring-offset-2',
+        'h-5 w-5 cursor-pointer border-secondary/50 transition focus:ring-2 focus:ring-offset-2',
         sampaui_control_color_classes($color),
         $errorMessage ? 'ring-2 ring-danger/20' : null,
     ]);

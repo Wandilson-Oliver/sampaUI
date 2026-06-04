@@ -84,6 +84,7 @@ BLADE)
             ->assertSee('Ativo')
             ->assertSee('wire:model.live="active"', false)
             ->assertSee('items-center rounded-full', false)
+            ->assertSee('border border-secondary/50', false)
             ->assertSee('peer-checked:bg-accent', false);
 
         $this->blade('<x-sampaui::toggle name="special" color="purple" checked />')
@@ -111,6 +112,7 @@ BLADE)
         $this->blade('<x-sampaui::file-upload name="contract" label="Contrato" accept=".pdf" multiple />')
             ->assertSee('Contrato')
             ->assertSee('type="file"', false)
+            ->assertSee('border-dashed border-secondary/50', false)
             ->assertSee('multiple', false);
 
         $this->blade('<x-sampaui::file-upload name="photos[]" label="Fotos" accept="image/*" multiple preview />')

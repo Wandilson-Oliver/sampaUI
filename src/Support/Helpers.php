@@ -85,7 +85,7 @@ if (! function_exists('sampaui_trigger_classes')) {
     function sampaui_trigger_classes(?string $errorMessage = null, bool $disabled = false, array $classes = []): string
     {
         return sampaui_classes(array_merge([
-            'flex w-full cursor-pointer items-center justify-between gap-3 rounded-default border border-light bg-white px-4 py-2.5 text-left text-base text-secondary transition focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20',
+            'flex w-full cursor-pointer items-center justify-between gap-3 rounded-default border border-secondary/50 bg-white px-4 py-2.5 text-left text-base text-secondary transition focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20',
             'border-danger ring-2 ring-danger/20' => filled($errorMessage),
             'cursor-not-allowed opacity-50' => $disabled,
         ], $classes));

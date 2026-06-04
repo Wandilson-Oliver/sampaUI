@@ -2,7 +2,7 @@
 
 SampaUI e um pacote de componentes Blade Livewire-first, exclusivo para aplicacoes a partir de Laravel 13, Livewire 4, Tailwind CSS 4 e AlpineJS, com visual premium para aplicacoes corporativas, imobiliarias e SaaS.
 
-Versao atual: `v0.1.2`.
+Versao atual: `v0.1.3`.
 
 ## Requisitos
 
@@ -115,6 +115,8 @@ Variantes principais:
 ```
 
 Todos os componentes de entrada aceitam `wire:model` diretamente no controle real ou via `x-modelable`, sem exigir a prop `value`.
+
+Todos os controles de formulario usam `border-secondary/50` como borda padrao, incluindo inputs, selects, busca interna, textarea, checkbox, radio, toggle, date picker e upload.
 
 ### Select
 

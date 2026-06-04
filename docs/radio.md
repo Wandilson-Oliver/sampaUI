@@ -4,6 +4,8 @@ Grupo de opcoes exclusivas com suporte a arrays, slot manual, cores oficiais, er
 
 Com Livewire, nao informe a prop `value` do componente: `wire:model` seleciona automaticamente a opcao correspondente ao estado.
 
+Cada opcao usa `border-secondary/50` como borda padrao.
+
 ```blade
 <x-sampaui::radio
     name="priority"

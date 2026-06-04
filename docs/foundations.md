@@ -39,6 +39,8 @@ Os tokens ficam centralizados em `config/sampaui.php` e no CSS do pacote:
 
 Use classes semanticas como `bg-primary`, `text-secondary`, `border-light`, `bg-accent/10` e `focus:ring-primary/20`. Evite hexadecimais diretos em componentes quando um token oficial resolver o caso.
 
+Componentes de formulario usam `border-secondary/50` como borda padrao para manter contraste consistente. `border-light` permanece reservado para divisores, paineis e outras bordas estruturais.
+
 ## Variantes padronizadas
 
 - `Button`: `primary`, `secondary`, `accent`, `danger`, `success`, `warning`, `info`, `purple`, `muted`, `light`, `ghost`, `outline`.

@@ -27,6 +27,7 @@ BLADE);
         $html->assertSee('checked', false);
         $html->assertSee('wire:model.live="status"', false);
         $html->assertSee('accent-primary', false);
+        $html->assertSee('border-secondary/50', false);
     }
 
     public function test_it_supports_inline_error_disabled_custom_class_and_color(): void
