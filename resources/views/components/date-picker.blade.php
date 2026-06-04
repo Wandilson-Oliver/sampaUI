@@ -17,10 +17,18 @@
     $classes = sampaui_trigger_classes($errorMessage, $disabled);
 
     $placeholderText = $placeholder ?: 'Selecione uma data';
+    $modelAttributes = $attributes->filter(
+        fn (mixed $attributeValue, string $attributeName): bool => str_starts_with($attributeName, 'wire:model') || $attributeName === 'x-model'
+    );
+    $inputAttributes = $attributes
+        ->whereDoesntStartWith('wire:model')
+        ->whereDoesntStartWith('x-model')
+        ->except(['id', 'class']);
 @endphp
 
 <div
     class="relative"
+    {{ $modelAttributes }}
     x-data="{
         open: false,
         value: @js((string) ($value ?? '')),
@@ -119,6 +127,7 @@
             });
         },
     }"
+    x-modelable="value"
     x-on:keydown.escape.window="open = false"
 >
     @if ($label)
@@ -142,7 +151,7 @@
         @required($required)
         @disabled($disabled)
         @if ($errorMessage) aria-invalid="true" aria-describedby="{{ $id }}-error" @endif
-        {{ $attributes->except(['id', 'class']) }}
+        {{ $inputAttributes }}
     >
 
     <button

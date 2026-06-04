@@ -22,3 +22,4 @@ Use para anexos, contratos, imagens e midias.
 
 O input real preserva atributos Livewire e HTML.
 
+Para uploads Livewire, use somente `wire:model`; nao informe `value`, pois inputs de arquivo nao aceitam valor inicial.

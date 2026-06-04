@@ -36,4 +36,19 @@ class ButtonTest extends TestCase
         $this->blade('<x-sampaui::button variant="unknown">Fallback</x-sampaui::button>')
             ->assertSee('bg-primary text-white hover:bg-primary/90', false);
     }
+
+    public function test_it_renders_links_when_href_is_provided(): void
+    {
+        $this->blade('<x-sampaui::button href="/clientes" wire:navigate icon="arrow-right">Clientes</x-sampaui::button>')
+            ->assertSee('<a', false)
+            ->assertSee('href="/clientes"', false)
+            ->assertSee('wire:navigate', false)
+            ->assertDontSee('<button', false)
+            ->assertDontSee('type="button"', false);
+
+        $this->blade('<x-sampaui::button href="/clientes" disabled>Clientes</x-sampaui::button>')
+            ->assertSee('aria-disabled="true"', false)
+            ->assertSee('tabindex="-1"', false)
+            ->assertDontSee('href="/clientes"', false);
+    }
 }

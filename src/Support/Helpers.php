@@ -69,7 +69,7 @@ if (! function_exists('sampaui_field_classes')) {
     function sampaui_field_classes(?string $errorMessage = null, bool $disabled = false, array $classes = []): string
     {
         return sampaui_classes(array_merge([
-            'block w-full rounded-default border border-light bg-white px-4 py-2.5 text-base text-secondary transition placeholder:text-secondary/50 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20',
+            'block w-full rounded-default border border-secondary/50 bg-white px-4 py-2.5 text-base text-secondary transition placeholder:text-secondary/50 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20',
             'border-danger ring-2 ring-danger/20' => filled($errorMessage),
             'cursor-not-allowed opacity-50' => $disabled,
         ], $classes));

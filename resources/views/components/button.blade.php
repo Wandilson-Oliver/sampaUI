@@ -8,6 +8,7 @@
     'disabled' => false,
     'full' => false,
     'type' => 'button',
+    'href' => null,
 ])
 
 @php
@@ -40,9 +41,11 @@
     ]);
 @endphp
 
-<button
-    type="{{ $type }}"
-    @disabled($isDisabled)
+<{{ $href ? 'a' : 'button' }}
+    @if ($href && ! $isDisabled) href="{{ $href }}" @endif
+    @if (! $href) type="{{ $type }}" @endif
+    @if (! $href) @disabled($isDisabled) @endif
+    @if ($href && $isDisabled) aria-disabled="true" tabindex="-1" @endif
     @if ($loading) aria-busy="true" @endif
     {{ $attributes->merge(['class' => $classes]) }}
 >
@@ -57,4 +60,4 @@
     @if (! $loading && $icon && $iconPosition === 'right')
         <i class="bi bi-{{ $icon }}" aria-hidden="true"></i>
     @endif
-</button>
+</{{ $href ? 'a' : 'button' }}>

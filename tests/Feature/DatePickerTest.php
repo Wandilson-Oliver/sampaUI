@@ -46,6 +46,7 @@ BLADE);
 
         $html->assertSee('custom-date', false);
         $html->assertSee('wire:model.live="dueAt"', false);
+        $html->assertSee('x-modelable="value"', false);
         $html->assertSee('Informe a data.');
         $html->assertSee('aria-invalid="true"', false);
         $html->assertSee('disabled', false);

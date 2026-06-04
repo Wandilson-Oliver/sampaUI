@@ -14,3 +14,5 @@ Calendario de data apenas, sem hora. O componente usa Alpine para exibir o calen
 ```
 
 Props principais: `label`, `name`, `value`, `min`, `max`, `placeholder`, `error`, `disabled`, `required`, `clearable`.
+
+Com Livewire, `wire:model` inicializa e sincroniza a data por `x-modelable`; nao e necessario informar `value`.

@@ -2,6 +2,18 @@
 
 Todas as mudanças notáveis do SampaUI serão documentadas neste arquivo.
 
+## v0.1.2 - 2026-06-04
+
+### Adicionado
+
+- Suporte a `href` no componente `button`, incluindo `wire:navigate` e estado disabled acessivel.
+
+### Melhorado
+
+- Borda padrao de campos nativos alterada para `border-secondary/50`, com contraste aproximadamente 50% mais escuro.
+- `select-search` e `date-picker` agora usam `x-modelable` para inicializacao e sincronizacao bidirecional com Livewire.
+- Documentacao dos componentes de entrada esclarece que `wire:model` funciona sem a prop `value`.
+
 ## v0.1.1 - 2026-06-02
 
 ### Adicionado

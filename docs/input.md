@@ -2,6 +2,8 @@
 
 Campo de texto com label, erro e suporte a atributos Livewire.
 
+A borda padrao usa `border-secondary/50` para manter contraste mais forte. Com Livewire, use apenas `wire:model`; nao e necessario informar `value`.
+
 ## Uso
 
 ```blade
@@ -68,7 +70,7 @@ Se precisar controlar o botao manualmente, o slot `suffix` fica dentro do mesmo 
 - `type`
 - `label`
 - `name`
-- `value`
+- `value`: valor inicial opcional para uso sem Livewire
 - `placeholder`
 - `error`
 - `disabled`

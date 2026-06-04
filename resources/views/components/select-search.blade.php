@@ -40,9 +40,17 @@
     $triggerClasses = sampaui_trigger_classes($errorMessage, $disabled, [
         $attributes->get('class'),
     ]);
+    $modelAttributes = $attributes->filter(
+        fn (mixed $attributeValue, string $attributeName): bool => str_starts_with($attributeName, 'wire:model') || $attributeName === 'x-model'
+    );
+    $inputAttributes = $attributes
+        ->whereDoesntStartWith('wire:model')
+        ->whereDoesntStartWith('x-model')
+        ->except(['id', 'class']);
 @endphp
 
 <div
+    {{ $modelAttributes }}
     x-data="{
         open: false,
         search: '',
@@ -50,9 +58,15 @@
         selectedLabel: @js($selectedOption['label'] ?? ''),
         options: @js($normalizedOptions),
         placeholder: @js($placeholder),
+        init() {
+            this.syncSelectedLabel();
+            this.$watch('value', () => this.syncSelectedLabel());
+        },
+        syncSelectedLabel() {
+            this.selectedLabel = this.options.find(option => option.value === String(this.value))?.label || '';
+        },
         select(option) {
             this.value = option.value;
-            this.selectedLabel = option.label;
             this.open = false;
             this.search = '';
 
@@ -77,6 +91,7 @@
             return this.options.filter(option => option.label.toLowerCase().includes(term));
         },
     }"
+    x-modelable="value"
     x-on:keydown.escape.window="open = false"
 >
     @if ($label)
@@ -97,7 +112,7 @@
         @if ($required) required @endif
         @disabled($disabled)
         @if ($errorMessage) aria-invalid="true" aria-describedby="{{ $id }}-error" @endif
-        {{ $attributes->except(['id', 'class'])->merge(['value' => $selectedValue]) }}
+        {{ $inputAttributes->merge(['value' => $selectedValue]) }}
     >
 
     <div class="relative">

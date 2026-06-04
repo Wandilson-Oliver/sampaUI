@@ -59,6 +59,8 @@ BLADE);
         $html->assertSee('Sem cidades');
         $html->assertSee('custom-trigger', false);
         $html->assertSee('wire:model.live="city"', false);
+        $html->assertSee('x-modelable="value"', false);
+        $html->assertSee("this.\$watch('value'", false);
         $html->assertSee('required', false);
         $html->assertSee('select-search:changed', false);
         $html->assertSee('x-bind:value="value"', false);

@@ -2,7 +2,7 @@
 
 SampaUI e um pacote de componentes Blade Livewire-first, exclusivo para aplicacoes a partir de Laravel 13, Livewire 4, Tailwind CSS 4 e AlpineJS, com visual premium para aplicacoes corporativas, imobiliarias e SaaS.
 
-Versao atual: `v0.1.1`.
+Versao atual: `v0.1.2`.
 
 ## Requisitos
 
@@ -88,6 +88,10 @@ Variantes principais:
 </x-sampaui::button>
 
 <x-sampaui::button icon="trash" rounded />
+
+<x-sampaui::button href="/clientes" wire:navigate icon="arrow-right">
+    Ver clientes
+</x-sampaui::button>
 ```
 
 ### Input
@@ -109,6 +113,8 @@ Variantes principais:
     wire:model="password"
 />
 ```
+
+Todos os componentes de entrada aceitam `wire:model` diretamente no controle real ou via `x-modelable`, sem exigir a prop `value`.
 
 ### Select
 

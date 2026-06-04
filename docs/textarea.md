@@ -4,6 +4,8 @@ Campo de texto longo.
 
 Renderiza um `<textarea>` nativo com label opcional, estado de erro e suporte direto a atributos Livewire/Alpine.
 
+Quando usar `wire:model`, o estado Livewire preenche e sincroniza o campo sem conteudo inicial no slot.
+
 ## Uso
 
 ```blade

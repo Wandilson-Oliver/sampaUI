@@ -43,4 +43,6 @@ Com Livewire:
 />
 ```
 
+O componente usa `x-modelable` para receber o valor inicial e manter sincronizacao bidirecional. Nao passe `value` junto com `wire:model`.
+
 O componente tambem dispara `select-search:changed` com `id`, `name`, `value` e `label`.
