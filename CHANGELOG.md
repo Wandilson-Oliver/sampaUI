@@ -2,6 +2,18 @@
 
 Todas as mudanças notáveis do SampaUI serão documentadas neste arquivo.
 
+## v0.1.5 - 2026-06-05
+
+### Adicionado
+
+- Novo componente `pin` para codigos curtos, 2FA e verificacoes com suporte a `wire:model`, `x-modelable`, mascaras de numeros/letras, limpeza e envio automatico com `smart`.
+- Novo componente `select-multiple` com busca local, tags removiveis, opcoes desabilitadas, estados de erro/loading/disabled e sincronizacao bidirecional com Livewire.
+- Documentacao markdown e exemplos no indice de componentes para `pin` e `select-multiple`.
+
+### Testes
+
+- Cobertura de renderizacao, atributos Livewire/Alpine, estados visuais e acessibilidade para os novos componentes.
+
 ## v0.1.4 - 2026-06-05
 
 ### Adicionado

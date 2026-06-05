@@ -2,7 +2,7 @@
 
 SampaUI e um pacote de componentes Blade Livewire-first, exclusivo para aplicacoes a partir de Laravel 13, Livewire 4, Tailwind CSS 4 e AlpineJS, com visual premium para aplicacoes corporativas, imobiliarias e SaaS.
 
-Versao atual: `v0.1.3`.
+Versao atual: `v0.1.5`.
 
 ## Requisitos
 

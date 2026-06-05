@@ -7,7 +7,9 @@ Documentacao individual:
 - [Fundamentos](foundations.md)
 - [Button](button.md)
 - [Input](input.md)
+- [Pin](pin.md)
 - [Select](select.md)
+- [Select Multiple](select-multiple.md)
 - [Select Search](select-search.md)
 - [Textarea](textarea.md)
 - [Checkbox](checkbox.md)
@@ -81,6 +83,18 @@ Slots internos para icones ou acoes:
 />
 ```
 
+## Pin
+
+```blade
+<x-sampaui::pin
+    name="code"
+    label="Codigo de verificacao"
+    length="6"
+    numbers
+    clear
+/>
+```
+
 ## Select
 
 ```blade
@@ -100,6 +114,20 @@ Slots internos para icones ou acoes:
     :options="[
         'ana' => 'Ana Souza',
         'bruno' => 'Bruno Lima',
+    ]"
+/>
+```
+
+## Select Multiple
+
+```blade
+<x-sampaui::select-multiple
+    name="roles"
+    label="Perfis"
+    placeholder="Selecione os perfis"
+    :options="[
+        'admin' => 'Administrador',
+        'manager' => 'Gerente',
     ]"
 />
 ```
