@@ -2,6 +2,18 @@
 
 Todas as mudanças notáveis do SampaUI serão documentadas neste arquivo.
 
+## v0.1.4 - 2026-06-05
+
+### Adicionado
+
+- Novo componente `avatar-upload` com preview local, placeholder circular `No Image`, upload por botao de lapis e remocao automatica quando existe imagem atual ou preview.
+- Documentacao markdown do `avatar-upload` e entrada no indice de componentes.
+
+### Melhorado
+
+- `file-upload` agora permite remover imagens diretamente do preview local.
+- Componentes de upload receberam cobertura de testes para remocao e estados de preview.
+
 ## v0.1.3 - 2026-06-04
 
 ### Corrigido

@@ -15,6 +15,7 @@ Documentacao individual:
 - [DatePicker](date-picker.md)
 - [Alert](alert.md)
 - [Avatar](avatar.md)
+- [Avatar Upload](avatar-upload.md)
 - [Badge](badge.md)
 - [Brand Mark](brand-mark.md)
 - [Breadcrumb](breadcrumb.md)

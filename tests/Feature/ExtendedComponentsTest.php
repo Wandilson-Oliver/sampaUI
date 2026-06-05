@@ -116,10 +116,34 @@ BLADE)
             ->assertSee('multiple', false);
 
         $this->blade('<x-sampaui::file-upload name="photos[]" label="Fotos" accept="image/*" multiple preview />')
-            ->assertSee('x-for="file in files"', false)
+            ->assertSee('x-for="(file, index) in files"', false)
             ->assertSee('URL.createObjectURL', false)
+            ->assertSee('removeFile(index)', false)
+            ->assertSee('new DataTransfer()', false)
+            ->assertSee('bi bi-trash3-fill', false)
+            ->assertSee('Remover imagem do preview', false)
             ->assertSee('accept="image/*"', false)
             ->assertSee('id="photos"', false);
+
+        $this->blade('<x-sampaui::avatar-upload name="photo" label="Foto do perfil" src="/ana.jpg" wire:model="photo" />')
+            ->assertSee('Foto do perfil')
+            ->assertSee('type="file"', false)
+            ->assertSee('accept="image/*"', false)
+            ->assertSee('wire:model="photo"', false)
+            ->assertSee('wire:model="photoRemove"', false)
+            ->assertSee('name="photo_remove"', false)
+            ->assertSee('bi bi-pencil-fill', false)
+            ->assertSee('bi bi-trash3-fill', false)
+            ->assertSee('dispatchEvent(new Event(\'input\', { bubbles: true }))', false)
+            ->assertSee('bottom-12 -right-1.5', false)
+            ->assertSee('cursor-pointer', false)
+            ->assertSee('x-bind:value="removed ? \'1\' : \'0\'"', false);
+
+        $this->blade('<x-sampaui::avatar-upload name="avatar" remove-name="delete_avatar" placeholder="Sem imagem" help="Clique no lapis" />')
+            ->assertSee('Sem imagem')
+            ->assertSee('Clique no lapis')
+            ->assertSee('name="delete_avatar"', false)
+            ->assertDontSee('No Image', false);
 
         $this->blade('<x-sampaui::stepper :current="2" :steps="[\'Dados\', \'Pagamento\', \'Resumo\']" />')
             ->assertSee('Dados')
