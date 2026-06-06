@@ -83,20 +83,20 @@ BLADE)
         $this->blade('<x-sampaui::toggle name="active" label="Ativo" color="accent" checked wire:model.live="active" />')
             ->assertSee('Ativo')
             ->assertSee('wire:model.live="active"', false)
-            ->assertSee('items-center rounded-full', false)
+            ->assertSee('relative inline-flex h-7 w-12', false)
             ->assertSee('border-accent', false)
-            ->assertSee('[&amp;&gt;span]:bg-accent', false)
-            ->assertSee('peer-checked:[&amp;&gt;span]:bg-white', false)
+            ->assertSee('bg-accent', false)
+            ->assertSee('peer-checked:bg-white', false)
             ->assertSee('peer-checked:bg-accent', false);
 
         $this->blade('<x-sampaui::toggle name="special" color="purple" checked />')
             ->assertSee('border-purple', false)
-            ->assertSee('[&amp;&gt;span]:bg-purple', false)
+            ->assertSee('bg-purple', false)
             ->assertSee('peer-checked:bg-purple', false);
 
         $this->blade('<x-sampaui::toggle name="danger" label="Danger" color="danger" />')
             ->assertSee('border-danger', false)
-            ->assertSee('[&amp;&gt;span]:bg-danger', false)
+            ->assertSee('bg-danger', false)
             ->assertSee('peer-checked:bg-danger', false);
 
         $this->blade('<x-sampaui::tooltip text="Copiar"><button>Icone</button></x-sampaui::tooltip>')

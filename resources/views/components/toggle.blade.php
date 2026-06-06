@@ -12,18 +12,19 @@
 @endphp
 
 <label class="{{ sampaui_classes(['inline-flex cursor-pointer items-center gap-3', 'cursor-not-allowed opacity-50' => $disabled]) }}" for="{{ $id }}">
-    <input
-        id="{{ $id }}"
-        type="checkbox"
-        name="{{ $name }}"
-        value="{{ $value }}"
-        class="peer sr-only"
-        @checked($checked)
-        @disabled($disabled)
-        {{ $attributes->except('class') }}
-    >
-    <span class="{{ sampaui_classes(['inline-flex h-7 w-12 shrink-0 items-center rounded-full border bg-light p-1 transition peer-checked:[&>span]:translate-x-5 peer-focus:outline-none peer-focus:ring-2', sampaui_toggle_color_classes($color)]) }}">
-        <span class="h-5 w-5 rounded-full transition"></span>
+    <span class="relative inline-flex h-7 w-12 shrink-0">
+        <input
+            id="{{ $id }}"
+            type="checkbox"
+            name="{{ $name }}"
+            value="{{ $value }}"
+            class="peer sr-only"
+            @checked($checked)
+            @disabled($disabled)
+            {{ $attributes->except('class') }}
+        >
+        <span class="{{ sampaui_classes(['absolute inset-0 rounded-full border bg-light transition peer-focus:outline-none peer-focus:ring-2', sampaui_toggle_color_classes($color)]) }}" aria-hidden="true"></span>
+        <span class="{{ sampaui_classes(['absolute left-1 top-1 h-5 w-5 rounded-full shadow-sm transition peer-checked:translate-x-5', sampaui_toggle_knob_color_classes($color)]) }}" aria-hidden="true"></span>
     </span>
     @if ($label || trim($slot->toHtml()) !== '')
         <span class="text-sm font-medium text-secondary">{{ $label ?? $slot }}</span>

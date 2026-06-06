@@ -116,16 +116,36 @@ if (! function_exists('sampaui_toggle_color_classes')) {
     function sampaui_toggle_color_classes(string $color = 'primary'): string
     {
         $colors = [
-            'primary' => 'border-primary [&>span]:bg-primary peer-checked:bg-primary peer-checked:[&>span]:bg-white peer-focus:ring-primary/20',
-            'secondary' => 'border-secondary [&>span]:bg-secondary peer-checked:bg-secondary peer-checked:[&>span]:bg-white peer-focus:ring-secondary/20',
-            'accent' => 'border-accent [&>span]:bg-accent peer-checked:bg-accent peer-checked:[&>span]:bg-white peer-focus:ring-accent/20',
-            'danger' => 'border-danger [&>span]:bg-danger peer-checked:bg-danger peer-checked:[&>span]:bg-white peer-focus:ring-danger/20',
-            'success' => 'border-success [&>span]:bg-success peer-checked:bg-success peer-checked:[&>span]:bg-white peer-focus:ring-success/20',
-            'warning' => 'border-warning [&>span]:bg-warning peer-checked:bg-warning peer-checked:[&>span]:bg-white peer-focus:ring-warning/20',
-            'info' => 'border-info [&>span]:bg-info peer-checked:bg-info peer-checked:[&>span]:bg-white peer-focus:ring-info/20',
-            'purple' => 'border-purple [&>span]:bg-purple peer-checked:bg-purple peer-checked:[&>span]:bg-white peer-focus:ring-purple/20',
-            'muted' => 'border-muted [&>span]:bg-muted peer-checked:bg-muted peer-checked:[&>span]:bg-white peer-focus:ring-muted/30',
-            'light' => 'border-light [&>span]:bg-muted peer-checked:bg-light peer-checked:[&>span]:bg-secondary peer-focus:ring-light/40',
+            'primary' => 'border-primary peer-checked:bg-primary peer-focus:ring-primary/20',
+            'secondary' => 'border-secondary peer-checked:bg-secondary peer-focus:ring-secondary/20',
+            'accent' => 'border-accent peer-checked:bg-accent peer-focus:ring-accent/20',
+            'danger' => 'border-danger peer-checked:bg-danger peer-focus:ring-danger/20',
+            'success' => 'border-success peer-checked:bg-success peer-focus:ring-success/20',
+            'warning' => 'border-warning peer-checked:bg-warning peer-focus:ring-warning/20',
+            'info' => 'border-info peer-checked:bg-info peer-focus:ring-info/20',
+            'purple' => 'border-purple peer-checked:bg-purple peer-focus:ring-purple/20',
+            'muted' => 'border-muted peer-checked:bg-muted peer-focus:ring-muted/30',
+            'light' => 'border-light peer-checked:bg-light peer-focus:ring-light/40',
+        ];
+
+        return $colors[$color] ?? $colors['primary'];
+    }
+}
+
+if (! function_exists('sampaui_toggle_knob_color_classes')) {
+    function sampaui_toggle_knob_color_classes(string $color = 'primary'): string
+    {
+        $colors = [
+            'primary' => 'bg-primary peer-checked:bg-white',
+            'secondary' => 'bg-secondary peer-checked:bg-white',
+            'accent' => 'bg-accent peer-checked:bg-white',
+            'danger' => 'bg-danger peer-checked:bg-white',
+            'success' => 'bg-success peer-checked:bg-white',
+            'warning' => 'bg-warning peer-checked:bg-white',
+            'info' => 'bg-info peer-checked:bg-white',
+            'purple' => 'bg-purple peer-checked:bg-white',
+            'muted' => 'bg-muted peer-checked:bg-white',
+            'light' => 'bg-muted peer-checked:bg-secondary',
         ];
 
         return $colors[$color] ?? $colors['primary'];

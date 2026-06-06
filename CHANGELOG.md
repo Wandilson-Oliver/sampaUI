@@ -2,6 +2,13 @@
 
 Todas as mudanças notáveis do SampaUI serão documentadas neste arquivo.
 
+## v0.1.8 - 2026-06-06
+
+### Corrigido
+
+- `toggle` reestruturado para manter track e knob visiveis em todos os estados, sem depender de variantes arbitrarias no pai.
+- O estado desligado do `toggle` preserva borda e knob com a cor escolhida, enquanto o estado ligado usa fundo colorido e knob contrastante.
+
 ## v0.1.7 - 2026-06-06
 
 ### Melhorado
