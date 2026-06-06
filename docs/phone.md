@@ -1,6 +1,8 @@
 # Phone
 
-Campo de telefone com mascara Alpine e base visual do componente `input`.
+Campo de telefone com mascara brasileira interna e base visual do componente `input`.
+
+O componente remove caracteres nao numericos, limita o valor a 11 digitos e formata telefones brasileiros sem exigir plugin externo de mascara do Alpine.
 
 ## Uso
 

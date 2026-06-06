@@ -14,6 +14,52 @@ Objetivo:
 
 Criar componentes premium reutilizáveis para Laravel.
 
+---
+
+# Workflow obrigatorio para agentes
+
+Sempre consulte a documentacao oficial antes de alterar arquitetura, instalacao ou comportamento Livewire/Laravel:
+
+- https://laravel.com/docs/13.x/documentation
+- https://laravel.com/docs/13.x/packages
+- https://livewire.laravel.com/docs/4.x/quickstart
+- https://livewire.laravel.com/docs/4.x/forms
+
+Ao criar ou alterar um componente, atualize no mesmo change set:
+
+- `resources/views/components/{slug}.blade.php`
+- `resources/metadata/components.php`
+- `docs/{slug}.md`
+- `docs/components.md`, quando o componente for novo
+- `docs/registry/components.json`, via `php artisan sampaui:docs-export --format=json`
+- `llms-full.txt`, quando a API publica mudar
+- testes em `tests/Feature`
+- `CHANGELOG.md`
+
+Antes de commit:
+
+```bash
+composer test
+npm run build
+git diff --check
+```
+
+Para componentes de formulario:
+
+- preservar `wire:*`, `x-*`, `class=""`, `id`, `name`, `disabled`, `error` e atributos HTML validos no controle real;
+- usar `border-secondary/40` como borda padrao;
+- manter foco com tokens oficiais, por exemplo `focus:ring-primary/20`;
+- campos com mascara devem formatar internamente quando possivel, sem exigir plugin externo se a logica for simples;
+- sincronizar Alpine/Livewire apos formatacao com `$el._x_model.set($el.value)` quando o valor for alterado por JavaScript.
+
+Para documentacao e IA:
+
+- `resources/metadata/components.php` e a fonte de verdade do catalogo publico;
+- `docs/registry/components.json` e o export estatico para ferramentas;
+- `llms.txt` deve ser curto e orientado a descoberta;
+- `llms-full.txt` deve conter stack, instalacao, tokens, workflow e catalogo de componentes;
+- nunca deixar componente novo sem Blade, doc markdown, registry e teste de contrato.
+
 Inspirado em:
 
 - FluxUI

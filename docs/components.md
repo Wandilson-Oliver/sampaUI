@@ -2,6 +2,8 @@
 
 Os componentes sao publicados no namespace `sampaui` e foram desenhados para uso direto em telas Livewire 4.
 
+O catalogo oficial tambem esta versionado em `resources/metadata/components.php` e exportado em `docs/registry/components.json`. Ao criar ou alterar componentes, atualize o registry junto da documentacao para que ferramentas como Codex consigam entender a API publica do pacote.
+
 Documentacao individual:
 
 - [Fundamentos](foundations.md)
@@ -95,6 +97,8 @@ Slots internos para icones ou acoes:
 
 <x-sampaui::cep name="postal_code" label="CEP" wire:model.live="postal_code" />
 ```
+
+`phone`, `currency-br` e `cep` formatam o valor internamente com Alpine inline e nao exigem plugin externo de mascara.
 
 ## Pin
 

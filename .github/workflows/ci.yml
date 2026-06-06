@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --prefer-dist --no-progress
+
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: composer test
+
+      - name: Build assets
+        run: npm run build
+
+      - name: Check registry export drift
+        run: |
+          php -r 'require "vendor/autoload.php"; echo json_encode(SampaUI\Support\ComponentRegistry::manifest(), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES).PHP_EOL;' > /tmp/sampaui-components.json
+          diff -u docs/registry/components.json /tmp/sampaui-components.json
+

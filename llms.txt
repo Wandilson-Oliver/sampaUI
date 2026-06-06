@@ -1,0 +1,38 @@
+# SampaUI
+
+SampaUI is a Laravel UI package with Blade components for Laravel 13+, Livewire 4+, Tailwind CSS 4, AlpineJS and Bootstrap Icons.
+
+Core rules:
+- Use components as `<x-sampaui::{component} />`.
+- Preserve `wire:*`, `x-*`, HTML attributes and `class=""` on the real interactive element.
+- Use semantic tokens: `primary`, `secondary`, `accent`, `danger`, `light`, `success`, `warning`, `info`, `purple`, `muted`.
+- Do not create parallel CSS themes or custom component CSS files.
+- Bootstrap Icons are the official icon set: `<i class="bi bi-plus"></i>`.
+
+Install:
+```bash
+composer require sampaui/sampaui
+php artisan sampaui:install
+npm run build
+```
+
+Agent commands:
+```bash
+php artisan sampaui:about
+php artisan sampaui:list
+php artisan sampaui:doctor
+php artisan sampaui:docs-export --format=json
+```
+
+Registry:
+- PHP source of truth: `resources/metadata/components.php`
+- Static JSON: `docs/registry/components.json`
+- Full agent guide: `llms-full.txt`
+
+Validation before release:
+```bash
+composer test
+npm run build
+git diff --check
+```
+

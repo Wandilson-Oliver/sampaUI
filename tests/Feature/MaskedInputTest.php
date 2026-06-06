@@ -19,7 +19,10 @@ class MaskedInputTest extends TestCase
         $html->assertSee('bi bi-telephone', false);
         $html->assertSee('inputmode="tel"', false);
         $html->assertSee('autocomplete="tel"', false);
-        $html->assertSee('x-mask="(99) 9 9999-9999"', false);
+        $html->assertSee('value.replace(/\\D/g, \'\').slice(0, 11)', false);
+        $html->assertSee('value.slice(2, 3) + \' \' + value.slice(3, 7) + \'-\' + value.slice(7)', false);
+        $html->assertSee('x-on:input="$el.value = format($el.value); if ($el._x_model) { $el._x_model.set($el.value); }"', false);
+        $html->assertDontSee('x-mask', false);
     }
 
     public function test_currency_br_uses_input_base_and_brazilian_formatter(): void
@@ -50,6 +53,9 @@ class MaskedInputTest extends TestCase
         $html->assertSee('bi bi-geo-alt', false);
         $html->assertSee('inputmode="numeric"', false);
         $html->assertSee('autocomplete="postal-code"', false);
-        $html->assertSee('x-mask="99999-999"', false);
+        $html->assertSee('value.replace(/\\D/g, \'\').slice(0, 8)', false);
+        $html->assertSee('value.slice(0, 5) + \'-\' + value.slice(5)', false);
+        $html->assertSee('x-on:input="$el.value = format($el.value); if ($el._x_model) { $el._x_model.set($el.value); }"', false);
+        $html->assertDontSee('x-mask', false);
     }
 }

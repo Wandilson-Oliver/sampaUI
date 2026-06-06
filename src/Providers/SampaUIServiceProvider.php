@@ -4,7 +4,11 @@ namespace SampaUI\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use SampaUI\Commands\AboutCommand;
+use SampaUI\Commands\DocsExportCommand;
+use SampaUI\Commands\DoctorCommand;
 use SampaUI\Commands\InstallCommand;
+use SampaUI\Commands\ListComponentsCommand;
 
 class SampaUIServiceProvider extends ServiceProvider
 {
@@ -24,7 +28,11 @@ class SampaUIServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->commands([
+                AboutCommand::class,
+                DocsExportCommand::class,
+                DoctorCommand::class,
                 InstallCommand::class,
+                ListComponentsCommand::class,
             ]);
 
             $this->publishes([

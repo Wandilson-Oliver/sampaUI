@@ -12,8 +12,26 @@
     :icon="$icon"
     inputmode="tel"
     autocomplete="tel"
-    x-data
-    x-mask="(99) 9 9999-9999"
+    x-data="{
+        format(value) {
+            value = value.replace(/\D/g, '').slice(0, 11);
+
+            if (value.length <= 2) {
+                return value;
+            }
+
+            if (value.length <= 6) {
+                return '(' + value.slice(0, 2) + ') ' + value.slice(2);
+            }
+
+            if (value.length <= 10) {
+                return '(' + value.slice(0, 2) + ') ' + value.slice(2, 6) + '-' + value.slice(6);
+            }
+
+            return '(' + value.slice(0, 2) + ') ' + value.slice(2, 3) + ' ' + value.slice(3, 7) + '-' + value.slice(7);
+        }
+    }"
+    x-on:input="$el.value = format($el.value); if ($el._x_model) { $el._x_model.set($el.value); }"
     {{ $attributes }}
 >
     @isset($prefix)

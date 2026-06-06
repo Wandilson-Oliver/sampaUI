@@ -1,0 +1,163 @@
+# SampaUI Agent Guide
+
+SampaUI is a Blade-first UI package for Laravel 13+, Livewire 4+, Tailwind CSS 4, AlpineJS and Bootstrap Icons. It is intended for corporate, real estate and SaaS applications with a premium, restrained visual style.
+
+Official docs to consult when changing package, Laravel or Livewire behavior:
+- https://laravel.com/docs/13.x/documentation
+- https://laravel.com/docs/13.x/packages
+- https://livewire.laravel.com/docs/4.x/quickstart
+- https://livewire.laravel.com/docs/4.x/forms
+
+## Installation
+
+```bash
+composer require sampaui/sampaui
+php artisan sampaui:install
+npm run build
+```
+
+The installer publishes config/assets and imports:
+
+```css
+@import "../../vendor/sampaui/sampaui/dist/sampaui.css";
+```
+
+```js
+import "../../vendor/sampaui/sampaui/dist/sampaui.js";
+```
+
+## Public API Rules
+
+- Component namespace: `sampaui`.
+- Component tag format: `<x-sampaui::{slug} />`.
+- All components must accept `class=""` customization.
+- Form components must preserve `wire:model` and Livewire modifiers on the real control.
+- Interactive components must preserve `wire:click`, `wire:navigate`, `x-*` and valid HTML attributes.
+- Form borders use `border-secondary/40`.
+- Prefer official semantic tokens over custom hex classes.
+- Use Bootstrap Icons only, with `bi bi-{name}` classes.
+
+## Theme Tokens
+
+Official tokens:
+
+```txt
+primary, secondary, accent, danger, light, success, warning, info, purple, muted
+```
+
+Common classes:
+
+```txt
+bg-primary, text-secondary, border-light, bg-accent/10, focus:ring-primary/20
+```
+
+## Component Registry
+
+The source of truth for agents and docs is:
+
+```txt
+resources/metadata/components.php
+```
+
+The static export is:
+
+```txt
+docs/registry/components.json
+```
+
+Use this command to export:
+
+```bash
+php artisan sampaui:docs-export --format=json --path=docs/registry/components.json
+```
+
+## Agent Commands
+
+```bash
+php artisan sampaui:about
+php artisan sampaui:list
+php artisan sampaui:list --category=form
+php artisan sampaui:doctor
+php artisan sampaui:docs-export --format=json
+php artisan sampaui:docs-export --format=markdown
+```
+
+## Component Catalog
+
+- `accordion`: `<x-sampaui::accordion />`
+- `alert`: `<x-sampaui::alert />`
+- `avatar`: `<x-sampaui::avatar />`
+- `avatar-upload`: `<x-sampaui::avatar-upload />`
+- `badge`: `<x-sampaui::badge />`
+- `brand-mark`: `<x-sampaui::brand-mark />`
+- `breadcrumb`: `<x-sampaui::breadcrumb />`
+- `button`: `<x-sampaui::button />`
+- `card`: `<x-sampaui::card />`
+- `cep`: `<x-sampaui::cep />`
+- `checkbox`: `<x-sampaui::checkbox />`
+- `command-palette`: `<x-sampaui::command-palette />`
+- `currency-br`: `<x-sampaui::currency-br />`
+- `date-picker`: `<x-sampaui::date-picker />`
+- `drawer`: `<x-sampaui::drawer />`
+- `dropdown`: `<x-sampaui::dropdown />`
+- `dropdown-item`: `<x-sampaui::dropdown-item />`
+- `empty-state`: `<x-sampaui::empty-state />`
+- `file-upload`: `<x-sampaui::file-upload />`
+- `header`: `<x-sampaui::header />`
+- `indicator`: `<x-sampaui::indicator />`
+- `input`: `<x-sampaui::input />`
+- `modal`: `<x-sampaui::modal />`
+- `pagination`: `<x-sampaui::pagination />`
+- `phone`: `<x-sampaui::phone />`
+- `pin`: `<x-sampaui::pin />`
+- `progress`: `<x-sampaui::progress />`
+- `radio`: `<x-sampaui::radio />`
+- `select`: `<x-sampaui::select />`
+- `select-multiple`: `<x-sampaui::select-multiple />`
+- `select-search`: `<x-sampaui::select-search />`
+- `sidebar`: `<x-sampaui::sidebar />`
+- `skeleton`: `<x-sampaui::skeleton />`
+- `stepper`: `<x-sampaui::stepper />`
+- `tab-panel`: `<x-sampaui::tab-panel />`
+- `table`: `<x-sampaui::table />`
+- `tabs`: `<x-sampaui::tabs />`
+- `textarea`: `<x-sampaui::textarea />`
+- `toast`: `<x-sampaui::toast />`
+- `toggle`: `<x-sampaui::toggle />`
+- `tooltip`: `<x-sampaui::tooltip />`
+
+## Masked Fields
+
+`phone`, `currency-br` and `cep` format values internally with Alpine inline handlers. They do not require an external Alpine mask plugin.
+
+Examples:
+
+```blade
+<x-sampaui::phone name="phone" label="Telefone" wire:model.live="phone" />
+<x-sampaui::currency-br name="price" label="Valor" wire:model.live="price" />
+<x-sampaui::cep name="postal_code" label="CEP" wire:model.live="postal_code" />
+```
+
+`cep` formats `12345678` as `12345-678`.
+
+## New Component Checklist
+
+When adding or changing a component, update:
+
+- `resources/views/components/{slug}.blade.php`
+- `resources/metadata/components.php`
+- `docs/{slug}.md`
+- `docs/components.md`
+- `docs/registry/components.json`
+- `llms-full.txt`
+- tests in `tests/Feature`
+- `CHANGELOG.md`
+
+Before release:
+
+```bash
+composer test
+npm run build
+git diff --check
+```
+

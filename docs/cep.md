@@ -1,6 +1,8 @@
 # CEP
 
-Campo de CEP com mascara `99999-999`, `autocomplete="postal-code"` e base visual do componente `input`.
+Campo de CEP com mascara interna `99999-999`, `autocomplete="postal-code"` e base visual do componente `input`.
+
+O componente remove caracteres nao numericos, limita o valor a 8 digitos e formata `12345678` como `12345-678`. Ele nao depende de plugin externo de mascara do Alpine.
 
 ## Uso
 

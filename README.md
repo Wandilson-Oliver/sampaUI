@@ -2,8 +2,6 @@
 
 SampaUI e um pacote de componentes Blade Livewire-first, exclusivo para aplicacoes a partir de Laravel 13, Livewire 4, Tailwind CSS 4 e AlpineJS, com visual premium para aplicacoes corporativas, imobiliarias e SaaS.
 
-Versao atual: `v0.1.5`.
-
 ## Requisitos
 
 - PHP 8.3+
@@ -43,6 +41,17 @@ npm run build
 ```
 
 O CSS compilado ja importa a fonte padrao do pacote: `Plus Jakarta Sans`, com `Outfit` como fallback visual. O arquivo JS registra `window.SampaUI` e mantem um ponto unico para comportamentos futuros do pacote.
+
+## Comandos
+
+```bash
+php artisan sampaui:about
+php artisan sampaui:list
+php artisan sampaui:doctor
+php artisan sampaui:docs-export --format=json
+```
+
+O pacote mantem um registry oficial em `resources/metadata/components.php`, exportado para `docs/registry/components.json` e descrito em `llms.txt`/`llms-full.txt` para facilitar uso por Codex e outras ferramentas de IA.
 
 ## Componentes
 
@@ -125,6 +134,8 @@ Todos os controles de formulario usam `border-secondary/40` como borda padrao, i
 
 <x-sampaui::cep name="postal_code" label="CEP" wire:model.live="postal_code" />
 ```
+
+Os campos `phone`, `currency-br` e `cep` formatam valores internamente com Alpine inline e nao exigem plugin externo de mascara.
 
 ### Select
 

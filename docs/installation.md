@@ -45,6 +45,20 @@ php artisan vendor:publish --tag=sampaui-views
 
 O instalador adiciona o import de `Plus Jakarta Sans`/`Outfit` no topo do `app.css`. O CSS compilado do pacote ja inclui Bootstrap Icons e as fontes necessarias para os icones `bi`.
 
+## Comandos de suporte
+
+Use estes comandos para diagnostico, catalogo de componentes e exportacao para agentes:
+
+```bash
+php artisan sampaui:about
+php artisan sampaui:list
+php artisan sampaui:doctor
+php artisan sampaui:docs-export --format=json
+php artisan sampaui:docs-export --format=markdown
+```
+
+`sampaui:doctor` verifica prefixo, views, assets publicados e imports no app consumidor. `sampaui:docs-export` usa o registry oficial em `resources/metadata/components.php`.
+
 ## Checklist de release
 
 Antes de publicar uma nova versao do pacote:

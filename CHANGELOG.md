@@ -2,6 +2,29 @@
 
 Todas as mudanças notáveis do SampaUI serão documentadas neste arquivo.
 
+## v0.1.9 - 2026-06-06
+
+### Adicionado
+
+- Registry oficial de componentes em `resources/metadata/components.php`, com export estatico em `docs/registry/components.json`.
+- Arquivos `llms.txt` e `llms-full.txt` para Codex e outras ferramentas de IA entenderem stack, componentes, tokens e exemplos.
+- Comandos `sampaui:list`, `sampaui:about`, `sampaui:doctor` e `sampaui:docs-export`.
+- GitHub Actions para testes PHP, build de assets e checagem de drift do registry exportado.
+
+### Melhorado
+
+- `AGENTS.md` reforcado com workflow operacional para criar, documentar, testar e versionar componentes.
+- README e documentacao atualizados para explicar registry, comandos e uso por agentes.
+
+### Corrigido
+
+- `cep` agora formata `12345678` como `12345-678` internamente, sem depender de plugin externo de mascara.
+- `phone` tambem passa a usar mascara interna para manter consistencia com os campos formatados.
+
+### Testes
+
+- Cobertura para comandos Artisan, registry de componentes e drift do JSON exportado.
+
 ## v0.1.8 - 2026-06-06
 
 ### Corrigido
