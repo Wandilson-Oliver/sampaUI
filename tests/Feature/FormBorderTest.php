@@ -18,7 +18,6 @@ class FormBorderTest extends TestCase
             '<x-sampaui::textarea name="notes" />',
             '<x-sampaui::checkbox name="active" label="Ativo" />',
             '<x-sampaui::radio name="status" :options="[\'active\' => \'Ativo\']" />',
-            '<x-sampaui::toggle name="featured" label="Destaque" />',
             '<x-sampaui::date-picker name="scheduled_at" />',
             '<x-sampaui::file-upload name="contract" />',
         ];

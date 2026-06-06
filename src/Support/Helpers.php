@@ -116,16 +116,16 @@ if (! function_exists('sampaui_toggle_color_classes')) {
     function sampaui_toggle_color_classes(string $color = 'primary'): string
     {
         $colors = [
-            'primary' => 'peer-checked:border-primary peer-checked:bg-primary peer-focus:ring-primary/20',
-            'secondary' => 'peer-checked:border-secondary peer-checked:bg-secondary peer-focus:ring-secondary/20',
-            'accent' => 'peer-checked:border-accent peer-checked:bg-accent peer-focus:ring-accent/20',
-            'danger' => 'peer-checked:border-danger peer-checked:bg-danger peer-focus:ring-danger/20',
-            'success' => 'peer-checked:border-success peer-checked:bg-success peer-focus:ring-success/20',
-            'warning' => 'peer-checked:border-warning peer-checked:bg-warning peer-focus:ring-warning/20',
-            'info' => 'peer-checked:border-info peer-checked:bg-info peer-focus:ring-info/20',
-            'purple' => 'peer-checked:border-purple peer-checked:bg-purple peer-focus:ring-purple/20',
-            'muted' => 'peer-checked:border-muted peer-checked:bg-muted peer-focus:ring-muted/30',
-            'light' => 'peer-checked:border-light peer-checked:bg-light peer-focus:ring-light/40',
+            'primary' => 'border-primary [&>span]:bg-primary peer-checked:bg-primary peer-checked:[&>span]:bg-white peer-focus:ring-primary/20',
+            'secondary' => 'border-secondary [&>span]:bg-secondary peer-checked:bg-secondary peer-checked:[&>span]:bg-white peer-focus:ring-secondary/20',
+            'accent' => 'border-accent [&>span]:bg-accent peer-checked:bg-accent peer-checked:[&>span]:bg-white peer-focus:ring-accent/20',
+            'danger' => 'border-danger [&>span]:bg-danger peer-checked:bg-danger peer-checked:[&>span]:bg-white peer-focus:ring-danger/20',
+            'success' => 'border-success [&>span]:bg-success peer-checked:bg-success peer-checked:[&>span]:bg-white peer-focus:ring-success/20',
+            'warning' => 'border-warning [&>span]:bg-warning peer-checked:bg-warning peer-checked:[&>span]:bg-white peer-focus:ring-warning/20',
+            'info' => 'border-info [&>span]:bg-info peer-checked:bg-info peer-checked:[&>span]:bg-white peer-focus:ring-info/20',
+            'purple' => 'border-purple [&>span]:bg-purple peer-checked:bg-purple peer-checked:[&>span]:bg-white peer-focus:ring-purple/20',
+            'muted' => 'border-muted [&>span]:bg-muted peer-checked:bg-muted peer-checked:[&>span]:bg-white peer-focus:ring-muted/30',
+            'light' => 'border-light [&>span]:bg-muted peer-checked:bg-light peer-checked:[&>span]:bg-secondary peer-focus:ring-light/40',
         ];
 
         return $colors[$color] ?? $colors['primary'];

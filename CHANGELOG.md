@@ -2,6 +2,18 @@
 
 Todas as mudanças notáveis do SampaUI serão documentadas neste arquivo.
 
+## v0.1.7 - 2026-06-06
+
+### Melhorado
+
+- `toggle` agora aplica a cor definida em `color` na borda e no botao interno quando esta desligado.
+- Documentacao do `toggle` atualizada para explicar a diferenca visual entre estados ligado e desligado.
+- Componentes com mascara permanecem registrados na documentacao do pacote e receberam ajuste no catalogo visual da documentacao local.
+
+### Testes
+
+- Cobertura dos estados desligados coloridos do `toggle`.
+
 ## v0.1.6 - 2026-06-06
 
 ### Adicionado

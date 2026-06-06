@@ -116,7 +116,7 @@ Variantes principais:
 
 Todos os componentes de entrada aceitam `wire:model` diretamente no controle real ou via `x-modelable`, sem exigir a prop `value`.
 
-Todos os controles de formulario usam `border-secondary/40` como borda padrao, incluindo inputs, campos com mascara, selects, busca interna, textarea, checkbox, radio, toggle, date picker e upload.
+Todos os controles de formulario usam `border-secondary/40` como borda padrao, incluindo inputs, campos com mascara, selects, busca interna, textarea, checkbox, radio, date picker e upload. O `toggle` usa a cor definida em `color` no trilho e no botao interno quando desligado.
 
 ```blade
 <x-sampaui::phone name="phone" label="Telefone" wire:model.live="phone" />
