@@ -4,7 +4,7 @@ Use para estados booleanos.
 
 O estado e lido diretamente de `wire:model`, sem necessidade de `checked` ou `value`.
 
-O trilho do controle usa `border-secondary/50` como borda padrao.
+O trilho do controle usa `border-secondary/40` como borda padrao.
 
 ```blade
 <x-sampaui::toggle

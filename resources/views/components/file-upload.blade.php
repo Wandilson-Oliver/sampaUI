@@ -47,7 +47,7 @@
         <label for="{{ $id }}" class="block text-sm font-medium text-secondary">{{ $label }}</label>
     @endif
 
-    <label for="{{ $id }}" class="{{ sampaui_classes(['flex cursor-pointer flex-col items-center justify-center rounded-default border border-dashed border-secondary/50 bg-white px-6 py-8 text-center transition hover:border-primary hover:bg-light/30', 'border-danger ring-2 ring-danger/20' => filled($errorMessage), 'cursor-not-allowed opacity-50' => $disabled]) }}">
+    <label for="{{ $id }}" class="{{ sampaui_classes(['flex cursor-pointer flex-col items-center justify-center rounded-default border border-dashed border-secondary/40 bg-white px-6 py-8 text-center transition hover:border-primary hover:bg-light/30', 'border-danger ring-2 ring-danger/20' => filled($errorMessage), 'cursor-not-allowed opacity-50' => $disabled]) }}">
         <i class="bi bi-cloud-arrow-up text-2xl text-primary" aria-hidden="true"></i>
         <span class="mt-2 text-sm font-medium text-secondary">{{ trim($slot->toHtml()) !== '' ? $slot : 'Clique para selecionar arquivo' }}</span>
         <input

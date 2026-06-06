@@ -15,7 +15,7 @@ class CheckboxTest extends TestCase
         $html->assertSee('Aceito');
         $html->assertSee('checked', false);
         $html->assertSee('wire:model="terms"', false);
-        $html->assertSee('border border-secondary/50', false);
+        $html->assertSee('border border-secondary/40', false);
     }
 
     public function test_it_accepts_color_tokens_and_falls_back_to_primary(): void

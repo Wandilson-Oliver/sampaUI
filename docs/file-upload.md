@@ -2,7 +2,7 @@
 
 Use para anexos, contratos, imagens e midias.
 
-A area de selecao usa borda tracejada `border-secondary/50` por padrao.
+A area de selecao usa borda tracejada `border-secondary/40` por padrao.
 
 ```blade
 <x-sampaui::file-upload

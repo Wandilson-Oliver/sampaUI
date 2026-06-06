@@ -4,7 +4,7 @@ Select pesquisavel com busca local em Alpine e valor real em input hidden.
 
 Use para listas medias carregadas no HTML. Para milhares de registros ou busca remota, prefira criar uma integracao Livewire especifica.
 
-O trigger e o campo de busca interno usam `border-secondary/50`, seguindo a borda padrao dos componentes de formulario.
+O trigger e o campo de busca interno usam `border-secondary/40`, seguindo a borda padrao dos componentes de formulario.
 
 ```blade
 <x-sampaui::select-search

@@ -2,6 +2,22 @@
 
 Todas as mudanças notáveis do SampaUI serão documentadas neste arquivo.
 
+## v0.1.6 - 2026-06-06
+
+### Adicionado
+
+- Novo componente `cep` com mascara `99999-999`, `autocomplete="postal-code"` e suporte direto a `wire:model`.
+- Documentacao markdown para `phone`, `currency-br` e `cep`, com exemplos no indice de componentes.
+
+### Melhorado
+
+- Componentes `phone` e `currency-br` padronizados para usar `x-sampaui::input`, Bootstrap Icons e tokens semanticos do pacote.
+- Borda padrao dos controles de formulario alterada de `border-secondary/50` para `border-secondary/40`.
+
+### Testes
+
+- Cobertura para componentes com mascara e para a nova borda padrao em todos os controles de formulario.
+
 ## v0.1.5 - 2026-06-05
 
 ### Adicionado

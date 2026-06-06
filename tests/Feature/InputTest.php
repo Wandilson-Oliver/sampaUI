@@ -17,7 +17,7 @@ class InputTest extends TestCase
         $html->assertSee('wire:model.live="email"', false);
         $html->assertSee('custom-input', false);
         $html->assertSee('aria-invalid="true"', false);
-        $html->assertSee('border border-secondary/50', false);
+        $html->assertSee('border border-secondary/40', false);
         $html->assertSee('focus:border-primary', false);
         $html->assertSee('border-danger', false);
         $html->assertSee('ring-2 ring-danger/20', false);

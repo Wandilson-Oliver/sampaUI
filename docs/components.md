@@ -7,6 +7,9 @@ Documentacao individual:
 - [Fundamentos](foundations.md)
 - [Button](button.md)
 - [Input](input.md)
+- [Phone](phone.md)
+- [Currency BR](currency-br.md)
+- [CEP](cep.md)
 - [Pin](pin.md)
 - [Select](select.md)
 - [Select Multiple](select-multiple.md)
@@ -81,6 +84,16 @@ Slots internos para icones ou acoes:
     icon="lock"
     wire:model="password"
 />
+```
+
+## Campos com mascara
+
+```blade
+<x-sampaui::phone name="phone" label="Telefone" wire:model.live="phone" />
+
+<x-sampaui::currency-br name="price" label="Valor" wire:model.live="price" />
+
+<x-sampaui::cep name="postal_code" label="CEP" wire:model.live="postal_code" />
 ```
 
 ## Pin

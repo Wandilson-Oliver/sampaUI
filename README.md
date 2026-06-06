@@ -116,7 +116,15 @@ Variantes principais:
 
 Todos os componentes de entrada aceitam `wire:model` diretamente no controle real ou via `x-modelable`, sem exigir a prop `value`.
 
-Todos os controles de formulario usam `border-secondary/50` como borda padrao, incluindo inputs, selects, busca interna, textarea, checkbox, radio, toggle, date picker e upload.
+Todos os controles de formulario usam `border-secondary/40` como borda padrao, incluindo inputs, campos com mascara, selects, busca interna, textarea, checkbox, radio, toggle, date picker e upload.
+
+```blade
+<x-sampaui::phone name="phone" label="Telefone" wire:model.live="phone" />
+
+<x-sampaui::currency-br name="price" label="Valor" wire:model.live="price" />
+
+<x-sampaui::cep name="postal_code" label="CEP" wire:model.live="postal_code" />
+```
 
 ### Select
 

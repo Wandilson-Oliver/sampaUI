@@ -4,7 +4,7 @@ Select multiplo com busca local, tags removiveis e integracao com Livewire via `
 
 Use para listas pequenas ou medias carregadas no HTML. Para busca remota ou milhares de registros, prefira uma integracao Livewire especifica.
 
-O trigger e o campo de busca interno usam `border-secondary/50`, seguindo a borda padrao dos componentes de formulario.
+O trigger e o campo de busca interno usam `border-secondary/40`, seguindo a borda padrao dos componentes de formulario.
 
 ```blade
 <x-sampaui::select-multiple

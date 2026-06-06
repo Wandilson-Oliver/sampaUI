@@ -12,7 +12,7 @@
     $id = sampaui_id($attributes, $name, 'sampaui-checkbox');
     $errorMessage = sampaui_error($name, $error, $errors ?? null);
     $classes = sampaui_classes([
-        'h-5 w-5 cursor-pointer rounded border border-secondary/50 transition focus:ring-2 focus:ring-offset-2',
+        'h-5 w-5 cursor-pointer rounded border border-secondary/40 transition focus:ring-2 focus:ring-offset-2',
         sampaui_control_color_classes($color),
         $errorMessage ? 'border-danger ring-2 ring-danger/20' : null,
         $disabled ? 'cursor-not-allowed opacity-50' : null,

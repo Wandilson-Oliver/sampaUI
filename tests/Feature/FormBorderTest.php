@@ -6,10 +6,13 @@ use SampaUI\Tests\TestCase;
 
 class FormBorderTest extends TestCase
 {
-    public function test_all_form_components_use_the_darker_default_border(): void
+    public function test_all_form_components_use_the_standard_default_border(): void
     {
         $components = [
             '<x-sampaui::input name="name" />',
+            '<x-sampaui::phone name="phone" />',
+            '<x-sampaui::currency-br name="price" />',
+            '<x-sampaui::cep name="postal_code" />',
             '<x-sampaui::select name="status"><option value="active">Ativo</option></x-sampaui::select>',
             '<x-sampaui::select-search name="owner" :options="[\'ana\' => \'Ana\']" />',
             '<x-sampaui::textarea name="notes" />',
@@ -21,13 +24,13 @@ class FormBorderTest extends TestCase
         ];
 
         foreach ($components as $component) {
-            $this->blade($component)->assertSee('border-secondary/50', false);
+            $this->blade($component)->assertSee('border-secondary/40', false);
         }
     }
 
-    public function test_select_search_internal_search_uses_the_darker_default_border(): void
+    public function test_select_search_internal_search_uses_the_standard_default_border(): void
     {
         $this->blade('<x-sampaui::select-search name="owner" :options="[\'ana\' => \'Ana\']" />')
-            ->assertSee('rounded-default border border-secondary/50 bg-white py-2', false);
+            ->assertSee('rounded-default border border-secondary/40 bg-white py-2', false);
     }
 }
