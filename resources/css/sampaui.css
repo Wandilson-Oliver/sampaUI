@@ -38,9 +38,9 @@
 @source inline("peer-checked:bg-white peer-checked:translate-x-5");
 @source inline("px-3 py-2 px-4 py-2.5 px-5 py-3 px-6 py-4 px-8 py-5");
 @source inline("w-8 h-8 w-10 h-10 w-12 h-12 w-14 h-14 w-16 h-16");
-@source inline("relative absolute inset-y-0 right-4 pr-11 appearance-none");
+@source inline("relative absolute inset-y-0 right-4 origin-top-right");
 @source inline("rounded-l-default rounded-r-default rounded-t-default rounded-b-default max-w-sm max-w-md max-w-lg max-w-xl max-w-2xl max-w-full max-h-full max-h-[18rem] max-h-[24rem] max-h-[32rem] max-h-[40rem] max-h-[48rem]");
-@source inline("translate-x-0 translate-y-0 translate-x-full -translate-x-full translate-y-full -translate-y-full opacity-0 opacity-100 backdrop-blur-none backdrop-blur-[2px] transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]");
+@source inline("translate-x-0 translate-x-6 translate-y-0 -translate-y-6 translate-x-full -translate-x-full translate-y-full -translate-y-full scale-75 opacity-0 opacity-100 backdrop-blur-none backdrop-blur-[2px] transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]");
 
 [x-cloak] {
   display: none !important;

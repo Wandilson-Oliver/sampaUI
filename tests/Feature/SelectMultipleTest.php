@@ -41,6 +41,7 @@ BLADE);
         $html->assertSee('bi bi-x', false);
         $html->assertSee('bi bi-search', false);
         $html->assertSee('select-multiple:changed', false);
+        $html->assertSee('shadow-2xl shadow-secondary/10', false);
         $html->assertSee('this.values = this.normalizeValues([...this.values, option.value]);', false);
         $html->assertSee('this.values = this.normalizeValues(this.values.filter', false);
         $html->assertSee('x-on:click.outside="close()"', false);

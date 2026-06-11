@@ -126,6 +126,11 @@ php artisan sampaui:docs-export --format=markdown
 - `toggle`: `<x-sampaui::toggle />`
 - `tooltip`: `<x-sampaui::tooltip />`
 
+## API Notes
+
+- `select` usa combobox Alpine com `x-modelable`, aceita `options`, `value`, `placeholder`, `emptyText`, `required` e preserva um `<select>` real oculto para formularios e Livewire.
+- `table` aceita colunas com `sortable => true` e props `sortBy`, `sortDirection` e `sortMethod`; sem `sortMethod`, ordena `rows` estaticamente.
+
 ## Masked Fields
 
 `phone`, `currency-br` and `cep` format values internally with Alpine inline handlers. They do not require an external Alpine mask plugin.
@@ -160,4 +165,3 @@ composer test
 npm run build
 git diff --check
 ```
-

@@ -6,6 +6,9 @@
     'hover' => true,
     'bordered' => true,
     'compact' => false,
+    'sortBy' => null,
+    'sortDirection' => 'asc',
+    'sortMethod' => null,
 ])
 
 @php
@@ -18,6 +21,25 @@
         'transition' => $hover,
         $hover ? 'hover:bg-light/30' : null,
     ]);
+    $normalizedSortDirection = strtolower((string) $sortDirection) === 'desc' ? 'desc' : 'asc';
+    $sortableColumnKeys = collect($columns)
+        ->mapWithKeys(function (mixed $columnLabel, mixed $columnKey): array {
+            if (! is_array($columnLabel) || ! ($columnLabel['sortable'] ?? false)) {
+                return [];
+            }
+
+            $key = $columnLabel['key'] ?? $columnKey;
+
+            return [(string) $key => true];
+        });
+    $renderRows = $rows;
+
+    if ($sortBy && ! $sortMethod && $sortableColumnKeys->has((string) $sortBy)) {
+        $renderRows = collect($rows)
+            ->sortBy(fn (mixed $row): mixed => data_get($row, $sortBy), SORT_REGULAR, $normalizedSortDirection === 'desc')
+            ->values()
+            ->all();
+    }
 @endphp
 
 <div {{ $attributes->merge(['class' => sampaui_classes([
@@ -33,8 +55,41 @@
                     <thead class="bg-light/50 text-xs font-semibold uppercase tracking-[0.22em] text-secondary">
                         <tr>
                             @foreach ($columns as $columnKey => $columnLabel)
-                                <th scope="col" class="{{ $cellPadding }}">
-                                    {{ is_array($columnLabel) ? ($columnLabel['label'] ?? $columnKey) : $columnLabel }}
+                                @php
+                                    $key = is_array($columnLabel) ? ($columnLabel['key'] ?? $columnKey) : $columnKey;
+                                    $align = is_array($columnLabel) ? ($columnLabel['align'] ?? null) : null;
+                                    $sortable = is_array($columnLabel) && ($columnLabel['sortable'] ?? false);
+                                    $isActiveSort = $sortable && (string) $sortBy === (string) $key;
+                                    $nextDirection = $isActiveSort && $normalizedSortDirection === 'asc' ? 'desc' : 'asc';
+                                    $sortIcon = $isActiveSort
+                                        ? ($normalizedSortDirection === 'asc' ? 'sort-up' : 'sort-down')
+                                        : 'arrow-down-up';
+                                @endphp
+
+                                <th scope="col" @class([$cellPadding, 'text-right' => $align === 'right', 'text-center' => $align === 'center'])>
+                                    @if ($sortable)
+                                        <button
+                                            type="button"
+                                            class="{{ sampaui_classes([
+                                                'inline-flex cursor-pointer items-center gap-2 rounded-md text-left transition hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20',
+                                                'ml-auto' => $align === 'right',
+                                                'mx-auto' => $align === 'center',
+                                                'text-primary' => $isActiveSort,
+                                            ]) }}"
+                                            @if ($sortMethod)
+                                                wire:click="{{ $sortMethod }}('{{ $key }}')"
+                                            @else
+                                                data-sort-by="{{ $key }}"
+                                                data-sort-direction="{{ $nextDirection }}"
+                                            @endif
+                                            aria-sort="{{ $isActiveSort ? ($normalizedSortDirection === 'asc' ? 'ascending' : 'descending') : 'none' }}"
+                                        >
+                                            <span>{{ $columnLabel['label'] ?? $columnKey }}</span>
+                                            <i class="bi bi-{{ $sortIcon }} text-[0.9em]" aria-hidden="true"></i>
+                                        </button>
+                                    @else
+                                        {{ is_array($columnLabel) ? ($columnLabel['label'] ?? $columnKey) : $columnLabel }}
+                                    @endif
                                 </th>
                             @endforeach
                         </tr>
@@ -46,7 +101,7 @@
                 {{ $body }}
             @else
                 <tbody class="divide-y divide-light">
-                    @forelse ($rows as $rowIndex => $row)
+                    @forelse ($renderRows as $rowIndex => $row)
                         <tr @class([$rowClasses, 'bg-light/30' => $striped && $rowIndex % 2 === 1])>
                             @foreach ($columns as $columnKey => $columnLabel)
                                 @php

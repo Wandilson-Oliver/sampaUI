@@ -149,7 +149,7 @@
             x-transition.origin.top.duration.150ms
             x-cloak
             x-on:click.outside="open = false"
-            class="absolute left-0 top-full z-[120] mt-2 w-full overflow-hidden rounded-default border border-light bg-white"
+            class="absolute left-0 top-full z-[120] mt-2 w-full overflow-hidden rounded-default border border-light bg-white shadow-2xl shadow-secondary/10"
         >
             <div class="border-b border-light p-2">
                 <div class="relative">

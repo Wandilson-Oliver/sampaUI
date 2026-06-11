@@ -128,13 +128,13 @@
             x-ref="panel"
             x-show="active"
             x-transition:enter="transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
-            x-transition:enter-start="translate-y-4 scale-95 opacity-0"
+            x-transition:enter-start="translate-x-6 -translate-y-6 scale-75 opacity-0"
             x-transition:enter-end="translate-y-0 scale-100 opacity-100"
             x-transition:leave="transition duration-200 ease-in"
             x-transition:leave-start="translate-y-0 scale-100 opacity-100"
-            x-transition:leave-end="translate-y-3 scale-[0.97] opacity-0"
+            x-transition:leave-end="translate-x-6 -translate-y-6 scale-75 opacity-0"
             tabindex="-1"
-            class="relative flex max-h-[calc(100dvh-2rem)] w-full {{ $panelSize }} flex-col overflow-hidden rounded-default border {{ $panelTone }} {{ $panelClass }} bg-white outline-none"
+            class="relative flex max-h-[calc(100dvh-2rem)] w-full {{ $panelSize }} origin-top-right flex-col overflow-hidden rounded-default border {{ $panelTone }} {{ $panelClass }} bg-white outline-none"
         >
             @if ($hasHeader)
                 <header class="flex items-start justify-between gap-4 px-5 py-5">

@@ -1,8 +1,6 @@
 # Select
 
-Campo de selecao com slot para options.
-
-O componente remove a aparencia nativa do navegador e usa um chevron Bootstrap Icons para manter o mesmo acabamento visual do `Input`.
+Campo de selecao com combobox Alpine, dropdown customizado e `<select>` real oculto para formularios e Livewire.
 
 ## Uso
 
@@ -13,19 +11,39 @@ O componente remove a aparencia nativa do navegador e usa um chevron Bootstrap I
 </x-sampaui::select>
 ```
 
-Com Livewire, `wire:model` controla a opcao selecionada sem precisar adicionar `selected` ou uma prop `value`:
+Tambem aceita `options`:
 
 ```blade
-<x-sampaui::select name="status" label="Status" wire:model.live="status">
-    <option value="active">Ativo</option>
-    <option value="inactive">Inativo</option>
-</x-sampaui::select>
+<x-sampaui::select
+    name="status"
+    label="Status"
+    placeholder="Selecione"
+    :options="[
+        'active' => 'Ativo',
+        'inactive' => 'Inativo',
+    ]"
+/>
+```
+
+Com Livewire, `wire:model` sincroniza pelo `x-modelable` e atualiza o `<select>` real oculto:
+
+```blade
+<x-sampaui::select
+    name="status"
+    label="Status"
+    wire:model.live="status"
+    :options="$statuses"
+/>
 ```
 
 ## Props
 
 - `label`
 - `name`
+- `value`
+- `options`
 - `placeholder`
+- `emptyText`
 - `error`
 - `disabled`
+- `required`

@@ -8,8 +8,8 @@
 ])
 
 <header {{ $attributes->merge(['class' => 'rounded-default border border-light bg-white px-5 py-4']) }}>
-    <div class="flex flex-col gap-4 md:flex-row md:flex-wrap md:items-center md:justify-between">
-        <div class="flex min-w-0 flex-1 basis-80 items-center gap-3">
+    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div class="flex min-w-0 flex-1 items-center gap-3">
             @if ($menu)
                 <button
                     type="button"
@@ -37,7 +37,7 @@
         </div>
 
         @if ($status || isset($actions))
-            <div class="flex w-full flex-wrap items-center gap-3 md:w-auto">
+            <div class="flex w-full flex-wrap items-center gap-3 sm:ml-auto sm:w-auto sm:shrink-0 sm:justify-end">
                 @if ($status)
                     <span class="inline-flex items-center gap-2 rounded-full border border-light bg-white px-3 py-1.5 text-sm font-medium text-secondary">
                         <span class="h-2 w-2 rounded-full bg-accent"></span>
@@ -46,7 +46,7 @@
                 @endif
 
                 @isset($actions)
-                    <div class="flex w-full flex-wrap items-center gap-2 md:w-auto">
+                    <div class="flex w-full flex-wrap items-center gap-2 sm:w-auto sm:justify-end">
                         {{ $actions }}
                     </div>
                 @endisset

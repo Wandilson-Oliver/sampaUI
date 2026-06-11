@@ -2,6 +2,20 @@
 
 Todas as mudanças notáveis do SampaUI serão documentadas neste arquivo.
 
+## v0.1.10 - 2026-06-11
+
+### Melhorado
+
+- `select` agora usa combobox Alpine com dropdown customizado, `shadow-2xl` e sincronizacao com `<select>` real oculto.
+- `select-search` e `select-multiple` agora exibem dropdown com sombra `2xl`.
+- `table` ganhou ordenacao opt-in por coluna via `sortable`, `sort-by`, `sort-direction` e `sort-method`.
+- `modal` passou a revelar o painel a partir do canto superior direito.
+- `header` mantem acoes na frente do titulo em telas medias e grandes.
+
+### Testes
+
+- Cobertura dos contratos do `select`, ordenacao do `table`, sombras dos dropdowns, animacao do `modal` e responsividade do `header`.
+
 ## v0.1.9 - 2026-06-06
 
 ### Adicionado

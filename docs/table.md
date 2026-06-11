@@ -15,5 +15,23 @@ Tabela responsiva para listagens simples. Pode renderizar automaticamente via `c
 />
 ```
 
-Props principais: `columns`, `rows`, `empty`, `striped`, `hover`, `bordered`, `compact`.
+## Ordenacao
 
+Marque apenas as colunas que podem ordenar:
+
+```blade
+<x-sampaui::table
+    sort-by="name"
+    sort-direction="asc"
+    sort-method="sortBy"
+    :columns="[
+        'name' => ['label' => 'Cliente', 'sortable' => true],
+        'status' => 'Status',
+    ]"
+    :rows="$users"
+/>
+```
+
+Sem `sort-method`, o componente ordena os `rows` no servidor para exemplos estaticos.
+
+Props principais: `columns`, `rows`, `empty`, `striped`, `hover`, `bordered`, `compact`, `sortBy`, `sortDirection`, `sortMethod`.

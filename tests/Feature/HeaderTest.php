@@ -27,6 +27,8 @@ BLADE);
         $html->assertSee('Atualizado agora');
         $html->assertSee('Novo cliente');
         $html->assertSee('rounded-default border border-light', false);
+        $html->assertSee('sm:flex-row sm:items-center sm:justify-between', false);
+        $html->assertSee('sm:ml-auto sm:w-auto sm:shrink-0 sm:justify-end', false);
         $html->assertDontSee('shadow', false);
     }
 
