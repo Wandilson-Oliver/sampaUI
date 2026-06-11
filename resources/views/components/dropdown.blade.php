@@ -2,11 +2,13 @@
     'label' => 'Acoes',
     'icon' => 'three-dots',
     'align' => 'left',
+    'placement' => 'bottom',
     'width' => '14rem',
 ])
 
 @php
     $alignClasses = $align === 'right' ? 'right-0' : 'left-0';
+    $placementClasses = $placement === 'top' ? 'bottom-full mb-2' : 'top-full mt-2';
 @endphp
 
 <div
@@ -30,7 +32,7 @@
         x-cloak
         x-show="open"
         x-transition.opacity.duration.150ms
-        class="absolute {{ $alignClasses }} top-full z-[100] mt-2 rounded-default border border-light bg-white p-1 shadow-default"
+        class="absolute {{ $alignClasses }} {{ $placementClasses }} z-[100] rounded-default border border-light bg-white p-1 shadow-default"
         style="width: {{ $width }};"
         role="menu"
     >

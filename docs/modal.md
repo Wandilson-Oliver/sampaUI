@@ -16,5 +16,4 @@ Use para confirmacoes, formularios curtos e detalhes importantes.
 - `persistent`: impede fechar clicando fora.
 - `close-button`: controla o botao de fechar.
 
-O modal bloqueia scroll, usa `role="dialog"` e recebe foco ao abrir.
-
+O modal bloqueia scroll, usa `<dialog>` nativo com top layer do navegador, preserva `role="dialog"` e recebe foco ao abrir. Isso mantém o overlay acima de sidebars, topbars e containers com `overflow`.

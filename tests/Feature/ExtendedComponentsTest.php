@@ -71,6 +71,9 @@ BLADE)
             ->assertSee('z-[100]', false)
             ->assertSee('role="menu"', false);
 
+        $this->blade('<x-sampaui::dropdown label="Acoes" placement="top">Menu</x-sampaui::dropdown>')
+            ->assertSee('bottom-full mb-2', false);
+
         $this->blade(<<<'BLADE'
 <x-sampaui::tabs :tabs="['overview' => 'Resumo', 'billing' => 'Cobranca']" active="overview">
     <x-sampaui::tab-panel name="overview">Conteudo</x-sampaui::tab-panel>

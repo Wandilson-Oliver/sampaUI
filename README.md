@@ -1,6 +1,6 @@
 # SampaUI
 
-SampaUI e um pacote de componentes Blade Livewire-first, exclusivo para aplicacoes a partir de Laravel 13, Livewire 4, Tailwind CSS 4 e AlpineJS, com visual premium para aplicacoes corporativas, imobiliarias e SaaS.
+SampaUI e um pacote de componentes Blade Livewire-first para Laravel 13, Livewire 4, Tailwind CSS 4 e AlpineJS. O pacote foi padronizado para produtos imobiliarios: CRM de leads, captacao de imoveis, funil comercial, atendimento por chat, propostas, dashboards operacionais e paginas de autenticacao.
 
 ## Requisitos
 
@@ -54,6 +54,32 @@ php artisan sampaui:docs-export --format=json
 O pacote mantem um registry oficial em `resources/metadata/components.php`, exportado para `docs/registry/components.json` e descrito em `llms.txt`/`llms-full.txt` para facilitar uso por Codex e outras ferramentas de IA.
 
 ## Componentes
+
+Use os componentes do namespace `sampaui` antes de criar HTML solto. O objetivo e manter telas imobiliarias com a mesma hierarquia visual, bordas, foco, estados e densidade de informacao.
+
+Fluxos recomendados:
+
+- **Captacao**: `input`, `phone`, `currency-br`, `cep`, `select-search`, `select-multiple`, `textarea`, `file-upload` e `avatar-upload`.
+- **CRM e funil**: `card`, `badge`, `progress`, `table`, `dropdown`, `drawer`, `tabs`, `pagination` e `empty-state`.
+- **Atendimento**: `chat-layout`, `chat-sidebar`, `chat-conversation`, `chat-message`, `chat-composer`, `avatar`, `indicator` e `toast`.
+- **Operacao e seguranca**: `header`, `sidebar`, `command-palette`, `modal`, `alert`, `pin`, `checkbox` e `button`.
+
+Exemplo rapido de card imobiliario:
+
+```blade
+<x-sampaui::card title="Apartamento Vila Mariana" description="Lead quente em negociacao" padding="lg">
+    <div class="flex flex-wrap items-center gap-2">
+        <x-sampaui::badge variant="success">Disponivel</x-sampaui::badge>
+        <x-sampaui::badge variant="accent">R$ 890.000</x-sampaui::badge>
+        <x-sampaui::badge variant="light">2 dorms</x-sampaui::badge>
+    </div>
+
+    <div class="mt-5 flex flex-wrap gap-3">
+        <x-sampaui::button icon="calendar2-check">Agendar visita</x-sampaui::button>
+        <x-sampaui::button variant="outline" icon="chat-dots">Conversar</x-sampaui::button>
+    </div>
+</x-sampaui::card>
+```
 
 ## Fundamentos adotados
 

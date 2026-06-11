@@ -95,6 +95,11 @@ php artisan sampaui:docs-export --format=markdown
 - `card`: `<x-sampaui::card />`
 - `cep`: `<x-sampaui::cep />`
 - `checkbox`: `<x-sampaui::checkbox />`
+- `chat-composer`: `<x-sampaui::chat-composer />`
+- `chat-conversation`: `<x-sampaui::chat-conversation />`
+- `chat-layout`: `<x-sampaui::chat-layout />`
+- `chat-message`: `<x-sampaui::chat-message />`
+- `chat-sidebar`: `<x-sampaui::chat-sidebar />`
 - `command-palette`: `<x-sampaui::command-palette />`
 - `currency-br`: `<x-sampaui::currency-br />`
 - `date-picker`: `<x-sampaui::date-picker />`
@@ -130,6 +135,8 @@ php artisan sampaui:docs-export --format=markdown
 
 - `select` usa combobox Alpine com `x-modelable`, aceita `options`, `value`, `placeholder`, `emptyText`, `required` e preserva um `<select>` real oculto para formularios e Livewire.
 - `table` aceita colunas com `sortable => true` e props `sortBy`, `sortDirection` e `sortMethod`; sem `sortMethod`, ordena `rows` estaticamente.
+- `dropdown` aceita `align`, `width` e `placement`; use `placement="top"` em menus nas ultimas linhas de tabelas ou containers com rolagem para evitar corte visual.
+- Componentes de chat: use `chat-layout` como estrutura, `chat-sidebar` para conversas, `chat-conversation` para a conversa ativa, `chat-message` para bolhas e `chat-composer` para envio.
 
 ## Masked Fields
 

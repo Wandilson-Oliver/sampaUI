@@ -2,6 +2,25 @@
 
 Todas as mudanças notáveis do SampaUI serão documentadas neste arquivo.
 
+## v0.1.14 - 2026-06-11
+
+### Melhorado
+
+- Documentacao revisada para padronizar o SampaUI em produtos imobiliarios: CRM, captacao, funil comercial, atendimento, propostas, dashboards e auth.
+- README, fundamentos e catalogo de componentes receberam receitas copiaveis orientadas a Laravel, Livewire e agentes de IA.
+- Registry exportado passa a refletir a versao publica `0.1.14`.
+
+## v0.1.13 - 2026-06-11
+
+### Melhorado
+
+- Adicionados componentes de chat: `chat-layout`, `chat-sidebar`, `chat-conversation`, `chat-message` e `chat-composer`.
+- `dropdown` ganhou a prop `placement`, permitindo abrir o menu para cima em linhas finais de tabelas e containers com rolagem.
+
+### Corrigido
+
+- `modal` agora usa `<dialog>` nativo com top layer do navegador, garantindo que backdrop e painel fiquem acima de sidebars, topbars e containers com `overflow`.
+
 ## v0.1.12 - 2026-06-11
 
 ### Corrigido

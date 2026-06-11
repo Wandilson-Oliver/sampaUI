@@ -2,6 +2,20 @@
 
 SampaUI e um pacote Blade-first exclusivo para aplicacoes a partir de Laravel 13, Livewire 4, Tailwind CSS 4 e AlpineJS. A biblioteca mantem uma identidade propria: visual corporativo premium, Bootstrap Icons, CSS compilado e componentes anonimos.
 
+## Padrao imobiliario
+
+O SampaUI deve ser usado como base visual para produtos imobiliarios com rotinas de captacao, atendimento, funil comercial, proposta, vistoria, contrato e pos-venda. A documentacao e os exemplos devem falar a lingua desse mercado para acelerar implementacao com IA e reduzir decisoes soltas de interface.
+
+Mapeamento recomendado:
+
+- **Dashboard comercial**: `sidebar`, `header`, `card`, `badge`, `progress`, `table`, `dropdown` e `pagination`.
+- **Cadastro de lead ou imovel**: `input`, `phone`, `currency-br`, `cep`, `select`, `select-search`, `select-multiple`, `textarea`, `file-upload` e `avatar-upload`.
+- **Atendimento WhatsApp-like**: `chat-layout`, `chat-sidebar`, `chat-conversation`, `chat-message`, `chat-composer`, `avatar`, `indicator` e `toast`.
+- **Qualificacao e proposta**: `tabs`, `stepper`, `drawer`, `modal`, `alert`, `checkbox`, `radio` e `button`.
+- **Acesso e seguranca**: `pin`, `input`, `checkbox`, `alert`, `button` e `empty-state`.
+
+Ao criar novas telas, prefira compor componentes existentes com `class=""` e tokens semanticos. So crie um componente novo quando o padrao se repetir em mais de uma area do produto ou quando houver uma regra de acessibilidade/estado que precise ser centralizada.
+
 ## Principios adotados
 
 - **Blade primeiro**: componentes anonimos em `resources/views/components`, sem exigir classes PHP para uso simples.

@@ -4,6 +4,61 @@ Os componentes sao publicados no namespace `sampaui` e foram desenhados para uso
 
 O catalogo oficial tambem esta versionado em `resources/metadata/components.php` e exportado em `docs/registry/components.json`. Ao criar ou alterar componentes, atualize o registry junto da documentacao para que ferramentas como Codex consigam entender a API publica do pacote.
 
+## Receitas imobiliarias
+
+Use estas composicoes como ponto de partida para CRM, captacao, atendimento e operacao imobiliaria.
+
+### Card de imovel
+
+```blade
+<x-sampaui::card title="Casa Jardim Paulista" description="Captacao ativa" padding="lg">
+    <div class="flex flex-wrap gap-2">
+        <x-sampaui::badge variant="success">Disponivel</x-sampaui::badge>
+        <x-sampaui::badge variant="accent">R$ 1.240.000</x-sampaui::badge>
+        <x-sampaui::badge variant="light">3 suites</x-sampaui::badge>
+    </div>
+
+    <x-sampaui::progress class="mt-5" value="72" label="Documentacao" />
+</x-sampaui::card>
+```
+
+### Lead comercial
+
+```blade
+<x-sampaui::card title="Novo lead" description="Origem: portal imobiliario" padding="lg">
+    <div class="grid gap-4 md:grid-cols-2">
+        <x-sampaui::input name="name" label="Nome" icon="person" wire:model.live="lead.name" />
+        <x-sampaui::phone name="phone" label="WhatsApp" wire:model.live="lead.phone" />
+        <x-sampaui::currency-br name="budget" label="Orcamento" wire:model.live="lead.budget" />
+        <x-sampaui::select-search
+            name="broker"
+            label="Corretor"
+            :options="['ana' => 'Ana Souza', 'bruno' => 'Bruno Lima']"
+            wire:model.live="lead.broker"
+        />
+    </div>
+</x-sampaui::card>
+```
+
+### Atendimento
+
+```blade
+<x-sampaui::chat-layout>
+    <x-slot:sidebar>
+        <x-sampaui::chat-sidebar :conversations="$conversations" />
+    </x-slot:sidebar>
+
+    <x-sampaui::chat-conversation name="Ana Souza" subtitle="Lead comprador">
+        <x-sampaui::chat-message time="09:40">Quero visitar o apartamento hoje.</x-sampaui::chat-message>
+        <x-sampaui::chat-message from="me" time="09:41" status="Lida">Enviei os horarios disponiveis.</x-sampaui::chat-message>
+
+        <x-slot:composer>
+            <x-sampaui::chat-composer wire:submit.prevent="sendMessage" />
+        </x-slot:composer>
+    </x-sampaui::chat-conversation>
+</x-sampaui::chat-layout>
+```
+
 Documentacao individual:
 
 - [Fundamentos](foundations.md)
@@ -27,6 +82,11 @@ Documentacao individual:
 - [Brand Mark](brand-mark.md)
 - [Breadcrumb](breadcrumb.md)
 - [Card](card.md)
+- [Chat Composer](chat-composer.md)
+- [Chat Conversation](chat-conversation.md)
+- [Chat Layout](chat-layout.md)
+- [Chat Message](chat-message.md)
+- [Chat Sidebar](chat-sidebar.md)
 - [Command Palette](command-palette.md)
 - [Drawer](drawer.md)
 - [Dropdown](dropdown.md)
@@ -197,6 +257,25 @@ Slots internos para icones ou acoes:
 <x-sampaui::card title="Resumo" description="Dados principais">
     Conteudo do card.
 </x-sampaui::card>
+```
+
+## Chat
+
+```blade
+<x-sampaui::chat-layout>
+    <x-slot:sidebar>
+        <x-sampaui::chat-sidebar :conversations="$conversations" />
+    </x-slot:sidebar>
+
+    <x-sampaui::chat-conversation name="Ana Souza" subtitle="Online">
+        <x-sampaui::chat-message time="09:40">Bom dia.</x-sampaui::chat-message>
+        <x-sampaui::chat-message from="me" time="09:41" status="Lida">Bom dia, Ana.</x-sampaui::chat-message>
+
+        <x-slot:composer>
+            <x-sampaui::chat-composer wire:submit.prevent="sendMessage" />
+        </x-slot:composer>
+    </x-sampaui::chat-conversation>
+</x-sampaui::chat-layout>
 ```
 
 ## Header

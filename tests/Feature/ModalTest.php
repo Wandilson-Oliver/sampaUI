@@ -24,10 +24,16 @@ BLADE);
         $html->assertSee('Conteudo do modal');
         $html->assertSee('Cancelar');
         $html->assertSee('Salvar');
+        $html->assertSee('<dialog', false);
+        $html->assertSee('x-ref="dialog"', false);
         $html->assertSee('role="dialog"', false);
         $html->assertSee('aria-modal="true"', false);
         $html->assertDontSee('x-teleport="body"', false);
-        $html->assertSeeInOrder(['x-data="{', 'visible: false', 'active: false', 'x-show="visible"'], false);
+        $html->assertSee('showModal()', false);
+        $html->assertSee('z-[2147483647]', false);
+        $html->assertSee('backdrop:bg-primary/40', false);
+        $html->assertSee('backdrop:backdrop-blur-[2px]', false);
+        $html->assertSeeInOrder(['x-data="{', 'visible: false', 'active: false', '<dialog', 'x-show="visible"'], false);
         $html->assertSee('h-screen min-h-dvh', false);
         $html->assertSee('max-h-[calc(100dvh-2rem)]', false);
         $html->assertSee('max-w-2xl', false);
@@ -39,10 +45,6 @@ BLADE);
         $html->assertSee('translate-x-6 -translate-y-6 scale-75 opacity-0', false);
         $html->assertSee('origin-top-right', false);
         $html->assertSee('transition-opacity duration-300 ease-out', false);
-        $html->assertSee('bg-primary/40', false);
-        $html->assertSee('transition-[backdrop-filter,opacity]', false);
-        $html->assertSee('backdrop-blur-[2px]', false);
-        $html->assertSee('backdrop-blur-none', false);
         $html->assertSee('bi bi-x-lg', false);
     }
 
