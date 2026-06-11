@@ -44,58 +44,59 @@
     $hasHeader = filled($title) || filled($subtitle) || isset($header) || $closeButton;
 @endphp
 
-<div style="display: contents;">
-    <template x-teleport="body">
-    <div
-        id="{{ $id }}"
-        x-data="{
-            serverOpen: $wire.entangle({{ \Illuminate\Support\Js::from($model) }}).live,
-            visible: false,
-            active: false,
-            closeTimer: null,
-            closeDelay: {{ $closeDelay }},
-            afterClose: {{ $afterCloseExpression }},
-            openModal() {
-                clearTimeout(this.closeTimer);
-                this.visible = true;
-                document.documentElement.classList.add('overflow-hidden');
-                document.body.classList.add('overflow-hidden');
+<div
+    style="display: contents;"
+    x-data="{
+        serverOpen: $wire.entangle({{ \Illuminate\Support\Js::from($model) }}).live,
+        visible: false,
+        active: false,
+        closeTimer: null,
+        closeDelay: {{ $closeDelay }},
+        afterClose: {{ $afterCloseExpression }},
+        openModal() {
+            clearTimeout(this.closeTimer);
+            this.visible = true;
+            document.documentElement.classList.add('overflow-hidden');
+            document.body.classList.add('overflow-hidden');
 
-                this.$nextTick(() => {
-                    this.active = true;
-                    this.$refs.panel?.focus();
-                });
-            },
-            close(sync = true) {
-                if (! this.visible) {
-                    return;
-                }
-
-                this.active = false;
-                clearTimeout(this.closeTimer);
-
-                this.closeTimer = setTimeout(() => {
-                    this.visible = false;
-                    document.documentElement.classList.remove('overflow-hidden');
-                    document.body.classList.remove('overflow-hidden');
-
-                    if (sync) {
-                        this.serverOpen = false;
-                    }
-
-                    if (this.afterClose) {
-                        this.afterClose();
-                    }
-                }, this.closeDelay);
-            },
-        }"
-        x-init="
-            if (serverOpen) {
-                openModal();
+            this.$nextTick(() => {
+                this.active = true;
+                this.$refs.panel?.focus();
+            });
+        },
+        close(sync = true) {
+            if (! this.visible) {
+                return;
             }
 
-            $watch('serverOpen', value => value ? openModal() : close(false));
-        "
+            this.active = false;
+            clearTimeout(this.closeTimer);
+
+            this.closeTimer = setTimeout(() => {
+                this.visible = false;
+                document.documentElement.classList.remove('overflow-hidden');
+                document.body.classList.remove('overflow-hidden');
+
+                if (sync) {
+                    this.serverOpen = false;
+                }
+
+                if (this.afterClose) {
+                    this.afterClose();
+                }
+            }, this.closeDelay);
+        },
+    }"
+    x-init="
+        if (serverOpen) {
+            openModal();
+        }
+
+        $watch('serverOpen', value => value ? openModal() : close(false));
+    "
+>
+    <div
+        id="{{ $id }}"
         x-show="visible"
         x-cloak
         role="dialog"
@@ -174,5 +175,4 @@
             @endisset
         </section>
     </div>
-    </template>
 </div>

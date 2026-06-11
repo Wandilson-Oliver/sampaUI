@@ -2,6 +2,12 @@
 
 Todas as mudanças notáveis do SampaUI serão documentadas neste arquivo.
 
+## v0.1.12 - 2026-06-11
+
+### Corrigido
+
+- `modal` agora mantém o overlay dentro do componente Livewire com um unico escopo Alpine, evitando perda de `wire:id` e falhas de estado ao abrir modais em telas interativas.
+
 ## v0.1.11 - 2026-06-11
 
 ### Corrigido
