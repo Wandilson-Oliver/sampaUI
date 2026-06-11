@@ -2,6 +2,12 @@
 
 Todas as mudanças notáveis do SampaUI serão documentadas neste arquivo.
 
+## v0.1.11 - 2026-06-11
+
+### Corrigido
+
+- `modal` agora mantém o escopo Alpine dentro do conteúdo teletransportado para evitar erros `visible`/`active` indefinidos ao abrir modais em telas Livewire.
+
 ## v0.1.10 - 2026-06-11
 
 ### Melhorado

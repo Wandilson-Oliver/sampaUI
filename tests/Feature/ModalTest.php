@@ -27,6 +27,7 @@ BLADE);
         $html->assertSee('role="dialog"', false);
         $html->assertSee('aria-modal="true"', false);
         $html->assertSee('x-teleport="body"', false);
+        $html->assertSeeInOrder(['x-teleport="body"', 'x-data="{', 'x-show="visible"'], false);
         $html->assertSee('h-screen min-h-dvh', false);
         $html->assertSee('max-h-[calc(100dvh-2rem)]', false);
         $html->assertSee('max-w-2xl', false);
