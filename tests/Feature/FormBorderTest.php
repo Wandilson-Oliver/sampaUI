@@ -17,7 +17,7 @@ class FormBorderTest extends TestCase
         ];
 
         foreach ($components as $component) {
-            $this->blade($component)->assertSee('border-secondary/30', false);
+            $this->blade($component)->assertSee('border-secondary/20', false);
         }
     }
 
