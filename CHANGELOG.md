@@ -6,7 +6,7 @@ Todas as mudanças notáveis do SampaUI serão documentadas neste arquivo.
 
 ### Melhorado
 
-- `input` passa a usar borda padrao `border-secondary/15`, mantendo foco, erro e estados desabilitados.
+- `input` passa a usar borda padrao `border-secondary/30`, mantendo foco, erro e estados desabilitados.
 - `badge` ganhou tamanho `xs` e tamanhos revisados com padding, gap, tipografia e altura de linha consistentes.
 
 ## v0.1.14 - 2026-06-11
