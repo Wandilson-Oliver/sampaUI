@@ -11,7 +11,7 @@ Use para status curtos, prioridade, contadores e tags.
 ## Props
 
 - `variant`: `primary`, `secondary`, `accent`, `danger`, `success`, `warning`, `info`, `purple`, `muted`, `light`.
-- `size`: `sm`, `md`, `lg`.
+- `size`: `xs`, `sm`, `md`, `lg`.
 - `icon`: nome Bootstrap Icons sem `bi-`.
 - `rounded`: troca entre `rounded-full` e `rounded-default`.
 
@@ -36,6 +36,7 @@ Variantes invalidas retornam para `primary`.
 <x-sampaui::badge variant="danger" size="lg">Alta</x-sampaui::badge>
 <x-sampaui::badge variant="accent">Media</x-sampaui::badge>
 <x-sampaui::badge variant="secondary" size="sm">Baixa</x-sampaui::badge>
+<x-sampaui::badge variant="info" size="xs">Novo</x-sampaui::badge>
 ```
 
 ### Em tabela com Livewire

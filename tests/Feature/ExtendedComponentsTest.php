@@ -16,7 +16,18 @@ class ExtendedComponentsTest extends TestCase
         $this->blade('<x-sampaui::badge variant="accent" icon="star">Novo</x-sampaui::badge>')
             ->assertSee('Novo')
             ->assertSee('bi bi-star', false)
+            ->assertSee('text-sm leading-5', false)
             ->assertSee('bg-accent/10', false);
+
+        $this->blade('<x-sampaui::badge variant="success" size="xs">Novo</x-sampaui::badge>')
+            ->assertSee('text-[0.6875rem] leading-4', false)
+            ->assertSee('px-1.5 py-0.5', false);
+
+        $this->blade('<x-sampaui::badge variant="secondary" size="sm">Baixa</x-sampaui::badge>')
+            ->assertSee('text-xs leading-4', false);
+
+        $this->blade('<x-sampaui::badge variant="danger" size="lg">Alta</x-sampaui::badge>')
+            ->assertSee('text-base leading-6', false);
 
         $this->blade('<x-sampaui::avatar src="/ana.jpg" name="Ana Silva" status="online" />')
             ->assertSee('src="/ana.jpg"', false)
