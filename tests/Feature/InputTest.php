@@ -17,7 +17,7 @@ class InputTest extends TestCase
         $html->assertSee('wire:model.live="email"', false);
         $html->assertSee('custom-input', false);
         $html->assertSee('aria-invalid="true"', false);
-        $html->assertSee('border border-secondary/30', false);
+        $html->assertSee('border border-secondary/15', false);
         $html->assertSee('focus:border-primary', false);
         $html->assertSee('border-danger', false);
         $html->assertSee('ring-2 ring-danger/20', false);
@@ -64,7 +64,7 @@ BLADE)
     public function test_it_uses_the_soft_secondary_border_by_default(): void
     {
         $this->blade('<x-sampaui::input name="name" />')
-            ->assertSee('border border-secondary/30', false)
-            ->assertDontSee('border border-secondary/40', false);
+            ->assertSee('border border-secondary/15', false)
+            ->assertDontSee('border border-secondary/30', false);
     }
 }

@@ -2,7 +2,7 @@
 
 Campo de texto com label, erro e suporte a atributos Livewire.
 
-A borda padrao usa `border-secondary/30`. Com Livewire, use apenas `wire:model`; nao e necessario informar `value`.
+A borda padrao usa `border-secondary/15`. Com Livewire, use apenas `wire:model`; nao e necessario informar `value`.
 
 ## Uso
 

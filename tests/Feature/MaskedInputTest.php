@@ -15,7 +15,7 @@ class MaskedInputTest extends TestCase
         $html->assertSee('Telefone');
         $html->assertSee('wire:model.live="phone"', false);
         $html->assertSee('custom-phone', false);
-        $html->assertSee('border border-secondary/30', false);
+        $html->assertSee('border border-secondary/15', false);
         $html->assertSee('bi bi-telephone', false);
         $html->assertSee('inputmode="tel"', false);
         $html->assertSee('autocomplete="tel"', false);
@@ -34,7 +34,7 @@ class MaskedInputTest extends TestCase
         $html->assertSee('Valor');
         $html->assertSee('wire:model.live="price"', false);
         $html->assertSee('custom-currency', false);
-        $html->assertSee('border border-secondary/30', false);
+        $html->assertSee('border border-secondary/15', false);
         $html->assertSee('inputmode="decimal"', false);
         $html->assertSee('R$');
         $html->assertSee('x-on:input="$el.value = format($el.value); if ($el._x_model) { $el._x_model.set($el.value); }"', false);
@@ -49,7 +49,7 @@ class MaskedInputTest extends TestCase
         $html->assertSee('CEP');
         $html->assertSee('wire:model.live="postalCode"', false);
         $html->assertSee('custom-cep', false);
-        $html->assertSee('border border-secondary/30', false);
+        $html->assertSee('border border-secondary/15', false);
         $html->assertSee('bi bi-geo-alt', false);
         $html->assertSee('inputmode="numeric"', false);
         $html->assertSee('autocomplete="postal-code"', false);
