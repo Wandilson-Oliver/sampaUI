@@ -29,12 +29,13 @@ BLADE);
         $html->assertSee('max-w-lg', false);
         $html->assertSee('rounded-l-default', false);
         $html->assertSee('$wire.entangle(\'showDrawer\').live', false);
-        $html->assertSee('openDrawer()', false);
+        $html->assertSee('SampaUI.overlay', false);
         $html->assertSee('translate-x-full opacity-0', false);
         $html->assertSee('translate-x-0 translate-y-0 opacity-100', false);
         $html->assertSee('will-change: transform, translate, opacity;', false);
         $html->assertSee('backdrop-blur-[2px]', false);
         $html->assertSee('aria-label="Fechar drawer"', false);
+        $html->assertSee('x-on:keydown.tab="trapTab($event)"', false);
         $html->assertSee('border border-light', false);
     }
 
@@ -66,7 +67,9 @@ BLADE);
         $html->assertSee('-translate-x-full opacity-0', false);
         $html->assertSee('translate-x-0 translate-y-0 opacity-100', false);
         $html->assertSee('x-on:filters-applied.window="close(false)"', false);
-        $html->assertSee('() =&gt; $wire.afterDrawerClose()', false);
+        $html->assertSee("afterClose: 'afterDrawerClose'", false);
+        $html->assertSee('closeOnEscape: false', false);
+        $html->assertSee('closeOnOutside: false', false);
         $html->assertSee('border border-primary/20', false);
         $html->assertDontSee('aria-label="Fechar drawer"', false);
     }

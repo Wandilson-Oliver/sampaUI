@@ -16,12 +16,14 @@ class SelectTest extends TestCase
         $html->assertSee('Selecione');
         $html->assertSee('Ativo');
         $html->assertSee('wire:model="status"', false);
-        $html->assertSee('x-modelable="value"', false);
+        $html->assertSee('x-model="value"', false);
         $html->assertSee('x-ref="native"', false);
         $html->assertSee('role="listbox"', false);
         $html->assertSee('role="option"', false);
         $html->assertSee('shadow-2xl shadow-secondary/10', false);
         $html->assertSee('bi bi-chevron-down', false);
+        $html->assertSee('x-on:keydown.arrow-down.prevent="move(1)"', false);
+        $html->assertSee('aria-activedescendant', false);
     }
 
     public function test_it_supports_options_prop_selected_value_and_custom_class(): void
@@ -43,7 +45,7 @@ BLADE);
         $html->assertSee('Ativo');
         $html->assertSee('Inativo');
         $html->assertSee('custom-trigger', false);
-        $html->assertSee('value: \'active\'', false);
-        $html->assertSee('select:changed', false);
+        $html->assertSee('selected', false);
+        $html->assertSee('SampaUI.select', false);
     }
 }

@@ -25,3 +25,7 @@ A area de selecao usa borda tracejada `border-secondary/40` por padrao.
 O input real preserva atributos Livewire e HTML. Ao remover um item do preview, o componente tambem atualiza o `FileList` do input e dispara eventos para sincronizar formularios e Livewire.
 
 Para uploads Livewire, use somente `wire:model`; nao informe `value`, pois inputs de arquivo nao aceitam valor inicial.
+
+## Progresso e validacao
+
+`max-size` valida KB por arquivo; `accept` e validado antes do upload. Cada arquivo exibe progresso e estado. `retry` habilita a acao `file-upload:retry`; cancelamento usa `cancelUpload` do Livewire. `chunk-size` publica `file-upload:chunks-ready` para backends que implementem upload em partes, sem impor dependencia ao pacote.

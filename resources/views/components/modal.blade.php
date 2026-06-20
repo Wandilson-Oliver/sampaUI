@@ -5,6 +5,8 @@
     'size' => 'lg',
     'variant' => 'default',
     'persistent' => false,
+    'closeOnEscape' => null,
+    'closeOnOutside' => null,
     'closeButton' => true,
     'closeEvent' => null,
     'afterClose' => null,
@@ -40,68 +42,20 @@
     $panelSize = $sizes[$size] ?? $sizes['lg'];
     $panelTone = $variants[$variant] ?? $variants['default'];
     $closeDelay = 260;
-    $afterCloseExpression = $afterClose ? '() => $wire.'.$afterClose.'()' : 'null';
+    $escapeEnabled = is_null($closeOnEscape) ? ! $persistent : (bool) $closeOnEscape;
+    $outsideEnabled = is_null($closeOnOutside) ? ! $persistent : (bool) $closeOnOutside;
     $hasHeader = filled($title) || filled($subtitle) || isset($header) || $closeButton;
 @endphp
 
 <div
     style="display: contents;"
-    x-data="{
+    x-data="SampaUI.overlay({
         serverOpen: $wire.entangle({{ \Illuminate\Support\Js::from($model) }}).live,
-        visible: false,
-        active: false,
-        closeTimer: null,
         closeDelay: {{ $closeDelay }},
-        afterClose: {{ $afterCloseExpression }},
-        openModal() {
-            clearTimeout(this.closeTimer);
-            this.visible = true;
-            document.documentElement.classList.add('overflow-hidden');
-            document.body.classList.add('overflow-hidden');
-
-            this.$nextTick(() => {
-                if (! this.$refs.dialog.open) {
-                    this.$refs.dialog.showModal();
-                }
-
-                this.active = true;
-                this.$refs.panel?.focus();
-            });
-        },
-        close(sync = true) {
-            if (! this.visible) {
-                return;
-            }
-
-            this.active = false;
-            clearTimeout(this.closeTimer);
-
-            this.closeTimer = setTimeout(() => {
-                this.visible = false;
-                document.documentElement.classList.remove('overflow-hidden');
-                document.body.classList.remove('overflow-hidden');
-
-                if (this.$refs.dialog.open) {
-                    this.$refs.dialog.close();
-                }
-
-                if (sync) {
-                    this.serverOpen = false;
-                }
-
-                if (this.afterClose) {
-                    this.afterClose();
-                }
-            }, this.closeDelay);
-        },
-    }"
-    x-init="
-        if (serverOpen) {
-            openModal();
-        }
-
-        $watch('serverOpen', value => value ? openModal() : close(false));
-    "
+        closeOnEscape: @js($escapeEnabled),
+        closeOnOutside: @js($outsideEnabled),
+        afterClose: @js($afterClose),
+    })"
 >
     <dialog
         x-ref="dialog"
@@ -111,7 +65,7 @@
         aria-modal="true"
         @if ($titleId) aria-labelledby="{{ $titleId }}" @endif
         @if ($subtitleId) aria-describedby="{{ $subtitleId }}" @endif
-        @cancel.prevent="{{ $persistent ? '' : 'close()' }}"
+        @cancel.prevent="handleEscape()"
         @if ($closeEvent)
             x-on:{{ $closeEvent }}.window="close(false)"
         @endif
@@ -126,7 +80,7 @@
             x-transition:leave-start="opacity-100"
             x-transition:leave-end="opacity-0"
             class="flex min-h-dvh w-full items-center justify-center p-4 sm:p-6"
-            @click.self="{{ $persistent ? '' : 'close()' }}"
+            @click.self="handleOutside()"
         >
             <section
                 x-ref="panel"
@@ -138,6 +92,7 @@
                 x-transition:leave-start="translate-y-0 scale-100 opacity-100"
                 x-transition:leave-end="translate-x-6 -translate-y-6 scale-75 opacity-0"
                 tabindex="-1"
+                x-on:keydown.tab="trapTab($event)"
                 class="relative flex max-h-[calc(100dvh-2rem)] w-full {{ $panelSize }} origin-top-right flex-col overflow-hidden rounded-default border {{ $panelTone }} {{ $panelClass }} bg-white outline-none"
             >
                 @if ($hasHeader)

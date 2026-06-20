@@ -4,87 +4,86 @@
     'accept' => null,
     'multiple' => false,
     'preview' => false,
+    'hint' => null,
     'error' => null,
     'disabled' => false,
+    'loading' => false,
+    'loadingTarget' => null,
+    'required' => false,
+    'maxSize' => 0,
+    'retry' => false,
+    'chunkSize' => 0,
+    'typeError' => 'Tipo de arquivo nao permitido.',
+    'sizeError' => 'O arquivo excede o tamanho maximo permitido.',
+    'cancelLabel' => 'Cancelar upload',
+    'retryLabel' => 'Tentar novamente',
 ])
 
 @php
     $id = sampaui_id($attributes, $name, 'sampaui-file');
     $errorMessage = sampaui_error($name, $error, $errors ?? null);
+    $describedBy = sampaui_described_by($id, $hint, $errorMessage, $attributes->get('aria-describedby'));
+    $wireModel = collect($attributes->getAttributes())->filter(fn (mixed $value, string $key): bool => str_starts_with($key, 'wire:model'))->first();
+    $unavailable = $disabled || $loading;
 @endphp
 
-<div
-    class="space-y-2"
-    @if ($preview)
-        x-data="{
-            files: [],
-            setFiles(input) {
-                this.revokePreviewUrls()
-                this.files = Array.from(input.files || [])
-                    .filter(file => file.type.startsWith('image/'))
-                    .map(file => ({ file, name: file.name, url: URL.createObjectURL(file) }))
-            },
-            removeFile(index) {
-                const removed = this.files.splice(index, 1)[0]
+<x-sampaui::field :id="$id" :label="$label" :hint="$hint" :error="$errorMessage" :required="$required">
+    <div
+        x-data="SampaUI.fileUpload(@js([
+            'accept' => $accept,
+            'maxSize' => (int) $maxSize,
+            'model' => $wireModel,
+            'retry' => $retry,
+            'chunkSize' => (int) $chunkSize,
+            'typeError' => $typeError,
+            'sizeError' => $sizeError,
+        ]))"
+        x-on:beforeunload.window="revokePreviewUrls()"
+        class="space-y-3"
+        @if ($chunkSize) data-chunk-size="{{ (int) $chunkSize }}" @endif
+    >
+        <label for="{{ $id }}" class="{{ sampaui_classes(['flex cursor-pointer flex-col items-center justify-center rounded-default border border-dashed border-secondary/40 bg-white px-6 py-8 text-center transition hover:border-primary hover:bg-light/30 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20', $attributes->get('class'), 'border-danger ring-2 ring-danger/20' => filled($errorMessage), 'cursor-not-allowed opacity-50' => $unavailable]) }}">
+            <i class="bi bi-cloud-arrow-up text-2xl text-primary" aria-hidden="true"></i>
+            <span class="mt-2 text-sm font-medium text-secondary">{{ trim($slot->toHtml()) !== '' ? $slot : 'Clique para selecionar arquivo' }}</span>
+            @if ($maxSize)<span class="mt-1 text-xs text-secondary/60">Maximo: {{ $maxSize }} KB</span>@endif
+            <input
+                x-ref="input"
+                id="{{ $id }}"
+                type="file"
+                @if ($name) name="{{ $name }}" @endif
+                @if ($accept) accept="{{ $accept }}" @endif
+                class="sr-only"
+                @if ($multiple) multiple @endif
+                @disabled($unavailable)
+                @required($required)
+                @if ($loadingTarget ?? $wireModel) wire:loading.attr="disabled" wire:target="{{ $loadingTarget ?? $wireModel }}" @endif
+                x-on:change="setFiles($event.target)"
+                @if ($errorMessage) aria-invalid="true" @else aria-invalid="false" @endif
+                @if ($describedBy) aria-describedby="{{ $describedBy }}" @endif
+                @if ($loading) aria-busy="true" @endif
+                {{ $attributes->except(['class', 'id', 'aria-describedby']) }}
+            >
+        </label>
 
-                if (removed) URL.revokeObjectURL(removed.url)
+        <p x-show="error" x-cloak x-text="error" class="text-sm text-danger" role="alert"></p>
 
-                const transfer = new DataTransfer()
-
-                this.files.forEach(item => transfer.items.add(item.file))
-                this.$refs.input.files = transfer.files
-                this.$refs.input.dispatchEvent(new Event('change', { bubbles: true }))
-                this.$refs.input.dispatchEvent(new Event('input', { bubbles: true }))
-            },
-            revokePreviewUrls() {
-                this.files.forEach(file => URL.revokeObjectURL(file.url))
-            },
-        }"
-        x-on:beforeunload.window="revokePreviewUrls"
-    @endif
->
-    @if ($label)
-        <label for="{{ $id }}" class="block text-sm font-medium text-secondary">{{ $label }}</label>
-    @endif
-
-    <label for="{{ $id }}" class="{{ sampaui_classes(['flex cursor-pointer flex-col items-center justify-center rounded-default border border-dashed border-secondary/40 bg-white px-6 py-8 text-center transition hover:border-primary hover:bg-light/30', 'border-danger ring-2 ring-danger/20' => filled($errorMessage), 'cursor-not-allowed opacity-50' => $disabled]) }}">
-        <i class="bi bi-cloud-arrow-up text-2xl text-primary" aria-hidden="true"></i>
-        <span class="mt-2 text-sm font-medium text-secondary">{{ trim($slot->toHtml()) !== '' ? $slot : 'Clique para selecionar arquivo' }}</span>
-        <input
-            id="{{ $id }}"
-            type="file"
-            @if ($name) name="{{ $name }}" @endif
-            @if ($accept) accept="{{ $accept }}" @endif
-            class="sr-only"
-            @if ($preview) x-ref="input" @endif
-            @if ($multiple) multiple @endif
-            @disabled($disabled)
-            @if ($preview) x-on:change="setFiles($event.target)" @endif
-            {{ $attributes->except('class') }}
-        >
-    </label>
-
-    @if ($preview)
-        <div class="grid grid-cols-2 gap-3 sm:grid-cols-4" x-show="files.length > 0" x-cloak>
-            <template x-for="(file, index) in files" x-bind:key="file.url">
-                <figure class="relative overflow-hidden rounded-default border border-light bg-white">
-                    <button
-                        type="button"
-                        class="absolute right-2 top-2 inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-danger text-white shadow-md shadow-danger/20 transition hover:bg-danger/90 focus:outline-none focus:ring-2 focus:ring-danger/30 focus:ring-offset-2"
-                        x-on:click="removeFile(index)"
-                        aria-label="Remover imagem do preview"
-                        title="Remover imagem"
-                    >
-                        <i class="bi bi-trash3-fill text-xs" aria-hidden="true"></i>
-                    </button>
-                    <img x-bind:src="file.url" x-bind:alt="file.name" class="aspect-square w-full object-cover">
-                    <figcaption class="truncate px-2 py-1 text-xs text-secondary" x-text="file.name"></figcaption>
-                </figure>
+        <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4" x-show="files.length > 0" x-cloak>
+            <template x-for="(file, index) in files" x-bind:key="file.id">
+                <article class="relative overflow-hidden rounded-default border border-light bg-white">
+                    <img x-show="@js($preview) && file.url" x-bind:src="file.url" x-bind:alt="file.name" class="aspect-square w-full object-cover">
+                    <div class="space-y-2 p-3">
+                        <p class="truncate text-xs font-medium text-secondary" x-text="file.name"></p>
+                        <div class="h-1.5 overflow-hidden rounded-full bg-light" role="progressbar" aria-label="Progresso do upload" aria-valuemin="0" aria-valuemax="100" x-bind:aria-valuenow="Math.round(file.progress)"><div class="h-full bg-primary transition-[width]" x-bind:style="`width: ${file.progress}%`"></div></div>
+                        <div class="flex items-center justify-between gap-2 text-xs text-secondary/70"><span x-text="file.status"></span><span x-text="`${Math.round(file.progress)}%`"></span></div>
+                        <button type="button" class="text-xs font-medium text-danger focus:outline-none focus:ring-2 focus:ring-danger/30" x-on:click="removeFile(index)" x-show="file.status === 'ready'" x-bind:aria-label="'Remover ' + file.name">Remover</button>
+                    </div>
+                </article>
             </template>
         </div>
-    @endif
 
-    @if ($errorMessage)
-        <p class="text-sm text-danger">{{ $errorMessage }}</p>
-    @endif
-</div>
+        <div class="flex flex-wrap gap-2" x-show="files.some(file => ['uploading', 'error', 'cancelled'].includes(file.status))" x-cloak>
+            <button type="button" class="rounded-default border border-danger px-3 py-2 text-sm font-medium text-danger focus:outline-none focus:ring-2 focus:ring-danger/20" x-show="files.some(file => file.status === 'uploading')" x-on:click="cancel()">{{ $cancelLabel }}</button>
+            @if ($retry)<button type="button" class="rounded-default border border-primary px-3 py-2 text-sm font-medium text-primary focus:outline-none focus:ring-2 focus:ring-primary/20" x-show="files.some(file => ['error', 'cancelled'].includes(file.status))" x-on:click="retryUpload()">{{ $retryLabel }}</button>@endif
+        </div>
+    </div>
+</x-sampaui::field>

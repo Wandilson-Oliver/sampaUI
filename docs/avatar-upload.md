@@ -25,3 +25,7 @@ Use para upload de foto de perfil com preview circular, acao de editar e remocao
 - `error`, `disabled`.
 
 O input real preserva atributos Livewire e HTML. Para Livewire, use `WithFileUploads` no componente PHP, `wire:model` no `avatar-upload` e `remove-model` para ler a remocao no metodo de salvar.
+
+## Estados e acessibilidade
+
+Aceita `hint`, `required`, `loading`, `loading-target`, `disabled` e erro. Label, hint e erro sao associados ao input real; a remocao tambem sincroniza `input` e `change` com Livewire.

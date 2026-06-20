@@ -17,3 +17,5 @@ Use para confirmacoes, formularios curtos e detalhes importantes.
 - `close-button`: controla o botao de fechar.
 
 O modal bloqueia scroll, usa `<dialog>` nativo com top layer do navegador, preserva `role="dialog"` e recebe foco ao abrir. Isso mantém o overlay acima de sidebars, topbars e containers com `overflow`.
+
+O foco fica preso no painel e retorna ao acionador. `close-on-escape` e `close-on-outside` configuram o fechamento; `persistent` desativa ambos por padrao.

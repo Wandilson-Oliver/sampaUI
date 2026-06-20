@@ -20,3 +20,4 @@ Use para fluxos laterais como filtros, edicao rapida e detalhes.
 
 O painel recebe foco ao abrir e bloqueia scroll do documento.
 
+O foco fica preso no painel e retorna ao acionador ao fechar. `close-on-escape` e `close-on-outside` permitem configurar cada comportamento; `persistent` desativa ambos por padrao.

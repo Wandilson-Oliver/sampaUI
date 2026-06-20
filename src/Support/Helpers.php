@@ -60,18 +60,48 @@ if (! function_exists('sampaui_classes')) {
     }
 }
 
+if (! function_exists('sampaui_described_by')) {
+    function sampaui_described_by(string $id, ?string $hint = null, ?string $error = null, ?string $existing = null): ?string
+    {
+        $ids = collect([
+            $existing,
+            filled($hint) ? $id.'-hint' : null,
+            filled($error) ? $id.'-error' : null,
+        ])->filter()->flatMap(fn (string $value): array => preg_split('/\s+/', trim($value)) ?: [])->unique()->values();
+
+        return $ids->isEmpty() ? null : $ids->implode(' ');
+    }
+}
+
 if (! function_exists('sampaui_field_classes')) {
     /**
      * Base visual para inputs nativos e campos de formulario.
      *
      * @param  array<int|string, string|bool|null>  $classes
      */
-    function sampaui_field_classes(?string $errorMessage = null, bool $disabled = false, array $classes = []): string
+    function sampaui_field_classes(
+        ?string $errorMessage = null,
+        bool $disabled = false,
+        array $classes = [],
+        ?string $state = null,
+        bool $readonly = false,
+        bool $loading = false,
+    ): string
     {
+        $normalizedState = filled($errorMessage) ? 'error' : ($state ?? 'default');
+
+        $states = [
+            'default' => null,
+            'error' => 'border-danger ring-2 ring-danger/20',
+            'success' => 'border-success focus:border-success focus:ring-success/20',
+            'warning' => 'border-warning focus:border-warning focus:ring-warning/20',
+        ];
+
         return sampaui_classes(array_merge([
             'block w-full rounded-default border border-secondary/20 bg-white px-4 py-2.5 text-base text-secondary transition placeholder:text-secondary/50 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20',
-            'border-danger ring-2 ring-danger/20' => filled($errorMessage),
-            'cursor-not-allowed opacity-50' => $disabled,
+            $states[$normalizedState] ?? $states['default'],
+            'cursor-not-allowed opacity-50' => $disabled || $loading,
+            'bg-light/40 text-secondary/80' => $readonly,
         ], $classes));
     }
 }
@@ -82,12 +112,26 @@ if (! function_exists('sampaui_trigger_classes')) {
      *
      * @param  array<int|string, string|bool|null>  $classes
      */
-    function sampaui_trigger_classes(?string $errorMessage = null, bool $disabled = false, array $classes = []): string
+    function sampaui_trigger_classes(
+        ?string $errorMessage = null,
+        bool $disabled = false,
+        array $classes = [],
+        ?string $state = null,
+        bool $loading = false,
+    ): string
     {
+        $normalizedState = filled($errorMessage) ? 'error' : ($state ?? 'default');
+        $states = [
+            'default' => null,
+            'error' => 'border-danger ring-2 ring-danger/20',
+            'success' => 'border-success focus:border-success focus:ring-success/20',
+            'warning' => 'border-warning focus:border-warning focus:ring-warning/20',
+        ];
+
         return sampaui_classes(array_merge([
             'flex w-full cursor-pointer items-center justify-between gap-3 rounded-default border border-secondary/40 bg-white px-4 py-2.5 text-left text-base text-secondary transition focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20',
-            'border-danger ring-2 ring-danger/20' => filled($errorMessage),
-            'cursor-not-allowed opacity-50' => $disabled,
+            $states[$normalizedState] ?? $states['default'],
+            'cursor-not-allowed opacity-50' => $disabled || $loading,
         ], $classes));
     }
 }
@@ -191,6 +235,31 @@ if (! function_exists('sampaui_badge_variant_classes')) {
         ];
 
         return $variants[$variant] ?? $variants['primary'];
+    }
+}
+
+if (! function_exists('sampaui_badge_appearance_classes')) {
+    function sampaui_badge_appearance_classes(string $variant = 'primary', string $appearance = 'soft'): string
+    {
+        $colors = [
+            'primary' => ['border-primary/25', 'bg-primary/10 text-primary', 'bg-primary text-white', 'text-primary'],
+            'secondary' => ['border-secondary/40', 'bg-secondary/10 text-secondary', 'bg-secondary text-white', 'text-secondary'],
+            'accent' => ['border-accent/30', 'bg-accent/10 text-accent', 'bg-accent text-white', 'text-accent'],
+            'danger' => ['border-danger/30', 'bg-danger/10 text-danger', 'bg-danger text-white', 'text-danger'],
+            'success' => ['border-success/30', 'bg-success/10 text-success', 'bg-success text-white', 'text-success'],
+            'warning' => ['border-warning/30', 'bg-warning/10 text-warning', 'bg-warning text-white', 'text-warning'],
+            'info' => ['border-info/30', 'bg-info/10 text-info', 'bg-info text-white', 'text-info'],
+            'purple' => ['border-purple/30', 'bg-purple/10 text-purple', 'bg-purple text-white', 'text-purple'],
+            'muted' => ['border-muted/30', 'bg-muted/10 text-secondary', 'bg-muted text-white', 'text-secondary'],
+            'light' => ['border-light', 'bg-light text-secondary', 'bg-light text-secondary', 'text-secondary'],
+        ];
+        $tone = $colors[$variant] ?? $colors['primary'];
+
+        return match ($appearance) {
+            'solid' => $tone[0].' '.$tone[2],
+            'outline' => $tone[0].' bg-transparent '.$tone[3],
+            default => $tone[0].' '.$tone[1],
+        };
     }
 }
 

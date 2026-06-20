@@ -19,10 +19,26 @@ class MaskedInputTest extends TestCase
         $html->assertSee('bi bi-telephone', false);
         $html->assertSee('inputmode="tel"', false);
         $html->assertSee('autocomplete="tel"', false);
-        $html->assertSee('value.replace(/\\D/g, \'\').slice(0, 11)', false);
-        $html->assertSee('value.slice(2, 3) + \' \' + value.slice(3, 7) + \'-\' + value.slice(7)', false);
-        $html->assertSee('x-on:input="$el.value = format($el.value); if ($el._x_model) { $el._x_model.set($el.value); }"', false);
+        $html->assertSee('x-data="SampaUI.phone()"', false);
+        $html->assertSee('x-on:input="onInput($event)"', false);
         $html->assertDontSee('x-mask', false);
+    }
+
+    public function test_phone_mask_and_clearable_input_do_not_override_each_others_listener(): void
+    {
+        $html = $this->blade(
+            '<x-sampaui::phone name="phone" label="Telefone" clearable value="(11) 99999-9999" />'
+        );
+
+        $html->assertSee('x-data="SampaUI.input({ clearable: true })"', false);
+        $html->assertSee('x-data="SampaUI.phone()"', false);
+        $html->assertSee('x-on:input="onInput($event)"', false);
+        $html->assertDontSee('x-on:input="updateValueState()"', false);
+        $html->assertSee('aria-label="Limpar campo"', false);
+
+        $javascript = file_get_contents(dirname(__DIR__, 2).'/resources/js/sampaui.js');
+
+        $this->assertStringContainsString("addEventListener('input', () => this.updateValueState())", $javascript);
     }
 
     public function test_currency_br_uses_input_base_and_brazilian_formatter(): void

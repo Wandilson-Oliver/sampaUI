@@ -57,3 +57,5 @@ public function statusVariant(string $status): string
     ][$status] ?? 'muted';
 }
 ```
+
+Use `appearance="soft|solid|outline"` com qualquer `variant`. Os tamanhos disponiveis sao `xs`, `sm`, `md` e `lg`.

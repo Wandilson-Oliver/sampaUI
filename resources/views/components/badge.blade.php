@@ -1,5 +1,6 @@
 @props([
     'variant' => 'primary',
+    'appearance' => 'soft',
     'size' => 'md',
     'icon' => null,
     'rounded' => true,
@@ -15,7 +16,7 @@
 
     $classes = sampaui_classes([
         'inline-flex items-center border font-medium',
-        sampaui_badge_variant_classes($variant),
+        sampaui_badge_appearance_classes($variant, $appearance),
         $sizes[$size] ?? $sizes['md'],
         $rounded ? 'rounded-full' : 'rounded-default',
     ]);

@@ -107,6 +107,7 @@ php artisan sampaui:docs-export --format=markdown
 - `dropdown`: `<x-sampaui::dropdown />`
 - `dropdown-item`: `<x-sampaui::dropdown-item />`
 - `empty-state`: `<x-sampaui::empty-state />`
+- `field`: `<x-sampaui::field />`
 - `file-upload`: `<x-sampaui::file-upload />`
 - `header`: `<x-sampaui::header />`
 - `indicator`: `<x-sampaui::indicator />`
@@ -136,6 +137,12 @@ php artisan sampaui:docs-export --format=markdown
 - `select` usa combobox Alpine com `x-modelable`, aceita `options`, `value`, `placeholder`, `emptyText`, `required` e preserva um `<select>` real oculto para formularios e Livewire.
 - `table` aceita colunas com `sortable => true` e props `sortBy`, `sortDirection` e `sortMethod`; sem `sortMethod`, ordena `rows` estaticamente.
 - `dropdown` aceita `align`, `width` e `placement`; use `placement="top"` em menus nas ultimas linhas de tabelas ou containers com rolagem para evitar corte visual.
+- Campos centrais aceitam `hint`, `error`, `state`, `required`, `readonly`, `loading` e `loading-target`, associando label e feedback por ARIA ao controle real.
+- `select` e `select-multiple` preservam `wire:model` no controle nativo, suportam teclado e limpeza com `clearable`.
+- `file-upload` aceita `max-size`, `retry` e `chunk-size`; progresso e cancelamento integram os eventos de upload do Livewire.
+- `modal`, `drawer` e `dropdown` controlam foco, Esc e click-outside; `close-on-escape` e `close-on-outside` sao configuraveis.
+- `toast` usa fila e limite de visiveis, pausa timer com foco e aceita `variant="soft|solid|outline"` e `size="sm|md|lg"`.
+- `table` aceita `sticky-header` e `mobile-cards`; `pagination` aceita `compact`; `header` oferece slots `left`, `center` e `right`.
 - Componentes de chat: use `chat-layout` como estrutura, `chat-sidebar` para conversas, `chat-conversation` para a conversa ativa, `chat-message` para bolhas e `chat-composer` para envio.
 
 ## Masked Fields

@@ -47,3 +47,5 @@ Com Livewire, `wire:model` sincroniza pelo `x-modelable` e atualiza o `<select>`
 - `error`
 - `disabled`
 - `required`
+
+O trigger suporta setas, Home, End, Enter, Espaco e Esc, com opcao ativa anunciada por `aria-activedescendant`. Use `clearable`, `hint`, `readonly`, `loading`, `loading-target`, `state`, `prefix` e `suffix`. `wire:model` permanece no `<select>` real.

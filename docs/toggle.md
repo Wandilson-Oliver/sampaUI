@@ -21,3 +21,5 @@ Quando desligado, o trilho e o botao interno usam a cor definida em `color`. Qua
 - `color`: tokens da paleta oficial (`primary`, `secondary`, `accent`, `danger`, `success`, `warning`, `info`, `purple`, `muted`, `light`).
 
 O input real preserva `wire:model`, `required` e atributos HTML.
+
+O controle usa `role="switch"` e aceita `hint`, `error`, `readonly`, `loading`, `loading-target` e estados visuais consistentes.

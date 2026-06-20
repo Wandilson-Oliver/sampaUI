@@ -2,6 +2,26 @@
 
 Todas as mudanças notáveis do SampaUI serão documentadas neste arquivo.
 
+## v0.1.16 - 2026-06-20
+
+### Adicionado
+
+- Wrapper `field` para label, hint, indicador obrigatorio e erro acessivel sem duplicacao nos controles.
+- Navegacao por teclado, limpeza e estados premium em Select e Select Multiple.
+- Progresso por arquivo, validacao de tipo/tamanho, cancelamento e hooks opcionais de retry/chunks no File Upload.
+
+### Melhorado
+
+- Inputs, Phone, Checkbox, Textarea, Toggle, Avatar Upload e selects agora associam `aria-invalid`, `aria-describedby`, label e foco de forma consistente, preservando `wire:model` no controle real.
+- Modal, Drawer e Dropdown passaram a usar controladores Alpine externos, focus trap, retorno de foco, Esc e click-outside configuraveis.
+- Toast ganhou fila, limite de itens visiveis, timer pausavel por mouse/foco, live regions por severidade e variantes `soft`, `solid` e `outline`.
+- Badge e Card ganharam aparencias consistentes; Table recebeu header sticky e fallback mobile em cards; Pagination ganhou modo compacto; Header ganhou slots `left`, `center` e `right`.
+- Toast aceita os eventos `toast` e `sampaui:toast`; Phone combina mascara e limpeza sem sobrescrever listeners; Header preserva rotulo acessivel com slot `left` customizado.
+
+### Testes
+
+- Cobertura de contratos de renderizacao, atributos Livewire, acessibilidade basica, estados premium e responsividade estrutural.
+
 ## v0.1.15 - 2026-06-18
 
 ### Melhorado

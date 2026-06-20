@@ -9,6 +9,10 @@
     'sortBy' => null,
     'sortDirection' => 'asc',
     'sortMethod' => null,
+    'stickyHeader' => false,
+    'mobileCards' => false,
+    'loading' => false,
+    'loadingTarget' => null,
 ])
 
 @php
@@ -46,13 +50,13 @@
     'overflow-hidden rounded-default bg-white',
     $bordered ? 'border border-light' : null,
 ])]) }}>
-    <div class="overflow-x-auto">
-        <table class="{{ $tableClasses }}">
+    <div @class(['overflow-x-auto', 'hidden sm:block' => $mobileCards && count($columns) > 0])>
+        <table class="{{ $tableClasses }}" @if ($loading) aria-busy="true" @endif>
             @isset($head)
                 {{ $head }}
             @else
                 @if (count($columns) > 0)
-                    <thead class="bg-light/50 text-xs font-semibold uppercase tracking-[0.22em] text-secondary">
+                    <thead @class(['bg-light/50 text-xs font-semibold uppercase tracking-[0.22em] text-secondary', 'sticky top-0 z-10' => $stickyHeader])>
                         <tr>
                             @foreach ($columns as $columnKey => $columnLabel)
                                 @php
@@ -66,7 +70,7 @@
                                         : 'arrow-down-up';
                                 @endphp
 
-                                <th scope="col" @class([$cellPadding, 'text-right' => $align === 'right', 'text-center' => $align === 'center'])>
+                                <th scope="col" @class([$cellPadding, 'text-right' => $align === 'right', 'text-center' => $align === 'center']) @if ($sortable) aria-sort="{{ $isActiveSort ? ($normalizedSortDirection === 'asc' ? 'ascending' : 'descending') : 'none' }}" @endif>
                                     @if ($sortable)
                                         <button
                                             type="button"
@@ -78,11 +82,12 @@
                                             ]) }}"
                                             @if ($sortMethod)
                                                 wire:click="{{ $sortMethod }}('{{ $key }}')"
+                                                wire:loading.attr="disabled"
+                                                wire:target="{{ $loadingTarget ?? $sortMethod }}"
                                             @else
                                                 data-sort-by="{{ $key }}"
                                                 data-sort-direction="{{ $nextDirection }}"
                                             @endif
-                                            aria-sort="{{ $isActiveSort ? ($normalizedSortDirection === 'asc' ? 'ascending' : 'descending') : 'none' }}"
                                         >
                                             <span>{{ $columnLabel['label'] ?? $columnKey }}</span>
                                             <i class="bi bi-{{ $sortIcon }} text-[0.9em]" aria-hidden="true"></i>
@@ -128,4 +133,25 @@
             {{ $slot }}
         </table>
     </div>
+
+    @if ($mobileCards && count($columns) > 0)
+        <div class="divide-y divide-light sm:hidden">
+            @forelse ($renderRows as $row)
+                <article class="space-y-3 p-4">
+                    @foreach ($columns as $columnKey => $columnLabel)
+                        @php
+                            $key = is_array($columnLabel) ? ($columnLabel['key'] ?? $columnKey) : $columnKey;
+                            $label = is_array($columnLabel) ? ($columnLabel['label'] ?? $columnKey) : $columnLabel;
+                        @endphp
+                        <div class="flex items-start justify-between gap-4">
+                            <span class="text-xs font-semibold uppercase tracking-wide text-secondary/60">{{ $label }}</span>
+                            <span class="min-w-0 text-right text-sm text-secondary">{{ data_get($row, $key) }}</span>
+                        </div>
+                    @endforeach
+                </article>
+            @empty
+                <p class="p-4 text-center text-sm text-secondary/70">{{ $empty }}</p>
+            @endforelse
+        </div>
+    @endif
 </div>

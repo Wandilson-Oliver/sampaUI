@@ -31,7 +31,7 @@ class InputTest extends TestCase
             ->assertSee('pl-11', false);
 
         $this->blade('<x-sampaui::input name="password" type="password" label="Senha" icon="lock" />')
-            ->assertSee('x-data="{ showPassword: false }"', false)
+            ->assertSee('x-data="SampaUI.input({ clearable: false })"', false)
             ->assertSee('x-bind:type="showPassword ? \'text\' : \'password\'"', false)
             ->assertSee('x-on:click="showPassword = ! showPassword"', false)
             ->assertSee('bi-eye-slash', false)

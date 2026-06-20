@@ -161,7 +161,7 @@ Campos textuais usam `border-secondary/20` como borda padrao, incluindo `input`,
 <x-sampaui::cep name="postal_code" label="CEP" wire:model.live="postal_code" />
 ```
 
-Os campos `phone`, `currency-br` e `cep` formatam valores internamente com Alpine inline e nao exigem plugin externo de mascara.
+Os campos `phone`, `currency-br` e `cep` formatam valores internamente com Alpine e nao exigem plugin externo de mascara. O Phone usa o controlador distribuido em `sampaui.js`, sem funcoes inline na view.
 
 ### Select
 

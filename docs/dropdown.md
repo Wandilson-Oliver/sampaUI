@@ -25,3 +25,5 @@ Use para menus de acoes, filtros e seletores compactos.
 ## Subcomponente
 
 `x-sampaui::dropdown-item` e parte do dropdown. Ele aceita `href`, `type`, `icon`, `disabled` e preserva atributos Livewire como `wire:click`.
+
+O menu move o foco ao abrir, suporta setas, Home e Esc e devolve o foco ao trigger. Use `close-on-escape` e `close-on-outside` para configurar o fechamento.

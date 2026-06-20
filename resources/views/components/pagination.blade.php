@@ -9,6 +9,7 @@
     'window' => 1,
     'wireMethod' => null,
     'simple' => false,
+    'compact' => false,
 ])
 
 @php
@@ -33,7 +34,10 @@
         ->values()
         ->all();
 
-    $itemBase = 'inline-flex h-11 min-w-11 cursor-pointer items-center justify-center rounded-default border border-light bg-white px-3 text-sm font-semibold text-secondary transition hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20';
+    $itemBase = sampaui_classes([
+        'inline-flex cursor-pointer items-center justify-center rounded-default border border-light bg-white text-sm font-semibold text-secondary transition hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20',
+        $compact ? 'h-9 min-w-9 px-2' : 'h-11 min-w-11 px-3',
+    ]);
     $itemActive = '!border-primary !bg-primary !text-white hover:!text-white';
     $itemDisabled = 'cursor-not-allowed opacity-50';
 @endphp
@@ -50,11 +54,11 @@
 
     <div class="flex flex-wrap items-center gap-2">
         @if ($wireMethod)
-            <button type="button" class="{{ sampaui_classes([$itemBase, $currentPage <= 1 ? $itemDisabled : null]) }}" wire:click="{{ $wireMethod }}({{ max(1, $currentPage - 1) }})" @disabled($currentPage <= 1) aria-label="Pagina anterior">
+            <button type="button" class="{{ sampaui_classes([$itemBase, $currentPage <= 1 ? $itemDisabled : null]) }}" wire:click="{{ $wireMethod }}({{ max(1, $currentPage - 1) }})" wire:loading.attr="disabled" wire:target="{{ $wireMethod }}" @disabled($currentPage <= 1) aria-label="Pagina anterior">
                 <i class="bi bi-chevron-left"></i>
             </button>
         @else
-            <a href="{{ $previousUrl ?: '#' }}" class="{{ sampaui_classes([$itemBase, ! $previousUrl ? $itemDisabled : null]) }}" @if (! $previousUrl) aria-disabled="true" @endif aria-label="Pagina anterior">
+            <a href="{{ $previousUrl ?: '#' }}" class="{{ sampaui_classes([$itemBase, ! $previousUrl ? $itemDisabled : null]) }}" @if (! $previousUrl) aria-disabled="true" tabindex="-1" @endif aria-label="Pagina anterior">
                 <i class="bi bi-chevron-left"></i>
             </a>
         @endif
@@ -63,11 +67,11 @@
             @php $previousPage = null; @endphp
             @foreach ($pages as $page)
                 @if (! is_null($previousPage) && $page > $previousPage + 1)
-                    <span class="inline-flex h-11 items-center px-2 text-sm font-semibold text-secondary/60" aria-hidden="true">...</span>
+                    <span class="inline-flex {{ $compact ? 'h-9' : 'h-11' }} items-center px-2 text-sm font-semibold text-secondary/60" aria-hidden="true">...</span>
                 @endif
 
                 @if ($wireMethod)
-                    <button type="button" class="{{ sampaui_classes([$itemBase, $page === $currentPage ? $itemActive : null]) }}" wire:click="{{ $wireMethod }}({{ $page }})" @if ($page === $currentPage) aria-current="page" @endif>
+                    <button type="button" class="{{ sampaui_classes([$itemBase, $page === $currentPage ? $itemActive : null]) }}" wire:click="{{ $wireMethod }}({{ $page }})" wire:loading.attr="disabled" wire:target="{{ $wireMethod }}" @if ($page === $currentPage) aria-current="page" aria-label="Pagina {{ $page }}, atual" @else aria-label="Ir para pagina {{ $page }}" @endif>
                         <span>{{ $page }}</span>
                     </button>
                 @else
@@ -84,11 +88,11 @@
         @endunless
 
         @if ($wireMethod)
-            <button type="button" class="{{ sampaui_classes([$itemBase, $currentPage >= $lastPage ? $itemDisabled : null]) }}" wire:click="{{ $wireMethod }}({{ min($lastPage, $currentPage + 1) }})" @disabled($currentPage >= $lastPage) aria-label="Proxima pagina">
+            <button type="button" class="{{ sampaui_classes([$itemBase, $currentPage >= $lastPage ? $itemDisabled : null]) }}" wire:click="{{ $wireMethod }}({{ min($lastPage, $currentPage + 1) }})" wire:loading.attr="disabled" wire:target="{{ $wireMethod }}" @disabled($currentPage >= $lastPage) aria-label="Proxima pagina">
                 <i class="bi bi-chevron-right"></i>
             </button>
         @else
-            <a href="{{ $nextUrl ?: '#' }}" class="{{ sampaui_classes([$itemBase, ! $nextUrl ? $itemDisabled : null]) }}" @if (! $nextUrl) aria-disabled="true" @endif aria-label="Proxima pagina">
+            <a href="{{ $nextUrl ?: '#' }}" class="{{ sampaui_classes([$itemBase, ! $nextUrl ? $itemDisabled : null]) }}" @if (! $nextUrl) aria-disabled="true" tabindex="-1" @endif aria-label="Proxima pagina">
                 <i class="bi bi-chevron-right"></i>
             </a>
         @endif

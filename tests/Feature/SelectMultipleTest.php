@@ -31,21 +31,18 @@ BLADE);
         $html->assertSee('Selecione os perfis');
         $html->assertSee('Buscar perfil');
         $html->assertSee('x-data=', false);
-        $html->assertSee('x-modelable="values"', false);
-        $html->assertDontSee('$watch(\'values\'', false);
-        $html->assertSee('type="hidden"', false);
+        $html->assertSee('SampaUI.selectMultiple', false);
+        $html->assertSee('multiple', false);
         $html->assertSee('name="roles[]"', false);
         $html->assertSee('role="listbox"', false);
         $html->assertSee('aria-multiselectable="true"', false);
         $html->assertSee('role="option"', false);
         $html->assertSee('bi bi-x', false);
         $html->assertSee('bi bi-search', false);
-        $html->assertSee('select-multiple:changed', false);
+        $html->assertSee('x-on:keydown.enter.prevent="chooseActive()"', false);
         $html->assertSee('shadow-2xl shadow-secondary/10', false);
-        $html->assertSee('this.values = this.normalizeValues([...this.values, option.value]);', false);
-        $html->assertSee('this.values = this.normalizeValues(this.values.filter', false);
         $html->assertSee('x-on:click.outside="close()"', false);
-        $html->assertSee('x-on:keydown.escape.window="close()"', false);
+        $html->assertSee('x-on:keydown.escape.stop="close()"', false);
     }
 
     public function test_it_preserves_livewire_attributes_and_custom_class(): void
@@ -71,7 +68,7 @@ BLADE);
         $html->assertSee('Sem permissoes');
         $html->assertSee('custom-trigger', false);
         $html->assertSee('wire:model.live="permissions"', false);
-        $html->assertSee('x-modelable="values"', false);
+        $html->assertSee('multiple', false);
         $html->assertSee('required', false);
         $html->assertSee('x-bind:disabled="option.disabled"', false);
     }
@@ -97,6 +94,6 @@ BLADE);
         $html->assertSee('border-danger', false);
         $html->assertSee('cursor-not-allowed opacity-50', false);
         $html->assertSee('bi bi-arrow-repeat animate-spin', false);
-        $html->assertSee('loading: true', false);
+        $html->assertSee('aria-busy="true"', false);
     }
 }

@@ -42,3 +42,5 @@ Com botao mobile para abrir sidebar:
 - `menu`: exibe botao mobile de navegacao.
 - `menu-event`: evento Alpine disparado pelo botao mobile.
 - `actions`: slot nomeado para comandos.
+
+Os slots padrao `left`, `center` e `right` permitem composicoes responsivas; `actions` permanece compativel como atalho da area direita. O titulo rotula o `<header>` automaticamente, ou use `aria-label`.

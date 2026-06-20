@@ -75,4 +75,6 @@ php artisan vendor:publish --tag=sampaui-assets --force
 php artisan view:clear
 ```
 
+Ao atualizar o pacote por Composer ou por repositorio `path`, execute novamente `npm run build`. As views Blade podem mudar antes do bundle versionado do app consumidor; sem o rebuild, componentes Alpine novos permanecem sem controlador e seus conteudos `x-show` podem aparecer abertos.
+
 Confirme tambem que a documentacao renderiza os componentes principais, exemplos Livewire preservam `wire:*` e a paleta personalizada continua alinhada entre `config/sampaui.php` e `resources/css/sampaui.css`.

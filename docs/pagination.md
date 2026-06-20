@@ -21,3 +21,5 @@ Paginacao Livewire-first para Laravel paginator ou valores manuais. Em telas Liv
 ```
 
 Props principais: `paginator`, `currentPage`, `lastPage`, `total`, `perPage`, `previousUrl`, `nextUrl`, `window`, `wireMethod`, `simple`.
+
+`compact` reduz os alvos visuais para contextos densos. Com `wire-method`, os botoes recebem estado loading/disabled direcionado ao metodo.

@@ -81,3 +81,7 @@ Se precisar controlar o botao manualmente, o slot `suffix` fica dentro do mesmo 
 
 - `prefix`: conteudo exibido dentro do campo, à esquerda
 - `suffix`: conteudo exibido dentro do campo, à direita
+
+## Estados premium
+
+Use `hint`, `required`, `readonly`, `loading`, `loading-target` e `state="success|warning|error"`. `clearable` adiciona limpeza acessivel e sincronizada com Alpine/Livewire. Label, hint e erro usam ids associados ao input real.

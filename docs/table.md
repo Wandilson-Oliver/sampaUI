@@ -35,3 +35,5 @@ Marque apenas as colunas que podem ordenar:
 Sem `sort-method`, o componente ordena os `rows` no servidor para exemplos estaticos.
 
 Props principais: `columns`, `rows`, `empty`, `striped`, `hover`, `bordered`, `compact`, `sortBy`, `sortDirection`, `sortMethod`.
+
+`sticky-header` fixa o cabecalho dentro do container rolavel. `mobile-cards` transforma rows estruturadas em cards no mobile. `aria-sort` fica no cabecalho da coluna e a ordenacao Livewire bloqueia cliques repetidos durante loading.

@@ -31,3 +31,7 @@ window.dispatchEvent(new CustomEvent('toast', {
 
 - `position`: `top-right`, `top-left`, `bottom-right` ou `bottom-left`
 - `max`
+
+Toasts excedentes entram em fila e o limite controla apenas os visiveis. O timer pausa com mouse ou foco. Erros usam `aria-live="assertive"`; demais tipos usam `polite`. `variant` aceita `soft`, `solid` e `outline`, e `size` aceita `sm`, `md` e `lg`.
+
+Dispare `toast` ou o alias namespaced `sampaui:toast` no `window`; ambos recebem o mesmo payload em `event.detail`.

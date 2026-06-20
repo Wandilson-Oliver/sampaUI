@@ -43,3 +43,5 @@ Com erro manual:
 - `placeholder`
 - `error`
 - `disabled`
+
+Tambem aceita `hint`, `required`, `readonly`, `loading`, `loading-target` e `state` (`error`, `success`, `warning`), com label e feedback associados por ARIA.

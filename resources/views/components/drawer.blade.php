@@ -6,6 +6,8 @@
     'size' => 'md',
     'variant' => 'default',
     'persistent' => false,
+    'closeOnEscape' => null,
+    'closeOnOutside' => null,
     'closeButton' => true,
     'closeEvent' => null,
     'afterClose' => null,
@@ -84,65 +86,27 @@
         : ($stackSizes[$size] ?? $stackSizes['md']);
     $panelTone = $variants[$variant] ?? $variants['default'];
     $closeDelay = 260;
-    $afterCloseExpression = $afterClose ? '() => $wire.'.$afterClose.'()' : 'null';
+    $escapeEnabled = is_null($closeOnEscape) ? ! $persistent : (bool) $closeOnEscape;
+    $outsideEnabled = is_null($closeOnOutside) ? ! $persistent : (bool) $closeOnOutside;
     $hasHeader = filled($title) || filled($subtitle) || isset($header) || $closeButton;
 @endphp
 
 <div
     id="{{ $id }}"
-    x-data="{
+    x-data="SampaUI.overlay({
         serverOpen: $wire.entangle({{ \Illuminate\Support\Js::from($model) }}).live,
-        visible: false,
-        active: false,
-        closeTimer: null,
         closeDelay: {{ $closeDelay }},
-        afterClose: {{ $afterCloseExpression }},
-        openDrawer() {
-            clearTimeout(this.closeTimer);
-            this.visible = true;
-            document.documentElement.classList.add('overflow-hidden');
-
-            this.$nextTick(() => {
-                this.active = true;
-                this.$refs.panel?.focus();
-            });
-        },
-        close(sync = true) {
-            if (! this.visible) {
-                return;
-            }
-
-            this.active = false;
-            clearTimeout(this.closeTimer);
-
-            this.closeTimer = setTimeout(() => {
-                this.visible = false;
-                document.documentElement.classList.remove('overflow-hidden');
-
-                if (sync) {
-                    this.serverOpen = false;
-                }
-
-                if (this.afterClose) {
-                    this.afterClose();
-                }
-            }, this.closeDelay);
-        },
-    }"
-    x-init="
-        if (serverOpen) {
-            openDrawer();
-        }
-
-        $watch('serverOpen', value => value ? openDrawer() : close(false));
-    "
+        closeOnEscape: @js($escapeEnabled),
+        closeOnOutside: @js($outsideEnabled),
+        afterClose: @js($afterClose),
+    })"
     x-show="visible"
     x-cloak
     role="dialog"
     aria-modal="true"
     @if ($titleId) aria-labelledby="{{ $titleId }}" @endif
     @if ($subtitleId) aria-describedby="{{ $subtitleId }}" @endif
-    @keydown.escape.window="{{ $persistent ? '' : 'close()' }}"
+    @keydown.escape.window="handleEscape()"
     @if ($closeEvent)
         x-on:{{ $closeEvent }}.window="close(false)"
     @endif
@@ -158,13 +122,14 @@
         x-transition:leave-end="opacity-0"
         class="absolute inset-0 bg-primary/40 transition-[backdrop-filter,opacity] duration-300 ease-out"
         x-bind:class="active ? 'backdrop-blur-[2px]' : 'backdrop-blur-none'"
-        @click="{{ $persistent ? '' : 'close()' }}"
+        @click="handleOutside()"
         aria-hidden="true"
     ></div>
 
     <section
         x-ref="panel"
         tabindex="-1"
+        x-on:keydown.tab="trapTab($event)"
         class="relative flex {{ $placementUi['panel'] }} {{ $panelSize }} border {{ $panelTone }} {{ $panelClass }} flex-col overflow-hidden bg-white outline-none transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
         style="will-change: transform, translate, opacity;"
         x-bind:class="active ? 'translate-x-0 translate-y-0 opacity-100' : '{{ $panelHidden }}'"

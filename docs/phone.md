@@ -25,3 +25,5 @@ O componente remove caracteres nao numericos, limita o valor a 11 digitos e form
 
 - `prefix`
 - `suffix`
+
+O Phone herda do Input os estados acessiveis, `hint`, `clearable`, `readonly`, `loading`, `loading-target`, prefixo e sufixo, preservando a mascara e a sincronizacao Livewire.

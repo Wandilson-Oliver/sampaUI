@@ -26,3 +26,5 @@ O controle usa `border-secondary/40` como borda padrao.
 - `color`: `primary`, `secondary`, `accent`, `danger`, `success`, `warning`, `info`, `purple`, `muted`, `light`
 - `error`
 - `disabled`
+
+Tambem aceita `hint`, `required`, `readonly`, `loading`, `loading-target` e `state` (`error`, `success`, `warning`). O input recebe `aria-invalid` e `aria-describedby` automaticamente.

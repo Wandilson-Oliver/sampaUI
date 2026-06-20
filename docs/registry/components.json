@@ -1,6 +1,6 @@
 {
     "name": "SampaUI",
-    "version": "0.1.15",
+    "version": "0.1.16",
     "stack": [
         "Laravel 13+",
         "Livewire 4+",
@@ -73,7 +73,13 @@
                 "label",
                 "src",
                 "alt",
-                "accept"
+                "accept",
+                "hint",
+                "error",
+                "disabled",
+                "loading",
+                "loading-target",
+                "required"
             ],
             "slots": [],
             "variants": [],
@@ -86,6 +92,7 @@
             "tag": "<x-sampaui::badge />",
             "props": [
                 "variant",
+                "appearance",
                 "size",
                 "icon"
             ],
@@ -175,7 +182,10 @@
             "props": [
                 "title",
                 "description",
-                "variant"
+                "variant",
+                "appearance",
+                "padding",
+                "divided"
             ],
             "slots": [
                 "default",
@@ -317,6 +327,13 @@
                 "value",
                 "checked",
                 "disabled",
+                "readonly",
+                "loading",
+                "loading-target",
+                "required",
+                "hint",
+                "error",
+                "state",
                 "color"
             ],
             "slots": [
@@ -393,16 +410,21 @@
             "category": "overlay",
             "tag": "<x-sampaui::drawer />",
             "props": [
-                "name",
+                "model",
                 "title",
-                "description",
+                "subtitle",
                 "placement",
+                "size",
                 "variant",
-                "open"
+                "persistent",
+                "close-on-escape",
+                "close-on-outside",
+                "close-button"
             ],
             "slots": [
                 "default",
-                "footer"
+                "header",
+                "actions"
             ],
             "variants": [
                 "default",
@@ -416,17 +438,21 @@
                 "info",
                 "purple"
             ],
-            "example": "<x-sampaui::drawer name=\"filters\" title=\"Filtros\">Conteudo</x-sampaui::drawer>",
-            "livewire": "Controle abertura via Alpine ou eventos disparados por Livewire."
+            "example": "<x-sampaui::drawer model=\"filtersOpen\" title=\"Filtros\">Conteudo</x-sampaui::drawer>",
+            "livewire": "Controle abertura com uma propriedade booleana Livewire informada em model."
         },
         "dropdown": {
             "name": "Dropdown",
             "category": "overlay",
             "tag": "<x-sampaui::dropdown />",
             "props": [
+                "label",
+                "icon",
                 "align",
                 "placement",
-                "width"
+                "width",
+                "close-on-escape",
+                "close-on-outside"
             ],
             "slots": [
                 "trigger",
@@ -470,6 +496,25 @@
             "example": "<x-sampaui::empty-state title=\"Nada encontrado\" icon=\"inbox\" />",
             "livewire": "Use em estados condicionais de listas Livewire."
         },
+        "field": {
+            "name": "Field",
+            "category": "form",
+            "tag": "<x-sampaui::field />",
+            "props": [
+                "id",
+                "label-for",
+                "label",
+                "hint",
+                "error",
+                "required"
+            ],
+            "slots": [
+                "default"
+            ],
+            "variants": [],
+            "example": "<x-sampaui::field id=\"email\" label=\"Email\" hint=\"Use seu email profissional\"><input id=\"email\" /></x-sampaui::field>",
+            "livewire": "Wrapper estrutural; mantenha wire:model no controle real dentro do slot."
+        },
         "file-upload": {
             "name": "File Upload",
             "category": "form",
@@ -480,8 +525,15 @@
                 "accept",
                 "multiple",
                 "preview",
+                "hint",
                 "disabled",
-                "error"
+                "loading",
+                "loading-target",
+                "required",
+                "error",
+                "max-size",
+                "retry",
+                "chunk-size"
             ],
             "slots": [],
             "variants": [],
@@ -497,9 +549,13 @@
                 "subtitle",
                 "eyebrow",
                 "status",
-                "menu"
+                "menu",
+                "aria-label"
             ],
             "slots": [
+                "left",
+                "center",
+                "right",
                 "actions"
             ],
             "variants": [],
@@ -541,10 +597,17 @@
                 "name",
                 "value",
                 "placeholder",
+                "hint",
                 "error",
+                "state",
                 "disabled",
+                "readonly",
+                "loading",
+                "loading-target",
+                "required",
                 "icon",
-                "revealable"
+                "revealable",
+                "clearable"
             ],
             "slots": [
                 "prefix",
@@ -559,30 +622,39 @@
             "category": "overlay",
             "tag": "<x-sampaui::modal />",
             "props": [
-                "name",
+                "model",
                 "title",
-                "description",
-                "open",
-                "size"
+                "subtitle",
+                "size",
+                "variant",
+                "persistent",
+                "close-on-escape",
+                "close-on-outside",
+                "close-button"
             ],
             "slots": [
                 "default",
-                "footer"
+                "header",
+                "actions"
             ],
             "variants": [],
-            "example": "<x-sampaui::modal name=\"confirm\" title=\"Confirmar\">Conteudo</x-sampaui::modal>",
-            "livewire": "Pode abrir por eventos e conter forms Livewire."
+            "example": "<x-sampaui::modal model=\"confirmOpen\" title=\"Confirmar\">Conteudo</x-sampaui::modal>",
+            "livewire": "Controle abertura com uma propriedade booleana Livewire informada em model."
         },
         "pagination": {
             "name": "Pagination",
             "category": "navigation",
             "tag": "<x-sampaui::pagination />",
             "props": [
+                "paginator",
                 "current-page",
                 "last-page",
                 "total",
                 "per-page",
-                "wire-method"
+                "window",
+                "wire-method",
+                "simple",
+                "compact"
             ],
             "slots": [],
             "variants": [],
@@ -597,7 +669,16 @@
                 "label",
                 "name",
                 "placeholder",
-                "icon"
+                "icon",
+                "hint",
+                "error",
+                "state",
+                "disabled",
+                "readonly",
+                "loading",
+                "loading-target",
+                "required",
+                "clearable"
             ],
             "slots": [
                 "prefix",
@@ -693,16 +774,24 @@
                 "options",
                 "placeholder",
                 "empty-text",
+                "hint",
                 "error",
+                "state",
                 "disabled",
-                "required"
+                "readonly",
+                "loading",
+                "loading-target",
+                "required",
+                "clearable"
             ],
             "slots": [
-                "default"
+                "default",
+                "prefix",
+                "suffix"
             ],
             "variants": [],
             "example": "<x-sampaui::select name=\"status\" label=\"Status\" :options=\"['active' => 'Ativo']\" wire:model.live=\"status\" />",
-            "livewire": "Usa x-modelable e sincroniza com um select real oculto para formularios."
+            "livewire": "Preserva wire:model no select real oculto e sincroniza eventos input/change."
         },
         "select-multiple": {
             "name": "Select Multiple",
@@ -713,12 +802,21 @@
                 "label",
                 "placeholder",
                 "options",
-                "selected",
+                "value",
                 "disabled",
+                "readonly",
                 "loading",
-                "error"
+                "loading-target",
+                "hint",
+                "error",
+                "state",
+                "required",
+                "clearable"
             ],
-            "slots": [],
+            "slots": [
+                "prefix",
+                "suffix"
+            ],
             "variants": [],
             "example": "<x-sampaui::select-multiple name=\"roles\" label=\"Perfis\" :options=\"$roles\" wire:model.live=\"roles\" />",
             "livewire": "Sincroniza array de valores com Livewire."
@@ -811,7 +909,12 @@
                 "empty",
                 "sort-by",
                 "sort-direction",
-                "sort-method"
+                "sort-method",
+                "sticky-header",
+                "mobile-cards",
+                "compact",
+                "loading",
+                "loading-target"
             ],
             "slots": [],
             "variants": [],
@@ -842,8 +945,14 @@
                 "label",
                 "rows",
                 "placeholder",
+                "hint",
                 "error",
-                "disabled"
+                "state",
+                "disabled",
+                "readonly",
+                "loading",
+                "loading-target",
+                "required"
             ],
             "slots": [],
             "variants": [],
@@ -855,7 +964,11 @@
             "category": "feedback",
             "tag": "<x-sampaui::toast />",
             "props": [
-                "position"
+                "position",
+                "max",
+                "duration",
+                "variant",
+                "size"
             ],
             "slots": [],
             "variants": [
@@ -876,6 +989,13 @@
                 "label",
                 "checked",
                 "disabled",
+                "readonly",
+                "loading",
+                "loading-target",
+                "required",
+                "hint",
+                "error",
+                "state",
                 "color"
             ],
             "slots": [],
