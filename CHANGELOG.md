@@ -2,6 +2,12 @@
 
 Todas as mudanças notáveis do SampaUI serão documentadas neste arquivo.
 
+## v0.1.18 - 2026-06-25
+
+### Documentação
+
+- Versão do pacote atualizada para acompanhar a documentação premium com playgrounds reais, catálogo mais espaçado e previews conceituais de Real Estate.
+
 ## v0.1.17 - 2026-06-25
 
 ### Melhorado

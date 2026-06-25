@@ -1,6 +1,6 @@
 {
   "name": "sampaui/sampaui",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "description": "Livewire-first Blade UI components for Laravel 13, Tailwind CSS 4 and AlpineJS",
   "type": "library",
   "license": "MIT",

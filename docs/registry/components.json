@@ -1,6 +1,6 @@
 {
     "name": "SampaUI",
-    "version": "0.1.17",
+    "version": "0.1.18",
     "stack": [
         "Laravel 13+",
         "Livewire 4+",
