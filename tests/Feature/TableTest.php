@@ -91,4 +91,75 @@ BLADE);
         $staticHtml->assertSee('data-sort-by="name"', false);
         $staticHtml->assertSee('data-sort-direction="desc"', false);
     }
+
+    public function test_it_supports_premium_datatable_toolbar_search_pagination_selection_and_export(): void
+    {
+        $html = $this->blade(<<<'BLADE'
+<x-sampaui::table
+    title="Leads"
+    description="Pipeline comercial"
+    searchable
+    search="ana"
+    per-page="1"
+    page="1"
+    selectable
+    row-key="id"
+    export-href="/exports/leads.csv"
+    :selected-rows="[2]"
+    :columns="[
+        'name' => 'Nome',
+        'status' => 'Status',
+    ]"
+    :rows="[
+        ['id' => 1, 'name' => 'Ana Souza', 'status' => 'Novo'],
+        ['id' => 2, 'name' => 'Bruno Lima', 'status' => 'Contato'],
+    ]"
+/>
+BLADE);
+
+        $html->assertSee('Leads');
+        $html->assertSee('Pipeline comercial');
+        $html->assertSee('placeholder="Buscar registros..."', false);
+        $html->assertSee('name="search"', false);
+        $html->assertSee('value="ana"', false);
+        $html->assertSee('href="/exports/leads.csv"', false);
+        $html->assertSee('bi bi-download', false);
+        $html->assertSee('x-data=', false);
+        $html->assertSee('Selecionar todos os registros visiveis');
+        $html->assertSee('name="selected[]"', false);
+        $html->assertSee('value="1"', false);
+        $html->assertSee('Mostrando');
+        $html->assertSee('1 / 1');
+        $html->assertSee('Ana Souza');
+        $html->assertDontSee('Bruno Lima');
+    }
+
+    public function test_it_supports_loading_skeleton_and_custom_empty_state(): void
+    {
+        $loadingHtml = $this->blade(<<<'BLADE'
+<x-sampaui::table
+    loading
+    :columns="['name' => 'Nome']"
+    :rows="[['name' => 'Ana']]"
+/>
+BLADE);
+
+        $loadingHtml->assertSee('aria-busy="true"', false);
+        $loadingHtml->assertSee('animate-pulse', false);
+        $loadingHtml->assertDontSee('Ana');
+
+        $emptyHtml = $this->blade(<<<'BLADE'
+<x-sampaui::table
+    empty-title="Sem leads"
+    empty-description="Ajuste os filtros."
+    empty-icon="search"
+    :columns="['name' => 'Nome']"
+    :rows="[]"
+/>
+BLADE);
+
+        $emptyHtml->assertSee('Sem leads');
+        $emptyHtml->assertSee('Ajuste os filtros.');
+        $emptyHtml->assertSee('bi bi-search', false);
+    }
 }

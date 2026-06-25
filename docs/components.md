@@ -320,9 +320,13 @@ Slots internos para icones ou acoes:
 
 ```blade
 <x-sampaui::table
+    title="Clientes"
+    searchable
+    selectable
+    per-page="10"
     :columns="['name' => 'Cliente', 'status' => 'Status']"
     :rows="[
-        ['name' => 'Ana Souza', 'status' => 'Ativo'],
+        ['id' => 1, 'name' => 'Ana Souza', 'status' => 'Ativo'],
     ]"
 />
 ```

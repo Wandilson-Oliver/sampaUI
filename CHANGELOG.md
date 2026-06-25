@@ -2,6 +2,17 @@
 
 Todas as mudanças notáveis do SampaUI serão documentadas neste arquivo.
 
+## v0.1.17 - 2026-06-25
+
+### Melhorado
+
+- `select`, `select-search`, `select-multiple` e `date-picker` agora usam a mesma linguagem visual dos inputs, com `border-secondary/20`, hover suave e foco `focus:ring-primary/20`.
+- `table` evoluiu para um DataTable leve com toolbar, busca, selecao em massa, export link, paginacao, skeleton loading e empty state premium, mantendo a API atual de `columns` e `rows`.
+
+### Documentação
+
+- Registry, README, fundamentos e docs dos componentes foram atualizados para refletir os novos contratos de forms e DataTable.
+
 ## v0.1.16 - 2026-06-20
 
 ### Adicionado

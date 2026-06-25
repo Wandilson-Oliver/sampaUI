@@ -53,7 +53,7 @@ Os tokens ficam centralizados em `config/sampaui.php` e no CSS do pacote:
 
 Use classes semanticas como `bg-primary`, `text-secondary`, `border-light`, `bg-accent/10` e `focus:ring-primary/20`. Evite hexadecimais diretos em componentes quando um token oficial resolver o caso.
 
-Campos textuais usam `border-secondary/20` como borda padrao. Controles de escolha, busca, upload e datas mantem `border-secondary/40` para preservar contraste em superficies interativas. `border-light` permanece reservado para divisores, paineis e outras bordas estruturais. O `toggle` e a excecao intencional: quando desligado, sua borda e botao interno seguem o token definido em `color`.
+Campos textuais e triggers de formulario usam `border-secondary/20` como borda padrao, incluindo `input`, `textarea`, campos com mascara, `select`, `select-search`, `select-multiple` e `date-picker`. Controles fisicos de escolha, como `checkbox`, `radio` e areas de upload, mantem `border-secondary/40` para preservar contraste. `border-light` permanece reservado para divisores, paineis e outras bordas estruturais. O `toggle` e a excecao intencional: quando desligado, sua borda e botao interno seguem o token definido em `color`.
 
 ## Variantes padronizadas
 

@@ -2,6 +2,8 @@
 
 Campo de selecao com combobox Alpine, dropdown customizado e `<select>` real oculto para formularios e Livewire.
 
+O trigger usa a mesma linguagem visual do `input`: `border-secondary/20`, `rounded-default`, `focus:border-primary`, `focus:ring-primary/20`, hover suave, estados de erro/loading/disabled e suporte a `readonly`.
+
 ## Uso
 
 ```blade

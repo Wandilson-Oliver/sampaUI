@@ -33,7 +33,7 @@ import "../../vendor/sampaui/sampaui/dist/sampaui.js";
 - All components must accept `class=""` customization.
 - Form components must preserve `wire:model` and Livewire modifiers on the real control.
 - Interactive components must preserve `wire:click`, `wire:navigate`, `x-*` and valid HTML attributes.
-- Form borders use `border-secondary/40`.
+- Text fields and form triggers use `border-secondary/20`; checkbox, radio and upload controls use `border-secondary/40`.
 - Prefer official semantic tokens over custom hex classes.
 - Use Bootstrap Icons only, with `bi bi-{name}` classes.
 
@@ -135,14 +135,14 @@ php artisan sampaui:docs-export --format=markdown
 ## API Notes
 
 - `select` usa combobox Alpine com `x-modelable`, aceita `options`, `value`, `placeholder`, `emptyText`, `required` e preserva um `<select>` real oculto para formularios e Livewire.
-- `table` aceita colunas com `sortable => true` e props `sortBy`, `sortDirection` e `sortMethod`; sem `sortMethod`, ordena `rows` estaticamente.
+- `table` e um DataTable leve: aceita `title`, `description`, `searchable`, `search`, `search-model`, `selectable`, `selected-rows`, `row-key`, `export-href`, `per-page`, `page`, `total`, `pagination-method`, colunas com `sortable => true` e props `sortBy`, `sortDirection` e `sortMethod`.
 - `dropdown` aceita `align`, `width` e `placement`; use `placement="top"` em menus nas ultimas linhas de tabelas ou containers com rolagem para evitar corte visual.
 - Campos centrais aceitam `hint`, `error`, `state`, `required`, `readonly`, `loading` e `loading-target`, associando label e feedback por ARIA ao controle real.
 - `select` e `select-multiple` preservam `wire:model` no controle nativo, suportam teclado e limpeza com `clearable`.
 - `file-upload` aceita `max-size`, `retry` e `chunk-size`; progresso e cancelamento integram os eventos de upload do Livewire.
 - `modal`, `drawer` e `dropdown` controlam foco, Esc e click-outside; `close-on-escape` e `close-on-outside` sao configuraveis.
 - `toast` usa fila e limite de visiveis, pausa timer com foco e aceita `variant="soft|solid|outline"` e `size="sm|md|lg"`.
-- `table` aceita `sticky-header` e `mobile-cards`; `pagination` aceita `compact`; `header` oferece slots `left`, `center` e `right`.
+- `table` aceita `sticky-header`, `mobile-cards`, skeleton com `loading`, empty state premium e slots `toolbar`, `filters`, `actions`, `head`, `body` e `pagination`; `pagination` aceita `compact`; `header` oferece slots `left`, `center` e `right`.
 - Componentes de chat: use `chat-layout` como estrutura, `chat-sidebar` para conversas, `chat-conversation` para a conversa ativa, `chat-message` para bolhas e `chat-composer` para envio.
 
 ## Masked Fields

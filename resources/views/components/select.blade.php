@@ -39,6 +39,7 @@
         $attributes->get('class'),
         'pr-20' => $clearable,
         'pr-3' => ! $clearable && ($loading || isset($suffix)),
+        'bg-light/40 text-secondary/80' => $readonly,
     ], $state, $loading);
     $controlAttributes = $attributes->except(['id', 'class', 'aria-describedby']);
 @endphp

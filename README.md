@@ -151,7 +151,7 @@ Variantes principais:
 
 Todos os componentes de entrada aceitam `wire:model` diretamente no controle real ou via `x-modelable`, sem exigir a prop `value`.
 
-Campos textuais usam `border-secondary/20` como borda padrao, incluindo `input`, campos com mascara e `textarea`. Controles de escolha, busca, upload e datas mantem `border-secondary/40` para preservar contraste em superficies interativas. O `toggle` usa a cor definida em `color` no trilho e no botao interno quando desligado.
+Campos textuais e triggers de formulario usam `border-secondary/20` como borda padrao, incluindo `input`, campos com mascara, `textarea`, `select`, `select-search`, `select-multiple` e `date-picker`. Controles fisicos de escolha, como `checkbox`, `radio` e areas de upload, mantem `border-secondary/40` para preservar contraste. O `toggle` usa a cor definida em `color` no trilho e no botao interno quando desligado.
 
 ```blade
 <x-sampaui::phone name="phone" label="Telefone" wire:model.live="phone" />
@@ -301,13 +301,17 @@ Inclua uma vez no layout e dispare eventos `toast` no browser:
 
 ```blade
 <x-sampaui::table
+    title="Clientes"
+    searchable
+    selectable
+    export-href="/exports/clientes.csv"
     :columns="[
         'name' => 'Cliente',
         'status' => 'Status',
         'amount' => ['label' => 'Valor', 'key' => 'amount', 'align' => 'right'],
     ]"
     :rows="[
-        ['name' => 'Ana Souza', 'status' => 'Ativo', 'amount' => 'R$ 1.200,00'],
+        ['id' => 1, 'name' => 'Ana Souza', 'status' => 'Ativo', 'amount' => 'R$ 1.200,00'],
     ]"
 />
 ```

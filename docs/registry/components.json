@@ -1,6 +1,6 @@
 {
     "name": "SampaUI",
-    "version": "0.1.16",
+    "version": "0.1.17",
     "stack": [
         "Laravel 13+",
         "Livewire 4+",
@@ -906,20 +906,42 @@
             "props": [
                 "columns",
                 "rows",
+                "title",
+                "description",
                 "empty",
+                "empty-title",
+                "empty-description",
                 "sort-by",
                 "sort-direction",
                 "sort-method",
+                "searchable",
+                "search",
+                "search-model",
+                "per-page",
+                "page",
+                "total",
+                "pagination-method",
+                "selectable",
+                "selected-rows",
+                "row-key",
+                "export-href",
                 "sticky-header",
                 "mobile-cards",
                 "compact",
                 "loading",
                 "loading-target"
             ],
-            "slots": [],
+            "slots": [
+                "toolbar",
+                "filters",
+                "actions",
+                "head",
+                "body",
+                "pagination"
+            ],
             "variants": [],
-            "example": "<x-sampaui::table :columns=\"$columns\" :rows=\"$rows\" />",
-            "livewire": "Linhas, colunas e ordenacao podem vir de propriedades computadas do Livewire."
+            "example": "<x-sampaui::table title=\"Leads\" searchable selectable :columns=\"$columns\" :rows=\"$rows\" />",
+            "livewire": "Linhas, colunas, busca, paginacao, selecao e ordenacao podem vir de propriedades computadas do Livewire."
         },
         "tabs": {
             "name": "Tabs",

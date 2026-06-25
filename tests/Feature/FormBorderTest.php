@@ -21,14 +21,25 @@ class FormBorderTest extends TestCase
         }
     }
 
-    public function test_picker_choice_and_upload_components_keep_the_standard_default_border(): void
+    public function test_trigger_based_form_components_match_the_input_default_border(): void
     {
         $components = [
             '<x-sampaui::select name="status"><option value="active">Ativo</option></x-sampaui::select>',
             '<x-sampaui::select-search name="owner" :options="[\'ana\' => \'Ana\']" />',
+            '<x-sampaui::select-multiple name="roles" :options="[\'admin\' => \'Admin\']" />',
+            '<x-sampaui::date-picker name="scheduled_at" />',
+        ];
+
+        foreach ($components as $component) {
+            $this->blade($component)->assertSee('border-secondary/20', false);
+        }
+    }
+
+    public function test_choice_and_upload_components_keep_the_stronger_default_border(): void
+    {
+        $components = [
             '<x-sampaui::checkbox name="active" label="Ativo" />',
             '<x-sampaui::radio name="status" :options="[\'active\' => \'Ativo\']" />',
-            '<x-sampaui::date-picker name="scheduled_at" />',
             '<x-sampaui::file-upload name="contract" />',
         ];
 
@@ -40,6 +51,6 @@ class FormBorderTest extends TestCase
     public function test_select_search_internal_search_uses_the_standard_default_border(): void
     {
         $this->blade('<x-sampaui::select-search name="owner" :options="[\'ana\' => \'Ana\']" />')
-            ->assertSee('rounded-default border border-secondary/40 bg-white py-2', false);
+            ->assertSee('rounded-default border border-secondary/20 bg-white py-2', false);
     }
 }

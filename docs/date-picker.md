@@ -2,7 +2,7 @@
 
 Calendario de data apenas, sem hora. O componente usa Alpine para exibir o calendario e envia somente uma string `YYYY-MM-DD` no input real.
 
-O trigger do campo usa `border-secondary/40`, seguindo os demais componentes de formulario.
+O trigger do campo usa `border-secondary/20`, seguindo a mesma linguagem visual do `input` e dos selects.
 
 ```blade
 <x-sampaui::date-picker

@@ -24,6 +24,8 @@ class SelectTest extends TestCase
         $html->assertSee('bi bi-chevron-down', false);
         $html->assertSee('x-on:keydown.arrow-down.prevent="move(1)"', false);
         $html->assertSee('aria-activedescendant', false);
+        $html->assertSee('border border-secondary/20', false);
+        $html->assertSee('hover:border-secondary/30', false);
     }
 
     public function test_it_supports_options_prop_selected_value_and_custom_class(): void
@@ -47,5 +49,26 @@ BLADE);
         $html->assertSee('custom-trigger', false);
         $html->assertSee('selected', false);
         $html->assertSee('SampaUI.select', false);
+    }
+
+    public function test_it_matches_input_visual_states_for_readonly_loading_and_errors(): void
+    {
+        $html = $this->blade(<<<'BLADE'
+<x-sampaui::select
+    name="status"
+    label="Status"
+    error="Status obrigatorio"
+    readonly
+    loading
+    :options="['active' => 'Ativo']"
+/>
+BLADE);
+
+        $html->assertSee('border-danger', false);
+        $html->assertSee('ring-2 ring-danger/20', false);
+        $html->assertSee('focus:border-primary', false);
+        $html->assertSee('focus:ring-primary/20', false);
+        $html->assertSee('bg-light/40 text-secondary/80', false);
+        $html->assertSee('aria-busy="true"', false);
     }
 }

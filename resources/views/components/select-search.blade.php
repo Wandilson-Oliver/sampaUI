@@ -159,7 +159,7 @@
                         x-model="search"
                         type="search"
                         placeholder="{{ $searchPlaceholder }}"
-                        class="block w-full rounded-default border border-secondary/40 bg-white py-2 pl-9 pr-3 text-sm text-secondary outline-none transition placeholder:text-secondary focus:border-primary focus:ring-2 focus:ring-primary/20"
+                        class="block w-full rounded-default border border-secondary/20 bg-white py-2 pl-9 pr-3 text-sm text-secondary outline-none transition placeholder:text-secondary/50 hover:border-secondary/30 focus:border-primary focus:ring-2 focus:ring-primary/20"
                     >
                 </div>
             </div>
