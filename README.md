@@ -1,6 +1,6 @@
 # SampaUI
 
-SampaUI e um pacote de componentes Blade Livewire-first para Laravel 13, Livewire 4, Tailwind CSS 4 e AlpineJS. O pacote foi padronizado para produtos imobiliarios: CRM de leads, captacao de imoveis, funil comercial, atendimento por chat, propostas, dashboards operacionais e paginas de autenticacao.
+SampaUI e um pacote de componentes Blade Livewire-first para Laravel 13, Livewire 4, Tailwind CSS 4 e AlpineJS. O pacote foi padronizado para produtos digitais, CRMs, dashboards operacionais, atendimento, propostas, sistemas internos e paginas de autenticacao.
 
 ## Requisitos
 
@@ -55,27 +55,27 @@ O pacote mantem um registry oficial em `resources/metadata/components.php`, expo
 
 ## Componentes
 
-Use os componentes do namespace `sampaui` antes de criar HTML solto. O objetivo e manter telas imobiliarias com a mesma hierarquia visual, bordas, foco, estados e densidade de informacao.
+Use os componentes do namespace `sampaui` antes de criar HTML solto. O objetivo e manter telas de produto com a mesma hierarquia visual, bordas, foco, estados e densidade de informacao.
 
 Fluxos recomendados:
 
-- **Captacao**: `input`, `phone`, `currency-br`, `cep`, `select-search`, `select-multiple`, `textarea`, `file-upload` e `avatar-upload`.
-- **CRM e funil**: `card`, `badge`, `progress`, `table`, `dropdown`, `drawer`, `tabs`, `pagination` e `empty-state`.
+- **Cadastros e qualificacao**: `input`, `phone`, `currency-br`, `cep`, `select-search`, `select-multiple`, `textarea`, `file-upload` e `avatar-upload`.
+- **CRM e funil**: `card`, `badge`, `progress`, `table`, `table-search`, `dropdown`, `drawer`, `tabs`, `pagination` e `empty-state`.
 - **Atendimento**: `chat-layout`, `chat-sidebar`, `chat-conversation`, `chat-message`, `chat-composer`, `avatar`, `indicator` e `toast`.
 - **Operacao e seguranca**: `header`, `sidebar`, `command-palette`, `modal`, `alert`, `pin`, `checkbox` e `button`.
 
-Exemplo rapido de card imobiliario:
+Exemplo rapido de card operacional:
 
 ```blade
-<x-sampaui::card title="Apartamento Vila Mariana" description="Lead quente em negociacao" padding="lg">
+<x-sampaui::card title="Conta Enterprise" description="Lead quente em negociacao" padding="lg">
     <div class="flex flex-wrap items-center gap-2">
-        <x-sampaui::badge variant="success">Disponivel</x-sampaui::badge>
-        <x-sampaui::badge variant="accent">R$ 890.000</x-sampaui::badge>
-        <x-sampaui::badge variant="light">2 dorms</x-sampaui::badge>
+        <x-sampaui::badge variant="success">Ativo</x-sampaui::badge>
+        <x-sampaui::badge variant="accent">R$ 8.900</x-sampaui::badge>
+        <x-sampaui::badge variant="light">Plano anual</x-sampaui::badge>
     </div>
 
     <div class="mt-5 flex flex-wrap gap-3">
-        <x-sampaui::button icon="calendar2-check">Agendar visita</x-sampaui::button>
+        <x-sampaui::button icon="calendar2-check">Agendar reunião</x-sampaui::button>
         <x-sampaui::button variant="outline" icon="chat-dots">Conversar</x-sampaui::button>
     </div>
 </x-sampaui::card>
@@ -99,10 +99,10 @@ O SampaUI segue o conceito Blade-first: componentes anonimos, CSS compilado, Boo
 O SampaUI usa uma paleta semantica personalizada, publicada em `config/sampaui.php` e compilada no CSS do pacote:
 
 ```txt
-primary, secondary, accent, danger, light, success, warning, info, purple, muted
+primary, secondary, accent, danger, light, surface, success, warning, info, purple, muted, border, text
 ```
 
-Use classes como `bg-primary`, `text-secondary`, `border-light`, `bg-accent/10` e `focus:ring-primary/20`. A customizacao local deve preferir `class=""` e tokens oficiais antes de usar hexadecimais diretos.
+Use classes como `bg-primary`, `text-secondary`, `border-border`, `bg-accent/10` e `focus:ring-primary/20`. A customizacao local deve preferir `class=""` e tokens oficiais antes de usar hexadecimais diretos.
 
 Variantes principais:
 
@@ -274,7 +274,7 @@ Os campos `phone`, `currency-br` e `cep` formatam valores internamente com Alpin
     brand="LIACOR"
     initial-state="open"
     brand-href="/dashboard"
-    :user="['name' => 'Administrador Lia', 'email' => 'admin@liacorretora.com']"
+    :user="['name' => 'Administrador Lia', 'email' => 'admin@sampa.dev']"
     :items="[
         ['label' => 'Dashboard', 'href' => '/dashboard', 'icon' => 'grid', 'active' => true],
         ['label' => 'Clientes', 'href' => '/clients', 'icon' => 'people', 'navigate' => true],

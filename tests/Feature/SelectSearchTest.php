@@ -25,7 +25,8 @@ BLADE);
         $html->assertSee('Ana Souza');
         $html->assertSee('Bruno Lima');
         $html->assertSee('x-data=', false);
-        $html->assertSee('type="hidden"', false);
+        $html->assertSee('<select', false);
+        $html->assertSee('class="sr-only"', false);
         $html->assertSee('name="owner"', false);
         $html->assertSee('value="ana"', false);
         $html->assertSee('role="listbox"', false);
@@ -65,7 +66,7 @@ BLADE);
         $html->assertSee("this.\$watch('value'", false);
         $html->assertSee('required', false);
         $html->assertSee('select-search:changed', false);
-        $html->assertSee('x-bind:value="value"', false);
+        $html->assertSee('x-model="value"', false);
     }
 
     public function test_it_supports_error_and_disabled_states(): void

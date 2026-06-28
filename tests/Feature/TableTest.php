@@ -27,7 +27,7 @@ BLADE);
         $html->assertSee('Ana');
         $html->assertSee('R$ 120,00');
         $html->assertSee('text-right', false);
-        $html->assertSee('border border-light', false);
+        $html->assertSee('border border-border', false);
     }
 
     public function test_it_supports_empty_state_custom_class_and_compact_unbordered_mode(): void
@@ -46,7 +46,7 @@ BLADE);
         $html->assertSee('custom-table', false);
         $html->assertSee('Sem dados.');
         $html->assertSee('px-3 py-2', false);
-        $html->assertDontSee('border border-light', false);
+        $html->assertDontSee('border border-border', false);
     }
 
     public function test_it_supports_sortable_columns_wire_method_and_static_sorting(): void
@@ -127,6 +127,8 @@ BLADE);
         $html->assertSee('x-data=', false);
         $html->assertSee('Selecionar todos os registros visiveis');
         $html->assertSee('name="selected[]"', false);
+        $html->assertSee('x-bind:value="selectedRow"', false);
+        $html->assertSee('table:selection-changed', false);
         $html->assertSee('value="1"', false);
         $html->assertSee('Mostrando');
         $html->assertSee('1 / 1');
@@ -161,5 +163,39 @@ BLADE);
         $emptyHtml->assertSee('Sem leads');
         $emptyHtml->assertSee('Ajuste os filtros.');
         $emptyHtml->assertSee('bi bi-search', false);
+    }
+
+    public function test_table_is_a_simple_listing_by_default(): void
+    {
+        $html = $this->blade(<<<'BLADE'
+<x-sampaui::table
+    :columns="['name' => 'Nome']"
+    :rows="[['name' => 'Ana']]"
+/>
+BLADE);
+
+        $html->assertSee('Ana')
+            ->assertDontSee('type="search"', false)
+            ->assertDontSee('Buscar registros...');
+    }
+
+    public function test_table_search_composes_the_table_with_search_and_advanced_slots(): void
+    {
+        $html = $this->blade(<<<'BLADE'
+<x-sampaui::table-search
+    title="Clientes"
+    search-model="search"
+    :columns="['name' => 'Nome']"
+    :rows="[['name' => 'Ana']]"
+>
+    <x-slot:actions><button type="button">Novo</button></x-slot:actions>
+</x-sampaui::table-search>
+BLADE);
+
+        $html->assertSee('Clientes')
+            ->assertSee('Ana')
+            ->assertSee('type="search"', false)
+            ->assertSee('wire:model.live.debounce.300ms="search"', false)
+            ->assertSee('Novo');
     }
 }

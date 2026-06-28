@@ -37,7 +37,7 @@
         x-on:keydown.arrow-down.prevent="move($event, 1)"
         x-on:keydown.arrow-up.prevent="move($event, -1)"
         x-on:keydown.home.prevent="$event.currentTarget.querySelector('a,button,[tabindex]:not([tabindex=\'-1\'])')?.focus()"
-        class="absolute {{ $alignClasses }} {{ $placementClasses }} z-[100] rounded-default border border-light bg-white p-1 shadow-default"
+        class="absolute {{ $alignClasses }} {{ $placementClasses }} z-[100] rounded-default border border-border bg-white p-1 shadow-default"
         style="width: {{ $width }};"
         role="menu"
         aria-labelledby="{{ $id }}-trigger"

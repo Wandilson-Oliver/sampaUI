@@ -6,20 +6,20 @@ Sem secoes:
 
 ```blade
 <x-sampaui::sidebar
-    brand="LIACOR"
+    brand="SampaUI"
     initial-state="open"
     brand-href="/dashboard"
     :user="[
         'name' => 'Administrador Lia',
-        'email' => 'admin@liacorretora.com',
+        'email' => 'admin@sampa.dev',
         'avatar' => '/images/avatar.jpg',
     ]"
     :items="[
-        ['label' => 'Dashboard', 'href' => '/dashboard', 'icon' => 'grid', 'active' => true],
+        ['label' => 'Dashboard', 'href' => '/dashboard', 'icon' => 'grid'],
         ['label' => 'Clientes', 'href' => '/clients', 'icon' => 'people', 'navigate' => true],
         ['label' => 'Imóveis', 'href' => '/properties', 'icon' => 'buildings'],
         ['label' => 'Mapa', 'href' => '/map', 'icon' => 'map'],
-        ['label' => 'Tarefa', 'href' => '/tasks', 'icon' => 'kanban', 'active' => true],
+        ['label' => 'Tarefa', 'href' => '/tasks', 'icon' => 'kanban'],
     ]"
 />
 ```
@@ -56,7 +56,12 @@ Com secoes:
 - `collapsible`: exibe botao flutuante para recolher/expandir.
 - `openEvent`: evento Alpine para abrir no mobile.
 - `closeEvent`: evento Alpine para fechar no mobile.
+- `stateEvent`: informa a largura atual para o layout ajustar o conteudo.
+- `rail`: adiciona uma faixa externa opcional; o padrao e `false` e totalmente branco.
+- `position`: `fixed` em dashboards ou `static` quando estiver dentro de um container/preview.
 - `logoutHref`: exibe link de saida quando informado.
 - `footer`: slot nomeado para substituir o rodape.
 
 Cada item aceita `label`, `href`, `icon`, `active` e `navigate`. Use `navigate => true` para adicionar `wire:navigate`.
+
+A largura expandida padrao e `20rem`; recolhida, `6rem`. Icones permanecem sem circulos decorativos para seguir a referencia visual limpa.

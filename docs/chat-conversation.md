@@ -19,9 +19,14 @@ Painel da conversa ativa com cabecalho, mensagens e composer.
 - `subtitle`: status textual.
 - `avatar`: imagem opcional.
 - `status`: estado do avatar: `online`, `busy`, `away`, `offline`.
+- `back-button`: exibe retorno para a lista no mobile.
+- `auto-scroll`: posiciona a conversa no fim ao inicializar.
+- `empty`, `empty-title`, `empty-description`: estado vazio padronizado.
 
 ## Slots
 
 - `actions`: botoes do cabecalho.
 - `composer`: campo de envio.
 - `default`: mensagens.
+
+O container de mensagens usa `role="log"`, rolagem propria e integra automaticamente com o painel mobile do `chat-layout`.

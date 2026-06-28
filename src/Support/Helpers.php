@@ -86,8 +86,7 @@ if (! function_exists('sampaui_field_classes')) {
         ?string $state = null,
         bool $readonly = false,
         bool $loading = false,
-    ): string
-    {
+    ): string {
         $normalizedState = filled($errorMessage) ? 'error' : ($state ?? 'default');
 
         $states = [
@@ -118,8 +117,7 @@ if (! function_exists('sampaui_trigger_classes')) {
         array $classes = [],
         ?string $state = null,
         bool $loading = false,
-    ): string
-    {
+    ): string {
         $normalizedState = filled($errorMessage) ? 'error' : ($state ?? 'default');
         $states = [
             'default' => null,
@@ -169,7 +167,7 @@ if (! function_exists('sampaui_toggle_color_classes')) {
             'info' => 'border-info peer-checked:bg-info peer-focus:ring-info/20',
             'purple' => 'border-purple peer-checked:bg-purple peer-focus:ring-purple/20',
             'muted' => 'border-muted peer-checked:bg-muted peer-focus:ring-muted/30',
-            'light' => 'border-light peer-checked:bg-light peer-focus:ring-light/40',
+            'light' => 'border-border peer-checked:bg-light peer-focus:ring-light/40',
         ];
 
         return $colors[$color] ?? $colors['primary'];
@@ -231,7 +229,7 @@ if (! function_exists('sampaui_badge_variant_classes')) {
             'info' => 'border-info/30 bg-info/10 text-info',
             'purple' => 'border-purple/30 bg-purple/10 text-purple',
             'muted' => 'border-muted/30 bg-muted/10 text-secondary',
-            'light' => 'border-light bg-light text-secondary',
+            'light' => 'border-border bg-light text-secondary',
         ];
 
         return $variants[$variant] ?? $variants['primary'];
@@ -251,7 +249,7 @@ if (! function_exists('sampaui_badge_appearance_classes')) {
             'info' => ['border-info/30', 'bg-info/10 text-info', 'bg-info text-white', 'text-info'],
             'purple' => ['border-purple/30', 'bg-purple/10 text-purple', 'bg-purple text-white', 'text-purple'],
             'muted' => ['border-muted/30', 'bg-muted/10 text-secondary', 'bg-muted text-white', 'text-secondary'],
-            'light' => ['border-light', 'bg-light text-secondary', 'bg-light text-secondary', 'text-secondary'],
+            'light' => ['border-border', 'bg-light text-secondary', 'bg-light text-secondary', 'text-secondary'],
         ];
         $tone = $colors[$variant] ?? $colors['primary'];
 
@@ -287,8 +285,8 @@ if (! function_exists('sampaui_surface_variant_classes')) {
     function sampaui_surface_variant_classes(string $variant = 'default'): string
     {
         $variants = [
-            'default' => 'border-light bg-white text-secondary',
-            'muted' => 'border-light bg-light text-secondary',
+            'default' => 'border-border bg-white text-secondary',
+            'muted' => 'border-border bg-light text-secondary',
             'primary' => 'border-primary bg-white text-secondary',
             'secondary' => 'border-secondary bg-white text-secondary',
             'accent' => 'border-accent bg-white text-secondary',

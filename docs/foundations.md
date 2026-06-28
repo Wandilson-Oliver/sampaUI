@@ -2,14 +2,14 @@
 
 SampaUI e um pacote Blade-first exclusivo para aplicacoes a partir de Laravel 13, Livewire 4, Tailwind CSS 4 e AlpineJS. A biblioteca mantem uma identidade propria: visual corporativo premium, Bootstrap Icons, CSS compilado e componentes anonimos.
 
-## Padrao imobiliario
+## Padrao operacional
 
-O SampaUI deve ser usado como base visual para produtos imobiliarios com rotinas de captacao, atendimento, funil comercial, proposta, vistoria, contrato e pos-venda. A documentacao e os exemplos devem falar a lingua desse mercado para acelerar implementacao com IA e reduzir decisoes soltas de interface.
+O SampaUI deve ser usado como base visual para produtos digitais com rotinas de cadastro, atendimento, funil comercial, proposta, operacao, configuracao e pos-venda. A documentacao e os exemplos devem manter linguagem objetiva de produto para acelerar implementacao com IA e reduzir decisoes soltas de interface.
 
 Mapeamento recomendado:
 
 - **Dashboard comercial**: `sidebar`, `header`, `card`, `badge`, `progress`, `table`, `dropdown` e `pagination`.
-- **Cadastro de lead ou imovel**: `input`, `phone`, `currency-br`, `cep`, `select`, `select-search`, `select-multiple`, `textarea`, `file-upload` e `avatar-upload`.
+- **Cadastro de lead ou conta**: `input`, `phone`, `currency-br`, `cep`, `select`, `select-search`, `select-multiple`, `textarea`, `file-upload` e `avatar-upload`.
 - **Atendimento WhatsApp-like**: `chat-layout`, `chat-sidebar`, `chat-conversation`, `chat-message`, `chat-composer`, `avatar`, `indicator` e `toast`.
 - **Qualificacao e proposta**: `tabs`, `stepper`, `drawer`, `modal`, `alert`, `checkbox`, `radio` e `button`.
 - **Acesso e seguranca**: `pin`, `input`, `checkbox`, `alert`, `button` e `empty-state`.
@@ -23,7 +23,7 @@ Ao criar novas telas, prefira compor componentes existentes com `class=""` e tok
 - **Base compartilhada**: campos de formulario, triggers e controles booleanos usam helpers internos para manter foco, erro, disabled e cores no mesmo padrao.
 - **Acessibilidade por padrao**: labels, `aria-*`, foco visivel, estados disabled e mensagens de erro associadas.
 - **Livewire compatível**: atributos `wire:*` e Alpine passam para o elemento correto.
-- **Paleta semantica SampaUI**: usar `primary`, `secondary`, `accent`, `danger`, `light`, `success`, `warning`, `info`, `purple` e `muted` como tokens oficiais.
+- **Paleta semantica SampaUI**: usar `primary`, `secondary`, `accent`, `danger`, `light`, `surface`, `success`, `warning`, `info`, `purple`, `muted`, `border` e `text` como tokens oficiais.
 - **Documentacao executavel**: exemplos renderizados com o pacote real instalado.
 
 ## Padrao 2026 do pacote
@@ -50,10 +50,13 @@ Os tokens ficam centralizados em `config/sampaui.php` e no CSS do pacote:
 | `info` | mensagens informativas |
 | `purple` | destaque alternativo e dados especiais |
 | `muted` | estados neutros e secundarios |
+| `surface` | superficie branca de cards, modais e navegacao |
+| `border` | bordas e divisores estruturais |
+| `text` | texto neutro de alto contraste |
 
-Use classes semanticas como `bg-primary`, `text-secondary`, `border-light`, `bg-accent/10` e `focus:ring-primary/20`. Evite hexadecimais diretos em componentes quando um token oficial resolver o caso.
+Use classes semanticas como `bg-primary`, `text-secondary`, `border-border`, `bg-accent/10` e `focus:ring-primary/20`. Evite hexadecimais diretos em componentes quando um token oficial resolver o caso.
 
-Campos textuais e triggers de formulario usam `border-secondary/20` como borda padrao, incluindo `input`, `textarea`, campos com mascara, `select`, `select-search`, `select-multiple` e `date-picker`. Controles fisicos de escolha, como `checkbox`, `radio` e areas de upload, mantem `border-secondary/40` para preservar contraste. `border-light` permanece reservado para divisores, paineis e outras bordas estruturais. O `toggle` e a excecao intencional: quando desligado, sua borda e botao interno seguem o token definido em `color`.
+Campos textuais e triggers de formulario usam `border-secondary/20` como borda padrao, incluindo `input`, `textarea`, campos com mascara, `select`, `select-search`, `select-multiple` e `date-picker`. Controles fisicos de escolha, como `checkbox`, `radio` e areas de upload, mantem `border-secondary/40` para preservar contraste. `border-border` e reservado para divisores, paineis e outras bordas estruturais. O `toggle` e a excecao intencional: quando desligado, sua borda e botao interno seguem o token definido em `color`.
 
 ## Variantes padronizadas
 

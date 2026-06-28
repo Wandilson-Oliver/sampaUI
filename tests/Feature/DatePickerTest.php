@@ -20,7 +20,8 @@ class DatePickerTest extends TestCase
 BLADE);
 
         $html->assertSee('Data de publicacao');
-        $html->assertSee('type="hidden"', false);
+        $html->assertSee('type="date"', false);
+        $html->assertSee('class="sr-only"', false);
         $html->assertSee('value="2026-05-25"', false);
         $html->assertSee('data-min="2026-01-01"', false);
         $html->assertSee('data-max="2026-12-31"', false);
@@ -47,6 +48,7 @@ BLADE);
         $html->assertSee('custom-date', false);
         $html->assertSee('wire:model.live="dueAt"', false);
         $html->assertSee('x-modelable="value"', false);
+        $html->assertSee('x-model="value"', false);
         $html->assertSee('Informe a data.');
         $html->assertSee('aria-invalid="true"', false);
         $html->assertSee('disabled', false);

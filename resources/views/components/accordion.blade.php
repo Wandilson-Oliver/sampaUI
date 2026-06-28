@@ -1,6 +1,6 @@
 @props(['items' => []])
 
-<div {{ $attributes->merge(['class' => 'divide-y divide-light rounded-default border border-light bg-white']) }}>
+<div {{ $attributes->merge(['class' => 'divide-y divide-border rounded-default border border-border bg-white']) }}>
     @foreach ($items as $index => $item)
         <div x-data="{ open: @js((bool) ($item['open'] ?? false)) }">
             <button type="button" class="flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-left text-sm font-semibold text-secondary transition hover:text-primary" x-on:click="open = ! open" x-bind:aria-expanded="open.toString()">

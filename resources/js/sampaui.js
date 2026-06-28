@@ -16,8 +16,23 @@ const syncControl = (control) => {
   control.dispatchEvent(new Event('change', { bubbles: true }));
 };
 
+const lockPageScroll = () => {
+  if (typeof window === 'undefined') return;
+  window.SampaUIOverlayLockCount = Math.max(Number(window.SampaUIOverlayLockCount ?? 0), 0) + 1;
+  document.documentElement.classList.add('overflow-hidden');
+  document.body.classList.add('overflow-hidden');
+};
+
+const unlockPageScroll = () => {
+  if (typeof window === 'undefined') return;
+  window.SampaUIOverlayLockCount = Math.max(Number(window.SampaUIOverlayLockCount ?? 0) - 1, 0);
+  if (window.SampaUIOverlayLockCount > 0) return;
+  document.documentElement.classList.remove('overflow-hidden');
+  document.body.classList.remove('overflow-hidden');
+};
+
 const SampaUI = {
-  version: '0.1.18',
+  version: '0.1.19',
 
   input({ clearable = false } = {}) {
     return {
@@ -342,23 +357,71 @@ const SampaUI = {
     };
   },
 
+  chatComposer({ autoResize = true, submitOnEnter = true, maxHeight = 160 } = {}) {
+    return {
+      autoResize: Boolean(autoResize),
+      submitOnEnter: Boolean(submitOnEnter),
+      maxHeight: Math.max(Number(maxHeight) || 160, 88),
+      valueLength: 0,
+      init() {
+        this.$nextTick(() => {
+          this.valueLength = this.$refs.control?.value.length ?? 0;
+          this.resize();
+        });
+      },
+      resize() {
+        if (!this.autoResize || !this.$refs.control) return;
+        this.valueLength = this.$refs.control.value.length;
+        this.$refs.control.style.height = 'auto';
+        this.$refs.control.style.height = `${Math.min(this.$refs.control.scrollHeight, this.maxHeight)}px`;
+        this.$refs.control.style.overflowY = this.$refs.control.scrollHeight > this.maxHeight ? 'auto' : 'hidden';
+      },
+      handleKeydown(event) {
+        if (!this.submitOnEnter || event.key !== 'Enter' || event.shiftKey || event.isComposing) return;
+        event.preventDefault();
+        this.$root.requestSubmit();
+      },
+    };
+  },
+
+  chatConversation({ autoScroll = true } = {}) {
+    return {
+      autoScroll: Boolean(autoScroll),
+      init() {
+        if (this.autoScroll) this.$nextTick(() => this.scrollToBottom());
+      },
+      scrollToBottom({ smooth = false } = {}) {
+        if (!this.$refs.messages) return;
+        this.$refs.messages.scrollTo({
+          top: this.$refs.messages.scrollHeight,
+          behavior: smooth ? 'smooth' : 'auto',
+        });
+      },
+    };
+  },
+
   overlay(config = {}) {
     return {
       serverOpen: config.serverOpen,
       visible: false,
       active: false,
+      closing: false,
       closeTimer: null,
       opener: null,
+      scrollLocked: false,
       init() {
         if (this.serverOpen) this.openOverlay();
         this.$watch('serverOpen', (value) => value ? this.openOverlay() : this.close(false));
       },
       openOverlay() {
         clearTimeout(this.closeTimer);
+        this.closing = false;
         this.opener = document.activeElement;
         this.visible = true;
-        document.documentElement.classList.add('overflow-hidden');
-        document.body.classList.add('overflow-hidden');
+        if (!this.scrollLocked) {
+          lockPageScroll();
+          this.scrollLocked = true;
+        }
         this.$nextTick(() => {
           if (this.$refs.dialog && !this.$refs.dialog.open) this.$refs.dialog.showModal();
           this.active = true;
@@ -367,15 +430,19 @@ const SampaUI = {
         });
       },
       close(sync = true) {
-        if (!this.visible) return;
+        if (sync) this.serverOpen = false;
+        if (!this.visible || this.closing) return;
+        this.closing = true;
         this.active = false;
         clearTimeout(this.closeTimer);
         this.closeTimer = setTimeout(() => {
           this.visible = false;
-          document.documentElement.classList.remove('overflow-hidden');
-          document.body.classList.remove('overflow-hidden');
+          if (this.scrollLocked) {
+            unlockPageScroll();
+            this.scrollLocked = false;
+          }
           if (this.$refs.dialog?.open) this.$refs.dialog.close();
-          if (sync) this.serverOpen = false;
+          this.closing = false;
           if (config.afterClose) this.$wire?.[config.afterClose]?.();
           this.opener?.focus?.();
         }, Number(config.closeDelay ?? 260));
@@ -395,6 +462,13 @@ const SampaUI = {
         const last = items[items.length - 1];
         if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
         else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+      },
+      destroy() {
+        clearTimeout(this.closeTimer);
+        if (this.scrollLocked) {
+          unlockPageScroll();
+          this.scrollLocked = false;
+        }
       },
     };
   },

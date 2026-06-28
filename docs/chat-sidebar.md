@@ -7,8 +7,8 @@ Lista lateral de conversas para telas de atendimento, suporte e CRM.
     title="Atendimento"
     subtitle="12 conversas abertas"
     :conversations="[
-        ['name' => 'Ana Souza', 'preview' => 'Enviei os documentos.', 'time' => '09:42', 'status' => 'online', 'unread' => 2, 'active' => true],
-        ['name' => 'Bruno Lima', 'preview' => 'Podemos falar hoje?', 'time' => '08:15'],
+        ['id' => 1, 'name' => 'Ana Souza', 'preview' => 'Enviei os documentos.', 'time' => '09:42', 'status' => 'online', 'unread' => 2, 'active' => true, 'wireClick' => 'openConversation(1)'],
+        ['id' => 2, 'name' => 'Bruno Lima', 'typing' => true, 'time' => '08:15', 'href' => '/chat/2'],
     ]"
 />
 ```
@@ -19,8 +19,12 @@ Lista lateral de conversas para telas de atendimento, suporte e CRM.
 - `subtitle`: texto auxiliar.
 - `conversations`: array de conversas.
 - `search-placeholder`: placeholder da busca.
+- `search-name`: nome do campo nativo.
+- `empty-title`, `empty-description`: estado vazio.
 
 ## Slots
 
 - `actions`: comandos no topo.
 - `default`: renderizacao customizada da lista.
+
+Cada conversa aceita `id`, `name`, `preview`, `typing`, `time`, `status`, `unread`, `active`, `href` e `wireClick`. Ao selecionar, o item abre o painel de conversa no mobile.

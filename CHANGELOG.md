@@ -2,11 +2,33 @@
 
 Todas as mudanças notáveis do SampaUI serão documentadas neste arquivo.
 
+## v0.1.19 - 2026-06-28
+
+### Adicionado
+
+- Nova paleta padrao com tokens de marca e suporte explicito a `surface`, `border` e `text`.
+- `table-search` separa listagens com pesquisa do `table` simples sem remover a API anterior.
+- `brand-mark` aceita logo, texto, link e tamanhos.
+- Header ganhou busca, notificacoes e modo sticky opcionais.
+
+### Melhorado
+
+- Sidebar branca alinhada a referencia, sem trilho cinza por padrao, com modo `static` para containers e previews.
+- Card aproxima o conteudo do header em `15px`.
+- Componentes de chat ganharam navegacao mobile, auto-resize, auto-scroll, estados vazios, typing, links e status de entrega.
+
+### Corrigido
+
+- Modal nao depende mais do `<dialog>` remontado fechado pelo Livewire.
+- Modal e Drawer usam a camada do `body`; Drawers entram e saem pela mesma borda da viewport.
+- Modal e Drawer mantêm uma identidade estável entre renders Livewire, evitando que o portal abra e feche sozinho.
+- Drawer usa transições mais suaves de entrada e saída, preservando o fechamento pela mesma borda da viewport.
+
 ## v0.1.18 - 2026-06-25
 
 ### Documentação
 
-- Versão do pacote atualizada para acompanhar a documentação premium com playgrounds reais, catálogo mais espaçado e previews conceituais de Real Estate.
+- Versão do pacote atualizada para acompanhar a documentação premium com playgrounds reais e catálogo mais espaçado.
 
 ## v0.1.17 - 2026-06-25
 
@@ -50,7 +72,7 @@ Todas as mudanças notáveis do SampaUI serão documentadas neste arquivo.
 
 ### Melhorado
 
-- Documentacao revisada para padronizar o SampaUI em produtos imobiliarios: CRM, captacao, funil comercial, atendimento, propostas, dashboards e auth.
+- Documentacao revisada para padronizar o SampaUI em produtos digitais: CRM, funil comercial, atendimento, propostas, dashboards e auth.
 - README, fundamentos e catalogo de componentes receberam receitas copiaveis orientadas a Laravel, Livewire e agentes de IA.
 - Registry exportado passa a refletir a versao publica `0.1.14`.
 

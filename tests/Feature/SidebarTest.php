@@ -39,9 +39,9 @@ BLADE);
         $html->assertSee('Clientes');
         $html->assertSee('Sair');
         $html->assertSee('aria-current="page"', false);
-        $html->assertSee('border-r border-light bg-white', false);
+        $html->assertSee('border-r border-border bg-surface', false);
         $html->assertDontSee('md:sticky', false);
-        $html->assertSee('style="width: 18rem;"', false);
+        $html->assertSee('style="width: 20rem;"', false);
         $html->assertSee('collapsed: false', false);
         $html->assertSee('stateEvent: \'sampaui:sidebar-state\'', false);
         $html->assertSee('toggle() { this.setCollapsed(! this.collapsed) }', false);
@@ -50,23 +50,21 @@ BLADE);
         $html->assertSee('x-on:sampaui:sidebar-close.window="open = false; setCollapsed(true)"', false);
         $html->assertSee("x-on:click.prevent.stop=\"window.matchMedia('(max-width: 767px)').matches ? (open = false, setCollapsed(true)) : toggle()\"", false);
         $html->assertSee("x-bind:aria-label=\"window.matchMedia('(max-width: 767px)').matches ? 'Fechar navegacao' : (collapsed ? 'Expandir navegacao' : 'Recolher navegacao')\"", false);
-        $html->assertSee("x-bind:class=\"collapsed ? 'justify-center px-0 py-1' : 'py-1'\"", false);
+        $html->assertSee("x-bind:class=\"collapsed ? 'justify-center px-0 py-2' : 'px-1 py-2'\"", false);
         $html->assertSee('x-bind:style="`width: ${width()};`"', false);
-        $html->assertSee('bg-light/50', false);
+        $html->assertDontSee('-right-7 hidden w-7 bg-light', false);
         $html->assertSee('bi-chevron-left', false);
         $html->assertSee('bi-chevron-right', false);
-        $html->assertSee('hover:bg-white', false);
-        $html->assertSee('bg-primary text-white', false);
+        $html->assertSee('text-secondary/45 group-hover:text-primary', false);
+        $html->assertDontSee('bg-primary text-white', false);
         $html->assertSee('sampaui-sidebar-scroll min-h-0 flex-1 overflow-y-auto overscroll-contain', false);
-        $html->assertSee('flex flex-col gap-[0.4rem]', false);
-        $html->assertSee('flex flex-col gap-[0.2rem]', false);
-        $html->assertSee('shrink-0 pb-11 pt-10', false);
+        $html->assertSee('flex flex-col gap-5', false);
+        $html->assertSee('flex flex-col gap-3', false);
+        $html->assertSee('shrink-0 pb-12 pt-10', false);
         $html->assertSee('shrink-0 pb-10 pt-4', false);
         $html->assertSee('flex cursor-pointer items-center gap-4', false);
         $html->assertSee('group flex cursor-pointer items-center gap-5', false);
-        $html->assertSee('group-hover:bg-light/50 ', false);
-        $html->assertDontSee('hover:bg-light/30', false);
-        $html->assertDontSee('shadow', false);
+        $html->assertSee('hover:bg-light/60', false);
     }
 
     public function test_it_merges_attributes_and_preserves_wire_navigate_items(): void
@@ -106,7 +104,7 @@ BLADE);
 />
 BLADE);
 
-        $open->assertSee('style="width: 18rem;"', false);
+        $open->assertSee('style="width: 20rem;"', false);
         $open->assertSee('collapsed: false', false);
         $open->assertSee("x-on:click.prevent.stop=\"window.matchMedia('(max-width: 767px)').matches ? (open = false, setCollapsed(true)) : toggle()\"", false);
 
@@ -156,7 +154,7 @@ BLADE);
     logo-alt="Logo LIACOR"
     avatar="/images/admin.jpg"
     avatar-alt="Foto do administrador"
-    :user="['name' => 'Administrador Lia', 'email' => 'admin@liacorretora.com']"
+    :user="['name' => 'Administrador Lia', 'email' => 'admin@sampa.dev']"
     :items="[
         ['label' => 'Dashboard', 'href' => '/dashboard', 'icon' => 'grid'],
     ]"
@@ -186,19 +184,30 @@ BLADE);
         $html->assertDontSee('/images/fallback.jpg', false);
     }
 
-    public function test_it_can_hide_the_layout_rail(): void
+    public function test_it_is_white_by_default_and_can_enable_the_optional_layout_rail(): void
     {
-        $html = $this->blade(<<<'BLADE'
+        $default = $this->blade(<<<'BLADE'
 <x-sampaui::sidebar
     brand="App"
-    :rail="false"
     :items="[
         ['label' => 'Dashboard', 'href' => '/dashboard', 'icon' => 'grid'],
     ]"
 />
 BLADE);
 
-        $html->assertDontSee('-right-7 hidden w-7 bg-light/50', false);
-        $html->assertSee('Dashboard');
+        $default->assertDontSee('-right-7 hidden w-7 bg-light', false);
+        $default->assertSee('Dashboard');
+
+        $this->blade('<x-sampaui::sidebar rail />')
+            ->assertSee('-right-7 hidden w-7 bg-light', false);
+    }
+
+    public function test_it_supports_static_position_for_embedded_layouts_and_previews(): void
+    {
+        $html = $this->blade('<x-sampaui::sidebar position="static" brand="App" />');
+
+        $html->assertSee('relative h-full', false);
+        $html->assertDontSee('fixed inset-y-0 left-0 h-screen', false);
+        $html->assertDontSee('x-bind:class="open ?', false);
     }
 }

@@ -16,6 +16,6 @@ Use para confirmacoes, formularios curtos e detalhes importantes.
 - `persistent`: impede fechar clicando fora.
 - `close-button`: controla o botao de fechar.
 
-O modal bloqueia scroll, usa `<dialog>` nativo com top layer do navegador, preserva `role="dialog"` e recebe foco ao abrir. Isso mantém o overlay acima de sidebars, topbars e containers com `overflow`.
+O modal bloqueia scroll, e teletransportado para o `body`, preserva `role="dialog"` e recebe foco ao abrir. A camada fixa evita que o morph do Livewire remonte um `<dialog>` nativo fechado e mantem o overlay acima de sidebars, topbars e containers com `overflow`.
 
 O foco fica preso no painel e retorna ao acionador. `close-on-escape` e `close-on-outside` configuram o fechamento; `persistent` desativa ambos por padrao.

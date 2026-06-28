@@ -26,17 +26,22 @@ BLADE);
         $html->assertSee('Aplicar');
         $html->assertSee('role="dialog"', false);
         $html->assertSee('aria-modal="true"', false);
+        $html->assertSee('id="sampaui-drawer-standalone-showDrawer"', false);
         $html->assertSee('max-w-lg', false);
         $html->assertSee('rounded-l-default', false);
         $html->assertSee('$wire.entangle(\'showDrawer\').live', false);
         $html->assertSee('SampaUI.overlay', false);
+        $html->assertSee('closeDelay: 520', false);
+        $html->assertSee('x-teleport="body"', false);
         $html->assertSee('translate-x-full opacity-0', false);
         $html->assertSee('translate-x-0 translate-y-0 opacity-100', false);
-        $html->assertSee('will-change: transform, translate, opacity;', false);
+        $html->assertSee('will-change: transform, opacity;', false);
+        $html->assertSee('duration-500', false);
+        $html->assertSee('ease-[cubic-bezier(0.22,1,0.36,1)]', false);
         $html->assertSee('backdrop-blur-[2px]', false);
         $html->assertSee('aria-label="Fechar drawer"', false);
         $html->assertSee('x-on:keydown.tab="trapTab($event)"', false);
-        $html->assertSee('border border-light', false);
+        $html->assertSee('border border-border', false);
     }
 
     public function test_it_supports_placement_events_and_panel_class(): void
@@ -66,7 +71,7 @@ BLADE);
         $html->assertSee('rounded-r-default', false);
         $html->assertSee('-translate-x-full opacity-0', false);
         $html->assertSee('translate-x-0 translate-y-0 opacity-100', false);
-        $html->assertSee('x-on:filters-applied.window="close(false)"', false);
+        $html->assertSee('x-on:filters-applied.window="close()"', false);
         $html->assertSee("afterClose: 'afterDrawerClose'", false);
         $html->assertSee('closeOnEscape: false', false);
         $html->assertSee('closeOnOutside: false', false);

@@ -4,37 +4,37 @@ Os componentes sao publicados no namespace `sampaui` e foram desenhados para uso
 
 O catalogo oficial tambem esta versionado em `resources/metadata/components.php` e exportado em `docs/registry/components.json`. Ao criar ou alterar componentes, atualize o registry junto da documentacao para que ferramentas como Codex consigam entender a API publica do pacote.
 
-## Receitas imobiliarias
+## Receitas operacionais
 
-Use estas composicoes como ponto de partida para CRM, captacao, atendimento e operacao imobiliaria.
+Use estas composicoes como ponto de partida para CRM, cadastros, atendimento e operacao interna.
 
-### Card de imovel
+### Card de conta
 
 ```blade
-<x-sampaui::card title="Casa Jardim Paulista" description="Captacao ativa" padding="lg">
+<x-sampaui::card title="Conta Enterprise" description="Negociacao ativa" padding="lg">
     <div class="flex flex-wrap gap-2">
-        <x-sampaui::badge variant="success">Disponivel</x-sampaui::badge>
-        <x-sampaui::badge variant="accent">R$ 1.240.000</x-sampaui::badge>
-        <x-sampaui::badge variant="light">3 suites</x-sampaui::badge>
+        <x-sampaui::badge variant="success">Ativo</x-sampaui::badge>
+        <x-sampaui::badge variant="accent">R$ 12.400</x-sampaui::badge>
+        <x-sampaui::badge variant="light">Plano anual</x-sampaui::badge>
     </div>
 
-    <x-sampaui::progress class="mt-5" value="72" label="Documentacao" />
+    <x-sampaui::progress class="mt-5" value="72" label="Onboarding" />
 </x-sampaui::card>
 ```
 
 ### Lead comercial
 
 ```blade
-<x-sampaui::card title="Novo lead" description="Origem: portal imobiliario" padding="lg">
+<x-sampaui::card title="Novo lead" description="Origem: site institucional" padding="lg">
     <div class="grid gap-4 md:grid-cols-2">
         <x-sampaui::input name="name" label="Nome" icon="person" wire:model.live="lead.name" />
         <x-sampaui::phone name="phone" label="WhatsApp" wire:model.live="lead.phone" />
         <x-sampaui::currency-br name="budget" label="Orcamento" wire:model.live="lead.budget" />
         <x-sampaui::select-search
             name="broker"
-            label="Corretor"
+            label="Responsavel"
             :options="['ana' => 'Ana Souza', 'bruno' => 'Bruno Lima']"
-            wire:model.live="lead.broker"
+            wire:model.live="lead.owner"
         />
     </div>
 </x-sampaui::card>
@@ -48,8 +48,8 @@ Use estas composicoes como ponto de partida para CRM, captacao, atendimento e op
         <x-sampaui::chat-sidebar :conversations="$conversations" />
     </x-slot:sidebar>
 
-    <x-sampaui::chat-conversation name="Ana Souza" subtitle="Lead comprador">
-        <x-sampaui::chat-message time="09:40">Quero visitar o apartamento hoje.</x-sampaui::chat-message>
+    <x-sampaui::chat-conversation name="Ana Souza" subtitle="Lead comercial">
+        <x-sampaui::chat-message time="09:40">Quero agendar uma demonstracao hoje.</x-sampaui::chat-message>
         <x-sampaui::chat-message from="me" time="09:41" status="Lida">Enviei os horarios disponiveis.</x-sampaui::chat-message>
 
         <x-slot:composer>
@@ -107,6 +107,7 @@ Documentacao individual:
 - [Tooltip](tooltip.md)
 - [Toast](toast.md)
 - [Table](table.md)
+- [Table Search](table-search.md)
 - [Pagination](pagination.md)
 
 ## Button
@@ -302,7 +303,7 @@ Slots internos para icones ou acoes:
     brand="LIACOR"
     initial-state="open"
     brand-href="/dashboard"
-    :user="['name' => 'Administrador Lia', 'email' => 'admin@liacorretora.com']"
+    :user="['name' => 'Administrador Lia', 'email' => 'admin@sampa.dev']"
     :items="[
         ['label' => 'Dashboard', 'href' => '/dashboard', 'icon' => 'grid', 'active' => true],
         ['label' => 'Clientes', 'href' => '/clients', 'icon' => 'people', 'navigate' => true],

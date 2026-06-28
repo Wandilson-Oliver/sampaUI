@@ -69,7 +69,7 @@
 
         <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4" x-show="files.length > 0" x-cloak>
             <template x-for="(file, index) in files" x-bind:key="file.id">
-                <article class="relative overflow-hidden rounded-default border border-light bg-white">
+                <article class="relative overflow-hidden rounded-default border border-border bg-white">
                     <img x-show="@js($preview) && file.url" x-bind:src="file.url" x-bind:alt="file.name" class="aspect-square w-full object-cover">
                     <div class="space-y-2 p-3">
                         <p class="truncate text-xs font-medium text-secondary" x-text="file.name"></p>

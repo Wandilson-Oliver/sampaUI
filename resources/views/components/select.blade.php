@@ -127,7 +127,7 @@
             x-cloak
             x-transition.origin.top.duration.150ms
             x-on:click.outside="close()"
-            class="absolute left-0 top-full z-[120] mt-2 w-full overflow-hidden rounded-default border border-light bg-white shadow-2xl shadow-secondary/10"
+            class="absolute left-0 top-full z-[120] mt-2 w-full overflow-hidden rounded-default border border-border bg-white shadow-2xl shadow-secondary/10"
         >
             <ul id="{{ $id }}-listbox" role="listbox" class="max-h-64 overflow-y-auto py-1">
                 <template x-for="(option, index) in options" x-bind:key="option.value">

@@ -1,6 +1,6 @@
 # SampaUI Agent Guide
 
-SampaUI is a Blade-first UI package for Laravel 13+, Livewire 4+, Tailwind CSS 4, AlpineJS and Bootstrap Icons. It is intended for corporate, real estate and SaaS applications with a premium, restrained visual style.
+SampaUI is a Blade-first UI package for Laravel 13+, Livewire 4+, Tailwind CSS 4, AlpineJS and Bootstrap Icons. It is intended for corporate, SaaS and internal applications with a premium, restrained visual style.
 
 Official docs to consult when changing package, Laravel or Livewire behavior:
 - https://laravel.com/docs/13.x/documentation
@@ -42,13 +42,13 @@ import "../../vendor/sampaui/sampaui/dist/sampaui.js";
 Official tokens:
 
 ```txt
-primary, secondary, accent, danger, light, success, warning, info, purple, muted
+primary, secondary, accent, danger, light, surface, success, warning, info, purple, muted, border, text
 ```
 
 Common classes:
 
 ```txt
-bg-primary, text-secondary, border-light, bg-accent/10, focus:ring-primary/20
+bg-primary, text-secondary, border-border, bg-accent/10, focus:ring-primary/20
 ```
 
 ## Component Registry
@@ -126,6 +126,7 @@ php artisan sampaui:docs-export --format=markdown
 - `stepper`: `<x-sampaui::stepper />`
 - `tab-panel`: `<x-sampaui::tab-panel />`
 - `table`: `<x-sampaui::table />`
+- `table-search`: `<x-sampaui::table-search />`
 - `tabs`: `<x-sampaui::tabs />`
 - `textarea`: `<x-sampaui::textarea />`
 - `toast`: `<x-sampaui::toast />`
@@ -135,7 +136,7 @@ php artisan sampaui:docs-export --format=markdown
 ## API Notes
 
 - `select` usa combobox Alpine com `x-modelable`, aceita `options`, `value`, `placeholder`, `emptyText`, `required` e preserva um `<select>` real oculto para formularios e Livewire.
-- `table` e um DataTable leve: aceita `title`, `description`, `searchable`, `search`, `search-model`, `selectable`, `selected-rows`, `row-key`, `export-href`, `per-page`, `page`, `total`, `pagination-method`, colunas com `sortable => true` e props `sortBy`, `sortDirection` e `sortMethod`.
+- `table` e a listagem simples. Para novas tabelas com busca, use `table-search`; as props avancadas antigas do `table` continuam disponiveis por compatibilidade.
 - `dropdown` aceita `align`, `width` e `placement`; use `placement="top"` em menus nas ultimas linhas de tabelas ou containers com rolagem para evitar corte visual.
 - Campos centrais aceitam `hint`, `error`, `state`, `required`, `readonly`, `loading` e `loading-target`, associando label e feedback por ARIA ao controle real.
 - `select` e `select-multiple` preservam `wire:model` no controle nativo, suportam teclado e limpeza com `clearable`.

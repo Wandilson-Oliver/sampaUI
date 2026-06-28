@@ -23,3 +23,5 @@ Container para agrupar conteudo com header, actions e footer opcionais.
 - `divided`: `false` por padrao. Use `:divided="true"` quando precisar separar header e conteudo.
 
 `appearance` aceita `outline` (padrao), `soft` e `solid`, sempre com tokens semanticos do SampaUI.
+
+Quando existe header, o conteudo inicia a `15px` do bloco de titulo/descricao para manter o card compacto sem perder hierarquia.

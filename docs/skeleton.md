@@ -17,7 +17,7 @@ Prefira skeletons quando o layout final ja e conhecido e a espera e curta.
 ## Card carregando
 
 ```blade
-<div class="rounded-default border border-light bg-white p-5">
+<div class="rounded-default border border-border bg-white p-5">
     <div class="flex items-center gap-4">
         <x-sampaui::skeleton circle class="h-14 w-14" />
 
@@ -37,7 +37,7 @@ Prefira skeletons quando o layout final ja e conhecido e a espera e curta.
 
 ```blade
 @foreach (range(1, 4) as $row)
-    <div class="flex items-center gap-4 rounded-default border border-light bg-white p-4">
+    <div class="flex items-center gap-4 rounded-default border border-border bg-white p-4">
         <x-sampaui::skeleton circle class="h-10 w-10" />
         <x-sampaui::skeleton class="h-4 flex-1" />
         <x-sampaui::skeleton class="h-4 w-24" />
