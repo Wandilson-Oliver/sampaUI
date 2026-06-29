@@ -23,6 +23,7 @@ Todas as mudanças notáveis do SampaUI serão documentadas neste arquivo.
 - Modal e Drawer usam a camada do `body`; Drawers entram e saem pela mesma borda da viewport.
 - Modal e Drawer mantêm uma identidade estável entre renders Livewire, evitando que o portal abra e feche sozinho.
 - Drawer usa transições mais suaves de entrada e saída, preservando o fechamento pela mesma borda da viewport.
+- Pipeline npm usa lockfile versionado e os metadados Composer deixam a versão pública sob responsabilidade das tags Git.
 
 ## v0.1.18 - 2026-06-25
 

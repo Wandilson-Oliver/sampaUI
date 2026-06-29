@@ -10,10 +10,12 @@ class PackageIntegrityTest extends TestCase
     public function test_package_versions_stay_in_sync(): void
     {
         $composer = json_decode((string) file_get_contents(__DIR__.'/../../composer.json'), true, flags: JSON_THROW_ON_ERROR);
+        $registry = json_decode((string) file_get_contents(__DIR__.'/../../docs/registry/components.json'), true, flags: JSON_THROW_ON_ERROR);
         $javascript = (string) file_get_contents(__DIR__.'/../../resources/js/sampaui.js');
 
-        $this->assertSame($composer['version'], SampaUI::VERSION);
-        $this->assertStringContainsString("version: '{$composer['version']}'", $javascript);
+        $this->assertArrayNotHasKey('version', $composer, 'Packagist must derive the package version from Git tags.');
+        $this->assertSame(SampaUI::VERSION, $registry['version']);
+        $this->assertStringContainsString("version: '".SampaUI::VERSION."'", $javascript);
     }
 
     public function test_overlay_scroll_lock_uses_a_global_counter(): void
