@@ -1,6 +1,6 @@
 {
     "name": "SampaUI",
-    "version": "0.1.19",
+    "version": "0.1.20",
     "stack": [
         "Laravel 13+",
         "Livewire 4+",
@@ -877,6 +877,7 @@
                 "brand",
                 "brand-href",
                 "brand-icon",
+                "src",
                 "logo",
                 "logo-alt",
                 "items",
@@ -966,6 +967,7 @@
                 "page",
                 "total",
                 "pagination-method",
+                "pagination-type",
                 "selectable",
                 "selected-rows",
                 "row-key",
@@ -973,6 +975,9 @@
                 "sticky-header",
                 "mobile-cards",
                 "compact",
+                "bordered",
+                "flush",
+                "bleed",
                 "loading",
                 "loading-target"
             ],
@@ -1011,6 +1016,7 @@
                 "page",
                 "total",
                 "pagination-method",
+                "pagination-type",
                 "selectable",
                 "selected-rows",
                 "row-key",
@@ -1018,6 +1024,9 @@
                 "sticky-header",
                 "mobile-cards",
                 "compact",
+                "bordered",
+                "flush",
+                "bleed",
                 "loading",
                 "loading-target"
             ],

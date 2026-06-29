@@ -63,6 +63,7 @@ Sem `sort-method`, o componente ordena os `rows` estaticamente para exemplos, pr
     page="{{ $page }}"
     total="{{ $total }}"
     pagination-method="gotoTablePage"
+    pagination-type="numbers"
     :columns="$columns"
     :rows="$rows"
 />
@@ -76,6 +77,6 @@ Use `loading` para renderizar skeletons leves e `empty-title`, `empty-descriptio
 
 Props principais do `table`: `columns`, `rows`, `title`, `description`, `empty`, `empty-title`, `empty-description`, `compact`, `sticky-header` e `mobile-cards`.
 
-O `table-search` adiciona `search`, `search-model`, `selectable`, `selected-rows`, `row-key`, `export-href`, `per-page`, `page`, `total`, `pagination-method`, `sortBy`, `sortDirection` e `sortMethod`.
+O `table-search` adiciona `search`, `search-model`, o slot `filters`, `selectable`, `selected-rows`, `row-key`, `export-href`, `per-page`, `page`, `total`, `pagination-method`, `pagination-type`, `sortBy`, `sortDirection` e `sortMethod`.
 
 `sticky-header` fixa o cabecalho dentro do container rolavel. `mobile-cards` transforma rows estruturadas em cards no mobile. `aria-sort` fica no cabecalho da coluna e a ordenacao Livewire bloqueia cliques repetidos durante loading.

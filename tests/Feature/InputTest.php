@@ -65,6 +65,7 @@ BLADE)
     {
         $this->blade('<x-sampaui::input name="name" />')
             ->assertSee('border border-secondary/20', false)
+            ->assertSee('h-12 py-0', false)
             ->assertDontSee('border border-secondary/30', false);
     }
 }

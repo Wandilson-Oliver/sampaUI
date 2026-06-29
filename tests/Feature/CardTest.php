@@ -24,6 +24,7 @@ BLADE);
         $html->assertSee('rounded-default border', false);
         $html->assertSee('border-accent', false);
         $html->assertSee('pt-[15px]', false);
+        $html->assertSee('style="--sampaui-card-padding-x: 1.25rem;"', false);
     }
 
     public function test_it_merges_classes_and_attributes(): void
@@ -46,5 +47,14 @@ BLADE);
 
         $this->blade('<x-sampaui::card variant="unknown">Conteudo</x-sampaui::card>')
             ->assertSee('border-border bg-white text-secondary', false);
+    }
+
+    public function test_it_exposes_the_horizontal_padding_for_flush_children(): void
+    {
+        $this->blade('<x-sampaui::card padding="sm">Conteudo</x-sampaui::card>')
+            ->assertSee('--sampaui-card-padding-x: 1rem', false);
+
+        $this->blade('<x-sampaui::card padding="lg">Conteudo</x-sampaui::card>')
+            ->assertSee('--sampaui-card-padding-x: 1.5rem', false);
     }
 }

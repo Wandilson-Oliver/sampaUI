@@ -23,10 +23,16 @@
         'md' => 'px-5 pb-5 pt-[15px]',
         'lg' => 'px-6 pb-6 pt-[15px]',
     ];
+    $horizontalPaddings = [
+        'sm' => '1rem',
+        'md' => '1.25rem',
+        'lg' => '1.5rem',
+    ];
 
     $pad = $paddings[$padding] ?? $paddings['md'];
     $headerPad = $headerPaddings[$padding] ?? $headerPaddings['md'];
     $bodyPad = $bodyAfterHeaderPaddings[$padding] ?? $bodyAfterHeaderPaddings['md'];
+    $horizontalPadding = $horizontalPaddings[$padding] ?? $horizontalPaddings['md'];
     $tone = sampaui_surface_variant_classes($variant);
     $solidTones = [
         'default' => 'border-secondary bg-secondary text-white',
@@ -95,7 +101,10 @@
         @endif
     @endif
 
-    <div class="{{ $hasHeader && ! $divided ? $bodyPad : $pad }}">
+    <div
+        class="{{ $hasHeader && ! $divided ? $bodyPad : $pad }}"
+        style="--sampaui-card-padding-x: {{ $horizontalPadding }};"
+    >
         {{ $slot }}
     </div>
 

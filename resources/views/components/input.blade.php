@@ -28,6 +28,7 @@
     $hasPrefix = filled($icon) || isset($prefix);
     $hasSuffix = $hasCustomSuffix || $hasPasswordToggle || $clearable || $loading;
     $classes = sampaui_field_classes($errorMessage, $disabled, [
+        'h-12 py-0',
         'pl-11' => $hasPrefix,
         'pr-11' => $hasSuffix,
     ], $state, $readonly, $loading);

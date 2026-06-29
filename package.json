@@ -2,7 +2,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "tailwindcss -i ./resources/css/sampaui.css -o ./dist/sampaui.css --minify && cp ./resources/js/sampaui.js ./dist/sampaui.js && mkdir -p ./dist/fonts && cp ./node_modules/bootstrap-icons/font/fonts/* ./dist/fonts/"
+    "build": "tailwindcss -i ./resources/css/sampaui.css -o ./dist/sampaui.css --minify && cp ./resources/js/sampaui.js ./dist/sampaui.js && mkdir -p ./dist/fonts ./dist/images && cp ./node_modules/bootstrap-icons/font/fonts/* ./dist/fonts/ && cp ./resources/images/* ./dist/images/"
   },
   "devDependencies": {
     "@tailwindcss/cli": "^4.0.0",

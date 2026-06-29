@@ -33,6 +33,7 @@ BLADE);
         $html->assertSee('role="option"', false);
         $html->assertSee('border border-secondary/20', false);
         $html->assertSee('hover:border-secondary/30', false);
+        $html->assertSee('min-h-12', false);
         $html->assertSee('shadow-2xl shadow-secondary/10', false);
         $html->assertSee('bi bi-search', false);
         $html->assertSee('bi bi-chevron-down', false);

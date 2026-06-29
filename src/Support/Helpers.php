@@ -127,7 +127,7 @@ if (! function_exists('sampaui_trigger_classes')) {
         ];
 
         return sampaui_classes(array_merge([
-            'flex w-full cursor-pointer items-center justify-between gap-3 rounded-default border border-secondary/20 bg-white px-4 py-2.5 text-left text-base text-secondary transition hover:border-secondary/30 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20',
+            'flex min-h-12 w-full cursor-pointer items-center justify-between gap-3 rounded-default border border-secondary/20 bg-white px-4 py-2.5 text-left text-base text-secondary transition hover:border-secondary/30 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20',
             $states[$normalizedState] ?? $states['default'],
             'cursor-not-allowed opacity-50' => $disabled || $loading,
         ], $classes));

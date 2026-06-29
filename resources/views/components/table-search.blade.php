@@ -9,7 +9,9 @@
     'description' => null,
     'striped' => false,
     'hover' => true,
-    'bordered' => true,
+    'bordered' => false,
+    'flush' => true,
+    'bleed' => true,
     'compact' => false,
     'sortBy' => null,
     'sortDirection' => 'asc',
@@ -26,6 +28,7 @@
     'page' => 1,
     'total' => null,
     'paginationMethod' => null,
+    'paginationType' => 'simple',
     'selectable' => false,
     'selectedRows' => [],
     'selectName' => 'selected',
@@ -46,6 +49,8 @@
     :striped="$striped"
     :hover="$hover"
     :bordered="$bordered"
+    :flush="$flush"
+    :bleed="$bleed"
     :compact="$compact"
     :sort-by="$sortBy"
     :sort-direction="$sortDirection"
@@ -63,6 +68,7 @@
     :page="$page"
     :total="$total"
     :pagination-method="$paginationMethod"
+    :pagination-type="$paginationType"
     :selectable="$selectable"
     :selected-rows="$selectedRows"
     :select-name="$selectName"
