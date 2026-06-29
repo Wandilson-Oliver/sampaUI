@@ -95,7 +95,7 @@ Evitar:
 Usar a paleta semantica personalizada do SampaUI como fonte unica de verdade:
 
 ```txt
-primary, secondary, accent, danger, light, success, warning, info, purple, muted
+primary, secondary, accent, danger, light, surface, success, warning, info, purple, muted, border, text
 ```
 
 As cores ficam declaradas em `config/sampaui.php` e refletidas no CSS compilado do pacote.
@@ -126,7 +126,7 @@ text-secondary
 
 bg-accent
 
-border-light
+border-border
 
 rounded-default
 
@@ -741,7 +741,7 @@ Grande:
 <x-sampaui::button
 size="2xl">
 
-Adicionar imóvel
+Adicionar conta
 
 </x-sampaui::button>
 ```
@@ -1121,7 +1121,7 @@ Com tamanho:
 
 ```blade
 <x-sampaui::button size="2xl">
-Adicionar imóvel
+Adicionar conta
 </x-sampaui::button>
 ```
 
@@ -1139,10 +1139,10 @@ Customizado:
 <x-sampaui::button
     variant="accent"
     size="lg"
-    icon="house"
+    icon="briefcase"
     class="w-full shadow-none"
 >
-    Novo imóvel
+    Nova conta
 </x-sampaui::button>
 ```
 

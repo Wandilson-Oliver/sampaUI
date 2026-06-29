@@ -23,6 +23,7 @@ BLADE);
         $html->assertSee('Rodape');
         $html->assertSee('rounded-default border', false);
         $html->assertSee('border-accent', false);
+        $html->assertSee('pt-[15px]', false);
     }
 
     public function test_it_merges_classes_and_attributes(): void
@@ -44,6 +45,6 @@ BLADE);
             ->assertSee('border-purple bg-white text-secondary', false);
 
         $this->blade('<x-sampaui::card variant="unknown">Conteudo</x-sampaui::card>')
-            ->assertSee('border-light bg-white text-secondary', false);
+            ->assertSee('border-border bg-white text-secondary', false);
     }
 }

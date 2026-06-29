@@ -142,16 +142,16 @@
     <input
         x-ref="input"
         id="{{ $id }}"
-        type="hidden"
+        type="date"
         @if ($name) name="{{ $name }}" @endif
         @if (! is_null($value)) value="{{ $value }}" @endif
-        x-bind:value="value"
+        x-model="value"
         @if ($min) data-min="{{ $min }}" @endif
         @if ($max) data-max="{{ $max }}" @endif
         @required($required)
         @disabled($disabled)
         @if ($errorMessage) aria-invalid="true" aria-describedby="{{ $id }}-error" @endif
-        {{ $inputAttributes }}
+        {{ $inputAttributes->merge(['class' => 'sr-only']) }}
     >
 
     <button
@@ -202,7 +202,7 @@
         x-transition:leave-start="opacity-100 translate-y-0"
         x-transition:leave-end="opacity-0 translate-y-1"
         x-on:click.outside="open = false"
-        class="absolute z-50 mt-2 w-full min-w-[20rem] rounded-default border border-light bg-white p-4 text-secondary"
+        class="absolute z-50 mt-2 w-full min-w-[20rem] rounded-default border border-border bg-white p-4 text-secondary"
         role="dialog"
         aria-label="Selecionar data"
     >

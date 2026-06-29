@@ -41,8 +41,12 @@ BLADE);
             ->assertSee('wire:submit.prevent="sendMessage"', false)
             ->assertSee('wire:model.live="message"', false)
             ->assertSee('rounded-br-sm bg-primary text-white', false)
-            ->assertSee('rounded-bl-sm bg-white text-secondary', false)
-            ->assertSee('grid min-h-0 overflow-hidden rounded-default', false);
+            ->assertSee('rounded-bl-sm border border-border bg-surface text-secondary', false)
+            ->assertSee('grid min-h-0 overflow-hidden rounded-default', false)
+            ->assertSee('chat:open-conversation', false)
+            ->assertSee('SampaUI.chatComposer', false)
+            ->assertSee('SampaUI.chatConversation', false)
+            ->assertSee('aria-label="Voltar para conversas"', false);
     }
 
     public function test_chat_sidebar_search_model_goes_to_input(): void
@@ -51,5 +55,28 @@ BLADE);
 
         $html->assertSee('wire:model.live="search"', false)
             ->assertSee('name="chat_search"', false);
+    }
+
+    public function test_chat_components_support_empty_typing_counter_and_links(): void
+    {
+        $sidebar = $this->blade(<<<'BLADE'
+<x-sampaui::chat-sidebar :conversations="[
+    ['id' => 10, 'name' => 'Ana', 'typing' => true, 'href' => '/chat/10', 'unread' => 120],
+]" />
+BLADE);
+
+        $sidebar->assertSee('href="/chat/10"', false)
+            ->assertSee('Digitando...')
+            ->assertSee('99+')
+            ->assertSee('id: 10', false);
+
+        $this->blade('<x-sampaui::chat-conversation empty />')
+            ->assertSee('Nenhuma mensagem ainda')
+            ->assertSee('bi bi-chat-left-dots', false);
+
+        $this->blade('<x-sampaui::chat-composer max-length="500" show-counter />')
+            ->assertSee('maxlength="500"', false)
+            ->assertSee('x-text="valueLength"', false)
+            ->assertSee('aria-label="Enviar mensagem"', false);
     }
 }

@@ -13,8 +13,20 @@
         'md' => 'px-5 py-5',
         'lg' => 'px-6 py-6',
     ];
+    $headerPaddings = [
+        'sm' => 'px-4 pt-4',
+        'md' => 'px-5 pt-5',
+        'lg' => 'px-6 pt-6',
+    ];
+    $bodyAfterHeaderPaddings = [
+        'sm' => 'px-4 pb-4 pt-[15px]',
+        'md' => 'px-5 pb-5 pt-[15px]',
+        'lg' => 'px-6 pb-6 pt-[15px]',
+    ];
 
     $pad = $paddings[$padding] ?? $paddings['md'];
+    $headerPad = $headerPaddings[$padding] ?? $headerPaddings['md'];
+    $bodyPad = $bodyAfterHeaderPaddings[$padding] ?? $bodyAfterHeaderPaddings['md'];
     $tone = sampaui_surface_variant_classes($variant);
     $solidTones = [
         'default' => 'border-secondary bg-secondary text-white',
@@ -29,7 +41,7 @@
         'purple' => 'border-purple bg-purple text-white',
     ];
     $softTones = [
-        'default' => 'border-light bg-light/40 text-secondary',
+        'default' => 'border-border bg-light/40 text-secondary',
         'muted' => 'border-muted/30 bg-muted/10 text-secondary',
         'primary' => 'border-primary/25 bg-primary/10 text-secondary',
         'secondary' => 'border-secondary/40 bg-secondary/10 text-secondary',
@@ -56,7 +68,7 @@
 
 <div {{ $attributes->merge(['class' => $classes]) }}>
     @if ($hasHeader)
-        <div class="{{ $pad }}">
+        <div class="{{ $headerPad }}">
             <div class="flex items-start justify-between gap-4">
                 <div class="min-w-0">
                     @isset($header)
@@ -79,16 +91,16 @@
         </div>
 
         @if ($divided)
-            <div class="h-px w-full bg-light"></div>
+            <div class="mx-5 mt-[15px] h-px bg-border"></div>
         @endif
     @endif
 
-    <div class="{{ $pad }}">
+    <div class="{{ $hasHeader && ! $divided ? $bodyPad : $pad }}">
         {{ $slot }}
     </div>
 
     @isset($footer)
-        <div class="h-px w-full bg-light"></div>
+        <div class="h-px w-full bg-border"></div>
         <div class="{{ $pad }}">
             {{ $footer }}
         </div>

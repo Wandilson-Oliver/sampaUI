@@ -188,7 +188,7 @@
         @if ($hint || $errorMessage) aria-describedby="{{ collect([$hint ? $id.'-hint' : null, $errorMessage ? $id.'-error' : null])->filter()->implode(' ') }}" @endif
     >
         @if ($prefix)
-            <span class="inline-flex h-12 shrink-0 items-center rounded-default border border-light bg-light px-3 text-base font-semibold text-secondary">
+            <span class="inline-flex h-12 shrink-0 items-center rounded-default border border-border bg-light px-3 text-base font-semibold text-secondary">
                 {{ $prefix }}
             </span>
         @endif

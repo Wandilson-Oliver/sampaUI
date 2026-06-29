@@ -26,7 +26,12 @@
     $fieldHint = $hint ?? $help;
     $describedBy = sampaui_described_by($id, $fieldHint, $errorMessage, $attributes->get('aria-describedby'));
     $wireModelAttribute = collect($attributes->getAttributes())->filter(fn (mixed $value, string $key): bool => str_starts_with($key, 'wire:model'))->first();
-    $removeWireModel = $removeModel ?? ($wireModelAttribute ? \Illuminate\Support\Str::camel($wireModelAttribute.'_remove') : null);
+    $removeWireModel = $removeModel;
+    if (! $removeWireModel && $wireModelAttribute) {
+        $removeWireModel = str_contains($wireModelAttribute, '.')
+            ? preg_replace('/([^.]+)$/', '$1_remove', $wireModelAttribute)
+            : \Illuminate\Support\Str::camel($wireModelAttribute.'_remove');
+    }
     $sizes = ['sm' => 'h-20 w-20', 'md' => 'h-24 w-24', 'lg' => 'h-32 w-32', 'xl' => 'h-40 w-40', '2xl' => 'h-48 w-48'];
     $selectedSize = $sizes[$size] ?? $sizes['xl'];
     $unavailable = $disabled || $loading;

@@ -26,10 +26,10 @@ BLADE);
         $html->assertSee('Gerencie relacionamentos comerciais');
         $html->assertSee('Atualizado agora');
         $html->assertSee('Novo cliente');
-        $html->assertSee('rounded-default border border-light', false);
-        $html->assertSee('sm:flex-row sm:items-center sm:justify-between', false);
-        $html->assertSee('sm:ml-auto sm:w-auto sm:shrink-0 sm:justify-end', false);
-        $html->assertDontSee('shadow', false);
+        $html->assertSee('rounded-default border border-border', false);
+        $html->assertSee('lg:flex-row lg:items-center', false);
+        $html->assertSee('lg:ml-auto lg:w-auto lg:shrink-0 lg:justify-end', false);
+        $html->assertSee('shadow-sm shadow-secondary/5', false);
     }
 
     public function test_it_merges_attributes_and_supports_mobile_menu_event(): void
@@ -48,5 +48,27 @@ BLADE);
         $html->assertSee('wire:key="page-header"', false);
         $html->assertSee('$dispatch(\'open-navigation\')', false);
         $html->assertSee('aria-label="Abrir navegacao"', false);
+    }
+
+    public function test_it_supports_search_notifications_and_sticky_mode(): void
+    {
+        $html = $this->blade(<<<'BLADE'
+<x-sampaui::header
+    title="Dashboard"
+    search
+    search-model="search"
+    notifications
+    notification-count="12"
+    notification-event="open-notifications"
+    sticky
+/>
+BLADE);
+
+        $html->assertSee('sticky top-0 z-40', false);
+        $html->assertSee('type="search"', false);
+        $html->assertSee('wire:model.live.debounce.300ms="search"', false);
+        $html->assertSee('aria-label="Abrir notificacoes"', false);
+        $html->assertSee('$dispatch(\'open-notifications\')', false);
+        $html->assertSee('12');
     }
 }

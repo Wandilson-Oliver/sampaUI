@@ -1,6 +1,6 @@
 {
     "name": "SampaUI",
-    "version": "0.1.18",
+    "version": "0.1.19",
     "stack": [
         "Laravel 13+",
         "Livewire 4+",
@@ -119,9 +119,12 @@
             "category": "navigation",
             "tag": "<x-sampaui::brand-mark />",
             "props": [
+                "icon",
+                "logo",
+                "alt",
                 "label",
                 "href",
-                "icon"
+                "size"
             ],
             "slots": [],
             "variants": [],
@@ -233,7 +236,14 @@
                 "name",
                 "placeholder",
                 "button-label",
-                "rows"
+                "rows",
+                "disabled",
+                "loading",
+                "loading-target",
+                "max-length",
+                "show-counter",
+                "auto-resize",
+                "submit-on-enter"
             ],
             "slots": [
                 "default",
@@ -252,7 +262,12 @@
                 "name",
                 "subtitle",
                 "avatar",
-                "status"
+                "status",
+                "back-button",
+                "auto-scroll",
+                "empty",
+                "empty-title",
+                "empty-description"
             ],
             "slots": [
                 "default",
@@ -268,7 +283,8 @@
             "category": "communication",
             "tag": "<x-sampaui::chat-layout />",
             "props": [
-                "height"
+                "height",
+                "mobile-panel"
             ],
             "slots": [
                 "default",
@@ -286,7 +302,9 @@
                 "from",
                 "author",
                 "time",
-                "status"
+                "status",
+                "avatar",
+                "show-avatar"
             ],
             "slots": [
                 "default"
@@ -307,7 +325,10 @@
                 "title",
                 "subtitle",
                 "conversations",
-                "search-placeholder"
+                "search-placeholder",
+                "search-name",
+                "empty-title",
+                "empty-description"
             ],
             "slots": [
                 "default",
@@ -550,7 +571,15 @@
                 "eyebrow",
                 "status",
                 "menu",
-                "aria-label"
+                "aria-label",
+                "search",
+                "search-name",
+                "search-model",
+                "search-placeholder",
+                "notifications",
+                "notification-count",
+                "notification-event",
+                "sticky"
             ],
             "slots": [
                 "left",
@@ -847,9 +876,25 @@
             "props": [
                 "brand",
                 "brand-href",
+                "brand-icon",
+                "logo",
+                "logo-alt",
                 "items",
+                "sections",
                 "user",
-                "initial-state"
+                "avatar",
+                "avatar-alt",
+                "initial-state",
+                "collapsed",
+                "collapsible",
+                "close-event",
+                "open-event",
+                "state-event",
+                "rail",
+                "active-color",
+                "logout-href",
+                "logout-label",
+                "position"
             ],
             "slots": [
                 "logo",
@@ -940,8 +985,53 @@
                 "pagination"
             ],
             "variants": [],
-            "example": "<x-sampaui::table title=\"Leads\" searchable selectable :columns=\"$columns\" :rows=\"$rows\" />",
-            "livewire": "Linhas, colunas, busca, paginacao, selecao e ordenacao podem vir de propriedades computadas do Livewire."
+            "example": "<x-sampaui::table :columns=\"$columns\" :rows=\"$rows\" />",
+            "livewire": "Listagem simples por arrays ou slots. As props avancadas foram preservadas por compatibilidade; para novas tabelas com pesquisa, use table-search."
+        },
+        "table-search": {
+            "name": "Table Search",
+            "category": "data",
+            "tag": "<x-sampaui::table-search />",
+            "props": [
+                "columns",
+                "rows",
+                "title",
+                "description",
+                "empty",
+                "empty-title",
+                "empty-description",
+                "sort-by",
+                "sort-direction",
+                "sort-method",
+                "search",
+                "search-name",
+                "search-model",
+                "search-placeholder",
+                "per-page",
+                "page",
+                "total",
+                "pagination-method",
+                "selectable",
+                "selected-rows",
+                "row-key",
+                "export-href",
+                "sticky-header",
+                "mobile-cards",
+                "compact",
+                "loading",
+                "loading-target"
+            ],
+            "slots": [
+                "toolbar",
+                "filters",
+                "actions",
+                "head",
+                "body",
+                "pagination"
+            ],
+            "variants": [],
+            "example": "<x-sampaui::table-search title=\"Clientes\" search-model=\"search\" :columns=\"$columns\" :rows=\"$rows\" />",
+            "livewire": "Pesquisa, paginacao, selecao e ordenacao podem vir de propriedades e metodos Livewire."
         },
         "tabs": {
             "name": "Tabs",

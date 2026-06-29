@@ -4,7 +4,7 @@ namespace SampaUI;
 
 class SampaUI
 {
-    public const VERSION = '0.1.18';
+    public const VERSION = '0.1.19';
 
     public static function asset(string $path = 'sampaui.css'): string
     {

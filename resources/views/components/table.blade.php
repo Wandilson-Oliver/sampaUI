@@ -39,7 +39,7 @@
     $normalizedSortDirection = strtolower((string) $sortDirection) === 'desc' ? 'desc' : 'asc';
     $columnCount = count($columns) + ($selectable ? 1 : 0);
     $tableClasses = sampaui_classes([
-        'min-w-full divide-y divide-light text-left text-sm text-secondary',
+        'min-w-full divide-y divide-border text-left text-sm text-secondary',
     ]);
     $cellPadding = $compact ? 'px-3 py-2' : 'px-4 py-3';
     $rowClasses = sampaui_classes([
@@ -122,24 +122,35 @@
                 this.selectedRows = checked
                     ? Array.from(new Set([...this.selectedRows, key]))
                     : this.selectedRows.filter((item) => item !== key);
+                this.notifySelection();
             },
             toggleAll(checked) {
                 this.selectedRows = checked
                     ? Array.from(new Set([...this.selectedRows, ...this.visibleRows]))
                     : this.selectedRows.filter((item) => ! this.visibleRows.includes(item));
+                this.notifySelection();
             },
             allVisibleSelected() {
                 return this.visibleRows.length > 0 && this.visibleRows.every((key) => this.selectedRows.includes(String(key)));
+            },
+            notifySelection() {
+                this.$dispatch('table:selection-changed', { selectedRows: this.selectedRows });
             },
         }"
     @endif
     {{ $attributes->merge(['class' => sampaui_classes([
         'overflow-hidden rounded-default bg-white shadow-sm shadow-secondary/5',
-        $bordered ? 'border border-light' : null,
+        $bordered ? 'border border-border' : null,
     ])]) }}
 >
+    @if ($selectable)
+        <template x-for="selectedRow in selectedRows" x-bind:key="'selected-row-' + selectedRow">
+            <input type="hidden" name="{{ $selectName }}[]" x-bind:value="selectedRow">
+        </template>
+    @endif
+
     @if ($showToolbar)
-        <div class="flex flex-col gap-4 border-b border-light bg-white p-4 sm:flex-row sm:items-center sm:justify-between">
+        <div class="flex flex-col gap-4 border-b border-border bg-white p-4 sm:flex-row sm:items-center sm:justify-between">
             <div class="min-w-0">
                 @if ($title)
                     <h3 class="truncate text-base font-semibold text-secondary">{{ $title }}</h3>
@@ -255,7 +266,7 @@
             @isset($body)
                 {{ $body }}
             @else
-                <tbody class="divide-y divide-light">
+                <tbody class="divide-y divide-border">
                     @if ($loading)
                         @for ($index = 0; $index < max(3, min((int) ($normalizedPerPage ?? 5), 8)); $index++)
                             <tr>
@@ -275,7 +286,6 @@
                                     <td class="{{ $cellPadding }} w-12">
                                         <input
                                             type="checkbox"
-                                            name="{{ $selectName }}[]"
                                             value="{{ $currentRowKey }}"
                                             class="h-4 w-4 rounded border-secondary/40 text-primary focus:ring-primary/20"
                                             x-bind:checked="isSelected(@js($currentRowKey))"
@@ -319,7 +329,7 @@
     </div>
 
     @if ($mobileCards && count($columns) > 0)
-        <div class="divide-y divide-light sm:hidden">
+        <div class="divide-y divide-border sm:hidden">
             @forelse ($renderRows as $rowIndex => $row)
                 @php
                     $currentRowKey = (string) (data_get($row, $rowKey) ?? $rowIndex);
@@ -330,7 +340,6 @@
                         <label class="flex items-center gap-3 text-sm font-medium text-secondary">
                             <input
                                 type="checkbox"
-                                name="{{ $selectName }}[]"
                                 value="{{ $currentRowKey }}"
                                 class="h-4 w-4 rounded border-secondary/40 text-primary focus:ring-primary/20"
                                 x-bind:checked="isSelected(@js($currentRowKey))"
@@ -361,7 +370,7 @@
     @endif
 
     @if ($showPagination)
-        <div class="flex flex-col gap-3 border-t border-light bg-white px-4 py-3 text-sm text-secondary/70 sm:flex-row sm:items-center sm:justify-between">
+        <div class="flex flex-col gap-3 border-t border-border bg-white px-4 py-3 text-sm text-secondary/70 sm:flex-row sm:items-center sm:justify-between">
             @isset($pagination)
                 {{ $pagination }}
             @else

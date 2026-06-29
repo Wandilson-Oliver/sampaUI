@@ -1,6 +1,6 @@
 # Table
 
-DataTable responsiva para CRMs, ERPs e dashboards internos. Pode renderizar automaticamente via `columns` e `rows` ou receber slots `head`, `body`, `toolbar`, `filters`, `actions` e `pagination`.
+Tabela simples para listagens em CRMs, ERPs e dashboards internos. Pode renderizar automaticamente via `columns` e `rows` ou receber slots `head` e `body`.
 
 ```blade
 <x-sampaui::table
@@ -17,12 +17,13 @@ DataTable responsiva para CRMs, ERPs e dashboards internos. Pode renderizar auto
 />
 ```
 
-## Busca, selecao e exportacao
+## Tabela com pesquisa
+
+Para novas listagens com busca, use o componente separado `table-search`:
 
 ```blade
-<x-sampaui::table
-    title="Leads imobiliarios"
-    searchable
+<x-sampaui::table-search
+    title="Leads comerciais"
     search-model="search"
     selectable
     row-key="id"
@@ -33,14 +34,14 @@ DataTable responsiva para CRMs, ERPs e dashboards internos. Pode renderizar auto
 />
 ```
 
-Sem `search-model`, a busca filtra `rows` localmente no render Blade. Com `search-model`, o input recebe `wire:model.live.debounce.300ms` e o filtro pode ser controlado pelo componente Livewire.
+Sem `search-model`, a busca filtra `rows` localmente no render Blade. Com `search-model`, o input recebe `wire:model.live.debounce.300ms` e o filtro pode ser controlado pelo componente Livewire. O `table` ainda aceita `searchable` por compatibilidade com projetos existentes.
 
 ## Ordenacao
 
 Marque apenas as colunas que podem ordenar:
 
 ```blade
-<x-sampaui::table
+<x-sampaui::table-search
     sort-by="name"
     sort-direction="asc"
     sort-method="sortBy"
@@ -57,8 +58,7 @@ Sem `sort-method`, o componente ordena os `rows` estaticamente para exemplos, pr
 ## Paginacao
 
 ```blade
-<x-sampaui::table
-    searchable
+<x-sampaui::table-search
     per-page="10"
     page="{{ $page }}"
     total="{{ $total }}"
@@ -74,6 +74,8 @@ Quando `per-page` e usado sem `total`, a paginacao e calculada sobre `rows`. Qua
 
 Use `loading` para renderizar skeletons leves e `empty-title`, `empty-description` e `empty-icon` para estados vazios mais claros.
 
-Props principais: `columns`, `rows`, `title`, `description`, `empty`, `empty-title`, `empty-description`, `searchable`, `search`, `search-model`, `selectable`, `selected-rows`, `row-key`, `export-href`, `per-page`, `page`, `total`, `pagination-method`, `sortBy`, `sortDirection`, `sortMethod`.
+Props principais do `table`: `columns`, `rows`, `title`, `description`, `empty`, `empty-title`, `empty-description`, `compact`, `sticky-header` e `mobile-cards`.
+
+O `table-search` adiciona `search`, `search-model`, `selectable`, `selected-rows`, `row-key`, `export-href`, `per-page`, `page`, `total`, `pagination-method`, `sortBy`, `sortDirection` e `sortMethod`.
 
 `sticky-header` fixa o cabecalho dentro do container rolavel. `mobile-cards` transforma rows estruturadas em cards no mobile. `aria-sort` fica no cabecalho da coluna e a ordenacao Livewire bloqueia cliques repetidos durante loading.

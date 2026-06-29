@@ -10,8 +10,8 @@
     x-on:keydown.escape.window="open = false"
 >
     <div x-cloak x-show="open" x-transition.opacity class="fixed inset-0 z-50 flex items-start justify-center bg-primary/20 px-4 pt-[12vh] backdrop-blur-[2px]" x-on:click.self="open = false">
-        <div {{ $attributes->merge(['class' => 'w-full max-w-2xl overflow-hidden rounded-lg border border-light bg-white']) }}>
-            <div class="flex items-center gap-3 border-b border-light px-4 py-3">
+        <div {{ $attributes->merge(['class' => 'w-full max-w-2xl overflow-hidden rounded-lg border border-border bg-white']) }}>
+            <div class="flex items-center gap-3 border-b border-border px-4 py-3">
                 <i class="bi bi-search text-secondary" aria-hidden="true"></i>
                 <input x-ref="search" x-model="query" type="search" placeholder="{{ $placeholder }}" class="w-full border-0 bg-transparent text-base text-secondary outline-none placeholder:text-secondary ">
             </div>

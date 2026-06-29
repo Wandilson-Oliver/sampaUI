@@ -103,17 +103,21 @@
         </label>
     @endif
 
-    <input
+    <select
         x-ref="input"
-        type="hidden"
         id="{{ $id }}"
         @if ($name) name="{{ $name }}" @endif
-        x-bind:value="value"
+        x-model="value"
         @if ($required) required @endif
         @disabled($disabled)
         @if ($errorMessage) aria-invalid="true" aria-describedby="{{ $id }}-error" @endif
-        {{ $inputAttributes->merge(['value' => $selectedValue]) }}
+        {{ $inputAttributes->merge(['class' => 'sr-only']) }}
     >
+        <option value="">{{ $placeholder }}</option>
+        @foreach ($normalizedOptions as $option)
+            <option value="{{ $option['value'] }}" @selected((string) ($selectedValue ?? '') === $option['value'])>{{ $option['label'] }}</option>
+        @endforeach
+    </select>
 
     <div class="relative">
         <button
@@ -149,9 +153,9 @@
             x-transition.origin.top.duration.150ms
             x-cloak
             x-on:click.outside="open = false"
-            class="absolute left-0 top-full z-[120] mt-2 w-full overflow-hidden rounded-default border border-light bg-white shadow-2xl shadow-secondary/10"
+            class="absolute left-0 top-full z-[120] mt-2 w-full overflow-hidden rounded-default border border-border bg-white shadow-2xl shadow-secondary/10"
         >
-            <div class="border-b border-light p-2">
+            <div class="border-b border-border p-2">
                 <div class="relative">
                     <i class="bi bi-search pointer-events-none absolute inset-y-0 left-3 flex items-center text-sm text-secondary/60"></i>
                     <input

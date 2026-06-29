@@ -14,8 +14,10 @@ class ServiceProviderTest extends TestCase
         $this->assertSame('vendor/sampaui/sampaui.css', config('sampaui.assets.css'));
         $this->assertSame('vendor/sampaui/sampaui.js', config('sampaui.assets.js'));
         $this->assertTrue(config('sampaui.assets.load_compiled_css'));
-        $this->assertSame('#5574C9', config('sampaui.theme.primary'));
-        $this->assertSame('#79C8BC', config('sampaui.theme.success'));
+        $this->assertSame('#2FAFD3', config('sampaui.theme.primary'));
+        $this->assertSame('#2CB36C', config('sampaui.theme.success'));
+        $this->assertSame('#E2E8F0', config('sampaui.theme.border'));
+        $this->assertSame('#0F172A', config('sampaui.theme.text'));
     }
 
     public function test_it_registers_views_and_components(): void
@@ -31,6 +33,7 @@ class ServiceProviderTest extends TestCase
         $this->assertTrue(View::exists('sampaui::components.select-search'));
         $this->assertTrue(View::exists('sampaui::components.sidebar'));
         $this->assertTrue(View::exists('sampaui::components.table'));
+        $this->assertTrue(View::exists('sampaui::components.table-search'));
         $this->assertTrue(View::exists('sampaui::components.modal'));
         $this->assertTrue(View::exists('sampaui::components.toast'));
 

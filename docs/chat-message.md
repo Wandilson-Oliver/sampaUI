@@ -22,3 +22,7 @@ Bolha de mensagem para conversas.
 - `author`: nome exibido acima do texto.
 - `time`: horario da mensagem.
 - `status`: texto para leitores de tela; exibe o icone de mensagem lida.
+- `avatar`: imagem opcional ao lado da bolha.
+- `show-avatar`: exibe o avatar quando necessario em conversas agrupadas.
+
+Mensagens recebidas usam superficie branca com borda; enviadas usam `primary`; mensagens de sistema ficam centralizadas. Status reconhece enviado, entregue, lido e falha.

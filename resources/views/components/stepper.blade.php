@@ -11,7 +11,7 @@
             $active = $number === (int) $current;
         @endphp
         <li class="flex flex-1 items-start gap-3">
-            <span class="{{ sampaui_classes(['inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border text-sm font-semibold', $done || $active ? 'border-primary bg-primary text-white' : 'border-light bg-white text-secondary']) }}">
+            <span class="{{ sampaui_classes(['inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border text-sm font-semibold', $done || $active ? 'border-primary bg-primary text-white' : 'border-border bg-white text-secondary']) }}">
                 @if ($done)<i class="bi bi-check2" aria-hidden="true"></i>@else{{ $number }}@endif
             </span>
             <span class="min-w-0">

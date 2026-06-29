@@ -9,7 +9,7 @@
 @endphp
 
 <div {{ $attributes->merge(['class' => 'w-full']) }} x-data="{ active: @js($initial) }">
-    <div class="flex flex-wrap gap-2 border-b border-light" role="tablist">
+    <div class="flex flex-wrap gap-2 border-b border-border" role="tablist">
         @foreach ($tabs as $key => $label)
             <button
                 type="button"

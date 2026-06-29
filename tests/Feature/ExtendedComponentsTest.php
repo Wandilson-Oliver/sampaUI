@@ -65,6 +65,29 @@ class ExtendedComponentsTest extends TestCase
             ->assertSee('bg-primary', false);
     }
 
+    public function test_brand_mark_supports_logo_size_label_and_link(): void
+    {
+        $html = $this->blade(<<<'BLADE'
+<x-sampaui::brand-mark
+    logo="/images/brand.svg"
+    alt="Acme"
+    label="Acme"
+    href="/dashboard"
+    size="lg"
+    class="custom-brand"
+/>
+BLADE);
+
+        $html->assertSee('<a', false)
+            ->assertSee('href="/dashboard"', false)
+            ->assertSee('aria-label="Acme"', false)
+            ->assertSee('src="/images/brand.svg"', false)
+            ->assertSee('alt="Acme"', false)
+            ->assertSee('h-14 max-w-44', false)
+            ->assertSee('text-2xl', false)
+            ->assertSee('custom-brand', false);
+    }
+
     public function test_dropdown_tabs_toggle_tooltip_and_breadcrumb_render(): void
     {
         $this->blade(<<<'BLADE'
@@ -167,6 +190,10 @@ BLADE)
             ->assertSee('Clique no lapis')
             ->assertSee('name="delete_avatar"', false)
             ->assertDontSee('No Image', false);
+
+        $this->blade('<x-sampaui::avatar-upload name="avatar" wire:model="user.avatar" />')
+            ->assertSee('wire:model="user.avatar"', false)
+            ->assertSee('wire:model="user.avatar_remove"', false);
 
         $this->blade('<x-sampaui::stepper :current="2" :steps="[\'Dados\', \'Pagamento\', \'Resumo\']" />')
             ->assertSee('Dados')
