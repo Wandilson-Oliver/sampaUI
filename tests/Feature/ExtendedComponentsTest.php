@@ -9,9 +9,8 @@ class ExtendedComponentsTest extends TestCase
     public function test_badge_avatar_indicator_skeleton_and_progress_render(): void
     {
         $this->blade('<x-sampaui::brand-mark />')
-            ->assertSee('rounded-br-md bg-primary', false)
-            ->assertSee('rounded-br-[1.4rem] rounded-tl-[1.4rem] bg-secondary', false)
-            ->assertSee('bg-accent', false);
+            ->assertSee('vendor/sampaui/images/logo-sampaui-mark.png', false)
+            ->assertSee('block h-full w-full object-contain', false);
 
         $this->blade('<x-sampaui::badge variant="accent" icon="star">Novo</x-sampaui::badge>')
             ->assertSee('Novo')

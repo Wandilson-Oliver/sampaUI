@@ -10,6 +10,8 @@
     'striped' => false,
     'hover' => true,
     'bordered' => true,
+    'flush' => false,
+    'bleed' => false,
     'compact' => false,
     'sortBy' => null,
     'sortDirection' => 'asc',
@@ -27,6 +29,7 @@
     'page' => 1,
     'total' => null,
     'paginationMethod' => null,
+    'paginationType' => 'simple',
     'selectable' => false,
     'selectedRows' => [],
     'selectName' => 'selected',
@@ -37,6 +40,9 @@
 
 @php
     $normalizedSortDirection = strtolower((string) $sortDirection) === 'desc' ? 'desc' : 'asc';
+    $normalizedPaginationType = in_array($paginationType, ['simple', 'numbers', 'compact'], true)
+        ? $paginationType
+        : 'simple';
     $columnCount = count($columns) + ($selectable ? 1 : 0);
     $tableClasses = sampaui_classes([
         'min-w-full divide-y divide-border text-left text-sm text-secondary',
@@ -107,6 +113,32 @@
     $lastRow = $normalizedPerPage ? min($firstRow + count($renderRows) - 1, $totalRows) : $totalRows;
     $showToolbar = $title || $description || $searchable || $exportHref || isset($toolbar) || isset($filters) || isset($actions);
     $showPagination = $normalizedPerPage || isset($pagination);
+    $paginationPages = collect(range(max(1, $currentPage - 1), min($totalPages, $currentPage + 1)))
+        ->when($totalPages > 1, fn ($items) => $items->push(1, $totalPages))
+        ->unique()
+        ->sort()
+        ->values()
+        ->all();
+    $paginationButtonClasses = 'inline-flex h-10 min-w-10 items-center justify-center rounded-default border border-secondary/20 bg-white px-3 font-semibold text-secondary transition hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-50';
+    $bleedStyle = $bleed
+        ? 'margin-inline: calc(var(--sampaui-card-padding-x, 0px) * -1); width: calc(100% + (var(--sampaui-card-padding-x, 0px) * 2));'
+        : '';
+    $existingStyle = trim((string) $attributes->get('style'));
+    $rootAttributes = $attributes
+        ->except('style')
+        ->merge([
+            'class' => sampaui_classes([
+                'overflow-hidden bg-white',
+                'rounded-none border-0 shadow-none' => $flush,
+                'rounded-default shadow-sm shadow-secondary/5' => ! $flush,
+                'border border-border' => $bordered && ! $flush,
+            ]),
+        ]);
+    $rootStyle = trim($bleedStyle.' '.$existingStyle);
+
+    if ($rootStyle !== '') {
+        $rootAttributes = $rootAttributes->merge(['style' => $rootStyle]);
+    }
 @endphp
 
 <div
@@ -138,10 +170,7 @@
             },
         }"
     @endif
-    {{ $attributes->merge(['class' => sampaui_classes([
-        'overflow-hidden rounded-default bg-white shadow-sm shadow-secondary/5',
-        $bordered ? 'border border-border' : null,
-    ])]) }}
+    {{ $rootAttributes }}
 >
     @if ($selectable)
         <template x-for="selectedRow in selectedRows" x-bind:key="'selected-row-' + selectedRow">
@@ -170,19 +199,27 @@
                     {{ $filters }}
                 @endisset
 
-                @if ($searchable)
-                    <label class="relative block sm:min-w-64">
-                        <span class="sr-only">{{ $searchPlaceholder }}</span>
-                        <i class="bi bi-search pointer-events-none absolute inset-y-0 left-3 flex items-center text-sm text-secondary/60" aria-hidden="true"></i>
-                        <input
+                @if ($searchable && ! isset($filters))
+                    @if ($searchModel)
+                        <x-sampaui::input
                             type="search"
-                            name="{{ $searchName }}"
-                            value="{{ $search }}"
-                            placeholder="{{ $searchPlaceholder }}"
-                            @if ($searchModel) wire:model.live.debounce.300ms="{{ $searchModel }}" @endif
-                            class="block w-full rounded-default border border-secondary/20 bg-white py-2 pl-9 pr-3 text-sm text-secondary outline-none transition placeholder:text-secondary/50 hover:border-secondary/30 focus:border-primary focus:ring-2 focus:ring-primary/20"
-                        >
-                    </label>
+                            :name="$searchName"
+                            :value="$search"
+                            :placeholder="$searchPlaceholder"
+                            icon="search"
+                            class="sm:min-w-64"
+                            wire:model.live.debounce.300ms="{{ $searchModel }}"
+                        />
+                    @else
+                        <x-sampaui::input
+                            type="search"
+                            :name="$searchName"
+                            :value="$search"
+                            :placeholder="$searchPlaceholder"
+                            icon="search"
+                            class="sm:min-w-64"
+                        />
+                    @endif
                 @endif
 
                 @if ($exportHref)
@@ -209,13 +246,12 @@
                         <tr>
                             @if ($selectable)
                                 <th scope="col" class="{{ $cellPadding }} w-12">
-                                    <input
-                                        type="checkbox"
-                                        class="h-4 w-4 rounded border-secondary/40 text-primary focus:ring-primary/20"
+                                    <x-sampaui::checkbox
+                                        value="all"
                                         x-bind:checked="allVisibleSelected()"
                                         x-on:change="toggleAll($event.target.checked)"
                                         aria-label="Selecionar todos os registros visiveis"
-                                    >
+                                    />
                                 </th>
                             @endif
 
@@ -284,14 +320,12 @@
                             <tr @class([$rowClasses, 'bg-light/30' => $striped && $rowIndex % 2 === 1])>
                                 @if ($selectable)
                                     <td class="{{ $cellPadding }} w-12">
-                                        <input
-                                            type="checkbox"
-                                            value="{{ $currentRowKey }}"
-                                            class="h-4 w-4 rounded border-secondary/40 text-primary focus:ring-primary/20"
-                                            x-bind:checked="isSelected(@js($currentRowKey))"
-                                            x-on:change="toggleRow(@js($currentRowKey), $event.target.checked)"
+                                        <x-sampaui::checkbox
+                                            :value="$currentRowKey"
+                                            x-bind:checked="isSelected($el.value)"
+                                            x-on:change="toggleRow($el.value, $event.target.checked)"
                                             aria-label="Selecionar registro {{ $currentRowKey }}"
-                                        >
+                                        />
                                     </td>
                                 @endif
 
@@ -337,16 +371,12 @@
 
                 <article class="space-y-3 p-4">
                     @if ($selectable)
-                        <label class="flex items-center gap-3 text-sm font-medium text-secondary">
-                            <input
-                                type="checkbox"
-                                value="{{ $currentRowKey }}"
-                                class="h-4 w-4 rounded border-secondary/40 text-primary focus:ring-primary/20"
-                                x-bind:checked="isSelected(@js($currentRowKey))"
-                                x-on:change="toggleRow(@js($currentRowKey), $event.target.checked)"
-                            >
-                            Selecionar registro
-                        </label>
+                        <x-sampaui::checkbox
+                            label="Selecionar registro"
+                            :value="$currentRowKey"
+                            x-bind:checked="isSelected($el.value)"
+                            x-on:change="toggleRow($el.value, $event.target.checked)"
+                        />
                     @endif
 
                     @foreach ($columns as $columnKey => $columnLabel)
@@ -381,26 +411,52 @@
                     registros
                 </p>
 
-                <div class="flex items-center gap-2">
+                <div class="flex flex-wrap items-center gap-2" data-pagination-type="{{ $normalizedPaginationType }}">
                     <button
                         type="button"
-                        class="inline-flex items-center gap-2 rounded-default border border-secondary/20 px-3 py-2 font-semibold text-secondary transition hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-50"
+                        class="{{ $paginationButtonClasses }} {{ $normalizedPaginationType === 'simple' ? 'gap-2' : '' }}"
                         @disabled($currentPage <= 1)
                         @if ($paginationMethod && $currentPage > 1) wire:click="{{ $paginationMethod }}({{ $currentPage - 1 }})" @else data-page="{{ max(1, $currentPage - 1) }}" @endif
+                        aria-label="Pagina anterior"
                     >
                         <i class="bi bi-chevron-left" aria-hidden="true"></i>
-                        Anterior
+                        @if ($normalizedPaginationType === 'simple')
+                            <span>Anterior</span>
+                        @endif
                     </button>
 
-                    <span class="rounded-default bg-light px-3 py-2 font-semibold text-secondary">{{ $currentPage }} / {{ $totalPages }}</span>
+                    @if ($normalizedPaginationType === 'numbers')
+                        @php $previousPaginationPage = null; @endphp
+                        @foreach ($paginationPages as $paginationPage)
+                            @if (! is_null($previousPaginationPage) && $paginationPage > $previousPaginationPage + 1)
+                                <span class="inline-flex h-10 items-center px-1 font-semibold text-secondary/60" aria-hidden="true">...</span>
+                            @endif
+
+                            <button
+                                type="button"
+                                class="{{ $paginationButtonClasses }} {{ $paginationPage === $currentPage ? '!border-primary !bg-primary !text-white hover:!text-white' : '' }}"
+                                @if ($paginationMethod) wire:click="{{ $paginationMethod }}({{ $paginationPage }})" @else data-page="{{ $paginationPage }}" @endif
+                                @if ($paginationPage === $currentPage) aria-current="page" aria-label="Pagina {{ $paginationPage }}, atual" @else aria-label="Ir para pagina {{ $paginationPage }}" @endif
+                            >{{ $paginationPage }}</button>
+
+                            @php $previousPaginationPage = $paginationPage; @endphp
+                        @endforeach
+                    @else
+                        <span class="inline-flex h-10 items-center rounded-default bg-light px-3 font-semibold text-secondary">
+                            {{ $currentPage }} / {{ $totalPages }}
+                        </span>
+                    @endif
 
                     <button
                         type="button"
-                        class="inline-flex items-center gap-2 rounded-default border border-secondary/20 px-3 py-2 font-semibold text-secondary transition hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-50"
+                        class="{{ $paginationButtonClasses }} {{ $normalizedPaginationType === 'simple' ? 'gap-2' : '' }}"
                         @disabled($currentPage >= $totalPages)
                         @if ($paginationMethod && $currentPage < $totalPages) wire:click="{{ $paginationMethod }}({{ $currentPage + 1 }})" @else data-page="{{ min($totalPages, $currentPage + 1) }}" @endif
+                        aria-label="Proxima pagina"
                     >
-                        Proxima
+                        @if ($normalizedPaginationType === 'simple')
+                            <span>Proxima</span>
+                        @endif
                         <i class="bi bi-chevron-right" aria-hidden="true"></i>
                     </button>
                 </div>

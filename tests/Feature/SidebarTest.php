@@ -28,9 +28,7 @@ BLADE);
 
         $html->assertSee('SampaUI');
         $html->assertSee('/dashboard', false);
-        $html->assertSee('rounded-br-md bg-primary', false);
-        $html->assertSee('rounded-br-[1.4rem] rounded-tl-[1.4rem] bg-secondary', false);
-        $html->assertSee('bg-accent', false);
+        $html->assertSee('vendor/sampaui/images/logo-sampaui-mark.png', false);
         $html->assertSee('bi bi-boxes', false);
         $html->assertSee('Ana Silva');
         $html->assertSee('ana@example.com');
@@ -50,21 +48,23 @@ BLADE);
         $html->assertSee('x-on:sampaui:sidebar-close.window="open = false; setCollapsed(true)"', false);
         $html->assertSee("x-on:click.prevent.stop=\"window.matchMedia('(max-width: 767px)').matches ? (open = false, setCollapsed(true)) : toggle()\"", false);
         $html->assertSee("x-bind:aria-label=\"window.matchMedia('(max-width: 767px)').matches ? 'Fechar navegacao' : (collapsed ? 'Expandir navegacao' : 'Recolher navegacao')\"", false);
-        $html->assertSee("x-bind:class=\"collapsed ? 'justify-center px-0 py-2' : 'px-1 py-2'\"", false);
+        $html->assertSee("x-bind:class=\"collapsed ? 'justify-center px-0 py-1' : 'px-1 py-1'\"", false);
         $html->assertSee('x-bind:style="`width: ${width()};`"', false);
-        $html->assertDontSee('-right-7 hidden w-7 bg-light', false);
+        $html->assertSee('-right-10 hidden w-10 bg-light', false);
         $html->assertSee('bi-chevron-left', false);
         $html->assertSee('bi-chevron-right', false);
-        $html->assertSee('text-secondary/45 group-hover:text-primary', false);
+        $html->assertSee('bg-purple/10 text-purple', false);
+        $html->assertSee('text-secondary/45 group-hover:bg-light group-hover:text-purple', false);
         $html->assertDontSee('bg-primary text-white', false);
         $html->assertSee('sampaui-sidebar-scroll min-h-0 flex-1 overflow-y-auto overscroll-contain', false);
         $html->assertSee('flex flex-col gap-5', false);
-        $html->assertSee('flex flex-col gap-3', false);
-        $html->assertSee('shrink-0 pb-12 pt-10', false);
+        $html->assertSee('flex flex-col gap-2', false);
+        $html->assertSee('shrink-0 pb-12 pt-7', false);
+        $html->assertSee('shrink-0 pb-14', false);
         $html->assertSee('shrink-0 pb-10 pt-4', false);
         $html->assertSee('flex cursor-pointer items-center gap-4', false);
         $html->assertSee('group flex cursor-pointer items-center gap-5', false);
-        $html->assertSee('hover:bg-light/60', false);
+        $html->assertSee('h-16 min-h-16 w-16 min-w-16', false);
     }
 
     public function test_it_merges_attributes_and_preserves_wire_navigate_items(): void
@@ -167,6 +167,22 @@ BLADE);
         $html->assertDontSee('rounded-t-full rounded-bl-full', false);
     }
 
+    public function test_src_prop_replaces_the_default_brand_mark_and_has_priority_over_logo(): void
+    {
+        $html = $this->blade(<<<'BLADE'
+<x-sampaui::sidebar
+    brand="Minha marca"
+    src="/images/nova-logo.png"
+    logo="/images/logo-legada.png"
+    logo-alt="Logo da minha marca"
+/>
+BLADE);
+
+        $html->assertSee('<img src="/images/nova-logo.png" alt="Logo da minha marca"', false);
+        $html->assertDontSee('/images/logo-legada.png', false);
+        $html->assertDontSee('logo-sampaui-mark.png', false);
+    }
+
     public function test_user_avatar_array_has_priority_over_avatar_prop(): void
     {
         $html = $this->blade(<<<'BLADE'
@@ -184,7 +200,7 @@ BLADE);
         $html->assertDontSee('/images/fallback.jpg', false);
     }
 
-    public function test_it_is_white_by_default_and_can_enable_the_optional_layout_rail(): void
+    public function test_it_is_white_with_a_layout_rail_that_can_be_disabled(): void
     {
         $default = $this->blade(<<<'BLADE'
 <x-sampaui::sidebar
@@ -195,11 +211,11 @@ BLADE);
 />
 BLADE);
 
-        $default->assertDontSee('-right-7 hidden w-7 bg-light', false);
+        $default->assertSee('-right-10 hidden w-10 bg-light', false);
         $default->assertSee('Dashboard');
 
-        $this->blade('<x-sampaui::sidebar rail />')
-            ->assertSee('-right-7 hidden w-7 bg-light', false);
+        $this->blade('<x-sampaui::sidebar :rail="false" />')
+            ->assertDontSee('-right-10 hidden w-10 bg-light', false);
     }
 
     public function test_it_supports_static_position_for_embedded_layouts_and_previews(): void

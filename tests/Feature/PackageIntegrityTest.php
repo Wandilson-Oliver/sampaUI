@@ -46,4 +46,10 @@ class PackageIntegrityTest extends TestCase
         $this->assertStringContainsString('chatConversation(', $javascript);
         $this->assertStringContainsString('requestSubmit()', $javascript);
     }
+
+    public function test_compiled_assets_include_the_official_brand_mark(): void
+    {
+        $this->assertFileExists(__DIR__.'/../../resources/images/logo-sampaui-mark.png');
+        $this->assertFileExists(__DIR__.'/../../dist/images/logo-sampaui-mark.png');
+    }
 }

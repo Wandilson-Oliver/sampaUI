@@ -2,6 +2,18 @@
 
 Todas as mudanças notáveis do SampaUI serão documentadas neste arquivo.
 
+## v0.1.20 - 2026-06-29
+
+### Adicionado
+
+- `brand-mark` usa o novo simbolo oficial multicolorido; `sidebar` aceita troca por `src` e preserva a prop legada `logo`.
+- `table-search` aceita filtros personalizados, três tipos de paginação e modo flush com bleed automático dentro de Card.
+
+### Melhorado
+
+- Sidebar alinhada a referencia, com trilho claro, item ativo circular violeta, avatar ampliado e preview completo.
+- Inputs e selects usam altura mínima consistente; seleção de linhas da tabela reutiliza o componente Checkbox oficial.
+
 ## v0.1.19 - 2026-06-28
 
 ### Adicionado

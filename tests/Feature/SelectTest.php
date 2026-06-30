@@ -26,6 +26,7 @@ class SelectTest extends TestCase
         $html->assertSee('aria-activedescendant', false);
         $html->assertSee('border border-secondary/20', false);
         $html->assertSee('hover:border-secondary/30', false);
+        $html->assertSee('min-h-12', false);
     }
 
     public function test_it_supports_options_prop_selected_value_and_custom_class(): void

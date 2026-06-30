@@ -22,6 +22,6 @@ Com logo, tamanho e link:
 
 - Trate como subcomponente visual do pacote.
 - Pode ser usado em layouts proprios quando a identidade SampaUI for desejada.
-- Usa `primary`, `secondary`, `accent` e `light` da paleta oficial.
+- Usa o simbolo oficial multicolorido do SampaUI por padrao.
 - `size` aceita `sm`, `md`, `lg` e `xl`.
 - `logo` substitui a marca padrao por uma imagem real; sempre informe `alt`.

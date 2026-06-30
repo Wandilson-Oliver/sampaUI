@@ -303,6 +303,8 @@ Slots internos para icones ou acoes:
     brand="LIACOR"
     initial-state="open"
     brand-href="/dashboard"
+    src="/images/logo-liacor.png"
+    logo-alt="LIACOR"
     :user="['name' => 'Administrador Lia', 'email' => 'admin@sampa.dev']"
     :items="[
         ['label' => 'Dashboard', 'href' => '/dashboard', 'icon' => 'grid', 'active' => true],
