@@ -1,6 +1,6 @@
 {
     "name": "SampaUI",
-    "version": "0.1.20",
+    "version": "0.1.21",
     "stack": [
         "Laravel 13+",
         "Livewire 4+",
@@ -889,7 +889,6 @@
                 "close-event",
                 "open-event",
                 "state-event",
-                "rail",
                 "active-color",
                 "logout-href",
                 "logout-label",

@@ -142,7 +142,7 @@ php artisan sampaui:docs-export --format=markdown
 - `select` usa `x-modelable` para sincronizar valor e label com Livewire; `select-multiple` preserva o controle nativo. Ambos suportam teclado e limpeza com `clearable`.
 - `file-upload` aceita `max-size`, `retry` e `chunk-size`; progresso e cancelamento integram os eventos de upload do Livewire.
 - `modal`, `drawer` e `dropdown` controlam foco, Esc e click-outside; `close-on-escape` e `close-on-outside` sao configuraveis.
-- `sidebar` usa largura expandida de `18rem` e recebe a marca somente por `logo-src="/images/minha-logo.png"`, com `logo-alt` para acessibilidade.
+- `sidebar` usa largura expandida de `18rem`, sem faixa externa; recebe a marca somente por `logo-src`, usa estado ativo circular igual ao hover e link de saida outline danger sem sombra.
 - `toast` usa fila e limite de visiveis, pausa timer com foco e aceita `variant="soft|solid|outline"` e `size="sm|md|lg"`.
 - `table` aceita `sticky-header`, `mobile-cards`, skeleton com `loading`, empty state premium e slots `toolbar`, `filters`, `actions`, `head`, `body` e `pagination`; `pagination` aceita `compact`; `header` oferece slots `left`, `center` e `right`.
 - Componentes de chat: use `chat-layout` como estrutura, `chat-sidebar` para conversas, `chat-conversation` para a conversa ativa, `chat-message` para bolhas e `chat-composer` para envio.

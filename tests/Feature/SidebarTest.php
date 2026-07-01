@@ -49,10 +49,11 @@ BLADE);
         $html->assertSee("x-bind:aria-label=\"window.matchMedia('(max-width: 767px)').matches ? 'Fechar navegacao' : (collapsed ? 'Expandir navegacao' : 'Recolher navegacao')\"", false);
         $html->assertSee("x-bind:class=\"collapsed ? 'justify-center px-0 py-1' : 'px-1 py-1'\"", false);
         $html->assertSee('x-bind:style="`width: ${width()};`"', false);
-        $html->assertSee('-right-10 hidden w-10 bg-light', false);
+        $html->assertDontSee('-right-10 hidden w-10 bg-light', false);
         $html->assertSee('bi-chevron-left', false);
         $html->assertSee('bi-chevron-right', false);
-        $html->assertSee('bg-purple/10 text-purple', false);
+        $html->assertSee('gap-3.5 rounded-default !bg-transparent', false);
+        $html->assertSee('bg-light text-purple', false);
         $html->assertSee('text-secondary/45 group-hover:bg-light group-hover:text-purple', false);
         $html->assertDontSee('bg-primary text-white', false);
         $html->assertSee('sampaui-sidebar-scroll min-h-0 flex-1 overflow-y-auto overscroll-contain', false);
@@ -62,8 +63,10 @@ BLADE);
         $html->assertSee('shrink-0 pb-14', false);
         $html->assertSee('shrink-0 pb-10 pt-4', false);
         $html->assertSee('flex cursor-pointer items-center text-secondary', false);
-        $html->assertSee('group flex cursor-pointer items-center gap-5', false);
+        $html->assertSee('group flex cursor-pointer items-center gap-3.5', false);
         $html->assertSee('h-16 min-h-16 w-16 min-w-16', false);
+        $html->assertSee('border border-danger bg-transparent', false);
+        $html->assertSee('text-danger shadow-none', false);
     }
 
     public function test_it_merges_attributes_and_preserves_wire_navigate_items(): void
@@ -170,9 +173,9 @@ BLADE);
         $html->assertDontSee('/images/fallback.jpg', false);
     }
 
-    public function test_it_is_white_with_a_layout_rail_that_can_be_disabled(): void
+    public function test_it_does_not_render_an_external_rail(): void
     {
-        $default = $this->blade(<<<'BLADE'
+        $html = $this->blade(<<<'BLADE'
 <x-sampaui::sidebar
     :items="[
         ['label' => 'Dashboard', 'href' => '/dashboard', 'icon' => 'grid'],
@@ -180,11 +183,8 @@ BLADE);
 />
 BLADE);
 
-        $default->assertSee('-right-10 hidden w-10 bg-light', false);
-        $default->assertSee('Dashboard');
-
-        $this->blade('<x-sampaui::sidebar :rail="false" />')
-            ->assertDontSee('-right-10 hidden w-10 bg-light', false);
+        $html->assertDontSee('-right-10 hidden w-10 bg-light', false);
+        $html->assertSee('Dashboard');
     }
 
     public function test_it_supports_static_position_for_embedded_layouts_and_previews(): void
