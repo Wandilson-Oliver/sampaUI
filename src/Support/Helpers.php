@@ -8,14 +8,22 @@ if (! function_exists('sampaui_asset')) {
 }
 
 if (! function_exists('sampaui_id')) {
-    function sampaui_id(mixed $attributes, ?string $name, string $prefix): string
+    function sampaui_id(mixed $attributes, ?string $name, string $prefix, mixed $value = null): string
     {
         if ($attributes->get('id')) {
             return (string) $attributes->get('id');
         }
 
-        if ($name) {
-            $id = trim((string) preg_replace('/[^A-Za-z0-9\-_:.]+/', '-', $name), '-');
+        $fieldName = sampaui_field_name($attributes, $name);
+
+        if ($fieldName) {
+            $parts = [$fieldName];
+
+            if (is_scalar($value) || $value instanceof Stringable) {
+                $parts[] = (string) $value;
+            }
+
+            $id = trim((string) preg_replace('/[^A-Za-z0-9\-_:.]+/', '-', implode('-', $parts)), '-');
 
             if ($id !== '') {
                 return $id;
@@ -26,6 +34,23 @@ if (! function_exists('sampaui_id')) {
     }
 }
 
+if (! function_exists('sampaui_field_name')) {
+    function sampaui_field_name(mixed $attributes, ?string $name): ?string
+    {
+        if (filled($name)) {
+            return $name;
+        }
+
+        foreach ($attributes->getAttributes() as $attribute => $value) {
+            if (($attribute === 'wire:model' || str_starts_with($attribute, 'wire:model.')) && filled($value)) {
+                return (string) $value;
+            }
+        }
+
+        return null;
+    }
+}
+
 if (! function_exists('sampaui_error')) {
     function sampaui_error(?string $name, ?string $error, mixed $errors = null): ?string
     {
@@ -33,7 +58,7 @@ if (! function_exists('sampaui_error')) {
             return $error;
         }
 
-        if (! $name || ! $errors || ! method_exists($errors, 'has') || ! $errors->has($name)) {
+        if (! $name || ! $errors || ! is_callable([$errors, 'has']) || ! $errors->has($name)) {
             return null;
         }
 

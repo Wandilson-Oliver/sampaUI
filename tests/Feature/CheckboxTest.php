@@ -34,4 +34,19 @@ class CheckboxTest extends TestCase
         $fallback->assertSee('accent-primary', false);
         $fallback->assertSee('focus:ring-primary/20', false);
     }
+
+    public function test_grouped_values_receive_unique_ids_from_wire_model_and_value(): void
+    {
+        $html = $this->blade(<<<'BLADE'
+<div>
+    <x-sampaui::checkbox label="Administrador" value="admin" wire:model="roles" />
+    <x-sampaui::checkbox label="Editor" value="editor" wire:model="roles" />
+</div>
+BLADE);
+
+        $html->assertSee('id="roles-admin"', false);
+        $html->assertSee('for="roles-admin"', false);
+        $html->assertSee('id="roles-editor"', false);
+        $html->assertSee('for="roles-editor"', false);
+    }
 }

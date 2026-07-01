@@ -5,6 +5,7 @@
     'appearance' => 'outline',
     'padding' => 'md',
     'divided' => false,
+    'overflow' => 'hidden',
 ])
 
 @php
@@ -63,9 +64,15 @@
         'soft' => $softTones[$variant] ?? $softTones['default'],
         default => $tone,
     };
+    $overflowClass = match ($overflow) {
+        'visible' => 'overflow-visible',
+        'auto' => 'overflow-auto',
+        default => 'overflow-hidden',
+    };
     $hasHeader = filled($title) || filled($description) || isset($header) || isset($actions);
     $classes = sampaui_classes([
-        'overflow-hidden rounded-default border',
+        'rounded-default border',
+        $overflowClass,
         $tone,
     ]);
     $titleClass = $appearance === 'solid' ? 'text-white' : 'text-primary';

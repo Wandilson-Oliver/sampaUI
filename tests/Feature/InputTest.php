@@ -68,4 +68,15 @@ BLADE)
             ->assertSee('h-12 py-0', false)
             ->assertDontSee('border border-secondary/30', false);
     }
+
+    public function test_it_resolves_livewire_validation_errors_without_a_name_prop(): void
+    {
+        $this->withViewErrors(['form.email' => 'O email e obrigatorio.']);
+
+        $this->blade('<x-sampaui::input label="Email" wire:model.blur="form.email" required />')
+            ->assertSee('O email e obrigatorio.')
+            ->assertSee('id="form.email-error"', false)
+            ->assertSee('aria-describedby="form.email-error"', false)
+            ->assertSee('aria-invalid="true"', false);
+    }
 }

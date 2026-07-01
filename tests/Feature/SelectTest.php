@@ -17,6 +17,7 @@ class SelectTest extends TestCase
         $html->assertSee('Ativo');
         $html->assertSee('wire:model="status"', false);
         $html->assertSee('x-model="value"', false);
+        $html->assertSee('x-modelable="value"', false);
         $html->assertSee('x-ref="native"', false);
         $html->assertSee('role="listbox"', false);
         $html->assertSee('role="option"', false);
@@ -71,5 +72,25 @@ BLADE);
         $html->assertSee('focus:ring-primary/20', false);
         $html->assertSee('bg-light/40 text-secondary/80', false);
         $html->assertSee('aria-busy="true"', false);
+    }
+
+    public function test_it_resolves_livewire_errors_and_binds_the_visible_label_bidirectionally(): void
+    {
+        $this->withViewErrors(['form.status' => 'Selecione um status.']);
+
+        $html = $this->blade(<<<'BLADE'
+<x-sampaui::select
+    label="Status"
+    wire:model.live="form.status"
+    required
+    :options="['active' => 'Ativo']"
+/>
+BLADE);
+
+        $html->assertSee('Selecione um status.');
+        $html->assertSee('wire:model.live="form.status"', false);
+        $html->assertSee('x-modelable="value"', false);
+        $html->assertSee('id="form.status-error"', false);
+        $html->assertSee('aria-invalid="true"', false);
     }
 }

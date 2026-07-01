@@ -46,5 +46,6 @@ Com Livewire:
 ```
 
 O componente usa `x-modelable` para receber o valor inicial e manter sincronizacao bidirecional. Nao passe `value` junto com `wire:model`.
+Erros do validator sao exibidos automaticamente usando `name` ou o caminho de `wire:model`.
 
 O componente tambem dispara `select-search:changed` com `id`, `name`, `value` e `label`.

@@ -271,11 +271,10 @@ Os campos `phone`, `currency-br` e `cep` formatam valores internamente com Alpin
 
 ```blade
 <x-sampaui::sidebar
-    brand="LIACOR"
+    logo-src="/images/logo-liacor.png"
+    logo-alt="LIACOR"
     initial-state="open"
     brand-href="/dashboard"
-    src="/images/logo-liacor.png"
-    logo-alt="LIACOR"
     :user="['name' => 'Administrador Lia', 'email' => 'admin@sampa.dev']"
     :items="[
         ['label' => 'Dashboard', 'href' => '/dashboard', 'icon' => 'grid', 'active' => true],

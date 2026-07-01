@@ -60,3 +60,4 @@ Topbar com busca e notificacoes:
 - `actions`: slot nomeado para comandos.
 
 Os slots padrao `left`, `center` e `right` permitem composicoes responsivas; `actions` permanece compativel como atalho da area direita. O titulo rotula o `<header>` automaticamente, ou use `aria-label`.
+A area de acoes usa largura estrutural automatica em desktop, preservando o espaco do titulo mesmo quando o CSS do projeto e compilado em outra ordem.

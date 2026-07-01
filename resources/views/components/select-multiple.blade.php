@@ -20,8 +20,9 @@
 ])
 
 @php
-    $id = sampaui_id($attributes, $name, 'sampaui-select-multiple');
-    $errorMessage = sampaui_error($name, $error, $errors ?? null);
+    $fieldName = sampaui_field_name($attributes, $name);
+    $id = sampaui_id($attributes, $fieldName, 'sampaui-select-multiple');
+    $errorMessage = sampaui_error($fieldName, $error, $errors ?? null);
     $describedBy = sampaui_described_by($id, $hint, $errorMessage, $attributes->get('aria-describedby'));
     $normalizedOptions = collect($options)->map(function ($optionLabel, $optionValue): array {
         if (is_array($optionLabel)) {
@@ -33,7 +34,7 @@
         }
         return ['value' => (string) $optionValue, 'label' => (string) $optionLabel, 'disabled' => false];
     })->values()->all();
-    $selectedValues = old($name, $value);
+    $selectedValues = $fieldName ? old($fieldName, $value) : $value;
     if (is_string($selectedValues)) $selectedValues = filled($selectedValues) ? [$selectedValues] : [];
     $selectedValues = collect($selectedValues ?? [])->flatten()->map(fn (mixed $item): string => (string) $item)->unique()->values()->all();
     $unavailable = $disabled || $loading;
@@ -45,7 +46,7 @@
     <div
         x-data="SampaUI.selectMultiple(@js([
             'id' => $id,
-            'name' => $name,
+            'name' => $fieldName,
             'values' => $selectedValues,
             'options' => $normalizedOptions,
             'disabled' => $unavailable,

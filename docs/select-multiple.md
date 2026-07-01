@@ -94,6 +94,6 @@ Opcoes tambem podem ser desabilitadas individualmente:
 
 O dropdown fecha automaticamente ao clicar fora ou pressionar `Esc`.
 
-O componente tambem dispara `select-multiple:changed` com `id`, `name`, `values`, `option` e `action`.
+O componente tambem dispara `select-multiple:changed` com `id`, `name`, `values`, `option` e `action`. Erros do validator sao exibidos automaticamente usando `name` ou o caminho de `wire:model`.
 
 Setas e Enter navegam os resultados; `clearable` limpa a selecao e o campo de busca anuncia lista e estado vazio. O `<select multiple>` real preserva `wire:model`, `required`, erro e descricoes acessiveis.

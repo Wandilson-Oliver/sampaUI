@@ -10,8 +10,9 @@
 ])
 
 @php
-    $id = sampaui_id($attributes, $name, 'sampaui-radio');
-    $errorMessage = sampaui_error($name, $error, $errors ?? null);
+    $fieldName = sampaui_field_name($attributes, $name);
+    $id = sampaui_id($attributes, $fieldName, 'sampaui-radio');
+    $errorMessage = sampaui_error($fieldName, $error, $errors ?? null);
     $normalizedOptions = collect($options)
         ->map(function ($optionLabel, $optionValue): array {
             if (is_array($optionLabel)) {

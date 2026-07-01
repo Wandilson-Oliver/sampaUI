@@ -88,4 +88,14 @@ BLADE);
         $html->assertSee('border-danger', false);
         $html->assertSee('cursor-not-allowed opacity-50', false);
     }
+
+    public function test_it_resolves_livewire_validation_errors_without_a_name_prop(): void
+    {
+        $this->withViewErrors(['owner' => 'Escolha um responsavel.']);
+
+        $this->blade('<x-sampaui::select-search label="Responsavel" wire:model="owner" :options="[]" />')
+            ->assertSee('Escolha um responsavel.')
+            ->assertSee('id="owner-error"', false)
+            ->assertSee('aria-invalid="true"', false);
+    }
 }

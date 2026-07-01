@@ -28,7 +28,7 @@ BLADE);
         $html->assertSee('Novo cliente');
         $html->assertSee('rounded-default border border-border', false);
         $html->assertSee('lg:flex-row lg:items-center', false);
-        $html->assertSee('lg:ml-auto lg:w-auto lg:shrink-0 lg:justify-end', false);
+        $html->assertSee('lg:ml-auto lg:!w-auto lg:shrink-0 lg:justify-end', false);
         $html->assertSee('shadow-sm shadow-secondary/5', false);
     }
 

@@ -6,13 +6,23 @@ Todas as mudanças notáveis do SampaUI serão documentadas neste arquivo.
 
 ### Adicionado
 
-- `brand-mark` usa o novo simbolo oficial multicolorido; `sidebar` aceita troca por `src` e preserva a prop legada `logo`.
+- `brand-mark` usa o novo simbolo oficial multicolorido; `sidebar` recebe a marca do cliente pela prop `logo-src`.
 - `table-search` aceita filtros personalizados, três tipos de paginação e modo flush com bleed automático dentro de Card.
 
 ### Melhorado
 
 - Sidebar alinhada a referencia, com trilho claro, item ativo circular violeta, avatar ampliado e preview completo.
 - Inputs e selects usam altura mínima consistente; seleção de linhas da tabela reutiliza o componente Checkbox oficial.
+- Sidebar reduzida de `20rem` para `18rem` e API de marca simplificada para `logo-src`.
+- Card aceita `overflow="visible"` ou `overflow="auto"` para conteudo flutuante.
+
+### Corrigido
+
+- Inputs e selects exibem mensagens do error bag do Laravel mesmo quando identificados somente por `wire:model`.
+- Checkbox em grupo gera ids por model/nome e valor, mantendo cada label associado ao controle correto.
+- Header preserva o titulo em desktop quando possui acoes, independentemente da ordem do CSS compilado.
+- Select comum usa `x-modelable` para sincronizar valor e label em atualizacoes do servidor.
+- `selectMultiple` mantem uma unica propriedade `disabled` na configuracao JavaScript.
 
 ## v0.1.19 - 2026-06-28
 

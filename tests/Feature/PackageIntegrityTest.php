@@ -27,6 +27,16 @@ class PackageIntegrityTest extends TestCase
         $this->assertStringContainsString('unlockPageScroll()', $javascript);
     }
 
+    public function test_select_controllers_keep_livewire_sync_and_a_single_disabled_property(): void
+    {
+        $javascript = (string) file_get_contents(__DIR__.'/../../resources/js/sampaui.js');
+        $selectMultiple = explode('selectMultiple(config = {})', $javascript, 2)[1];
+        $selectMultiple = explode('datePicker(config = {})', $selectMultiple, 2)[0];
+
+        $this->assertStringContainsString("this.\$watch('value', () => this.syncSelectedLabel())", $javascript);
+        $this->assertSame(1, substr_count($selectMultiple, 'disabled: Boolean(config.disabled)'));
+    }
+
     public function test_theme_config_and_compiled_source_tokens_stay_in_sync(): void
     {
         $config = require __DIR__.'/../../config/sampaui.php';
