@@ -58,11 +58,10 @@ Com secoes:
 - `openEvent`: evento Alpine para abrir no mobile.
 - `closeEvent`: evento Alpine para fechar no mobile.
 - `stateEvent`: informa a largura atual para o layout ajustar o conteudo.
-- `rail`: controla a faixa externa clara que separa a navegacao do conteudo; o padrao e `true`.
 - `position`: `fixed` em dashboards ou `static` quando estiver dentro de um container/preview.
 - `logoutHref`: exibe link de saida quando informado.
 - `footer`: slot nomeado para substituir o rodape.
 
 Cada item aceita `label`, `href`, `icon`, `active` e `navigate`. Use `navigate => true` para adicionar `wire:navigate`.
 
-A largura expandida padrao e `18rem`; recolhida, `6rem`. O item ativo usa apenas um circulo violeta suave no icone, preservando a leitura leve da navegacao.
+A largura expandida padrao e `18rem`; recolhida, `6rem`. A Sidebar nao cria faixa de fundo externa. O item ativo reutiliza o mesmo circulo suave do hover, sem fundo no link inteiro, e o espaco entre icone e texto usa `gap-3.5`. O link de saida e outline danger sem sombra.

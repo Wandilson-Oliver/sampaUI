@@ -13,7 +13,6 @@
     'closeEvent' => 'sampaui:sidebar-close',
     'openEvent' => 'sampaui:sidebar-open',
     'stateEvent' => 'sampaui:sidebar-state',
-    'rail' => true,
     'activeColor' => null,
     'logoutHref' => null,
     'logoutLabel' => 'Sair do sistema',
@@ -41,9 +40,8 @@
     $userAvatarAlt = $avatarAlt ?? $userName ?? 'Avatar';
     $startsCollapsed = $initialState ? in_array($initialState, ['closed', 'collapsed'], true) : (bool) $collapsed;
     $logoAltText = $logoAlt ?? 'Logo';
-    $activeTextStyle = $activeColor ? 'color: '.$activeColor.';' : null;
     $activeIconStyle = $activeColor
-        ? 'color: '.$activeColor.'; background-color: color-mix(in srgb, '.$activeColor.' 10%, transparent);'
+        ? 'color: '.$activeColor.';'
         : null;
     $isFixed = $position !== 'static';
     $positionClasses = $isFixed
@@ -63,10 +61,6 @@
     x-bind:style="`width: ${width()};`"
     aria-label="Navegacao principal"
 >
-    @if ($rail)
-        <span class="pointer-events-none absolute inset-y-0 -right-10 hidden w-10 bg-light md:block" aria-hidden="true"></span>
-    @endif
-
     @if ($collapsible)
         <button
             type="button"
@@ -131,11 +125,10 @@
                                 href="{{ $href }}"
                                 @if (($item['navigate'] ?? false) && $href !== '#') wire:navigate @endif
                                 @class([
-                                    'group flex cursor-pointer items-center gap-5 rounded-default text-base font-medium transition focus:outline-none focus:ring-2 focus:ring-purple/20',
-                                    'text-purple' => $active,
+                                    'group flex cursor-pointer items-center gap-3.5 rounded-default !bg-transparent text-base font-medium transition focus:outline-none focus:ring-2 focus:ring-purple/20',
+                                    'text-secondary' => $active,
                                     'text-secondary/65 hover:text-secondary' => ! $active,
                                 ])
-                                @if ($active && $activeTextStyle) style="{{ $activeTextStyle }}" @endif
                                 x-bind:class="collapsed ? 'justify-center px-0 py-1' : 'px-1 py-1'"
                                 @if ($active) aria-current="page" @endif
                                 x-on:click="open = false"
@@ -144,7 +137,7 @@
                                     <span
                                         @class([
                                             'inline-flex aspect-square h-14 min-h-14 w-14 min-w-14 items-center justify-center rounded-full transition',
-                                            'bg-purple/10 text-purple' => $active,
+                                            'bg-light text-purple' => $active,
                                             'text-secondary/45 group-hover:bg-light group-hover:text-purple' => ! $active,
                                         ])
                                         @if ($activeIconStyle) style="{{ $activeIconStyle }}" @endif
@@ -156,10 +149,8 @@
                                 <span
                                     @class([
                                         'truncate',
-                                        'font-semibold' => $active,
                                         'group-hover:text-secondary' => ! $active,
                                     ])
-                                    @if ($active && $activeTextStyle) style="{{ $activeTextStyle }}" @endif
                                     x-bind:class="collapsed ? 'md:hidden' : ''"
                                 >
                                     {{ $label }}
@@ -179,8 +170,8 @@
             @else
                 <a
                     href="{{ $logoutHref }}"
-                    class="group flex cursor-pointer items-center gap-5 rounded-default text-base font-medium text-danger transition hover:text-danger/80 focus:outline-none focus:ring-2 focus:ring-danger/20"
-                    x-bind:class="collapsed ? 'justify-center px-0 py-1' : 'px-1 py-1'"
+                    class="group flex w-full cursor-pointer items-center gap-3.5 rounded-default border border-danger bg-transparent text-base font-medium text-danger shadow-none transition hover:bg-danger/10 hover:text-danger focus:outline-none focus:ring-2 focus:ring-danger/20"
+                    x-bind:class="collapsed ? 'justify-center px-0 py-2' : 'px-3 py-2.5'"
                 >
                     <span class="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-full transition">
                         <i class="bi bi-box-arrow-right text-[1.35rem] leading-none" aria-hidden="true"></i>

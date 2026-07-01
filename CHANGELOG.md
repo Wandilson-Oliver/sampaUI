@@ -2,6 +2,15 @@
 
 Todas as mudanças notáveis do SampaUI serão documentadas neste arquivo.
 
+## v0.1.21 - 2026-07-01
+
+### Melhorado
+
+- Sidebar remove a faixa de fundo externa e mantém somente a superfície principal.
+- Estado ativo reutiliza o círculo do hover no ícone, sem fundo ocupando a largura inteira do link.
+- Espaço entre ícone e texto dos links foi reduzido em 30%, de `gap-5` para `gap-3.5`.
+- Link de saída agora usa outline danger sem sombra.
+
 ## v0.1.20 - 2026-06-29
 
 ### Adicionado

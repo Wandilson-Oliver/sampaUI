@@ -375,7 +375,7 @@ return [
         'name' => 'Sidebar',
         'category' => 'navigation',
         'tag' => '<x-sampaui::sidebar />',
-        'props' => ['logo-src', 'logo-alt', 'brand-href', 'items', 'sections', 'user', 'avatar', 'avatar-alt', 'initial-state', 'collapsed', 'collapsible', 'close-event', 'open-event', 'state-event', 'rail', 'active-color', 'logout-href', 'logout-label', 'position'],
+        'props' => ['logo-src', 'logo-alt', 'brand-href', 'items', 'sections', 'user', 'avatar', 'avatar-alt', 'initial-state', 'collapsed', 'collapsible', 'close-event', 'open-event', 'state-event', 'active-color', 'logout-href', 'logout-label', 'position'],
         'slots' => ['footer'],
         'variants' => [],
         'example' => '<x-sampaui::sidebar logo-src="/images/logo.svg" :items="$items" />',
