@@ -18,8 +18,9 @@
 ])
 
 @php
-    $id = sampaui_id($attributes, $name, 'sampaui-select');
-    $errorMessage = sampaui_error($name, $error, $errors ?? null);
+    $fieldName = sampaui_field_name($attributes, $name);
+    $id = sampaui_id($attributes, $fieldName, 'sampaui-select');
+    $errorMessage = sampaui_error($fieldName, $error, $errors ?? null);
     $describedBy = sampaui_described_by($id, $hint, $errorMessage, $attributes->get('aria-describedby'));
     $normalizedOptions = collect($options)->map(function ($optionLabel, $optionValue): array {
         if (is_array($optionLabel)) {
@@ -32,7 +33,7 @@
 
         return ['value' => (string) $optionValue, 'label' => (string) $optionLabel, 'disabled' => false];
     })->values()->all();
-    $selectedValue = old($name, $value);
+    $selectedValue = $fieldName ? old($fieldName, $value) : $value;
     $selectedOption = collect($normalizedOptions)->first(fn (array $option): bool => ! is_null($selectedValue) && (string) $option['value'] === (string) $selectedValue);
     $unavailable = $disabled || $loading;
     $triggerClasses = sampaui_trigger_classes($errorMessage, $disabled, [
@@ -41,14 +42,21 @@
         'pr-3' => ! $clearable && ($loading || isset($suffix)),
         'bg-light/40 text-secondary/80' => $readonly,
     ], $state, $loading);
-    $controlAttributes = $attributes->except(['id', 'class', 'aria-describedby']);
+    $modelAttributes = $attributes->filter(
+        fn (mixed $attributeValue, string $attributeName): bool => str_starts_with($attributeName, 'wire:model') || $attributeName === 'x-model'
+    );
+    $controlAttributes = $attributes
+        ->whereDoesntStartWith('wire:model')
+        ->whereDoesntStartWith('x-model')
+        ->except(['id', 'class', 'aria-describedby']);
 @endphp
 
 <x-sampaui::field :id="$id" :label-for="$id.'-button'" :label="$label" :hint="$hint" :error="$errorMessage" :required="$required">
     <div
+        {{ $modelAttributes }}
         x-data="SampaUI.select(@js([
             'id' => $id,
-            'name' => $name,
+            'name' => $fieldName,
             'value' => (string) ($selectedValue ?? ''),
             'selectedLabel' => $selectedOption['label'] ?? '',
             'options' => $normalizedOptions,
@@ -56,6 +64,7 @@
             'disabled' => $unavailable,
             'readonly' => $readonly,
         ]))"
+        x-modelable="value"
         x-on:keydown.escape.stop="close()"
         class="relative"
     >

@@ -6,13 +6,13 @@ use SampaUI\Tests\TestCase;
 
 class SidebarTest extends TestCase
 {
-    public function test_it_renders_brand_user_items_and_sections(): void
+    public function test_it_renders_logo_user_items_and_sections(): void
     {
         $html = $this->blade(<<<'BLADE'
 <x-sampaui::sidebar
-    brand="SampaUI"
+    logo-src="/images/client-logo.svg"
+    logo-alt="Cliente"
     brand-href="/dashboard"
-    brand-icon="boxes"
     :user="['name' => 'Ana Silva', 'email' => 'ana@example.com']"
     :items="[
         ['label' => 'Dashboard', 'href' => '/dashboard', 'icon' => 'grid', 'active' => true],
@@ -26,10 +26,9 @@ class SidebarTest extends TestCase
 />
 BLADE);
 
-        $html->assertSee('SampaUI');
         $html->assertSee('/dashboard', false);
-        $html->assertSee('vendor/sampaui/images/logo-sampaui-mark.png', false);
-        $html->assertSee('bi bi-boxes', false);
+        $html->assertSee('<img src="/images/client-logo.svg" alt="Cliente"', false);
+        $html->assertDontSee('logo-sampaui-mark.png', false);
         $html->assertSee('Ana Silva');
         $html->assertSee('ana@example.com');
         $html->assertSee('Dashboard');
@@ -39,7 +38,7 @@ BLADE);
         $html->assertSee('aria-current="page"', false);
         $html->assertSee('border-r border-border bg-surface', false);
         $html->assertDontSee('md:sticky', false);
-        $html->assertSee('style="width: 20rem;"', false);
+        $html->assertSee('style="width: 18rem;"', false);
         $html->assertSee('collapsed: false', false);
         $html->assertSee('stateEvent: \'sampaui:sidebar-state\'', false);
         $html->assertSee('toggle() { this.setCollapsed(! this.collapsed) }', false);
@@ -62,7 +61,7 @@ BLADE);
         $html->assertSee('shrink-0 pb-12 pt-7', false);
         $html->assertSee('shrink-0 pb-14', false);
         $html->assertSee('shrink-0 pb-10 pt-4', false);
-        $html->assertSee('flex cursor-pointer items-center gap-4', false);
+        $html->assertSee('flex cursor-pointer items-center text-secondary', false);
         $html->assertSee('group flex cursor-pointer items-center gap-5', false);
         $html->assertSee('h-16 min-h-16 w-16 min-w-16', false);
     }
@@ -72,7 +71,6 @@ BLADE);
         $html = $this->blade(<<<'BLADE'
 <x-sampaui::sidebar
     id="main-nav"
-    brand="App"
     class="custom-sidebar"
     open-event="open-sidebar"
     close-event="close-sidebar"
@@ -96,7 +94,6 @@ BLADE);
     {
         $open = $this->blade(<<<'BLADE'
 <x-sampaui::sidebar
-    brand="App"
     initial-state="open"
     :items="[
         ['label' => 'Dashboard', 'href' => '/dashboard', 'icon' => 'grid'],
@@ -104,13 +101,12 @@ BLADE);
 />
 BLADE);
 
-        $open->assertSee('style="width: 20rem;"', false);
+        $open->assertSee('style="width: 18rem;"', false);
         $open->assertSee('collapsed: false', false);
         $open->assertSee("x-on:click.prevent.stop=\"window.matchMedia('(max-width: 767px)').matches ? (open = false, setCollapsed(true)) : toggle()\"", false);
 
         $closed = $this->blade(<<<'BLADE'
 <x-sampaui::sidebar
-    brand="App"
     initial-state="closed"
     :items="[
         ['label' => 'Dashboard', 'href' => '/dashboard', 'icon' => 'grid'],
@@ -123,34 +119,11 @@ BLADE);
         $closed->assertSee("x-on:click.prevent.stop=\"window.matchMedia('(max-width: 767px)').matches ? (open = false, setCollapsed(true)) : toggle()\"", false);
     }
 
-    public function test_it_accepts_logo_slot_for_custom_brand_mark(): void
+    public function test_it_accepts_logo_src_and_avatar_props(): void
     {
         $html = $this->blade(<<<'BLADE'
 <x-sampaui::sidebar
-    brand="LIACOR"
-    brand-href="/dashboard"
-    :items="[
-        ['label' => 'Dashboard', 'href' => '/dashboard', 'icon' => 'grid'],
-    ]"
->
-    <x-slot:logo>
-        <img src="/logo.svg" alt="LIACOR" class="h-10 w-10 rounded-default">
-    </x-slot:logo>
-</x-sampaui::sidebar>
-BLADE);
-
-        $html->assertSee('<img src="/logo.svg" alt="LIACOR"', false);
-        $html->assertSee('LIACOR');
-        $html->assertSee('/dashboard', false);
-        $html->assertDontSee('rounded-t-full rounded-bl-full', false);
-    }
-
-    public function test_it_accepts_logo_and_avatar_props(): void
-    {
-        $html = $this->blade(<<<'BLADE'
-<x-sampaui::sidebar
-    brand="LIACOR"
-    logo="/images/liacor.svg"
+    logo-src="/images/liacor.svg"
     logo-alt="Logo LIACOR"
     avatar="/images/admin.jpg"
     avatar-alt="Foto do administrador"
@@ -167,27 +140,24 @@ BLADE);
         $html->assertDontSee('rounded-t-full rounded-bl-full', false);
     }
 
-    public function test_src_prop_replaces_the_default_brand_mark_and_has_priority_over_logo(): void
+    public function test_it_has_no_default_brand_and_uses_only_logo_src(): void
     {
         $html = $this->blade(<<<'BLADE'
 <x-sampaui::sidebar
-    brand="Minha marca"
-    src="/images/nova-logo.png"
-    logo="/images/logo-legada.png"
+    logo-src="/images/nova-logo.png"
     logo-alt="Logo da minha marca"
 />
 BLADE);
 
         $html->assertSee('<img src="/images/nova-logo.png" alt="Logo da minha marca"', false);
-        $html->assertDontSee('/images/logo-legada.png', false);
         $html->assertDontSee('logo-sampaui-mark.png', false);
+        $html->assertDontSee('SampaUI', false);
     }
 
     public function test_user_avatar_array_has_priority_over_avatar_prop(): void
     {
         $html = $this->blade(<<<'BLADE'
 <x-sampaui::sidebar
-    brand="App"
     avatar="/images/fallback.jpg"
     :user="['name' => 'Ana Silva', 'avatar' => '/images/ana.jpg']"
     :items="[
@@ -204,7 +174,6 @@ BLADE);
     {
         $default = $this->blade(<<<'BLADE'
 <x-sampaui::sidebar
-    brand="App"
     :items="[
         ['label' => 'Dashboard', 'href' => '/dashboard', 'icon' => 'grid'],
     ]"
@@ -220,7 +189,7 @@ BLADE);
 
     public function test_it_supports_static_position_for_embedded_layouts_and_previews(): void
     {
-        $html = $this->blade('<x-sampaui::sidebar position="static" brand="App" />');
+        $html = $this->blade('<x-sampaui::sidebar position="static" />');
 
         $html->assertSee('relative h-full', false);
         $html->assertDontSee('fixed inset-y-0 left-0 h-screen', false);

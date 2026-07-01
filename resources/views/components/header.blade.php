@@ -91,7 +91,7 @@
         @endif
 
         @if ($hasRight)
-            <div class="flex w-full flex-wrap items-center gap-2 lg:ml-auto lg:w-auto lg:shrink-0 lg:justify-end">
+            <div class="flex w-full flex-wrap items-center gap-2 lg:ml-auto lg:!w-auto lg:shrink-0 lg:justify-end">
                 @isset($right)
                     {{ $right }}
                 @else

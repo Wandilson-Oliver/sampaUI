@@ -1,9 +1,6 @@
 @props([
-    'brand' => 'SampaUI',
     'brandHref' => '#',
-    'brandIcon' => null,
-    'src' => null,
-    'logo' => null,
+    'logoSrc' => null,
     'logoAlt' => null,
     'items' => [],
     'sections' => [],
@@ -43,8 +40,7 @@
     $userAvatar = is_array($user) ? ($user['avatar'] ?? $avatar) : $avatar;
     $userAvatarAlt = $avatarAlt ?? $userName ?? 'Avatar';
     $startsCollapsed = $initialState ? in_array($initialState, ['closed', 'collapsed'], true) : (bool) $collapsed;
-    $resolvedLogo = filled($src) ? $src : $logo;
-    $logoAltText = $logoAlt ?? $brand;
+    $logoAltText = $logoAlt ?? 'Logo';
     $activeTextStyle = $activeColor ? 'color: '.$activeColor.';' : null;
     $activeIconStyle = $activeColor
         ? 'color: '.$activeColor.'; background-color: color-mix(in srgb, '.$activeColor.' 10%, transparent);'
@@ -58,8 +54,8 @@
 <aside
     id="{{ $sidebarId }}"
     {{ $attributes->except('id')->merge(['class' => "{$positionClasses} z-50 flex flex-col border-r border-border bg-surface text-secondary transition-[width,transform] duration-300 ease-out"]) }}
-    style="width: {{ $startsCollapsed ? '6rem' : '20rem' }};"
-    x-data="{ open: false, collapsed: @js($startsCollapsed), stateEvent: @js($stateEvent), sidebarId: @js($sidebarId), width() { return this.collapsed ? '6rem' : '20rem' }, emitState() { window.dispatchEvent(new CustomEvent(this.stateEvent, { detail: { id: this.sidebarId, collapsed: this.collapsed, width: this.width() } })) }, setCollapsed(value) { this.collapsed = value; this.emitState() }, toggle() { this.setCollapsed(! this.collapsed) } }"
+    style="width: {{ $startsCollapsed ? '6rem' : '18rem' }};"
+    x-data="{ open: false, collapsed: @js($startsCollapsed), stateEvent: @js($stateEvent), sidebarId: @js($sidebarId), width() { return this.collapsed ? '6rem' : '18rem' }, emitState() { window.dispatchEvent(new CustomEvent(this.stateEvent, { detail: { id: this.sidebarId, collapsed: this.collapsed, width: this.width() } })) }, setCollapsed(value) { this.collapsed = value; this.emitState() }, toggle() { this.setCollapsed(! this.collapsed) } }"
     x-init="emitState()"
     x-on:{{ $openEvent }}.window="open = true; setCollapsed(false)"
     x-on:{{ $closeEvent }}.window="open = false; setCollapsed(true)"
@@ -83,23 +79,13 @@
         </button>
     @endif
 
-    <div class="shrink-0 pb-12 pt-7" x-bind:class="collapsed ? 'px-0' : 'px-8'">
-        <a href="{{ $brandHref }}" class="flex cursor-pointer items-center gap-4 text-secondary" x-bind:class="collapsed ? 'justify-center' : ''">
-            @if ($logo instanceof \Illuminate\View\ComponentSlot)
-                {{ $logo }}
-            @elseif (is_string($resolvedLogo) && $resolvedLogo !== '')
-                <img src="{{ $resolvedLogo }}" alt="{{ $logoAltText }}" class="block h-11 w-16 shrink-0 object-contain">
-            @elseif (isset($brandMark))
-                {{ $brandMark }}
-            @else
-                <x-sampaui::brand-mark :icon="$brandIcon" />
-            @endisset
-
-            <span class="truncate text-2xl font-bold leading-none tracking-tight text-secondary" x-bind:class="collapsed ? 'md:hidden' : ''">
-                {{ $brand }}
-            </span>
-        </a>
-    </div>
+    @if ($logoSrc)
+        <div class="shrink-0 pb-12 pt-7" x-bind:class="collapsed ? 'px-0' : 'px-8'">
+            <a href="{{ $brandHref }}" class="flex cursor-pointer items-center text-secondary" x-bind:class="collapsed ? 'justify-center' : ''">
+                <img src="{{ $logoSrc }}" alt="{{ $logoAltText }}" class="block h-11 max-w-full shrink-0 object-contain">
+            </a>
+        </div>
+    @endif
 
     @if (is_array($user))
         <div class="shrink-0 pb-14" x-bind:class="collapsed ? 'px-0' : 'px-8'">

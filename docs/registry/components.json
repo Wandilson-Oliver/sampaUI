@@ -188,7 +188,8 @@
                 "variant",
                 "appearance",
                 "padding",
-                "divided"
+                "divided",
+                "overflow"
             ],
             "slots": [
                 "default",
@@ -820,7 +821,7 @@
             ],
             "variants": [],
             "example": "<x-sampaui::select name=\"status\" label=\"Status\" :options=\"['active' => 'Ativo']\" wire:model.live=\"status\" />",
-            "livewire": "Preserva wire:model no select real oculto e sincroniza eventos input/change."
+            "livewire": "Usa x-modelable para manter valor e label sincronizados quando o servidor atualiza wire:model."
         },
         "select-multiple": {
             "name": "Select Multiple",
@@ -874,12 +875,9 @@
             "category": "navigation",
             "tag": "<x-sampaui::sidebar />",
             "props": [
-                "brand",
-                "brand-href",
-                "brand-icon",
-                "src",
-                "logo",
+                "logo-src",
                 "logo-alt",
+                "brand-href",
                 "items",
                 "sections",
                 "user",
@@ -898,11 +896,10 @@
                 "position"
             ],
             "slots": [
-                "logo",
                 "footer"
             ],
             "variants": [],
-            "example": "<x-sampaui::sidebar brand=\"SampaUI\" :items=\"$items\" />",
+            "example": "<x-sampaui::sidebar logo-src=\"/images/logo.svg\" :items=\"$items\" />",
             "livewire": "Itens podem usar wire:navigate."
         },
         "skeleton": {

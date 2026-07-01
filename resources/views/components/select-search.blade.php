@@ -12,8 +12,9 @@
 ])
 
 @php
-    $id = sampaui_id($attributes, $name, 'sampaui-select-search');
-    $errorMessage = sampaui_error($name, $error, $errors ?? null);
+    $fieldName = sampaui_field_name($attributes, $name);
+    $id = sampaui_id($attributes, $fieldName, 'sampaui-select-search');
+    $errorMessage = sampaui_error($fieldName, $error, $errors ?? null);
 
     $normalizedOptions = collect($options)
         ->map(function ($optionLabel, $optionValue): array {
@@ -32,7 +33,7 @@
         ->values()
         ->all();
 
-    $selectedValue = old($name, $value);
+    $selectedValue = $fieldName ? old($fieldName, $value) : $value;
     $selectedOption = collect($normalizedOptions)->first(
         fn (array $option): bool => ! is_null($selectedValue) && (string) $option['value'] === (string) $selectedValue
     );
@@ -75,7 +76,7 @@
                 this.$refs.input.dispatchEvent(new Event('change', { bubbles: true }));
                 this.$dispatch('select-search:changed', {
                     id: @js($id),
-                    name: @js($name),
+                    name: @js($fieldName),
                     value: option.value,
                     label: option.label,
                 });

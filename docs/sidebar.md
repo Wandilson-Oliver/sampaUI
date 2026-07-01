@@ -6,11 +6,10 @@ Sem secoes:
 
 ```blade
 <x-sampaui::sidebar
-    brand="SampaUI"
+    logo-src="/images/minha-logo.png"
+    logo-alt="Minha marca"
     initial-state="open"
     brand-href="/dashboard"
-    src="/images/minha-logo.png"
-    logo-alt="Minha marca"
     :user="[
         'name' => 'Administrador Lia',
         'email' => 'admin@sampa.dev',
@@ -30,7 +29,7 @@ Com secoes:
 
 ```blade
 <x-sampaui::sidebar
-    brand="Operacao"
+    logo-src="/images/logo-operacao.svg"
     initial-state="closed"
     :items="[
         ['label' => 'Dashboard', 'href' => '/dashboard', 'icon' => 'grid', 'active' => true],
@@ -47,12 +46,9 @@ Com secoes:
 
 ## Props
 
-- `brand`: nome exibido no topo.
+- `logoSrc`: URL da logo exibida no topo. Em Blade, use `logo-src`.
+- `logoAlt`: texto alternativo da logo.
 - `brandHref`: destino do link da marca.
-- `brandIcon`: nome Bootstrap Icon sem `bi-`.
-- `src`: URL da imagem que substitui o simbolo oficial no topo.
-- `logo`: alias legado de `src`, mantido para compatibilidade.
-- `logoAlt`: texto alternativo da imagem informada em `src` ou `logo`.
 - `items`: links principais.
 - `sections`: grupos adicionais com `label` e `items`.
 - `user`: array opcional com `name`, `email` e `avatar`.
@@ -69,4 +65,4 @@ Com secoes:
 
 Cada item aceita `label`, `href`, `icon`, `active` e `navigate`. Use `navigate => true` para adicionar `wire:navigate`.
 
-A largura expandida padrao e `20rem`; recolhida, `6rem`. O item ativo usa apenas um circulo violeta suave no icone, preservando a leitura leve da navegacao.
+A largura expandida padrao e `18rem`; recolhida, `6rem`. O item ativo usa apenas um circulo violeta suave no icone, preservando a leitura leve da navegacao.

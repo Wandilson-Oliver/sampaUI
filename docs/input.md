@@ -3,17 +3,20 @@
 Campo de texto com label, erro e suporte a atributos Livewire.
 
 A borda padrao usa `border-secondary/20`. Com Livewire, use apenas `wire:model`; nao e necessario informar `value`.
+Erros do validator sao resolvidos automaticamente pela prop `name` ou pelo caminho de `wire:model`, inclusive com modificadores como `.live` e `.blur`.
 
 ## Uso
 
 ```blade
 <x-sampaui::input
-    name="email"
     label="Email"
     placeholder="voce@empresa.com"
     wire:model.live="email"
+    required
 />
 ```
+
+Depois de `$this->validate()`, a primeira mensagem de erro e exibida abaixo do campo com borda e anel `danger`. A prop `error` continua disponivel para mensagens manuais.
 
 ## Com icone
 

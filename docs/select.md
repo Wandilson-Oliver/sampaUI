@@ -31,12 +31,14 @@ Com Livewire, `wire:model` sincroniza pelo `x-modelable` e atualiza o `<select>`
 
 ```blade
 <x-sampaui::select
-    name="status"
     label="Status"
     wire:model.live="status"
+    required
     :options="$statuses"
 />
 ```
+
+O `wire:model` fica no container `x-modelable`. Assim, selecao do usuario, valor inicial e atualizacoes posteriores do servidor mantem o valor nativo e o label visivel sincronizados. Erros do validator usam automaticamente o caminho do model quando `name` nao foi informado.
 
 ## Props
 
@@ -50,4 +52,4 @@ Com Livewire, `wire:model` sincroniza pelo `x-modelable` e atualiza o `<select>`
 - `disabled`
 - `required`
 
-O trigger suporta setas, Home, End, Enter, Espaco e Esc, com opcao ativa anunciada por `aria-activedescendant`. Use `clearable`, `hint`, `readonly`, `loading`, `loading-target`, `state`, `prefix` e `suffix`. `wire:model` permanece no `<select>` real.
+O trigger suporta setas, Home, End, Enter, Espaco e Esc, com opcao ativa anunciada por `aria-activedescendant`. Use `clearable`, `hint`, `readonly`, `loading`, `loading-target`, `state`, `prefix` e `suffix`. O `<select>` real permanece oculto para formularios e acessibilidade.

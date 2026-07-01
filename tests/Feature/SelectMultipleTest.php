@@ -96,4 +96,14 @@ BLADE);
         $html->assertSee('bi bi-arrow-repeat animate-spin', false);
         $html->assertSee('aria-busy="true"', false);
     }
+
+    public function test_it_resolves_livewire_validation_errors_without_a_name_prop(): void
+    {
+        $this->withViewErrors(['permissions' => 'Selecione uma permissao.']);
+
+        $this->blade('<x-sampaui::select-multiple label="Permissoes" wire:model="permissions" :options="[]" />')
+            ->assertSee('Selecione uma permissao.')
+            ->assertSee('id="permissions-error"', false)
+            ->assertSee('aria-invalid="true"', false);
+    }
 }

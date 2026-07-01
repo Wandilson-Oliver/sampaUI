@@ -19,8 +19,9 @@
 ])
 
 @php
-    $id = sampaui_id($attributes, $name, 'sampaui-input');
-    $errorMessage = sampaui_error($name, $error, $errors ?? null);
+    $fieldName = sampaui_field_name($attributes, $name);
+    $id = sampaui_id($attributes, $fieldName, 'sampaui-input');
+    $errorMessage = sampaui_error($fieldName, $error, $errors ?? null);
     $describedBy = sampaui_described_by($id, $hint, $errorMessage, $attributes->get('aria-describedby'));
     $isPassword = $type === 'password';
     $hasCustomSuffix = isset($suffix);
