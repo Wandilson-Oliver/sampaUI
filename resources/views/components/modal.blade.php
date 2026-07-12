@@ -75,7 +75,10 @@
             @if ($closeEvent)
                 x-on:{{ $closeEvent }}.window="close()"
             @endif
-            {{ $attributes->except('id')->merge(['class' => 'fixed inset-0 z-[2147483647] flex min-h-dvh w-screen items-center justify-center overflow-y-auto p-4 text-secondary outline-none sm:p-6']) }}
+            data-sampaui-overlay
+            x-bind:data-sampaui-overlay-active="visible ? 'true' : 'false'"
+            x-bind:style="{ zIndex: layer }"
+            {{ $attributes->except('id')->merge(['class' => 'fixed inset-0 flex min-h-dvh w-screen items-center justify-center overflow-y-auto p-4 text-secondary outline-none sm:p-6']) }}
         >
             <div
                 x-show="active"

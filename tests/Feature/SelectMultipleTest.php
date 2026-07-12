@@ -41,7 +41,9 @@ BLADE);
         $html->assertSee('bi bi-search', false);
         $html->assertSee('x-on:keydown.enter.prevent="chooseActive()"', false);
         $html->assertSee('shadow-2xl shadow-secondary/10', false);
-        $html->assertSee('x-on:click.outside="close()"', false);
+        $html->assertSee('x-teleport="body"', false);
+        $html->assertSee('x-bind:style="menuStyle"', false);
+        $html->assertSee('x-on:click.window="handleMenuOutside($event)"', false);
         $html->assertSee('x-on:keydown.escape.stop="close()"', false);
     }
 

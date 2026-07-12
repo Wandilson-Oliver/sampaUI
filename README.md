@@ -60,6 +60,10 @@ O pacote mantem um registry oficial em `resources/metadata/components.php`, expo
 
 ## Componentes
 
+## Camadas e overlays
+
+O SampaUI usa uma escala previsivel: base/navegacao `0-99`, popovers e tooltips `120`, modal `200`, modal aninhado `220` e toast `400`. Selects, Select Search e Select Multiple teleportam o painel para `body`, alinham largura ao trigger e calculam abertura acima ou abaixo conforme o viewport. Isso evita corte em Card, Modal e Drawer com scroll.
+
 Use os componentes do namespace `sampaui` antes de criar HTML solto. O objetivo e manter telas de produto com a mesma hierarquia visual, bordas, foco, estados e densidade de informacao.
 
 Fluxos recomendados:

@@ -54,6 +54,7 @@
             'loading' => $loading,
         ]))"
         x-on:keydown.escape.stop="close()"
+        x-on:click.window="handleMenuOutside($event)"
         class="relative"
     >
         <select
@@ -116,7 +117,8 @@
             </span>
         </div>
 
-        <div x-show="open" x-cloak x-transition.origin.top.duration.150ms x-on:click.outside="close()" class="absolute left-0 top-full z-[120] mt-2 w-full min-w-0 max-w-[calc(100vw-2rem)] overflow-hidden rounded-default border border-border bg-white shadow-2xl shadow-secondary/10 sm:max-w-none">
+        <template x-teleport="body">
+        <div x-ref="menu" x-show="open" x-cloak x-transition.opacity.duration.150ms x-bind:style="menuStyle" class="min-w-0 overflow-hidden rounded-default border border-border bg-white shadow-2xl shadow-secondary/10">
             <div class="border-b border-border p-2">
                 <div class="relative">
                     <i class="bi bi-search pointer-events-none absolute inset-y-0 left-3 flex items-center text-sm text-secondary/60" aria-hidden="true"></i>
@@ -144,7 +146,7 @@
                             type="button"
                             role="option"
                             x-bind:id="@js($id.'-option-') + index"
-                            class="flex w-full items-center justify-between gap-3 px-4 py-2.5 text-left text-sm text-secondary transition hover:bg-light/30 focus:bg-light/30 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                            class="flex w-full cursor-pointer items-center justify-between gap-3 px-4 py-2.5 text-left text-sm text-secondary transition hover:bg-light/30 focus:bg-light/30 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                             x-bind:class="activeIndex === index ? 'bg-light/50 text-primary' : ''"
                             aria-selected="false"
                             x-bind:disabled="option.disabled"
@@ -156,5 +158,6 @@
                 <li x-show="filteredOptions().length === 0" class="px-4 py-3 text-sm text-secondary/70" role="status">{{ $emptyText }}</li>
             </ul>
         </div>
+        </template>
     </div>
 </x-sampaui::field>

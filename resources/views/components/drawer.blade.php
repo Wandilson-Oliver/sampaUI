@@ -119,7 +119,10 @@
             @if ($closeEvent)
                 x-on:{{ $closeEvent }}.window="close()"
             @endif
-            {{ $attributes->except('id')->merge(['class' => "fixed inset-0 z-[2147483647] flex {$placementUi['root']}"]) }}
+            data-sampaui-overlay
+            x-bind:data-sampaui-overlay-active="visible ? 'true' : 'false'"
+            x-bind:style="{ zIndex: layer }"
+            {{ $attributes->except('id')->merge(['class' => "fixed inset-0 flex {$placementUi['root']}"]) }}
         >
             <div
                 x-show="active"
