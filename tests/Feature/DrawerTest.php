@@ -31,6 +31,8 @@ BLADE);
         $html->assertSee('rounded-l-default', false);
         $html->assertSee('$wire.entangle(\'showDrawer\').live', false);
         $html->assertSee('SampaUI.overlay', false);
+        $html->assertSee('data-sampaui-overlay', false);
+        $html->assertSee('x-bind:style="{ zIndex: layer }"', false);
         $html->assertSee('closeDelay: 520', false);
         $html->assertSee('x-teleport="body"', false);
         $html->assertSee('translate-x-full opacity-0', false);

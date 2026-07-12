@@ -31,7 +31,7 @@ class PackageIntegrityTest extends TestCase
     {
         $javascript = (string) file_get_contents(__DIR__.'/../../resources/js/sampaui.js');
         $selectMultiple = explode('selectMultiple(config = {})', $javascript, 2)[1];
-        $selectMultiple = explode('datePicker(config = {})', $selectMultiple, 2)[0];
+        $selectMultiple = explode('selectSearch(config = {})', $selectMultiple, 2)[0];
 
         $this->assertStringContainsString("this.\$watch('value', () => this.syncSelectedLabel())", $javascript);
         $this->assertSame(1, substr_count($selectMultiple, 'disabled: Boolean(config.disabled)'));

@@ -64,9 +64,11 @@ BLADE);
         $html->assertSee('custom-trigger', false);
         $html->assertSee('wire:model.live="city"', false);
         $html->assertSee('x-modelable="value"', false);
-        $html->assertSee("this.\$watch('value'", false);
+        $html->assertSee('SampaUI.selectSearch', false);
+        $html->assertSee('x-teleport="body"', false);
+        $html->assertSee('x-bind:style="menuStyle"', false);
         $html->assertSee('required', false);
-        $html->assertSee('select-search:changed', false);
+        $html->assertSee('SampaUI.selectSearch', false);
         $html->assertSee('x-model="value"', false);
     }
 

@@ -1,5 +1,7 @@
 # Select
 
+O painel e renderizado por teleport no `body`, acompanha o trigger em scroll/resize e abre acima quando nao houver espaco abaixo. Isso permite uso dentro de Modal, Drawer e containers com `overflow-hidden` sem recorte.
+
 Campo de selecao com combobox Alpine, dropdown customizado e `<select>` real oculto para formularios e Livewire.
 
 O trigger usa a mesma linguagem visual do `input`: `border-secondary/20`, `rounded-default`, `focus:border-primary`, `focus:ring-primary/20`, hover suave, estados de erro/loading/disabled e suporte a `readonly`.

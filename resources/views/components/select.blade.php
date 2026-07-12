@@ -66,6 +66,7 @@
         ]))"
         x-modelable="value"
         x-on:keydown.escape.stop="close()"
+        x-on:click.window="handleMenuOutside($event)"
         class="relative"
     >
         <select
@@ -131,12 +132,14 @@
             ><i class="bi bi-x-lg text-xs" aria-hidden="true"></i></button>
         @endif
 
+        <template x-teleport="body">
         <div
+            x-ref="menu"
             x-show="open"
             x-cloak
-            x-transition.origin.top.duration.150ms
-            x-on:click.outside="close()"
-            class="absolute left-0 top-full z-[120] mt-2 w-full overflow-hidden rounded-default border border-border bg-white shadow-2xl shadow-secondary/10"
+            x-transition.opacity.duration.150ms
+            x-bind:style="menuStyle"
+            class="overflow-hidden rounded-default border border-border bg-white shadow-2xl shadow-secondary/10"
         >
             <ul id="{{ $id }}-listbox" role="listbox" class="max-h-64 overflow-y-auto py-1">
                 <template x-for="(option, index) in options" x-bind:key="option.value">
@@ -146,7 +149,7 @@
                             role="option"
                             x-bind:id="@js($id.'-option-') + index"
                             x-ref="option"
-                            class="flex w-full items-center justify-between gap-3 px-4 py-2.5 text-left text-sm text-secondary transition hover:bg-light/30 focus:bg-light/30 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                            class="flex w-full cursor-pointer items-center justify-between gap-3 px-4 py-2.5 text-left text-sm text-secondary transition hover:bg-light/30 focus:bg-light/30 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                             x-bind:class="activeIndex === index ? 'bg-light/50 text-primary' : ''"
                             x-bind:aria-selected="value === option.value"
                             x-bind:disabled="option.disabled"
@@ -158,5 +161,6 @@
                 <li x-show="options.length === 0" class="px-4 py-3 text-sm text-secondary/70" role="status">{{ $emptyText }}</li>
             </ul>
         </div>
+        </template>
     </div>
 </x-sampaui::field>

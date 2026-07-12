@@ -1,5 +1,7 @@
 # Select Search
 
+O painel usa teleport para `body`, calcula posicao no viewport e devolve foco ao campo de busca ao abrir. Pode ser usado em Modal e Drawer sem ser cortado pelo scroll interno.
+
 Select pesquisavel com busca local em Alpine e valor real em input hidden.
 
 Use para listas medias carregadas no HTML. Para milhares de registros ou busca remota, prefira criar uma integracao Livewire especifica.

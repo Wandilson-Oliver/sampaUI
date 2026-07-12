@@ -1,5 +1,7 @@
 # Select Multiple
 
+O painel usa teleport para `body`, acompanha o trigger e respeita o espaco disponivel acima ou abaixo. Isso preserva tags, busca e navegacao por teclado dentro de Modal e Drawer.
+
 Select multiplo com busca local, tags removiveis e integracao com Livewire via `x-modelable`.
 
 Use para listas pequenas ou medias carregadas no HTML. Para busca remota ou milhares de registros, prefira uma integracao Livewire especifica.

@@ -2,6 +2,14 @@
 
 Todas as mudanças notáveis do SampaUI serão documentadas neste arquivo.
 
+## v0.1.24 - 2026-07-12
+
+### Corrigido
+
+- Select, Select Search e Select Multiple usam painel teletransportado e posicionado no viewport, evitando recorte por containers com overflow.
+- Modal e Drawer abandonam z-index maximo do navegador e usam camadas empilhadas, permitindo menus do overlay ativo sem sobrepor modais aninhados.
+- Triggers e opcoes dos selects receberam cursor e fechamento externo seguro apos teleport.
+
 ## v0.1.23 - 2026-07-12
 
 ### Corrigido

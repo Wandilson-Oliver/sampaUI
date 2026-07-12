@@ -31,8 +31,50 @@ const unlockPageScroll = () => {
   document.body.classList.remove('overflow-hidden');
 };
 
+const portalMenu = () => ({
+  menuStyle: {},
+  viewportHandler: null,
+  initPortalMenu() {
+    this.viewportHandler = () => this.positionMenu();
+    window.addEventListener('resize', this.viewportHandler);
+    window.addEventListener('scroll', this.viewportHandler, true);
+  },
+  destroyPortalMenu() {
+    window.removeEventListener('resize', this.viewportHandler);
+    window.removeEventListener('scroll', this.viewportHandler, true);
+  },
+  positionMenu() {
+    if (!this.open || !this.$refs.trigger || !this.$refs.menu) return;
+    const trigger = this.$refs.trigger.getBoundingClientRect();
+    const menu = this.$refs.menu;
+    const gap = 8;
+    const viewportPadding = 12;
+    const below = window.innerHeight - trigger.bottom - viewportPadding;
+    const above = trigger.top - viewportPadding;
+    const opensUp = below < 240 && above > below;
+    const available = Math.max(144, (opensUp ? above : below) - gap);
+    const menuHeight = Math.min(menu.scrollHeight || 288, available);
+    const overlay = this.$refs.trigger.closest('[data-sampaui-overlay]');
+    const overlayLayer = Number.parseInt(overlay ? window.getComputedStyle(overlay).zIndex : '', 10);
+
+    this.menuStyle = {
+      position: 'fixed',
+      left: `${Math.max(viewportPadding, Math.min(trigger.left, window.innerWidth - trigger.width - viewportPadding))}px`,
+      top: `${opensUp ? Math.max(viewportPadding, trigger.top - menuHeight - gap) : trigger.bottom + gap}px`,
+      width: `${Math.min(trigger.width, window.innerWidth - (viewportPadding * 2))}px`,
+      maxHeight: `${available}px`,
+      zIndex: Number.isFinite(overlayLayer) ? overlayLayer + 10 : 120,
+    };
+  },
+  handleMenuOutside(event) {
+    if (!this.open) return;
+    if (this.$root.contains(event.target) || this.$refs.menu?.contains(event.target)) return;
+    this.close();
+  },
+});
+
 const SampaUI = {
-  version: '0.1.23',
+  version: '0.1.24',
 
   input({ clearable = false } = {}) {
     return {
@@ -109,6 +151,7 @@ const SampaUI = {
 
   select(config = {}) {
     return {
+      ...portalMenu(),
       open: false,
       value: String(config.value ?? ''),
       selectedLabel: config.selectedLabel ?? '',
@@ -118,6 +161,7 @@ const SampaUI = {
       readonly: Boolean(config.readonly),
       activeIndex: -1,
       init() {
+        this.initPortalMenu();
         if (!this.value && this.$refs.native?.value) this.value = String(this.$refs.native.value);
         if (this.options.length === 0 && this.$refs.native) {
           this.options = Array.from(this.$refs.native.options)
@@ -139,6 +183,7 @@ const SampaUI = {
         const selectedIndex = this.options.findIndex((option) => option.value === String(this.value) && !option.disabled);
         this.activeIndex = selectedIndex >= 0 ? selectedIndex : this.options.findIndex((option) => !option.disabled);
         this.scrollActive();
+        this.$nextTick(() => this.positionMenu());
       },
       close() {
         this.open = false;
@@ -193,11 +238,15 @@ const SampaUI = {
           this.$dispatch('select:changed', { id: config.id, name: config.name, value: this.value, label: option.label });
         });
       },
+      destroy() {
+        this.destroyPortalMenu();
+      },
     };
   },
 
   selectMultiple(config = {}) {
     return {
+      ...portalMenu(),
       open: false,
       search: '',
       values: config.values ?? [],
@@ -208,6 +257,7 @@ const SampaUI = {
       activeIndex: -1,
       init() {
         this.values = this.normalize(this.values);
+        this.initPortalMenu();
       },
       normalize(value) {
         if (Array.isArray(value)) return [...new Set(value.map((item) => String(item)))];
@@ -227,7 +277,7 @@ const SampaUI = {
       toggle() {
         if (!this.canInteract()) return;
         this.open = !this.open;
-        if (this.open) this.$nextTick(() => this.$refs.search?.focus());
+        if (this.open) this.$nextTick(() => { this.positionMenu(); this.$refs.search?.focus(); });
       },
       close() {
         this.open = false;
@@ -275,6 +325,61 @@ const SampaUI = {
           this.$dispatch('select-multiple:changed', { id: config.id, name: config.name, values: this.values, option, action });
         });
       },
+      destroy() {
+        this.destroyPortalMenu();
+      },
+    };
+  },
+
+  selectSearch(config = {}) {
+    return {
+      ...portalMenu(),
+      open: false,
+      search: '',
+      value: String(config.value ?? ''),
+      selectedLabel: config.selectedLabel ?? '',
+      options: config.options ?? [],
+      placeholder: config.placeholder ?? '',
+      disabled: Boolean(config.disabled),
+      activeIndex: -1,
+      init() {
+        this.initPortalMenu();
+        this.syncSelectedLabel();
+        this.$watch('value', () => this.syncSelectedLabel());
+      },
+      canInteract() { return !this.disabled; },
+      syncSelectedLabel() { this.selectedLabel = this.options.find((option) => String(option.value) === String(this.value))?.label || ''; },
+      filteredOptions() {
+        const term = this.search.trim().toLocaleLowerCase();
+        return this.options.filter((option) => !term || option.label.toLocaleLowerCase().includes(term));
+      },
+      openMenu() {
+        if (!this.canInteract()) return;
+        this.open = true;
+        this.activeIndex = this.filteredOptions().findIndex((option) => String(option.value) === String(this.value));
+        this.$nextTick(() => { this.positionMenu(); this.$refs.search?.focus(); });
+      },
+      close() { this.open = false; this.search = ''; this.activeIndex = -1; },
+      toggle() { this.open ? this.close() : this.openMenu(); },
+      move(step) {
+        const options = this.filteredOptions();
+        if (!options.length) return;
+        this.activeIndex = (this.activeIndex + step + options.length) % options.length;
+      },
+      chooseActive() {
+        const option = this.filteredOptions()[this.activeIndex];
+        if (option) this.select(option);
+      },
+      select(option) {
+        if (!this.canInteract()) return;
+        this.value = String(option.value);
+        this.close();
+        this.$nextTick(() => {
+          syncControl(this.$refs.input);
+          this.$dispatch('select-search:changed', { id: config.id, name: config.name, value: option.value, label: option.label });
+        });
+      },
+      destroy() { this.destroyPortalMenu(); },
     };
   },
 
@@ -412,6 +517,7 @@ const SampaUI = {
       closeTimer: null,
       opener: null,
       scrollLocked: false,
+      layer: 200,
       init() {
         if (this.serverOpen) this.openOverlay();
         this.$watch('serverOpen', (value) => value ? this.openOverlay() : this.close(false));
@@ -421,6 +527,8 @@ const SampaUI = {
         this.closing = false;
         this.opener = document.activeElement;
         this.visible = true;
+        const openOverlays = document.querySelectorAll('[data-sampaui-overlay-active="true"]').length;
+        this.layer = 200 + (openOverlays * 20);
         if (!this.scrollLocked) {
           lockPageScroll();
           this.scrollLocked = true;

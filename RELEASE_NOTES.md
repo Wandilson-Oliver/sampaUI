@@ -1,7 +1,7 @@
-# SampaUI v0.1.23
+# SampaUI v0.1.24
 
-Padronizacao da customizacao visual de Button e DatePicker.
+Camadas de overlay e selects seguros em containers com rolagem.
 
-- Button aceita substituicoes visuais por `class=""` sem exigir `!important`.
-- DatePicker usa `slate-600` como cor neutra unificada para o trigger e o calendario.
-- Documentacao inclui exemplos de customizacao por classes Tailwind.
+- Select, Select Search e Select Multiple teleportam os paineis para o `body` e recalculam posicao em scroll e resize.
+- Menus abrem acima quando necessario e mantem largura do trigger.
+- Modal e Drawer usam camadas dinamicas, sem z-index maximo do navegador, com suporte a modais aninhados.

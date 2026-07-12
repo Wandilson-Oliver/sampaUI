@@ -52,48 +52,18 @@
 
 <div
     {{ $modelAttributes }}
-    x-data="{
-        open: false,
-        search: '',
-        value: @js((string) ($selectedValue ?? '')),
-        selectedLabel: @js($selectedOption['label'] ?? ''),
-        options: @js($normalizedOptions),
-        placeholder: @js($placeholder),
-        init() {
-            this.syncSelectedLabel();
-            this.$watch('value', () => this.syncSelectedLabel());
-        },
-        syncSelectedLabel() {
-            this.selectedLabel = this.options.find(option => option.value === String(this.value))?.label || '';
-        },
-        select(option) {
-            this.value = option.value;
-            this.open = false;
-            this.search = '';
-
-            this.$nextTick(() => {
-                this.$refs.input.dispatchEvent(new Event('input', { bubbles: true }));
-                this.$refs.input.dispatchEvent(new Event('change', { bubbles: true }));
-                this.$dispatch('select-search:changed', {
-                    id: @js($id),
-                    name: @js($fieldName),
-                    value: option.value,
-                    label: option.label,
-                });
-            });
-        },
-        filteredOptions() {
-            const term = this.search.trim().toLowerCase();
-
-            if (! term) {
-                return this.options;
-            }
-
-            return this.options.filter(option => option.label.toLowerCase().includes(term));
-        },
-    }"
+    x-data="SampaUI.selectSearch(@js([
+        'id' => $id,
+        'name' => $fieldName,
+        'value' => (string) ($selectedValue ?? ''),
+        'selectedLabel' => $selectedOption['label'] ?? '',
+        'options' => $normalizedOptions,
+        'placeholder' => $placeholder,
+        'disabled' => $disabled,
+    ]))"
     x-modelable="value"
-    x-on:keydown.escape.window="open = false"
+    x-on:keydown.escape.window="close()"
+    x-on:click.window="handleMenuOutside($event)"
 >
     @if ($label)
         <label for="{{ $id }}-button" class="mb-2 block text-sm font-medium text-secondary">
@@ -125,9 +95,12 @@
             type="button"
             id="{{ $id }}-button"
             class="{{ $triggerClasses }}"
-            x-on:click="if (! @js($disabled)) { open = ! open; $nextTick(() => $refs.search?.focus()) }"
-            x-on:keydown.enter.prevent="if (! @js($disabled)) { open = ! open; $nextTick(() => $refs.search?.focus()) }"
-            x-on:keydown.space.prevent="if (! @js($disabled)) { open = ! open; $nextTick(() => $refs.search?.focus()) }"
+            x-ref="trigger"
+            x-on:click="toggle()"
+            x-on:keydown.enter.prevent="toggle()"
+            x-on:keydown.space.prevent="toggle()"
+            x-on:keydown.arrow-down.prevent="if (!open) openMenu(); move(1)"
+            x-on:keydown.arrow-up.prevent="if (!open) openMenu(); move(-1)"
             x-bind:aria-expanded="open.toString()"
             aria-haspopup="listbox"
             aria-controls="{{ $id }}-listbox"
@@ -149,12 +122,14 @@
             ></i>
         </button>
 
+        <template x-teleport="body">
         <div
+            x-ref="menu"
             x-show="open"
-            x-transition.origin.top.duration.150ms
+            x-transition.opacity.duration.150ms
             x-cloak
-            x-on:click.outside="open = false"
-            class="absolute left-0 top-full z-[120] mt-2 w-full overflow-hidden rounded-default border border-border bg-white shadow-2xl shadow-secondary/10"
+            x-bind:style="menuStyle"
+            class="overflow-hidden rounded-default border border-border bg-white shadow-2xl shadow-secondary/10"
         >
             <div class="border-b border-border p-2">
                 <div class="relative">
@@ -185,11 +160,12 @@
                     </li>
                 </template>
 
-                <li x-show="filteredOptions().length === 0" class="px-4 py-3 text-sm text-secondary/70">
+                <li x-show="filteredOptions().length === 0" class="px-4 py-3 text-sm text-secondary/70" role="status">
                     {{ $emptyText }}
                 </li>
             </ul>
         </div>
+        </template>
     </div>
 
     @if ($errorMessage)
