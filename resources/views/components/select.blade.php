@@ -56,6 +56,8 @@
         {{ $modelAttributes }}
         x-data="SampaUI.select(@js([
             'id' => $id,
+            'triggerId' => $id.'-button',
+            'menuId' => $id.'-menu',
             'name' => $fieldName,
             'value' => (string) ($selectedValue ?? ''),
             'selectedLabel' => $selectedOption['label'] ?? '',
@@ -94,7 +96,6 @@
             type="button"
             id="{{ $id }}-button"
             class="{{ $triggerClasses }}"
-            x-ref="trigger"
             x-on:click="toggle()"
             x-on:keydown.arrow-down.prevent="move(1)"
             x-on:keydown.arrow-up.prevent="move(-1)"
@@ -134,11 +135,11 @@
 
         <template x-teleport="body">
         <div
-            x-ref="menu"
+            id="{{ $id }}-menu"
             x-show="open"
-            x-cloak
             x-transition.opacity.duration.150ms
             x-bind:style="menuStyle"
+            style="display: none;"
             class="overflow-hidden rounded-default border border-border bg-white shadow-2xl shadow-secondary/10"
         >
             <ul id="{{ $id }}-listbox" role="listbox" class="max-h-64 overflow-y-auto py-1">

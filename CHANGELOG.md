@@ -2,6 +2,13 @@
 
 Todas as mudanças notáveis do SampaUI serão documentadas neste arquivo.
 
+## v0.1.25 - 2026-07-12
+
+### Corrigido
+
+- Menus teletransportados de Select, Select Search e Select Multiple usam IDs estaveis, `position: fixed` e estado inicial inline, sem depender de `$refs.menu` ou `x-cloak` apos o teleport.
+- Foco da busca, click outside, Escape e reposicionamento em scroll/resize agora operam sobre as referencias estaveis do portal.
+
 ## v0.1.24 - 2026-07-12
 
 ### Corrigido

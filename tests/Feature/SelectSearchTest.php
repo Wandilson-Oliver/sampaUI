@@ -37,6 +37,9 @@ BLADE);
         $html->assertSee('shadow-2xl shadow-secondary/10', false);
         $html->assertSee('bi bi-search', false);
         $html->assertSee('bi bi-chevron-down', false);
+        $html->assertSee('id="owner-menu"', false);
+        $html->assertSee('id="owner-search"', false);
+        $html->assertDontSee('x-ref="menu"', false);
     }
 
     public function test_it_preserves_livewire_attributes_and_custom_class(): void
