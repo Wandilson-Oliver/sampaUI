@@ -86,6 +86,10 @@ class ServiceProviderTest extends TestCase
                 'import "../../vendor/sampaui/sampaui/dist/sampaui.js";',
                 file_get_contents($jsPath)
             );
+            $this->assertStringStartsWith(
+                'import "../../vendor/sampaui/sampaui/dist/sampaui.js";',
+                file_get_contents($jsPath)
+            );
 
             Artisan::call('sampaui:install', [
                 '--no-interaction' => true,

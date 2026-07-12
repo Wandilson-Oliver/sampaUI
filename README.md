@@ -31,8 +31,13 @@ O instalador publica a configuracao/assets e registra o pacote no build principa
 
 ```js
 // resources/js/app.js
+import { Livewire } from '../../vendor/livewire/livewire/dist/livewire.esm';
 import "../../vendor/sampaui/sampaui/dist/sampaui.js";
+
+Livewire.start();
 ```
+
+Quando o projeto faz bundle manual do Livewire, importe o SampaUI de forma estatica antes de chamar `Livewire.start()`. Nao use `import()` assincrono para o SampaUI: os controladores Alpine de selects e uploads precisam estar registrados antes da inicializacao do Livewire.
 
 Depois rode o build normal do projeto consumidor:
 

@@ -32,7 +32,7 @@ const unlockPageScroll = () => {
 };
 
 const SampaUI = {
-  version: '0.1.21',
+  version: '0.1.22',
 
   input({ clearable = false } = {}) {
     return {
@@ -353,6 +353,9 @@ const SampaUI = {
       },
       revokePreviewUrls() {
         this.files.forEach((file) => { if (file.url) URL.revokeObjectURL(file.url); });
+      },
+      destroy() {
+        this.revokePreviewUrls();
       },
     };
   },

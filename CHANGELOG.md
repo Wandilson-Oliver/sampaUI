@@ -2,6 +2,17 @@
 
 Todas as mudanças notáveis do SampaUI serão documentadas neste arquivo.
 
+## v0.1.22 - 2026-07-12
+
+### Corrigido
+
+- File Upload protege o handler de `beforeunload` quando o escopo Alpine ja foi destruido, evitando `ReferenceError` durante navegacao Livewire.
+- Previews locais do File Upload tambem sao liberados no ciclo `destroy` do Alpine.
+
+### Documentação
+
+- Instalacao manual com Livewire agora orienta importar o SampaUI antes de `Livewire.start()`; crop e reordenacao de galeria permanecem fora da API atual do upload.
+
 ## v0.1.21 - 2026-07-01
 
 ### Melhorado

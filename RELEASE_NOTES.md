@@ -1,8 +1,8 @@
-# SampaUI v0.1.21
+# SampaUI v0.1.22
 
-Refinamento visual da Sidebar para manter a navegacao mais leve e consistente.
+Correcao de ciclo de vida e inicializacao do File Upload.
 
-- Remove a faixa de fundo externa da Sidebar.
-- Mantem estados hover e ativo no circulo do icone, sem fundo no link inteiro.
-- Reduz em 30% o espaco entre icone e texto.
-- Transforma o link de saida em outline danger sem sombra.
+- Protege o cleanup de previews no `beforeunload` apos a destruicao de escopos Alpine.
+- Libera os previews locais no hook `destroy` do Alpine.
+- Documenta a importacao estatica do SampaUI antes de `Livewire.start()` para projetos com bundle manual.
+- Mantem crop e reordenacao de galeria fora da API enquanto nao houver sincronizacao segura com uploads temporarios do Livewire.
