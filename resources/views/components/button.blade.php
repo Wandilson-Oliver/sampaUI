@@ -30,15 +30,20 @@
 
     $isIconOnly = filled($icon) && trim($slot->toHtml()) === '';
     $isDisabled = $disabled || $loading;
+    $customClasses = (string) $attributes->get('class', '');
 
-    $classes = sampaui_classes([
-        'inline-flex cursor-pointer items-center justify-center gap-2 font-medium transition focus:outline-none focus:ring-2 focus:ring-primary/30 focus:ring-offset-2',
+    if ($isDisabled) {
+        $customClasses = (string) preg_replace('/(?<!\S)cursor-[^\s]+/', '', $customClasses);
+    }
+
+    $classes = sampaui_merge_tailwind_classes(sampaui_classes([
+        'inline-flex items-center justify-center gap-2 font-medium transition focus:outline-none focus:ring-2 focus:ring-primary/30 focus:ring-offset-2',
         sampaui_button_variant_classes($variant),
         $isIconOnly ? ($iconOnlySizeClasses[$size] ?? $iconOnlySizeClasses['md']).' aspect-square' : ($sizeClasses[$size] ?? $sizeClasses['md']),
         $rounded || $isIconOnly ? 'rounded-full' : 'rounded-default',
         $full ? 'w-full' : null,
-        $isDisabled ? 'cursor-not-allowed opacity-50' : null,
-    ]);
+        $isDisabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer',
+    ]), $customClasses);
 @endphp
 
 <{{ $href ? 'a' : 'button' }}
@@ -47,7 +52,7 @@
     @if (! $href) @disabled($isDisabled) @endif
     @if ($href && $isDisabled) aria-disabled="true" tabindex="-1" @endif
     @if ($loading) aria-busy="true" @endif
-    {{ $attributes->merge(['class' => $classes]) }}
+    {{ $attributes->except('class')->merge(['class' => $classes]) }}
 >
     @if ($loading)
         <i class="bi bi-arrow-repeat animate-spin" aria-hidden="true"></i>

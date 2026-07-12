@@ -14,7 +14,10 @@
 @php
     $id = sampaui_id($attributes, $name, 'sampaui-date-picker');
     $errorMessage = sampaui_error($name, $error, $errors ?? null);
-    $classes = sampaui_trigger_classes($errorMessage, $disabled);
+    $classes = sampaui_merge_tailwind_classes(
+        sampaui_merge_tailwind_classes(sampaui_trigger_classes($errorMessage, $disabled), 'text-slate-600'),
+        $attributes->get('class')
+    );
 
     $placeholderText = $placeholder ?: 'Selecione uma data';
     $modelAttributes = $attributes->filter(
@@ -157,7 +160,7 @@
     <button
         id="{{ $id }}-button"
         type="button"
-        class="{{ $attributes->get('class') ? $classes.' '.$attributes->get('class') : $classes }}"
+        {{ $attributes->except('class')->merge(['class' => $classes]) }}
         aria-haspopup="dialog"
         x-bind:aria-expanded="open.toString()"
         @if ($label) aria-labelledby="{{ $id }}-label {{ $id }}-button" @endif
@@ -166,11 +169,11 @@
         x-on:click="if (! {{ $disabled ? 'true' : 'false' }}) open = ! open"
     >
         <span class="flex min-w-0 items-center gap-3">
-            <i class="bi bi-calendar3 shrink-0 text-secondary/80" aria-hidden="true"></i>
+            <i class="bi bi-calendar3 shrink-0 text-current opacity-80" aria-hidden="true"></i>
             <span
                 class="truncate"
                 x-text="displayValue()"
-                x-bind:class="value ? 'text-secondary' : 'text-secondary/50'"
+                x-bind:class="value ? 'text-current' : 'text-slate-400'"
             ></span>
         </span>
 
@@ -181,14 +184,14 @@
                     x-cloak
                     role="button"
                     tabindex="-1"
-                    class="inline-flex h-6 w-6 items-center justify-center rounded-full text-secondary/70 transition hover:bg-light/30 hover:text-primary"
+                    class="inline-flex h-6 w-6 items-center justify-center rounded-full text-current opacity-70 transition hover:bg-light/30 hover:opacity-100"
                     x-on:click.stop="clear()"
                     aria-label="Limpar data"
                 >
                     <i class="bi bi-x"></i>
                 </span>
             @endif
-            <i class="bi bi-chevron-down text-sm text-secondary/70 transition" x-bind:class="open ? 'rotate-180' : ''" aria-hidden="true"></i>
+            <i class="bi bi-chevron-down text-sm text-current opacity-70 transition" x-bind:class="open ? 'rotate-180' : ''" aria-hidden="true"></i>
         </span>
     </button>
 
@@ -202,23 +205,23 @@
         x-transition:leave-start="opacity-100 translate-y-0"
         x-transition:leave-end="opacity-0 translate-y-1"
         x-on:click.outside="open = false"
-        class="absolute z-50 mt-2 w-full min-w-[20rem] rounded-default border border-border bg-white p-4 text-secondary"
+        class="absolute z-50 mt-2 w-full min-w-[20rem] rounded-default border border-border bg-white p-4 text-slate-600"
         role="dialog"
         aria-label="Selecionar data"
     >
         <div class="mb-4 flex items-center justify-between gap-3">
-            <button type="button" class="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-secondary transition hover:bg-light/30 hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20" x-on:click="previousMonth()" aria-label="Mes anterior">
+            <button type="button" class="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-slate-600 transition hover:bg-light/30 focus:outline-none focus:ring-2 focus:ring-primary/20" x-on:click="previousMonth()" aria-label="Mes anterior">
                 <i class="bi bi-chevron-left"></i>
             </button>
 
-            <p class="text-sm font-semibold capitalize text-primary" x-text="monthLabel()"></p>
+            <p class="text-sm font-semibold capitalize text-slate-600" x-text="monthLabel()"></p>
 
-            <button type="button" class="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-secondary transition hover:bg-light/30 hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20" x-on:click="nextMonth()" aria-label="Proximo mes">
+            <button type="button" class="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-slate-600 transition hover:bg-light/30 focus:outline-none focus:ring-2 focus:ring-primary/20" x-on:click="nextMonth()" aria-label="Proximo mes">
                 <i class="bi bi-chevron-right"></i>
             </button>
         </div>
 
-        <div class="grid grid-cols-7 gap-1 text-center text-xs font-semibold text-secondary/60">
+        <div class="grid grid-cols-7 gap-1 text-center text-xs font-semibold text-slate-600/70">
             <template x-for="dayName in weekDays" x-bind:key="dayName">
                 <span class="py-2" x-text="dayName"></span>
             </template>
@@ -231,9 +234,9 @@
                     class="inline-flex h-10 cursor-pointer items-center justify-center rounded-default text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-primary/20"
                     x-bind:class="{
                         'bg-primary text-white hover:bg-primary': day.selected,
-                        'text-primary ring-1 ring-primary/20': day.today && ! day.selected,
-                        'text-secondary hover:bg-light/30': day.currentMonth && ! day.selected && ! day.disabled,
-                        'text-secondary/35': ! day.currentMonth && ! day.selected,
+                        'text-slate-600 ring-1 ring-slate-300': day.today && ! day.selected,
+                        'text-slate-600 hover:bg-light/30': day.currentMonth && ! day.selected && ! day.disabled,
+                        'text-slate-400': ! day.currentMonth && ! day.selected,
                         'cursor-not-allowed opacity-35 hover:bg-transparent': day.disabled,
                     }"
                     x-bind:disabled="day.disabled"

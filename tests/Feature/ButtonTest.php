@@ -23,6 +23,27 @@ class ButtonTest extends TestCase
         $loading->assertSee('bi bi-arrow-repeat animate-spin', false);
         $loading->assertSee('disabled', false);
         $loading->assertSee('aria-busy="true"', false);
+
+        $customized = $this->blade('<x-sampaui::button class="bg-danger text-slate-900 px-8 py-5 rounded-none shadow-none w-auto">Personalizado</x-sampaui::button>');
+
+        $customized
+            ->assertSee('bg-danger', false)
+            ->assertSee('text-slate-900', false)
+            ->assertSee('px-8 py-5', false)
+            ->assertSee('rounded-none', false)
+            ->assertSee('shadow-none', false)
+            ->assertSee('w-auto', false)
+            ->assertDontSee('bg-primary', false)
+            ->assertDontSee('hover:bg-primary/90', false)
+            ->assertDontSee('text-white', false)
+            ->assertDontSee('px-4 py-2.5', false)
+            ->assertDontSee('rounded-default', false);
+
+        $disabled = $this->blade('<x-sampaui::button disabled class="cursor-pointer">Desabilitado</x-sampaui::button>');
+
+        $disabled
+            ->assertSee('cursor-not-allowed', false)
+            ->assertDontSee('cursor-pointer', false);
     }
 
     public function test_it_supports_extended_palette_and_falls_back_to_primary(): void

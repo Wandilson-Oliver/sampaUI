@@ -2,6 +2,17 @@
 
 Todas as mudanças notáveis do SampaUI serão documentadas neste arquivo.
 
+## v0.1.23 - 2026-07-12
+
+### Corrigido
+
+- Button agora remove somente utilitarios visuais padrao que conflitam com `class=""`, permitindo customizar cor, hover, espacamento, largura, raio, sombra e tipografia sem `!important`.
+- DatePicker unifica o texto do trigger, icone e calendario em `slate-600`, com estados selecionado e desabilitado preservando contraste.
+
+### Documentação
+
+- Exemplos de Button e DatePicker agora mostram customizacao direta por `class=""`.
+
 ## v0.1.22 - 2026-07-12
 
 ### Corrigido

@@ -35,4 +35,12 @@ Botao principal do SampaUI.
 <x-sampaui::button href="/clientes" wire:navigate icon="arrow-right">
     Ver clientes
 </x-sampaui::button>
+
+<x-sampaui::button class="bg-danger text-white px-8 py-4 rounded-full shadow-none">
+    Excluir cliente
+</x-sampaui::button>
 ```
+
+## Customizacao
+
+`class=""` substitui os utilitarios visuais conflitantes do Button. Cores, hover, espacamento, largura, raio, sombra e tipografia podem ser ajustados normalmente, sem `!important`. O estado `disabled` preserva `cursor-not-allowed` e opacidade reduzida.

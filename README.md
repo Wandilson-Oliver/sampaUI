@@ -132,7 +132,13 @@ Variantes principais:
 <x-sampaui::button href="/clientes" wire:navigate icon="arrow-right">
     Ver clientes
 </x-sampaui::button>
+
+<x-sampaui::button class="bg-danger text-white px-8 py-4 rounded-full shadow-none">
+    Excluir cliente
+</x-sampaui::button>
 ```
+
+`class=""` substitui os utilitarios visuais conflitantes do Button. Portanto cores, hover, espacamento, largura, raio, sombra e tipografia podem ser ajustados sem usar `!important`; estados desabilitados continuam com `cursor-not-allowed`.
 
 ### Input
 

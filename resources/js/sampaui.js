@@ -32,7 +32,7 @@ const unlockPageScroll = () => {
 };
 
 const SampaUI = {
-  version: '0.1.22',
+  version: '0.1.23',
 
   input({ clearable = false } = {}) {
     return {
