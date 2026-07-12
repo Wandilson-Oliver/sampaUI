@@ -45,6 +45,9 @@ BLADE);
         $html->assertSee('x-bind:style="menuStyle"', false);
         $html->assertSee('x-on:click.window="handleMenuOutside($event)"', false);
         $html->assertSee('x-on:keydown.escape.stop="close()"', false);
+        $html->assertSee('id="roles-menu"', false);
+        $html->assertSee('id="roles-search"', false);
+        $html->assertDontSee('x-ref="menu"', false);
     }
 
     public function test_it_preserves_livewire_attributes_and_custom_class(): void

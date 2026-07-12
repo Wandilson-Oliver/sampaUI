@@ -54,6 +54,9 @@
     {{ $modelAttributes }}
     x-data="SampaUI.selectSearch(@js([
         'id' => $id,
+        'triggerId' => $id.'-button',
+        'menuId' => $id.'-menu',
+        'searchId' => $id.'-search',
         'name' => $fieldName,
         'value' => (string) ($selectedValue ?? ''),
         'selectedLabel' => $selectedOption['label'] ?? '',
@@ -95,7 +98,6 @@
             type="button"
             id="{{ $id }}-button"
             class="{{ $triggerClasses }}"
-            x-ref="trigger"
             x-on:click="toggle()"
             x-on:keydown.enter.prevent="toggle()"
             x-on:keydown.space.prevent="toggle()"
@@ -124,18 +126,18 @@
 
         <template x-teleport="body">
         <div
-            x-ref="menu"
+            id="{{ $id }}-menu"
             x-show="open"
             x-transition.opacity.duration.150ms
-            x-cloak
             x-bind:style="menuStyle"
+            style="display: none;"
             class="overflow-hidden rounded-default border border-border bg-white shadow-2xl shadow-secondary/10"
         >
             <div class="border-b border-border p-2">
                 <div class="relative">
                     <i class="bi bi-search pointer-events-none absolute inset-y-0 left-3 flex items-center text-sm text-secondary/60"></i>
                     <input
-                        x-ref="search"
+                        id="{{ $id }}-search"
                         x-model="search"
                         type="search"
                         placeholder="{{ $searchPlaceholder }}"

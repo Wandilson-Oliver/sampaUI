@@ -1,7 +1,7 @@
-# SampaUI v0.1.24
+# SampaUI v0.1.25
 
-Camadas de overlay e selects seguros em containers com rolagem.
+Estabilizacao dos menus teletransportados de Select.
 
-- Select, Select Search e Select Multiple teleportam os paineis para o `body` e recalculam posicao em scroll e resize.
-- Menus abrem acima quando necessario e mantem largura do trigger.
-- Modal e Drawer usam camadas dinamicas, sem z-index maximo do navegador, com suporte a modais aninhados.
+- Referencias estaveis por ID substituem `$refs.menu` apos teleport.
+- Menus usam `position: fixed`, coordenadas do trigger e camada do overlay ativo.
+- Estado inicial inline evita que `x-cloak` mantenha o menu oculto depois do teleport.

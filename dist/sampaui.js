@@ -31,7 +31,7 @@ const unlockPageScroll = () => {
   document.body.classList.remove('overflow-hidden');
 };
 
-const portalMenu = () => ({
+const portalMenu = (config = {}) => ({
   menuStyle: {},
   viewportHandler: null,
   initPortalMenu() {
@@ -43,10 +43,17 @@ const portalMenu = () => ({
     window.removeEventListener('resize', this.viewportHandler);
     window.removeEventListener('scroll', this.viewportHandler, true);
   },
+  triggerElement() {
+    return document.getElementById(config.triggerId);
+  },
+  menuElement() {
+    return document.getElementById(config.menuId);
+  },
   positionMenu() {
-    if (!this.open || !this.$refs.trigger || !this.$refs.menu) return;
-    const trigger = this.$refs.trigger.getBoundingClientRect();
-    const menu = this.$refs.menu;
+    const triggerElement = this.triggerElement();
+    const menu = this.menuElement();
+    if (!this.open || !triggerElement || !menu) return;
+    const trigger = triggerElement.getBoundingClientRect();
     const gap = 8;
     const viewportPadding = 12;
     const below = window.innerHeight - trigger.bottom - viewportPadding;
@@ -54,7 +61,7 @@ const portalMenu = () => ({
     const opensUp = below < 240 && above > below;
     const available = Math.max(144, (opensUp ? above : below) - gap);
     const menuHeight = Math.min(menu.scrollHeight || 288, available);
-    const overlay = this.$refs.trigger.closest('[data-sampaui-overlay]');
+    const overlay = triggerElement.closest('[data-sampaui-overlay]');
     const overlayLayer = Number.parseInt(overlay ? window.getComputedStyle(overlay).zIndex : '', 10);
 
     this.menuStyle = {
@@ -68,13 +75,13 @@ const portalMenu = () => ({
   },
   handleMenuOutside(event) {
     if (!this.open) return;
-    if (this.$root.contains(event.target) || this.$refs.menu?.contains(event.target)) return;
+    if (this.$root.contains(event.target) || this.menuElement()?.contains(event.target)) return;
     this.close();
   },
 });
 
 const SampaUI = {
-  version: '0.1.24',
+  version: '0.1.25',
 
   input({ clearable = false } = {}) {
     return {
@@ -151,7 +158,7 @@ const SampaUI = {
 
   select(config = {}) {
     return {
-      ...portalMenu(),
+      ...portalMenu(config),
       open: false,
       value: String(config.value ?? ''),
       selectedLabel: config.selectedLabel ?? '',
@@ -246,7 +253,7 @@ const SampaUI = {
 
   selectMultiple(config = {}) {
     return {
-      ...portalMenu(),
+      ...portalMenu(config),
       open: false,
       search: '',
       values: config.values ?? [],
@@ -277,7 +284,7 @@ const SampaUI = {
       toggle() {
         if (!this.canInteract()) return;
         this.open = !this.open;
-        if (this.open) this.$nextTick(() => { this.positionMenu(); this.$refs.search?.focus(); });
+        if (this.open) this.$nextTick(() => { this.positionMenu(); document.getElementById(config.searchId)?.focus(); });
       },
       close() {
         this.open = false;
@@ -333,7 +340,7 @@ const SampaUI = {
 
   selectSearch(config = {}) {
     return {
-      ...portalMenu(),
+      ...portalMenu(config),
       open: false,
       search: '',
       value: String(config.value ?? ''),
@@ -357,7 +364,7 @@ const SampaUI = {
         if (!this.canInteract()) return;
         this.open = true;
         this.activeIndex = this.filteredOptions().findIndex((option) => String(option.value) === String(this.value));
-        this.$nextTick(() => { this.positionMenu(); this.$refs.search?.focus(); });
+        this.$nextTick(() => { this.positionMenu(); document.getElementById(config.searchId)?.focus(); });
       },
       close() { this.open = false; this.search = ''; this.activeIndex = -1; },
       toggle() { this.open ? this.close() : this.openMenu(); },
