@@ -134,7 +134,7 @@ class InstallCommand extends Command
             return;
         }
 
-        File::put($path, rtrim($contents).PHP_EOL.PHP_EOL.$import.PHP_EOL);
-        $this->components->info('Added SampaUI JS import to resources/js/app.js.');
+        File::put($path, $import.PHP_EOL.ltrim($contents));
+        $this->components->info('Added SampaUI JS import before the application bootstrap.');
     }
 }

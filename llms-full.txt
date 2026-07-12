@@ -26,6 +26,8 @@ The installer publishes config/assets and imports:
 import "../../vendor/sampaui/sampaui/dist/sampaui.js";
 ```
 
+When bundling Livewire manually, load SampaUI statically before `Livewire.start()` so Alpine controllers are available on the first render. Do not defer this import with `import()`.
+
 ## Public API Rules
 
 - Component namespace: `sampaui`.
@@ -140,7 +142,7 @@ php artisan sampaui:docs-export --format=markdown
 - `dropdown` aceita `align`, `width` e `placement`; use `placement="top"` em menus nas ultimas linhas de tabelas ou containers com rolagem para evitar corte visual.
 - Campos centrais aceitam `hint`, `error`, `state`, `required`, `readonly`, `loading` e `loading-target`, associando label e feedback por ARIA ao controle real; erros sao descobertos por `name` ou pelo caminho de `wire:model`.
 - `select` usa `x-modelable` para sincronizar valor e label com Livewire; `select-multiple` preserva o controle nativo. Ambos suportam teclado e limpeza com `clearable`.
-- `file-upload` aceita `max-size`, `retry` e `chunk-size`; progresso e cancelamento integram os eventos de upload do Livewire.
+- `file-upload` aceita `max-size`, `retry` e `chunk-size`; progresso e cancelamento integram os eventos de upload do Livewire. Os object URLs de preview sao liberados no destroy e em `beforeunload` protegido; crop e reordenacao ainda nao fazem parte da API.
 - `modal`, `drawer` e `dropdown` controlam foco, Esc e click-outside; `close-on-escape` e `close-on-outside` sao configuraveis.
 - `sidebar` usa largura expandida de `18rem`, sem faixa externa; recebe a marca somente por `logo-src`, usa estado ativo circular igual ao hover e link de saida outline danger sem sombra.
 - `toast` usa fila e limite de visiveis, pausa timer com foco e aceita `variant="soft|solid|outline"` e `size="sm|md|lg"`.

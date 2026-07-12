@@ -38,7 +38,7 @@
             'typeError' => $typeError,
             'sizeError' => $sizeError,
         ]))"
-        x-on:beforeunload.window="revokePreviewUrls()"
+        x-on:beforeunload.window="typeof revokePreviewUrls === 'function' && revokePreviewUrls()"
         class="space-y-3"
         @if ($chunkSize) data-chunk-size="{{ (int) $chunkSize }}" @endif
     >

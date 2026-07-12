@@ -249,7 +249,7 @@ return [
         'slots' => [],
         'variants' => [],
         'example' => '<x-sampaui::file-upload name="contract" label="Contrato" wire:model="contract" />',
-        'livewire' => 'Use com o recurso de upload de arquivos do Livewire.',
+        'livewire' => 'Importe o SampaUI antes de Livewire.start(); previews sao limpos no destroy e em beforeunload protegido.',
     ],
     'header' => [
         'name' => 'Header',

@@ -167,6 +167,7 @@ BLADE)
             ->assertSee('role="progressbar"', false)
             ->assertSee('x-on:click="removeFile(index)"', false)
             ->assertSee("x-bind:aria-label=\"'Remover ' + file.name\"", false)
+            ->assertSee("x-on:beforeunload.window=\"typeof revokePreviewUrls === 'function' && revokePreviewUrls()\"", false)
             ->assertSee('accept="image/*"', false)
             ->assertSee('id="photos"', false);
 
