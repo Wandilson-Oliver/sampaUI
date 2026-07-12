@@ -85,6 +85,115 @@ if (! function_exists('sampaui_classes')) {
     }
 }
 
+if (! function_exists('sampaui_tailwind_class_group')) {
+    /**
+     * Identifica grupos de utilitarios Tailwind que ocupam a mesma propriedade visual.
+     *
+     * @return array{0: string, 1: string}|null
+     */
+    function sampaui_tailwind_class_group(string $class): ?array
+    {
+        $class = ltrim($class, '!');
+
+        if ($class === '' || str_contains($class, '[')) {
+            return null;
+        }
+
+        $separator = strrpos($class, ':');
+        $variant = $separator === false ? '' : substr($class, 0, $separator);
+        $utility = $separator === false ? $class : substr($class, $separator + 1);
+        $utility = ltrim($utility, '-');
+
+        $group = match (true) {
+            str_starts_with($utility, 'bg-') => 'background',
+            preg_match('/^text-(xs|sm|base|lg|xl|[2-9]xl)$/', $utility) === 1 => 'text-size',
+            in_array($utility, ['text-left', 'text-center', 'text-right', 'text-justify', 'text-start', 'text-end'], true) => 'text-align',
+            str_starts_with($utility, 'text-') => 'text-color',
+            $utility === 'border' || preg_match('/^border(?:-[trblxy])?-(0|2|4|8)$/', $utility) === 1 => 'border-width',
+            str_starts_with($utility, 'border-') => 'border-color',
+            str_starts_with($utility, 'rounded') => 'rounded',
+            preg_match('/^p([trblxy]?)-/', $utility, $matches) === 1 => 'padding-'.($matches[1] === '' ? 'all' : $matches[1]),
+            preg_match('/^m([trblxy]?)-/', $utility, $matches) === 1 => 'margin-'.($matches[1] === '' ? 'all' : $matches[1]),
+            preg_match('/^w-/', $utility) === 1 => 'width',
+            preg_match('/^h-/', $utility) === 1 => 'height',
+            str_starts_with($utility, 'gap-') => 'gap',
+            str_starts_with($utility, 'font-') => 'font-weight',
+            str_starts_with($utility, 'shadow') => 'shadow',
+            str_starts_with($utility, 'opacity-') => 'opacity',
+            str_starts_with($utility, 'cursor-') => 'cursor',
+            str_starts_with($utility, 'justify-') => 'justify',
+            str_starts_with($utility, 'items-') => 'items',
+            in_array($utility, ['inline-flex', 'flex', 'inline-block', 'block', 'hidden'], true) => 'display',
+            $utility === 'ring' || preg_match('/^ring-(0|1|2|4|8)$/', $utility) === 1 => 'ring-width',
+            str_starts_with($utility, 'ring-') => 'ring-color',
+            default => null,
+        };
+
+        return $group ? [$variant, $group] : null;
+    }
+}
+
+if (! function_exists('sampaui_merge_tailwind_classes')) {
+    /**
+     * Mantem os defaults do SampaUI sem competir com utilitarios informados pelo consumidor.
+     */
+    function sampaui_merge_tailwind_classes(string $defaults, ?string $customClasses = null): string
+    {
+        $custom = preg_split('/\s+/', trim((string) $customClasses)) ?: [];
+
+        if ($custom === []) {
+            return trim($defaults);
+        }
+
+        $groups = [];
+
+        foreach ($custom as $class) {
+            $group = sampaui_tailwind_class_group($class);
+
+            if ($group) {
+                $groups[$group[0].'|'.$group[1]] = true;
+            }
+        }
+
+        $baseColorOverrides = [
+            'background' => isset($groups['|background']),
+            'text-color' => isset($groups['|text-color']),
+        ];
+
+        $defaults = preg_split('/\s+/', trim($defaults)) ?: [];
+
+        $filteredDefaults = array_filter($defaults, function (string $class) use ($groups, $baseColorOverrides): bool {
+            $group = sampaui_tailwind_class_group($class);
+
+            if (! $group) {
+                return true;
+            }
+
+            [$variant, $family] = $group;
+
+            if (isset($groups[$variant.'|'.$family])) {
+                return false;
+            }
+
+            if ($variant === 'hover' && ($family === 'background' || $family === 'text-color') && $baseColorOverrides[$family]) {
+                return false;
+            }
+
+            if ($family !== 'padding-all' && isset($groups[$variant.'|padding-all'])) {
+                return false;
+            }
+
+            if ($family !== 'margin-all' && isset($groups[$variant.'|margin-all'])) {
+                return false;
+            }
+
+            return true;
+        });
+
+        return implode(' ', [...$filteredDefaults, ...$custom]);
+    }
+}
+
 if (! function_exists('sampaui_described_by')) {
     function sampaui_described_by(string $id, ?string $hint = null, ?string $error = null, ?string $existing = null): ?string
     {

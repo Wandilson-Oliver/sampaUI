@@ -79,7 +79,7 @@ return [
         'slots' => ['default'],
         'variants' => ['primary', 'secondary', 'accent', 'danger', 'success', 'warning', 'info', 'purple', 'muted', 'light', 'outline', 'ghost'],
         'example' => '<x-sampaui::button variant="primary" icon="plus" wire:click="save">Salvar</x-sampaui::button>',
-        'livewire' => 'Preserva wire:click, wire:navigate e demais atributos no elemento interativo real.',
+        'livewire' => 'Preserva wire:click, wire:navigate e demais atributos no elemento interativo real; class substitui defaults visuais conflitantes.',
     ],
     'card' => [
         'name' => 'Card',
@@ -189,7 +189,7 @@ return [
         'slots' => [],
         'variants' => [],
         'example' => '<x-sampaui::date-picker name="scheduled_at" label="Data" wire:model.live="scheduledAt" />',
-        'livewire' => 'Usa x-modelable e preserva wire:model.',
+        'livewire' => 'Usa x-modelable e preserva wire:model; o trigger usa text-slate-600 e aceita class para customizacao.',
     ],
     'drawer' => [
         'name' => 'Drawer',

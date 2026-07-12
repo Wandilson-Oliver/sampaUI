@@ -29,6 +29,9 @@ BLADE);
         $html->assertSee('bi bi-calendar3', false);
         $html->assertSee('role="dialog"', false);
         $html->assertSee('weekDays', false);
+        $html->assertSee('text-slate-600', false);
+        $html->assertSee('text-current', false);
+        $html->assertSee('ring-slate-300', false);
         $html->assertDontSee('AM', false);
     }
 
@@ -53,5 +56,11 @@ BLADE);
         $html->assertSee('aria-invalid="true"', false);
         $html->assertSee('disabled', false);
         $html->assertSee('border-danger', false);
+
+        $customized = $this->blade('<x-sampaui::date-picker name="reviewed_at" class="text-emerald-600 bg-slate-50" />');
+
+        $customized
+            ->assertSee('focus:ring-primary/20 text-emerald-600 bg-slate-50', false)
+            ->assertDontSee('bg-white px-4 py-2.5 text-left text-base text-slate-600', false);
     }
 }
