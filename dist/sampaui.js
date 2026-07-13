@@ -58,17 +58,22 @@ const portalMenu = (config = {}) => ({
     const viewportPadding = 12;
     const below = window.innerHeight - trigger.bottom - viewportPadding;
     const above = trigger.top - viewportPadding;
-    const opensUp = below < 240 && above > below;
+    const preferredHeight = Number(config.preferredHeight ?? 240);
+    const opensUp = below < preferredHeight && above > below;
     const available = Math.max(144, (opensUp ? above : below) - gap);
     const menuHeight = Math.min(menu.scrollHeight || 288, available);
+    const menuWidth = Math.min(
+      Math.max(trigger.width, Number(config.minWidth ?? 0)),
+      window.innerWidth - (viewportPadding * 2),
+    );
     const overlay = triggerElement.closest('[data-sampaui-overlay]');
     const overlayLayer = Number.parseInt(overlay ? window.getComputedStyle(overlay).zIndex : '', 10);
 
     this.menuStyle = {
       position: 'fixed',
-      left: `${Math.max(viewportPadding, Math.min(trigger.left, window.innerWidth - trigger.width - viewportPadding))}px`,
+      left: `${Math.max(viewportPadding, Math.min(trigger.left, window.innerWidth - menuWidth - viewportPadding))}px`,
       top: `${opensUp ? Math.max(viewportPadding, trigger.top - menuHeight - gap) : trigger.bottom + gap}px`,
-      width: `${Math.min(trigger.width, window.innerWidth - (viewportPadding * 2))}px`,
+      width: `${menuWidth}px`,
       maxHeight: `${available}px`,
       zIndex: Number.isFinite(overlayLayer) ? overlayLayer + 10 : 120,
     };
@@ -81,7 +86,7 @@ const portalMenu = (config = {}) => ({
 });
 
 const SampaUI = {
-  version: '0.1.25',
+  version: '0.1.26',
 
   input({ clearable = false } = {}) {
     return {
