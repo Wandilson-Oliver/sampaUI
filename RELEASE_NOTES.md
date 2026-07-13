@@ -1,7 +1,7 @@
-# SampaUI v0.1.26
+# SampaUI v0.1.27
 
-DatePicker seguro em containers com overlay e scroll, sem regressao de bootstrap.
+Cards agora permitem que menus e calendarios absolutos abram integralmente por padrão.
 
-- Calendario e teletransportado para o `body`, com `position: fixed` e camada acima do Modal ou Drawer ativo.
-- Abertura reposiciona em scroll e resize, inclusive acima do trigger quando faltar espaco abaixo.
-- O estado Alpine permanece autocontido no componente, sem depender de `window.SampaUI`.
+- `overflow-visible` passa a ser o comportamento padrão de `<x-sampaui::card>`.
+- DatePicker, selects, dropdowns e popovers não são recortados pelo card.
+- Use `overflow="hidden"` apenas quando o recorte do conteúdo for intencional.

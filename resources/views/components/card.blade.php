@@ -5,7 +5,7 @@
     'appearance' => 'outline',
     'padding' => 'md',
     'divided' => false,
-    'overflow' => 'hidden',
+    'overflow' => 'visible',
 ])
 
 @php
@@ -65,9 +65,9 @@
         default => $tone,
     };
     $overflowClass = match ($overflow) {
-        'visible' => 'overflow-visible',
         'auto' => 'overflow-auto',
-        default => 'overflow-hidden',
+        'hidden' => 'overflow-hidden',
+        default => 'overflow-visible',
     };
     $hasHeader = filled($title) || filled($description) || isset($header) || isset($actions);
     $classes = sampaui_classes([

@@ -1,6 +1,6 @@
 {
     "name": "SampaUI",
-    "version": "0.1.26",
+    "version": "0.1.27",
     "stack": [
         "Laravel 13+",
         "Livewire 4+",
@@ -209,7 +209,7 @@
                 "purple"
             ],
             "example": "<x-sampaui::card title=\"Resumo\">Conteudo do card.</x-sampaui::card>",
-            "livewire": "Superficie segura para conteudo reativo renderizado pelo Livewire."
+            "livewire": "Superficie segura para conteudo reativo renderizado pelo Livewire, com overflow visivel por padrao para menus e calendarios."
         },
         "cep": {
             "name": "CEP",

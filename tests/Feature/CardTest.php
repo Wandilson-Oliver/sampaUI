@@ -58,13 +58,14 @@ BLADE);
             ->assertSee('--sampaui-card-padding-x: 1.5rem', false);
     }
 
-    public function test_it_can_allow_dropdowns_to_escape_the_card_bounds(): void
+    public function test_it_keeps_dropdowns_outside_the_card_bounds_by_default(): void
     {
-        $this->blade('<x-sampaui::card overflow="visible">Conteudo</x-sampaui::card>')
+        $this->blade('<x-sampaui::card>Conteudo</x-sampaui::card>')
             ->assertSee('overflow-visible', false)
             ->assertDontSee('overflow-hidden', false);
 
-        $this->blade('<x-sampaui::card>Conteudo</x-sampaui::card>')
-            ->assertSee('overflow-hidden', false);
+        $this->blade('<x-sampaui::card overflow="hidden">Conteudo</x-sampaui::card>')
+            ->assertSee('overflow-hidden', false)
+            ->assertDontSee('overflow-visible', false);
     }
 }
