@@ -2,6 +2,12 @@
 
 Todas as mudanças notáveis do SampaUI serão documentadas neste arquivo.
 
+## v0.1.27 - 2026-07-13
+
+### Corrigido
+
+- Card usa `overflow-visible` por padrão, evitando recorte de DatePicker, selects, dropdowns e popovers absolutos; `overflow="hidden"` continua disponível para recortes intencionais.
+
 ## v0.1.26 - 2026-07-13
 
 ### Corrigido

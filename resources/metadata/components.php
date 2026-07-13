@@ -89,7 +89,7 @@ return [
         'slots' => ['default', 'footer', 'actions'],
         'variants' => ['default', 'muted', 'primary', 'secondary', 'accent', 'danger', 'success', 'warning', 'info', 'purple'],
         'example' => '<x-sampaui::card title="Resumo">Conteudo do card.</x-sampaui::card>',
-        'livewire' => 'Superficie segura para conteudo reativo renderizado pelo Livewire.',
+        'livewire' => 'Superficie segura para conteudo reativo renderizado pelo Livewire, com overflow visivel por padrao para menus e calendarios.',
     ],
     'cep' => [
         'name' => 'CEP',
