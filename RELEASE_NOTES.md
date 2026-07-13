@@ -1,7 +1,7 @@
-# SampaUI v0.1.27
+# SampaUI v0.1.28
 
-Cards agora permitem que menus e calendarios absolutos abram integralmente por padrão.
+Dropdowns agora abrem integralmente em containers com overflow e overlays.
 
-- `overflow-visible` passa a ser o comportamento padrão de `<x-sampaui::card>`.
-- DatePicker, selects, dropdowns e popovers não são recortados pelo card.
-- Use `overflow="hidden"` apenas quando o recorte do conteúdo for intencional.
+- O menu e teletransportado para o `body` e usa `position: fixed`.
+- Alinhamento, foco, Escape, click outside e itens Livewire continuam preservados.
+- A posicao e recalculada em scroll e resize, abrindo acima quando necessario.

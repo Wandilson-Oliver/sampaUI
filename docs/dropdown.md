@@ -19,11 +19,11 @@ Use para menus de acoes, filtros e seletores compactos.
 - `label`: texto do trigger.
 - `icon`: Bootstrap Icon opcional.
 - `align`: `left` ou `right`.
-- `placement`: `bottom` ou `top`. Use `top` em linhas finais de tabelas e containers com rolagem.
+- `placement`: `bottom` ou `top`. O menu abre acima automaticamente quando faltar espaco abaixo; use `top` para preferir essa direcao.
 - `width`: largura do menu.
 
 ## Subcomponente
 
 `x-sampaui::dropdown-item` e parte do dropdown. Ele aceita `href`, `type`, `icon`, `disabled` e preserva atributos Livewire como `wire:click`.
 
-O menu move o foco ao abrir, suporta setas, Home e Esc e devolve o foco ao trigger. Use `close-on-escape` e `close-on-outside` para configurar o fechamento.
+O menu e teletransportado para o `body` e posicionado com `position: fixed`, portanto nao e recortado por Card, Modal, Drawer ou areas rolaveis. Ele acompanha o trigger em scroll e resize, move o foco ao abrir, suporta setas, Home e Esc e devolve o foco ao trigger. Use `close-on-escape` e `close-on-outside` para configurar o fechamento.

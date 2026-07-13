@@ -59,11 +59,15 @@ const portalMenu = (config = {}) => ({
     const below = window.innerHeight - trigger.bottom - viewportPadding;
     const above = trigger.top - viewportPadding;
     const preferredHeight = Number(config.preferredHeight ?? 240);
-    const opensUp = below < preferredHeight && above > below;
+    const opensUp = config.placement === 'top' || (below < preferredHeight && above > below);
     const available = Math.max(144, (opensUp ? above : below) - gap);
     const menuHeight = Math.min(menu.scrollHeight || 288, available);
+    const naturalWidth = menu.getBoundingClientRect().width || trigger.width;
+    const preferredWidth = config.matchTriggerWidth === false
+      ? naturalWidth
+      : Math.max(trigger.width, Number(config.minWidth ?? 0));
     const menuWidth = Math.min(
-      Math.max(trigger.width, Number(config.minWidth ?? 0)),
+      preferredWidth,
       window.innerWidth - (viewportPadding * 2),
     );
     const overlay = triggerElement.closest('[data-sampaui-overlay]');
@@ -71,7 +75,7 @@ const portalMenu = (config = {}) => ({
 
     this.menuStyle = {
       position: 'fixed',
-      left: `${Math.max(viewportPadding, Math.min(trigger.left, window.innerWidth - menuWidth - viewportPadding))}px`,
+      left: `${Math.max(viewportPadding, Math.min(config.align === 'right' ? trigger.right - menuWidth : trigger.left, window.innerWidth - menuWidth - viewportPadding))}px`,
       top: `${opensUp ? Math.max(viewportPadding, trigger.top - menuHeight - gap) : trigger.bottom + gap}px`,
       width: `${menuWidth}px`,
       maxHeight: `${available}px`,
@@ -86,7 +90,7 @@ const portalMenu = (config = {}) => ({
 });
 
 const SampaUI = {
-  version: '0.1.27',
+  version: '0.1.28',
 
   input({ clearable = false } = {}) {
     return {
@@ -596,28 +600,43 @@ const SampaUI = {
     };
   },
 
-  dropdown({ closeOnOutside = true, closeOnEscape = true } = {}) {
+  dropdown(config = {}) {
     return {
+      ...portalMenu(config),
       open: false,
+      init() {
+        this.initPortalMenu();
+      },
+      openMenu() {
+        this.open = true;
+        this.$nextTick(() => {
+          this.positionMenu();
+          focusableElements(this.menuElement())[0]?.focus();
+        });
+      },
       toggle() {
-        this.open = !this.open;
-        if (this.open) this.$nextTick(() => focusableElements(this.$refs.menu)[0]?.focus());
+        this.open ? this.close() : this.openMenu();
       },
       close({ focusTrigger = false } = {}) {
         this.open = false;
-        if (focusTrigger) this.$nextTick(() => this.$refs.trigger?.focus());
+        if (focusTrigger) this.$nextTick(() => this.triggerElement()?.focus());
       },
       onEscape() {
-        if (closeOnEscape && this.open) this.close({ focusTrigger: true });
-      },
-      onOutside() {
-        if (closeOnOutside && this.open) this.close();
+        if (config.closeOnEscape && this.open) this.close({ focusTrigger: true });
       },
       move(event, step) {
-        const items = focusableElements(this.$refs.menu);
+        const items = focusableElements(this.menuElement());
         if (!items.length) return;
         const index = Math.max(items.indexOf(event.target), 0);
         items[(index + step + items.length) % items.length].focus();
+      },
+      handleMenuOutside(event) {
+        if (!config.closeOnOutside || !this.open) return;
+        if (this.$root.contains(event.target) || this.menuElement()?.contains(event.target)) return;
+        this.close();
+      },
+      destroy() {
+        this.destroyPortalMenu();
       },
     };
   },

@@ -100,12 +100,15 @@ BLADE)
             ->assertSee('Remover')
             ->assertSee('wire:click="remove"', false)
             ->assertSee('sampaui-dropdown relative inline-flex w-max', false)
-            ->assertSee("x-bind:class=\"open ? 'z-[90]' : 'z-10'\"", false)
-            ->assertSee('z-[100]', false)
-            ->assertSee('role="menu"', false);
+            ->assertSee('x-teleport="body"', false)
+            ->assertSee('x-bind:style="menuStyle"', false)
+            ->assertSee('x-on:click.window="handleMenuOutside($event)"', false)
+            ->assertSee('role="menu"', false)
+            ->assertDontSee('x-ref="menu"', false)
+            ->assertDontSee('x-cloak', false);
 
         $this->blade('<x-sampaui::dropdown label="Acoes" placement="top">Menu</x-sampaui::dropdown>')
-            ->assertSee('bottom-full mb-2', false);
+            ->assertSee('\\u0022placement\\u0022:\\u0022top\\u0022', false);
 
         $this->blade(<<<'BLADE'
 <x-sampaui::tabs :tabs="['overview' => 'Resumo', 'billing' => 'Cobranca']" active="overview">
