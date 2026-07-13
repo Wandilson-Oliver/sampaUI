@@ -2,6 +2,12 @@
 
 Todas as mudanças notáveis do SampaUI serão documentadas neste arquivo.
 
+## v0.1.28 - 2026-07-13
+
+### Corrigido
+
+- Dropdown usa portal no `body`, `position: fixed`, IDs estaveis e reposicionamento em scroll/resize para nao ser recortado por Card, Modal, Drawer e containers rolaveis.
+
 ## v0.1.27 - 2026-07-13
 
 ### Corrigido

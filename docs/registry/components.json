@@ -1,6 +1,6 @@
 {
     "name": "SampaUI",
-    "version": "0.1.27",
+    "version": "0.1.28",
     "stack": [
         "Laravel 13+",
         "Livewire 4+",
@@ -482,7 +482,7 @@
             ],
             "variants": [],
             "example": "<x-sampaui::dropdown align=\"right\" placement=\"top\"><x-slot:trigger>Menu</x-slot:trigger>Conteudo</x-sampaui::dropdown>",
-            "livewire": "Itens internos podem usar wire:click ou wire:navigate."
+            "livewire": "Itens internos podem usar wire:click ou wire:navigate; o menu usa portal fixo para nao ser recortado por overlays e areas rolaveis."
         },
         "dropdown-item": {
             "name": "Dropdown Item",

@@ -209,7 +209,7 @@ return [
         'slots' => ['trigger', 'default'],
         'variants' => [],
         'example' => '<x-sampaui::dropdown align="right" placement="top"><x-slot:trigger>Menu</x-slot:trigger>Conteudo</x-sampaui::dropdown>',
-        'livewire' => 'Itens internos podem usar wire:click ou wire:navigate.',
+        'livewire' => 'Itens internos podem usar wire:click ou wire:navigate; o menu usa portal fixo para nao ser recortado por overlays e areas rolaveis.',
     ],
     'dropdown-item' => [
         'name' => 'Dropdown Item',

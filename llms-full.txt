@@ -144,6 +144,7 @@ php artisan sampaui:docs-export --format=markdown
 - `select` usa `x-modelable` para sincronizar valor e label com Livewire; `select-multiple` preserva o controle nativo. Ambos suportam teclado e limpeza com `clearable`.
 - `button` permite que `class=""` substitua utilitarios visuais conflitantes, incluindo cor, hover, espacamento, largura, raio, sombra e tipografia; estados desabilitados preservam `cursor-not-allowed`.
 - `card` usa `overflow="visible"` por padrao para que DatePicker, selects, dropdowns e popovers absolutos possam abrir integralmente. Use `overflow="hidden"` somente quando o recorte for intencional.
+- `dropdown` usa portal no `body` com `position: fixed`, alinhamento pelo trigger, camada segura para Modal e Drawer e reposicionamento em scroll/resize. O menu abre acima automaticamente quando necessario.
 - `date-picker` usa `text-slate-600` como cor neutra do trigger, com valor e icone herdando essa cor. `class=""` pode sobrescrever o visual do trigger.
 - `file-upload` aceita `max-size`, `retry` e `chunk-size`; progresso e cancelamento integram os eventos de upload do Livewire. Os object URLs de preview sao liberados no destroy e em `beforeunload` protegido; crop e reordenacao ainda nao fazem parte da API.
 - `modal`, `drawer` e `dropdown` controlam foco, Esc e click-outside; `close-on-escape` e `close-on-outside` sao configuraveis.
