@@ -189,7 +189,7 @@ return [
         'slots' => [],
         'variants' => [],
         'example' => '<x-sampaui::date-picker name="scheduled_at" label="Data" wire:model.live="scheduledAt" />',
-        'livewire' => 'Usa x-modelable e preserva wire:model; o trigger usa text-slate-600 e aceita class para customizacao.',
+        'livewire' => 'Usa x-modelable e preserva wire:model; o calendario e teletransportado para o body com posicao fixa, evitando recorte em Modal, Drawer e containers com scroll.',
     ],
     'drawer' => [
         'name' => 'Drawer',

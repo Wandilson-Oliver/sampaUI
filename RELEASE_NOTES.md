@@ -1,7 +1,7 @@
-# SampaUI v0.1.25
+# SampaUI v0.1.26
 
-Estabilizacao dos menus teletransportados de Select.
+DatePicker seguro em containers com overlay e scroll, sem regressao de bootstrap.
 
-- Referencias estaveis por ID substituem `$refs.menu` apos teleport.
-- Menus usam `position: fixed`, coordenadas do trigger e camada do overlay ativo.
-- Estado inicial inline evita que `x-cloak` mantenha o menu oculto depois do teleport.
+- Calendario e teletransportado para o `body`, com `position: fixed` e camada acima do Modal ou Drawer ativo.
+- Abertura reposiciona em scroll e resize, inclusive acima do trigger quando faltar espaco abaixo.
+- O estado Alpine permanece autocontido no componente, sem depender de `window.SampaUI`.

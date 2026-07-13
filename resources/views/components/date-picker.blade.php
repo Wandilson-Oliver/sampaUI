@@ -40,15 +40,62 @@
         placeholder: @js($placeholderText),
         month: null,
         weekDays: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+        menuStyle: {},
+        viewportHandler: null,
         init() {
             const initial = this.parseDate(this.value) || new Date();
             this.month = new Date(initial.getFullYear(), initial.getMonth(), 1);
+            this.viewportHandler = () => this.positionMenu();
+            window.addEventListener('resize', this.viewportHandler);
+            window.addEventListener('scroll', this.viewportHandler, true);
+            this.$watch('value', (value) => {
+                const selected = this.parseDate(value);
+                if (selected) this.month = new Date(selected.getFullYear(), selected.getMonth(), 1);
+            });
+        },
+        destroy() {
+            window.removeEventListener('resize', this.viewportHandler);
+            window.removeEventListener('scroll', this.viewportHandler, true);
+        },
+        triggerElement() {
+            return document.getElementById(@js($id.'-button'));
+        },
+        menuElement() {
+            return document.getElementById(@js($id.'-menu'));
+        },
+        positionMenu() {
+            const triggerElement = this.triggerElement();
+            const menu = this.menuElement();
+            if (! this.open || ! triggerElement || ! menu) return;
+
+            const trigger = triggerElement.getBoundingClientRect();
+            const gap = 8;
+            const viewportPadding = 12;
+            const below = window.innerHeight - trigger.bottom - viewportPadding;
+            const above = trigger.top - viewportPadding;
+            const opensUp = below < 400 && above > below;
+            const available = Math.max(144, (opensUp ? above : below) - gap);
+            const menuHeight = Math.min(menu.scrollHeight || 400, available);
+            const menuWidth = Math.min(Math.max(trigger.width, 320), window.innerWidth - (viewportPadding * 2));
+            const overlay = triggerElement.closest('[data-sampaui-overlay]');
+            const overlayLayer = Number.parseInt(overlay ? window.getComputedStyle(overlay).zIndex : '', 10);
+
+            this.menuStyle = {
+                position: 'fixed',
+                left: `${Math.max(viewportPadding, Math.min(trigger.left, window.innerWidth - menuWidth - viewportPadding))}px`,
+                top: `${opensUp ? Math.max(viewportPadding, trigger.top - menuHeight - gap) : trigger.bottom + gap}px`,
+                width: `${menuWidth}px`,
+                maxHeight: `${available}px`,
+                zIndex: Number.isFinite(overlayLayer) ? overlayLayer + 10 : 120,
+            };
+        },
+        handleMenuOutside(event) {
+            if (! this.open) return;
+            if (this.$root.contains(event.target) || this.menuElement()?.contains(event.target)) return;
+            this.close();
         },
         parseDate(date) {
-            if (! date || ! /^\d{4}-\d{2}-\d{2}$/.test(date)) {
-                return null;
-            }
-
+            if (! date || ! /^\d{4}-\d{2}-\d{2}$/.test(date)) return null;
             const [year, month, day] = date.split('-').map(Number);
             return new Date(year, month - 1, day);
         },
@@ -56,37 +103,23 @@
             const year = date.getFullYear();
             const month = String(date.getMonth() + 1).padStart(2, '0');
             const day = String(date.getDate()).padStart(2, '0');
-
             return `${year}-${month}-${day}`;
         },
         displayValue() {
             const date = this.parseDate(this.value);
-
-            if (! date) {
-                return this.placeholder;
-            }
-
-            return new Intl.DateTimeFormat('pt-BR', {
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric',
-            }).format(date);
+            if (! date) return this.placeholder;
+            return new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' }).format(date);
         },
         monthLabel() {
-            return new Intl.DateTimeFormat('pt-BR', {
-                month: 'long',
-                year: 'numeric',
-            }).format(this.month);
+            return new Intl.DateTimeFormat('pt-BR', { month: 'long', year: 'numeric' }).format(this.month);
         },
         days() {
             const first = new Date(this.month.getFullYear(), this.month.getMonth(), 1);
             const start = new Date(first);
             start.setDate(first.getDate() - first.getDay());
-
             return Array.from({ length: 42 }, (_, index) => {
                 const date = new Date(start);
                 date.setDate(start.getDate() + index);
-
                 return {
                     date,
                     iso: this.toIso(date),
@@ -100,7 +133,6 @@
         },
         isDisabled(date) {
             const iso = this.toIso(date);
-
             return (this.min && iso < this.min) || (this.max && iso > this.max);
         },
         previousMonth() {
@@ -109,29 +141,40 @@
         nextMonth() {
             this.month = new Date(this.month.getFullYear(), this.month.getMonth() + 1, 1);
         },
-        select(day) {
-            if (day.disabled) {
-                return;
-            }
-
-            this.value = day.iso;
+        openMenu() {
+            if ({{ $disabled ? 'true' : 'false' }}) return;
+            this.open = true;
+            this.$nextTick(() => this.positionMenu());
+        },
+        close() {
             this.open = false;
+        },
+        toggle() {
+            this.open ? this.close() : this.openMenu();
+        },
+        syncValue() {
             this.$nextTick(() => {
-                this.$refs.input.dispatchEvent(new Event('input', { bubbles: true }));
-                this.$refs.input.dispatchEvent(new Event('change', { bubbles: true }));
+                const input = document.getElementById(@js($id));
+                input?.dispatchEvent(new Event('input', { bubbles: true }));
+                input?.dispatchEvent(new Event('change', { bubbles: true }));
             });
         },
+        select(day) {
+            if (day.disabled) return;
+            this.value = day.iso;
+            this.close();
+            this.syncValue();
+        },
         clear() {
+            if ({{ $disabled ? 'true' : 'false' }}) return;
             this.value = '';
-            this.open = false;
-            this.$nextTick(() => {
-                this.$refs.input.dispatchEvent(new Event('input', { bubbles: true }));
-                this.$refs.input.dispatchEvent(new Event('change', { bubbles: true }));
-            });
+            this.close();
+            this.syncValue();
         },
     }"
     x-modelable="value"
-    x-on:keydown.escape.window="open = false"
+    x-on:keydown.escape.window="close()"
+    x-on:click.window="handleMenuOutside($event)"
 >
     @if ($label)
         <label id="{{ $id }}-label" for="{{ $id }}-button" class="mb-2 block text-sm font-medium text-secondary">
@@ -143,7 +186,6 @@
     @endif
 
     <input
-        x-ref="input"
         id="{{ $id }}"
         type="date"
         @if ($name) name="{{ $name }}" @endif
@@ -166,7 +208,7 @@
         @if ($label) aria-labelledby="{{ $id }}-label {{ $id }}-button" @endif
         @if ($errorMessage) aria-invalid="true" aria-describedby="{{ $id }}-error" @endif
         @disabled($disabled)
-        x-on:click="if (! {{ $disabled ? 'true' : 'false' }}) open = ! open"
+        x-on:click="toggle()"
     >
         <span class="flex min-w-0 items-center gap-3">
             <i class="bi bi-calendar3 shrink-0 text-current opacity-80" aria-hidden="true"></i>
@@ -195,17 +237,19 @@
         </span>
     </button>
 
+    <template x-teleport="body">
     <div
+        id="{{ $id }}-menu"
         x-show="open"
-        x-cloak
         x-transition:enter="transition ease-out duration-150"
         x-transition:enter-start="opacity-0 translate-y-1"
         x-transition:enter-end="opacity-100 translate-y-0"
         x-transition:leave="transition ease-in duration-100"
         x-transition:leave-start="opacity-100 translate-y-0"
         x-transition:leave-end="opacity-0 translate-y-1"
-        x-on:click.outside="open = false"
-        class="absolute z-50 mt-2 w-full min-w-[20rem] rounded-default border border-border bg-white p-4 text-slate-600"
+        x-bind:style="menuStyle"
+        style="display: none;"
+        class="overflow-y-auto rounded-default border border-border bg-white p-4 text-slate-600 shadow-2xl shadow-secondary/10"
         role="dialog"
         aria-label="Selecionar data"
     >
@@ -246,6 +290,7 @@
             </template>
         </div>
     </div>
+    </template>
 </div>
 
 @if ($errorMessage)

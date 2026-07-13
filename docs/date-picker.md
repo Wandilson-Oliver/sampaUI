@@ -19,6 +19,8 @@ Props principais: `label`, `name`, `value`, `min`, `max`, `placeholder`, `error`
 
 Com Livewire, `wire:model` inicializa e sincroniza a data por `x-modelable`; nao e necessario informar `value`.
 
+O calendario abre em um portal no `body`, com `position: fixed`, largura minima de `20rem` e reposicionamento em scroll e resize. Assim, ele permanece visivel dentro de `Modal`, `Drawer`, `Card` e outros containers com `overflow`.
+
 Use `class=""` para substituir o visual do trigger, incluindo cor, fundo, espacamento, largura, raio e sombra:
 
 ```blade

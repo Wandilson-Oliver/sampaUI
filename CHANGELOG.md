@@ -2,6 +2,13 @@
 
 Todas as mudanças notáveis do SampaUI serão documentadas neste arquivo.
 
+## v0.1.26 - 2026-07-13
+
+### Corrigido
+
+- DatePicker usa portal no `body`, `position: fixed` e referencias estaveis para evitar que o calendario seja cortado por Modal, Drawer e containers rolaveis.
+- DatePicker preserva a inicializacao Alpine no proprio componente, sem exigir `window.SampaUI`, evitando regressao em projetos com bootstrap existente.
+
 ## v0.1.25 - 2026-07-12
 
 ### Corrigido
