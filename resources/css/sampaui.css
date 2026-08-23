@@ -75,6 +75,21 @@ html.dark,
   display: none !important;
 }
 
+[wire\:loading],
+[wire\:loading\.delay],
+[wire\:loading\.inline-block],
+[wire\:loading\.inline],
+[wire\:loading\.block],
+[wire\:loading\.flex],
+[wire\:loading\.table],
+[wire\:loading\.grid] {
+  display: none;
+}
+
+[wire\:loading\.remove] {
+  display: inline-flex;
+}
+
 .sampaui-sidebar-scroll,
 .sampaui-chat-scroll {
   scrollbar-width: thin;
