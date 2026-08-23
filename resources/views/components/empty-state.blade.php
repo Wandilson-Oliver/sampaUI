@@ -4,7 +4,7 @@
     'icon' => 'inbox',
 ])
 
-<div {{ $attributes->merge(['class' => 'flex flex-col items-center justify-center rounded-default border border-dashed border-border bg-white px-6 py-10 text-center']) }}>
+<div {{ $attributes->merge(['class' => 'flex flex-col items-center justify-center rounded-default border border-dashed border-border bg-surface px-6 py-10 text-center']) }}>
     <span class="inline-flex h-14 w-14 items-center justify-center rounded-full bg-light text-primary">
         <i class="bi bi-{{ $icon }} text-2xl" aria-hidden="true"></i>
     </span>

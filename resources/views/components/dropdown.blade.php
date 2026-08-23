@@ -42,7 +42,7 @@
             x-on:keydown.arrow-down.prevent="move($event, 1)"
             x-on:keydown.arrow-up.prevent="move($event, -1)"
             x-on:keydown.home.prevent="$event.currentTarget.querySelector('a,button,[tabindex]:not([tabindex=\'-1\'])')?.focus()"
-            class="overflow-y-auto rounded-default border border-border bg-white p-1 shadow-default"
+            class="overflow-y-auto rounded-default border border-border bg-surface p-1 shadow-default"
             style="display: none; width: {{ $width }};"
             role="menu"
             aria-labelledby="{{ $id }}-trigger"

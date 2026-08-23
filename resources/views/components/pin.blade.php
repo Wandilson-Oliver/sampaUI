@@ -202,7 +202,7 @@
                 maxlength="1"
                 autocomplete="{{ $index === 0 ? 'one-time-code' : 'off' }}"
                 class="{{ sampaui_classes([
-                    'h-12 w-11 rounded-default border border-secondary/40 bg-white text-center text-lg font-semibold text-secondary transition placeholder:text-secondary/50 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 sm:w-12',
+                    'h-12 w-11 rounded-default border border-border bg-surface text-center text-lg font-semibold text-secondary transition placeholder:text-secondary/50 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 sm:w-12',
                     'border-danger ring-2 ring-danger/20' => filled($errorMessage),
                     'cursor-not-allowed opacity-50' => $disabled,
                     $attributes->get('class'),

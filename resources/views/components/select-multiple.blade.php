@@ -120,7 +120,7 @@
         </div>
 
         <template x-teleport="body">
-        <div id="{{ $id }}-menu" x-show="open" x-transition.opacity.duration.150ms x-bind:style="menuStyle" style="display: none;" class="min-w-0 overflow-hidden rounded-default border border-border bg-white shadow-2xl shadow-secondary/10">
+        <div id="{{ $id }}-menu" x-show="open" x-transition.opacity.duration.150ms x-bind:style="menuStyle" style="display: none;" class="min-w-0 overflow-hidden rounded-default border border-border bg-surface shadow-2xl shadow-secondary/10">
             <div class="border-b border-border p-2">
                 <div class="relative">
                     <i class="bi bi-search pointer-events-none absolute inset-y-0 left-3 flex items-center text-sm text-secondary/60" aria-hidden="true"></i>

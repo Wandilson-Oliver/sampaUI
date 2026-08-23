@@ -21,6 +21,31 @@
   --radius-lg: 1.5rem;
 }
 
+:root {
+  --color-surface: #FFFFFF;
+  --color-surface-subtle: #F8FAFC;
+  --color-heading: #102A43;
+  --color-secondary: #102A43;
+  --color-muted: #94A3B8;
+  --color-border: #E2E8F0;
+  --color-text: #0F172A;
+  --color-light: #F1F5F9;
+}
+
+html.dark,
+.dark,
+[data-theme="dark"] {
+  color-scheme: dark;
+  --color-surface: #161B22;
+  --color-surface-subtle: #0D1117;
+  --color-heading: #F0F6FC;
+  --color-secondary: #C9D1D9;
+  --color-muted: #8B949E;
+  --color-border: #30363D;
+  --color-text: #E6EDF3;
+  --color-light: #21262D;
+}
+
 @source "../views";
 @source "../js";
 
@@ -70,4 +95,41 @@
 .sampaui-chat-scroll::-webkit-scrollbar-thumb {
   background: color-mix(in oklab, var(--color-secondary) 30%, transparent);
   border-radius: 999px;
+}
+
+/* Dark mode surface & form control enhancements */
+html.dark input,
+html.dark select,
+html.dark textarea,
+.dark input,
+.dark select,
+.dark textarea {
+  color-scheme: dark;
+}
+
+html.dark .bg-white,
+.dark .bg-white {
+  background-color: var(--color-surface, #161b22) !important;
+}
+
+html.dark .bg-slate-50,
+html.dark .bg-slate-100,
+.dark .bg-slate-50,
+.dark .bg-slate-100 {
+  background-color: var(--color-surface-subtle, #0d1117) !important;
+}
+
+html.dark .border-border,
+.dark .border-border {
+  border-color: var(--color-border, #30363d) !important;
+}
+
+html.dark .text-secondary,
+.dark .text-secondary {
+  color: var(--color-secondary, #c9d1d9) !important;
+}
+
+html.dark .text-heading,
+.dark .text-heading {
+  color: var(--color-heading, #f0f6fc) !important;
 }

@@ -131,7 +131,7 @@
             x-transition.opacity.duration.150ms
             x-bind:style="menuStyle"
             style="display: none;"
-            class="overflow-hidden rounded-default border border-border bg-white shadow-2xl shadow-secondary/10"
+            class="overflow-hidden rounded-default border border-border bg-surface shadow-2xl shadow-secondary/10"
         >
             <div class="border-b border-border p-2">
                 <div class="relative">

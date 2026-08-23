@@ -119,7 +119,7 @@
         ->sort()
         ->values()
         ->all();
-    $paginationButtonClasses = 'inline-flex h-10 min-w-10 items-center justify-center rounded-default border border-secondary/20 bg-white px-3 font-semibold text-secondary transition hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-50';
+    $paginationButtonClasses = 'inline-flex h-10 min-w-10 items-center justify-center rounded-default border border-border bg-surface px-3 font-semibold text-secondary transition hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-50';
     $bleedStyle = $bleed
         ? 'margin-inline: calc(var(--sampaui-card-padding-x, 0px) * -1); width: calc(100% + (var(--sampaui-card-padding-x, 0px) * 2));'
         : '';
@@ -128,7 +128,7 @@
         ->except('style')
         ->merge([
             'class' => sampaui_classes([
-                'overflow-hidden bg-white',
+                'overflow-hidden bg-surface',
                 'rounded-none border-0 shadow-none' => $flush,
                 'rounded-default shadow-sm shadow-secondary/5' => ! $flush,
                 'border border-border' => $bordered && ! $flush,
@@ -259,7 +259,7 @@
     @endif
 
     @if ($showToolbar)
-        <div class="flex flex-col gap-4 border-b border-border bg-white p-4 sm:flex-row sm:items-center sm:justify-between">
+        <div class="flex flex-col gap-4 border-b border-border bg-surface p-4 sm:flex-row sm:items-center sm:justify-between">
             <div class="min-w-0">
                 @if ($title)
                     <h3 class="truncate text-base font-semibold text-secondary">{{ $title }}</h3>
@@ -309,7 +309,7 @@
                         @if ($exportHref === '#export')
                             x-on:click.prevent="$dispatch('toast', { message: 'Exportando relatório de clientes em CSV...', variant: 'info' })"
                         @endif
-                        class="inline-flex items-center justify-center gap-2 rounded-default border border-secondary/20 bg-white px-3 py-2 text-sm font-semibold text-secondary transition hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                        class="inline-flex items-center justify-center gap-2 rounded-default border border-border bg-surface px-3 py-2 text-sm font-semibold text-secondary transition hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                     >
                         <i class="bi bi-download" aria-hidden="true"></i>
                         {{ $exportLabel }}
@@ -611,7 +611,7 @@
     @endif
 
     @if ($showPagination)
-        <div class="flex flex-col gap-3 border-t border-border bg-white px-4 py-3 text-sm text-secondary/70 sm:flex-row sm:items-center sm:justify-between">
+        <div class="flex flex-col gap-3 border-t border-border bg-surface px-4 py-3 text-sm text-secondary/70 sm:flex-row sm:items-center sm:justify-between">
             @isset($pagination)
                 {{ $pagination }}
             @else

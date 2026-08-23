@@ -249,18 +249,18 @@
         x-transition:leave-end="opacity-0 translate-y-1"
         x-bind:style="menuStyle"
         style="display: none;"
-        class="overflow-y-auto rounded-default border border-border bg-white p-4 text-slate-600 shadow-2xl shadow-secondary/10"
+        class="overflow-y-auto rounded-default border border-border bg-surface p-4 text-secondary shadow-2xl shadow-secondary/10"
         role="dialog"
         aria-label="Selecionar data"
     >
         <div class="mb-4 flex items-center justify-between gap-3">
-            <button type="button" class="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-slate-600 transition hover:bg-light/30 focus:outline-none focus:ring-2 focus:ring-primary/20" x-on:click="previousMonth()" aria-label="Mes anterior">
+            <button type="button" class="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-secondary transition hover:bg-light/30 focus:outline-none focus:ring-2 focus:ring-primary/20" x-on:click="previousMonth()" aria-label="Mes anterior">
                 <i class="bi bi-chevron-left"></i>
             </button>
 
-            <p class="text-sm font-semibold capitalize text-slate-600" x-text="monthLabel()"></p>
+            <p class="text-sm font-semibold capitalize text-secondary" x-text="monthLabel()"></p>
 
-            <button type="button" class="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-slate-600 transition hover:bg-light/30 focus:outline-none focus:ring-2 focus:ring-primary/20" x-on:click="nextMonth()" aria-label="Proximo mes">
+            <button type="button" class="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-secondary transition hover:bg-light/30 focus:outline-none focus:ring-2 focus:ring-primary/20" x-on:click="nextMonth()" aria-label="Proximo mes">
                 <i class="bi bi-chevron-right"></i>
             </button>
         </div>

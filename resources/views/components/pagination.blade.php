@@ -35,7 +35,7 @@
         ->all();
 
     $itemBase = sampaui_classes([
-        'inline-flex cursor-pointer items-center justify-center rounded-default border border-border bg-white text-sm font-semibold text-secondary transition hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20',
+        'inline-flex cursor-pointer items-center justify-center rounded-default border border-border bg-surface text-sm font-semibold text-secondary transition hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20',
         $compact ? 'h-9 min-w-9 px-2' : 'h-11 min-w-11 px-3',
     ]);
     $itemActive = '!border-primary !bg-primary !text-white hover:!text-white';

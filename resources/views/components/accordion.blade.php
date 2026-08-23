@@ -27,7 +27,7 @@
             this.openItems = this.openItems[index] ? {} : { [index]: true };
         },
     }"
-    {{ $attributes->merge(['class' => 'divide-y divide-border rounded-default border border-border bg-white']) }}
+    {{ $attributes->merge(['class' => 'divide-y divide-border rounded-default border border-border bg-surface']) }}
 >
     @foreach ($items as $index => $item)
         <div>
