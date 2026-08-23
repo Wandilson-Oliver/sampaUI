@@ -64,9 +64,9 @@
         closeOnOutside: @js($outsideEnabled),
         afterClose: @js($afterClose),
     })"
-    x-on:open-modal.window="if ($event.detail === '{{ $id }}' || $event.detail === '{{ $model }}' || $event.detail?.id === '{{ $id }}' || $event.detail?.model === '{{ $model }}' || $event.detail?.name === '{{ $id }}') openOverlay()"
+    x-on:open-modal.window="if ($event.detail === '{{ $id }}' || $event.detail?.id === '{{ $id }}' || $event.detail?.name === '{{ $id }}'@if(filled($model)) || $event.detail === '{{ $model }}' || $event.detail?.model === '{{ $model }}'@endif) openOverlay()"
     x-on:open-modal-{{ $id }}.window="openOverlay()"
-    x-on:close-modal.window="if ($event.detail === '{{ $id }}' || $event.detail === '{{ $model }}' || $event.detail?.id === '{{ $id }}' || $event.detail?.model === '{{ $model }}' || $event.detail?.name === '{{ $id }}' || !$event.detail) close()"
+    x-on:close-modal.window="if ($event.detail === '{{ $id }}' || $event.detail?.id === '{{ $id }}' || $event.detail?.name === '{{ $id }}'@if(filled($model)) || $event.detail === '{{ $model }}' || $event.detail?.model === '{{ $model }}'@endif) close()"
     x-on:close-modal-{{ $id }}.window="close()"
 >
     <template x-teleport="body">
