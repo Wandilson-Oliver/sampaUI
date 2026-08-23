@@ -15,7 +15,7 @@ A area de selecao usa borda tracejada `border-secondary/40` por padrao.
 />
 ```
 
-## Props
+## Propriedades
 
 - `name`, `label`, `accept`.
 - `multiple`: permite varios arquivos.
@@ -37,3 +37,29 @@ Crop e reordenacao de galeria ainda nao fazem parte da API do componente. Manten
 ## Progresso e validacao
 
 `max-size` valida KB por arquivo; `accept` e validado antes do upload. Cada arquivo exibe progresso e estado. `retry` habilita a acao `file-upload:retry`; cancelamento usa `cancelUpload` do Livewire. `chunk-size` publica `file-upload:chunks-ready` para backends que implementem upload em partes, sem impor dependencia ao pacote.
+
+## Uso
+
+Use `<x-sampaui::file-upload />` como ponto de partida e adapte apenas o layout com `class=""`.
+
+## Propriedades adicionais
+
+- `hint`: propriedade pública do componente.
+- `loading`: propriedade pública do componente.
+- `loading-target`: propriedade pública do componente.
+- `type-error`: propriedade pública do componente.
+- `size-error`: propriedade pública do componente.
+- `cancel-label`: propriedade pública do componente.
+- `retry-label`: propriedade pública do componente.
+
+## Exemplos
+
+```blade
+<x-sampaui::file-upload name="contract" label="Contrato" wire:model="contract" />
+```
+
+## Boas práticas
+
+- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
+- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
+- Importe o SampaUI antes de Livewire.start(); previews sao limpos no destroy e em beforeunload protegido.

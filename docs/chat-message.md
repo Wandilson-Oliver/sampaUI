@@ -1,28 +1,48 @@
 # Chat Message
 
-Bolha de mensagem para conversas.
+Bolha de mensagem para conversas com suporte a mensagens enviadas, recebidas ou avisos de sistema.
 
 ```blade
-<x-sampaui::chat-message time="09:40">
-    O cliente confirmou a visita.
+{{-- Mensagem do Contato (Recebida) --}}
+<x-sampaui::chat-message author="Lucas Mendes" time="09:40" show-avatar>
+    Olá! Poderia me enviar a segunda via da fatura?
 </x-sampaui::chat-message>
 
+{{-- Mensagem Própria (Enviada) --}}
 <x-sampaui::chat-message from="me" time="09:41" status="Lida">
-    Perfeito, vou atualizar o CRM.
+    Com certeza Lucas! Segue em anexo em formato PDF.
 </x-sampaui::chat-message>
 
+{{-- Mensagem do Sistema --}}
 <x-sampaui::chat-message from="system">
-    Atendimento transferido para Comercial.
+    Atendimento transferido para o setor Financeiro às 09:42
 </x-sampaui::chat-message>
 ```
 
-## Props
+## Uso
 
-- `from`: `contact`, `me`, `outgoing` ou `system`.
-- `author`: nome exibido acima do texto.
-- `time`: horario da mensagem.
-- `status`: texto para leitores de tela; exibe o icone de mensagem lida.
-- `avatar`: imagem opcional ao lado da bolha.
-- `show-avatar`: exibe o avatar quando necessario em conversas agrupadas.
+Use `<x-sampaui::chat-message />` para renderizar mensagens individuais dentro da conversa, alternando entre mensagens recebidas (`from="contact"`), enviadas (`from="me"`) ou avisos (`from="system"`).
 
-Mensagens recebidas usam superficie branca com borda; enviadas usam `primary`; mensagens de sistema ficam centralizadas. Status reconhece enviado, entregue, lido e falha.
+## Propriedades
+
+| Prop | Tipo | Padrão | Descrição |
+| --- | --- | --- | --- |
+| `from` | `contact\|me\|outgoing\|incoming\|system` | `'contact'` | Direção da mensagem. Use `'me'` para envio próprio e `'system'` para avisos. |
+| `author` | `string\|null` | `null` | Nome do autor exibido no topo da bolha. |
+| `time` | `string\|null` | `null` | Horário da mensagem (ex: `'09:42'`). |
+| `status` | `string\|null` | `null` | Status de entrega: `'enviada'`, `'entregue'`, `'lida'`, `'erro'` (ou em inglês: `'sent'`, `'delivered'`, `'read'`, `'failed'`). |
+| `avatar` | `string\|null` | `null` | URL da foto do autor da mensagem. |
+| `show-avatar` | `bool` | `false` | Exibe o avatar circular ao lado da bolha de mensagem. |
+
+## Exemplos
+
+```blade
+<x-sampaui::chat-message from="me" time="09:42" status="Lida">Mensagem enviada.</x-sampaui::chat-message>
+```
+
+## Boas práticas
+
+- Ícones de confirmação de leitura (`lida`, `entregue`, `enviada`) são exibidos automaticamente com base na propriedade `status`.
+- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
+- Renderize em loops com mensagens vindas de propriedades Livewire.
+

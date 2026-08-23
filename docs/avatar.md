@@ -12,7 +12,7 @@ Use para representar usuarios, clientes ou responsaveis.
 />
 ```
 
-## Props
+## Propriedades
 
 - `src`: imagem opcional.
 - `name`: usado para iniciais e `alt` padrao.
@@ -23,3 +23,18 @@ Use para representar usuarios, clientes ou responsaveis.
 
 Status usam a paleta oficial: `success`, `danger`, `accent` e `secondary`.
 
+## Uso
+
+Use `<x-sampaui::avatar />` como ponto de partida e adapte apenas o layout com `class=""`.
+
+## Exemplos
+
+```blade
+<x-sampaui::avatar name="Ana Souza" />
+```
+
+## Boas práticas
+
+- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
+- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
+- Componente visual estatico, seguro em renders Livewire.

@@ -72,4 +72,19 @@ class ButtonTest extends TestCase
             ->assertSee('tabindex="-1"', false)
             ->assertDontSee('href="/clientes"', false);
     }
+
+    public function test_it_supports_loading_target_prop_and_wire_loading_attributes(): void
+    {
+        $html = $this->blade('<x-sampaui::button loading-target="save" icon="plus">Salvar</x-sampaui::button>');
+
+        $html->assertSee('wire:loading.attr="disabled"', false);
+        $html->assertSee('wire:loading.attr.aria-busy="true"', false);
+        $html->assertSee('wire:loading.class="opacity-75 cursor-wait"', false);
+        $html->assertSee('wire:target="save"', false);
+        $html->assertSee('bi bi-arrow-repeat animate-spin', false);
+        $html->assertSee('wire:loading', false);
+        $html->assertSee('wire:loading.remove', false);
+        $html->assertSee('bi bi-plus', false);
+        $html->assertSee('Salvar');
+    }
 }

@@ -23,11 +23,11 @@ Abra disparando o evento:
 </x-sampaui::button>
 ```
 
-## Props
+## Propriedades
 
 - `items`: array de comandos com `label`, `href` e `icon` opcional.
 - `placeholder`: texto do campo de busca interno.
-- `openEvent`: evento global escutado para abrir a paleta. Padrao: `sampaui:command-open`.
+- `open-event`: evento global escutado para abrir a paleta. Padrao: `sampaui:command-open`.
 - `$slot`: conteudo adicional dentro da lista.
 
 ## Atalho Cmd/Ctrl + K
@@ -79,3 +79,19 @@ public function mount(): void
 - O campo de busca recebe foco ao abrir.
 - O overlay fecha no clique externo.
 - Use labels objetivos para cada item de comando.
+
+## Uso
+
+Use `<x-sampaui::command-palette />` como ponto de partida e adapte apenas o layout com `class=""`.
+
+## Exemplos
+
+```blade
+<x-sampaui::command-palette :items="$items" />
+```
+
+## Boas práticas
+
+- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
+- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
+- Pode disparar navegacao ou acoes via eventos do browser.

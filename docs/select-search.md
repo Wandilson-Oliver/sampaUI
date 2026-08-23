@@ -51,3 +51,32 @@ O componente usa `x-modelable` para receber o valor inicial e manter sincronizac
 Erros do validator sao exibidos automaticamente usando `name` ou o caminho de `wire:model`.
 
 O componente tambem dispara `select-search:changed` com `id`, `name`, `value` e `label`.
+
+## Uso
+
+Use `<x-sampaui::select-search />` como ponto de partida e adapte apenas o layout com `class=""`.
+
+## Propriedades
+
+- `name`: propriedade pública do componente.
+- `label`: propriedade pública do componente.
+- `placeholder`: propriedade pública do componente.
+- `options`: propriedade pública do componente.
+- `value`: propriedade pública do componente.
+- `search-placeholder`: propriedade pública do componente.
+- `empty-text`: propriedade pública do componente.
+- `disabled`: propriedade pública do componente.
+- `error`: propriedade pública do componente.
+- `required`: propriedade pública do componente.
+
+## Exemplos
+
+```blade
+<x-sampaui::select-search name="owner" label="Responsavel" :options="$owners" wire:model.live="owner" />
+```
+
+## Boas práticas
+
+- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
+- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
+- Usa x-modelable e preserva wire:model para busca local.

@@ -57,7 +57,10 @@ php artisan sampaui:docs-export --format=json
 php artisan sampaui:docs-export --format=markdown
 ```
 
-`sampaui:doctor` verifica prefixo, views, assets publicados e imports no app consumidor. `sampaui:docs-export` usa o registry oficial em `resources/metadata/components.php`.
+`sampaui:doctor` verifica prefixo, views publicadas desatualizadas (que possam sobrescrever correções do pacote), assets e imports no app consumidor. `sampaui:docs-export` usa o registry oficial em `resources/metadata/components.php`.
+
+> [!WARNING]
+> Evite executar `php artisan vendor:publish --tag=sampaui-views` de forma cega. Views salvas em `resources/views/vendor/sampaui` têm precedência sobre o pacote e impedem que novas atualizações do Composer entrem em vigor no projeto. Prefira customizar apenas as views necessárias ou remova a pasta para manter os componentes atualizados.
 
 ## Checklist de release
 

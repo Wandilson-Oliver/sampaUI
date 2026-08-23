@@ -1,5 +1,5 @@
 @props([
-    'model',
+    'model' => null,
     'title' => null,
     'subtitle' => null,
     'size' => 'lg',
@@ -11,6 +11,7 @@
     'closeEvent' => null,
     'afterClose' => null,
     'panelClass' => null,
+    'backdropClass' => null,
 ])
 
 @php
@@ -18,7 +19,8 @@
     $livewireId = is_object($currentLivewire) && method_exists($currentLivewire, 'getId')
         ? $currentLivewire->getId()
         : 'standalone';
-    $generatedId = preg_replace('/[^A-Za-z0-9\\-_:.]/', '-', "sampaui-modal-{$livewireId}-{$model}");
+    $modelKey = $model ?? 'modal';
+    $generatedId = preg_replace('/[^A-Za-z0-9\\-_:.]/', '-', "sampaui-modal-{$livewireId}-{$modelKey}");
     $id = $attributes->get('id') ?? $generatedId;
     $titleId = $title ? $id.'-title' : null;
     $subtitleId = $subtitle ? $id.'-subtitle' : null;
@@ -33,7 +35,7 @@
         '5xl' => 'max-w-5xl',
         '6xl' => 'max-w-6xl',
         '7xl' => 'max-w-7xl',
-        'full' => 'max-w-[calc(100vw-2rem)]',
+        'full' => 'max-w-full',
     ];
 
     $variants = [
@@ -50,23 +52,25 @@
     $escapeEnabled = is_null($closeOnEscape) ? ! $persistent : (bool) $closeOnEscape;
     $outsideEnabled = is_null($closeOnOutside) ? ! $persistent : (bool) $closeOnOutside;
     $hasHeader = filled($title) || filled($subtitle) || isset($header) || $closeButton;
+    $resolvedBackdropClass = $backdropClass ?? 'bg-secondary/25 backdrop-blur-[2px]';
 @endphp
 
 <div
     style="display: contents;"
     x-data="SampaUI.overlay({
-        serverOpen: $wire.entangle({{ \Illuminate\Support\Js::from($model) }}).live,
+        serverOpen: @if(filled($model)) $wire.entangle(@js($model)).live @else false @endif,
         closeDelay: {{ $closeDelay }},
         closeOnEscape: @js($escapeEnabled),
         closeOnOutside: @js($outsideEnabled),
         afterClose: @js($afterClose),
     })"
+    x-on:open-modal.window="if ($event.detail === '{{ $id }}' || $event.detail === '{{ $model }}' || $event.detail?.id === '{{ $id }}' || $event.detail?.model === '{{ $model }}') openOverlay()"
+    x-on:close-modal.window="if ($event.detail === '{{ $id }}' || $event.detail === '{{ $model }}' || $event.detail?.id === '{{ $id }}' || $event.detail?.model === '{{ $model }}' || !$event.detail) close()"
 >
     <template x-teleport="body">
         <div
             id="{{ $id }}"
             x-show="visible"
-            x-cloak
             role="dialog"
             aria-modal="true"
             @if ($titleId) aria-labelledby="{{ $titleId }}" @endif
@@ -88,7 +92,7 @@
                 x-transition:leave="transition-opacity duration-200 ease-in"
                 x-transition:leave-start="opacity-100"
                 x-transition:leave-end="opacity-0"
-                class="absolute inset-0 bg-primary/40 backdrop-blur-[2px]"
+                class="absolute inset-0 {{ $resolvedBackdropClass }}"
                 aria-hidden="true"
             ></div>
 

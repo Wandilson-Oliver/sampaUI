@@ -68,7 +68,7 @@ Se precisar controlar o botao manualmente, o slot `suffix` fica dentro do mesmo 
 </x-sampaui::input>
 ```
 
-## Props
+## Propriedades
 
 - `type`
 - `label`
@@ -88,3 +88,20 @@ Se precisar controlar o botao manualmente, o slot `suffix` fica dentro do mesmo 
 ## Estados premium
 
 Use `hint`, `required`, `readonly`, `loading`, `loading-target` e `state="success|warning|error"`. `clearable` adiciona limpeza acessivel e sincronizada com Alpine/Livewire. Label, hint e erro usam ids associados ao input real.
+
+## Propriedades adicionais
+
+- `state`: propriedade pública do componente.
+- `clear-label`: propriedade pública do componente.
+
+## Exemplos
+
+```blade
+<x-sampaui::input name="email" label="Email" icon="envelope" wire:model.live="email" />
+```
+
+## Boas práticas
+
+- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
+- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
+- wire:model fica no input real e nao exige prop value.

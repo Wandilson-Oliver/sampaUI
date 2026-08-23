@@ -30,3 +30,32 @@ Use `class=""` para substituir o visual do trigger, incluindo cor, fundo, espaca
     class="bg-slate-50 text-emerald-600 shadow-none"
 />
 ```
+
+## Uso
+
+Use `<x-sampaui::date-picker />` como ponto de partida e adapte apenas o layout com `class=""`.
+
+## Propriedades
+
+- `name`: propriedade pública do componente.
+- `label`: propriedade pública do componente.
+- `value`: propriedade pública do componente.
+- `min`: propriedade pública do componente.
+- `max`: propriedade pública do componente.
+- `placeholder`: propriedade pública do componente.
+- `clearable`: propriedade pública do componente.
+- `disabled`: propriedade pública do componente.
+- `error`: propriedade pública do componente.
+- `required`: propriedade pública do componente.
+
+## Exemplos
+
+```blade
+<x-sampaui::date-picker name="scheduled_at" label="Data" wire:model.live="scheduledAt" />
+```
+
+## Boas práticas
+
+- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
+- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
+- Usa x-modelable e preserva wire:model; o calendario e teletransportado para o body com posicao fixa, evitando recorte em Modal, Drawer e containers com scroll.

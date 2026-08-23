@@ -14,7 +14,7 @@ O componente remove caracteres nao numericos, divide por 100 e sincroniza o valo
 />
 ```
 
-## Props
+## Propriedades
 
 - `label`
 - `name`
@@ -26,3 +26,15 @@ O componente remove caracteres nao numericos, divide por 100 e sincroniza o valo
 
 - `prefix`
 - `suffix`
+
+## Exemplos
+
+```blade
+<x-sampaui::currency-br name="price" label="Valor" wire:model.live="price" />
+```
+
+## Boas práticas
+
+- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
+- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
+- Formata valores no padrao brasileiro e sincroniza o model Alpine/Livewire.

@@ -300,4 +300,24 @@ BLADE);
             ->assertDontSee('<span>Anterior</span>', false)
             ->assertDontSee('<span>Proxima</span>', false);
     }
+
+    public function test_it_supports_selection_actions_and_empty_action_slot(): void
+    {
+        $html = $this->blade(<<<'BLADE'
+<x-sampaui::table
+    selectable
+    :selected-rows="[1]"
+    :columns="['name' => 'Nome']"
+    :rows="[['id' => 1, 'name' => 'Ana']]"
+>
+    <x-slot:selectionActions>
+        <button type="button">Excluir selecionados</button>
+    </x-slot:selectionActions>
+</x-sampaui::table>
+BLADE);
+
+        $html->assertSee('Excluir selecionados');
+        $html->assertSee('Desmarcar todos');
+        $html->assertSee('registro(s) selecionado(s)');
+    }
 }

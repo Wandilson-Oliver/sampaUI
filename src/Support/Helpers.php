@@ -230,8 +230,18 @@ if (! function_exists('sampaui_field_classes')) {
             'warning' => 'border-warning focus:border-warning focus:ring-warning/20',
         ];
 
+        $hasCustomPaddingX = false;
+        foreach ($classes as $key => $val) {
+            $candidate = is_string($key) ? $key : (is_string($val) ? $val : '');
+            if (str_contains($candidate, 'pl-') || str_contains($candidate, 'pr-') || str_contains($candidate, 'px-')) {
+                $hasCustomPaddingX = true;
+                break;
+            }
+        }
+
         return sampaui_classes(array_merge([
-            'block w-full rounded-default border border-secondary/20 bg-white px-4 py-2.5 text-base text-secondary transition placeholder:text-secondary/50 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20',
+            'block w-full rounded-default border border-secondary/20 bg-white py-2.5 text-base text-secondary transition placeholder:text-secondary/50 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20',
+            'px-4' => ! $hasCustomPaddingX,
             $states[$normalizedState] ?? $states['default'],
             'cursor-not-allowed opacity-50' => $disabled || $loading,
             'bg-light/40 text-secondary/80' => $readonly,

@@ -35,7 +35,7 @@ Com erro manual:
 />
 ```
 
-## Props
+## Propriedades
 
 - `label`
 - `name`
@@ -45,3 +45,15 @@ Com erro manual:
 - `disabled`
 
 Tambem aceita `hint`, `required`, `readonly`, `loading`, `loading-target` e `state` (`error`, `success`, `warning`), com label e feedback associados por ARIA.
+
+## Exemplos
+
+```blade
+<x-sampaui::textarea name="notes" label="Observacoes" wire:model.live="notes" />
+```
+
+## Boas práticas
+
+- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
+- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
+- wire:model fica no textarea real.

@@ -28,4 +28,30 @@ class TextareaTest extends TestCase
         $html->assertSee('aria-invalid="true"', false);
         $html->assertSee('Campo obrigatorio');
     }
+
+    public function test_it_supports_auto_resize_counter_clearable_and_copyable(): void
+    {
+        $html = $this->blade(
+            '<x-sampaui::textarea name="bio" label="Biografia" auto-resize counter clearable copyable maxlength="300" max-rows="8" value="Minha biografia inicial" />'
+        );
+
+        $html->assertSee('Biografia');
+        $html->assertSee('autoResize: true', false);
+        $html->assertSee('maxRows: 8', false);
+        $html->assertSee('maxlength="300"', false);
+        $html->assertSee('Minha biografia inicial');
+        $html->assertSee('Limpar');
+        $html->assertSee('Copiar');
+        $html->assertSee('300');
+    }
+
+    public function test_it_supports_resize_modes_and_custom_classes(): void
+    {
+        $html = $this->blade(
+            '<x-sampaui::textarea name="notes" resize="none" class="shadow-sm" />'
+        );
+
+        $html->assertSee('resize-none', false);
+        $html->assertSee('shadow-sm', false);
+    }
 }

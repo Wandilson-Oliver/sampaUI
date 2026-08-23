@@ -58,6 +58,9 @@ php artisan sampaui:docs-export --format=json
 
 O pacote mantem um registry oficial em `resources/metadata/components.php`, exportado para `docs/registry/components.json` e descrito em `llms.txt`/`llms-full.txt` para facilitar uso por Codex e outras ferramentas de IA.
 
+> [!WARNING]
+> **Views publicadas:** Evite publicar todas as views com `vendor:publish --tag=sampaui-views` a menos que seja estritamente necessário. Views publicadas em `resources/views/vendor/sampaui` sobrescrevem as views do pacote e anulam correções de atualizações futuras do Composer. Use `php artisan sampaui:doctor` para identificar views publicadas que estejam desatualizadas em relação ao pacote.
+
 ## Componentes
 
 ## Camadas e overlays

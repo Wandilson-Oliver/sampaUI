@@ -14,7 +14,7 @@ O componente remove caracteres nao numericos, limita o valor a 11 digitos e form
 />
 ```
 
-## Props
+## Propriedades
 
 - `label`
 - `name`
@@ -27,3 +27,22 @@ O componente remove caracteres nao numericos, limita o valor a 11 digitos e form
 - `suffix`
 
 O Phone herda do Input os estados acessiveis, `hint`, `clearable`, `readonly`, `loading`, `loading-target`, prefixo e sufixo, preservando a mascara e a sincronizacao Livewire.
+
+## Propriedades adicionais
+
+- `error`: propriedade pública do componente.
+- `state`: propriedade pública do componente.
+- `disabled`: propriedade pública do componente.
+- `required`: propriedade pública do componente.
+
+## Exemplos
+
+```blade
+<x-sampaui::phone name="phone" label="Telefone" wire:model.live="phone" />
+```
+
+## Boas práticas
+
+- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
+- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
+- Formata telefone brasileiro internamente e sincroniza o model Alpine/Livewire.

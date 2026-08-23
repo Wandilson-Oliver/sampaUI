@@ -11,7 +11,7 @@ Use para progresso, score e acompanhamento de qualidade.
 />
 ```
 
-## Props
+## Propriedades
 
 - `value`: valor atual.
 - `max`: valor maximo, padrao `100`.
@@ -21,3 +21,18 @@ Use para progresso, score e acompanhamento de qualidade.
 
 O track usa `role="progressbar"` com `aria-valuenow`, `aria-valuemin` e `aria-valuemax`.
 
+## Uso
+
+Use `<x-sampaui::progress />` como ponto de partida e adapte apenas o layout com `class=""`.
+
+## Exemplos
+
+```blade
+<x-sampaui::progress value="60" variant="primary" />
+```
+
+## Boas práticas
+
+- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
+- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
+- Valor pode ser atualizado por propriedades Livewire.

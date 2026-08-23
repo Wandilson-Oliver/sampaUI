@@ -1,5 +1,5 @@
 @props([
-    'height' => '42rem',
+    'height' => '44rem',
     'mobilePanel' => 'sidebar',
 ])
 
@@ -7,12 +7,12 @@
     x-data="{ mobilePanel: @js($mobilePanel === 'conversation' ? 'conversation' : 'sidebar') }"
     x-on:chat:open-conversation="mobilePanel = 'conversation'"
     x-on:chat:back="mobilePanel = 'sidebar'"
-    {{ $attributes->merge(['class' => 'grid min-h-0 overflow-hidden rounded-default border border-border bg-surface text-secondary shadow-sm shadow-secondary/5 lg:grid-cols-[22rem_minmax(0,1fr)]']) }}
+    {{ $attributes->merge(['class' => 'grid min-h-0 overflow-hidden rounded-default border border-border/80 bg-surface text-secondary shadow-sm shadow-secondary/5 transition-all duration-200 lg:grid-cols-[22rem_minmax(0,1fr)] xl:grid-cols-[24rem_minmax(0,1fr)]']) }}
     style="height: {{ $height }};"
 >
     @isset($sidebar)
         <aside
-            class="min-h-0 border-border bg-surface lg:block lg:border-r"
+            class="min-h-0 border-border/80 bg-surface lg:block lg:border-r"
             x-bind:class="mobilePanel === 'conversation' ? 'hidden lg:block' : 'block'"
             aria-label="Lista de conversas"
         >

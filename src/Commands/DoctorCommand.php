@@ -24,8 +24,45 @@ class DoctorCommand extends Command
         $this->check('Published JS', File::exists(public_path('vendor/sampaui/sampaui.js')), 'Run php artisan vendor:publish --tag=sampaui-assets --force.', warningOnly: true);
         $this->check('CSS import', $this->fileContains(resource_path('css/app.css'), 'vendor/sampaui/sampaui/dist/sampaui.css'), 'Import dist/sampaui.css in resources/css/app.css.', warningOnly: true);
         $this->check('JS import', $this->fileContains(resource_path('js/app.js'), 'vendor/sampaui/sampaui/dist/sampaui.js'), 'Import dist/sampaui.js in resources/js/app.js.', warningOnly: true);
+        $this->checkPublishedViews();
 
         return self::SUCCESS;
+    }
+
+    private function checkPublishedViews(): void
+    {
+        $publishedViewsPath = resource_path('views/vendor/sampaui');
+        $packageViewsPath = dirname(__DIR__, 2).'/resources/views';
+
+        if (! File::isDirectory($publishedViewsPath)) {
+            $this->check('Published views', true, 'No published view overrides detected.');
+
+            return;
+        }
+
+        $publishedFiles = File::allFiles($publishedViewsPath);
+        $outdatedViews = [];
+
+        foreach ($publishedFiles as $file) {
+            $relativePath = str_replace('\\', '/', $file->getRelativePathname());
+            $packageFile = $packageViewsPath.'/'.$relativePath;
+
+            if (File::exists($packageFile) && md5_file($file->getRealPath()) !== md5_file($packageFile)) {
+                $outdatedViews[] = $relativePath;
+            }
+        }
+
+        if (empty($outdatedViews)) {
+            $this->check('Published views', true, 'Published views match current package versions.');
+        } else {
+            $count = count($outdatedViews);
+            $this->check(
+                'Published views',
+                false,
+                "{$count} published view(s) differ from current package versions and may override package bug fixes: ".implode(', ', $outdatedViews),
+                warningOnly: true
+            );
+        }
     }
 
     private function check(string $label, bool $passes, string $detail, bool $warningOnly = false): void

@@ -5,6 +5,7 @@
     'iconPosition' => 'left',
     'rounded' => false,
     'loading' => false,
+    'loadingTarget' => null,
     'disabled' => false,
     'full' => false,
     'type' => 'button',
@@ -30,6 +31,8 @@
 
     $isIconOnly = filled($icon) && trim($slot->toHtml()) === '';
     $isDisabled = $disabled || $loading;
+    $hasLoadingTarget = ! is_null($loadingTarget) && $loadingTarget !== false;
+    $targetString = is_string($loadingTarget) && filled($loadingTarget) ? $loadingTarget : null;
     $customClasses = (string) $attributes->get('class', '');
 
     if ($isDisabled) {
@@ -52,17 +55,29 @@
     @if (! $href) @disabled($isDisabled) @endif
     @if ($href && $isDisabled) aria-disabled="true" tabindex="-1" @endif
     @if ($loading) aria-busy="true" @endif
+    @if ($hasLoadingTarget)
+        wire:loading.attr="disabled"
+        wire:loading.attr.aria-busy="true"
+        wire:loading.class="opacity-75 cursor-wait"
+        @if ($targetString) wire:target="{{ $targetString }}" @endif
+    @endif
     {{ $attributes->except('class')->merge(['class' => $classes]) }}
 >
     @if ($loading)
         <i class="bi bi-arrow-repeat animate-spin" aria-hidden="true"></i>
-    @elseif ($icon && $iconPosition !== 'right')
-        <i class="bi bi-{{ $icon }}" aria-hidden="true"></i>
+    @else
+        @if ($hasLoadingTarget)
+            <i class="bi bi-arrow-repeat animate-spin" wire:loading @if($targetString) wire:target="{{ $targetString }}" @endif aria-hidden="true"></i>
+        @endif
+
+        @if ($icon && $iconPosition !== 'right')
+            <i class="bi bi-{{ $icon }}" @if($hasLoadingTarget) wire:loading.remove @if($targetString) wire:target="{{ $targetString }}" @endif @endif aria-hidden="true"></i>
+        @endif
     @endif
 
     {{ $slot }}
 
     @if (! $loading && $icon && $iconPosition === 'right')
-        <i class="bi bi-{{ $icon }}" aria-hidden="true"></i>
+        <i class="bi bi-{{ $icon }}" @if($hasLoadingTarget) wire:loading.remove @if($targetString) wire:target="{{ $targetString }}" @endif @endif aria-hidden="true"></i>
     @endif
 </{{ $href ? 'a' : 'button' }}>

@@ -89,6 +89,14 @@
         <x-slot:actions>{{ $actions }}</x-slot:actions>
     @endisset
 
+    @isset($selectionActions)
+        <x-slot:selectionActions>{{ $selectionActions }}</x-slot:selectionActions>
+    @endisset
+
+    @isset($emptyAction)
+        <x-slot:emptyAction>{{ $emptyAction }}</x-slot:emptyAction>
+    @endisset
+
     @isset($head)
         <x-slot:head>{{ $head }}</x-slot:head>
     @endisset

@@ -14,7 +14,7 @@ Container para agrupar conteudo com header, actions e footer opcionais.
 </x-sampaui::card>
 ```
 
-## Props
+## Propriedades
 
 - `title`
 - `description`
@@ -32,3 +32,15 @@ Quando existe header, o conteudo inicia a `15px` do bloco de titulo/descricao pa
     <x-sampaui::select label="Status" :options="$statuses" />
 </x-sampaui::card>
 ```
+
+## Exemplos
+
+```blade
+<x-sampaui::card title="Resumo">Conteudo do card.</x-sampaui::card>
+```
+
+## Boas práticas
+
+- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
+- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
+- Superficie segura para conteudo reativo renderizado pelo Livewire, com overflow visivel por padrao para menus e calendarios.

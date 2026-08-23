@@ -13,7 +13,7 @@ Use para upload de foto de perfil com preview circular, acao de editar e remocao
 />
 ```
 
-## Props
+## Propriedades
 
 - `name`, `label`, `src`, `alt`, `accept`.
 - `size`: `sm`, `md`, `lg`, `xl`, `2xl`.
@@ -29,3 +29,19 @@ O input real preserva atributos Livewire e HTML. Para Livewire, use `WithFileUpl
 ## Estados e acessibilidade
 
 Aceita `hint`, `required`, `loading`, `loading-target`, `disabled` e erro. Label, hint e erro sao associados ao input real; a remocao tambem sincroniza `input` e `change` com Livewire.
+
+## Uso
+
+Use `<x-sampaui::avatar-upload />` como ponto de partida e adapte apenas o layout com `class=""`.
+
+## Exemplos
+
+```blade
+<x-sampaui::avatar-upload name="avatar" label="Foto" wire:model="avatar" />
+```
+
+## Boas práticas
+
+- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
+- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
+- Use com wire:model para uploads do Livewire.

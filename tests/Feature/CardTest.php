@@ -68,4 +68,12 @@ BLADE);
             ->assertSee('overflow-hidden', false)
             ->assertDontSee('overflow-visible', false);
     }
+
+    public function test_it_supports_none_padding_option(): void
+    {
+        $html = $this->blade('<x-sampaui::card padding="none">Sem padding</x-sampaui::card>');
+
+        $html->assertSee('p-0', false);
+        $html->assertSee('--sampaui-card-padding-x: 0px', false);
+    }
 }

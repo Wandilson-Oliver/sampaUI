@@ -28,7 +28,7 @@ class InputTest extends TestCase
     {
         $this->blade('<x-sampaui::input name="email" label="Email" icon="envelope" />')
             ->assertSee('bi bi-envelope', false)
-            ->assertSee('pl-11', false);
+            ->assertSee('pl-14', false);
 
         $this->blade('<x-sampaui::input name="password" type="password" label="Senha" icon="lock" />')
             ->assertSee('x-data="SampaUI.input({ clearable: false })"', false)
@@ -57,7 +57,7 @@ BLADE)
             ->assertSee('bi bi-lock', false)
             ->assertSee('bi bi-eye', false)
             ->assertSee('aria-label="Mostrar senha"', false)
-            ->assertSee('pl-11', false)
+            ->assertSee('pl-14', false)
             ->assertSee('pr-11', false);
     }
 

@@ -99,3 +99,40 @@ O dropdown fecha automaticamente ao clicar fora ou pressionar `Esc`.
 O componente tambem dispara `select-multiple:changed` com `id`, `name`, `values`, `option` e `action`. Erros do validator sao exibidos automaticamente usando `name` ou o caminho de `wire:model`.
 
 Setas e Enter navegam os resultados; `clearable` limpa a selecao e o campo de busca anuncia lista e estado vazio. O `<select multiple>` real preserva `wire:model`, `required`, erro e descricoes acessiveis.
+
+## Uso
+
+Use `<x-sampaui::select-multiple />` como ponto de partida e adapte apenas o layout com `class=""`.
+
+## Propriedades
+
+- `name`: propriedade pública do componente.
+- `label`: propriedade pública do componente.
+- `placeholder`: propriedade pública do componente.
+- `options`: propriedade pública do componente.
+- `value`: propriedade pública do componente.
+- `search-placeholder`: propriedade pública do componente.
+- `empty-text`: propriedade pública do componente.
+- `loading-text`: propriedade pública do componente.
+- `disabled`: propriedade pública do componente.
+- `readonly`: propriedade pública do componente.
+- `loading`: propriedade pública do componente.
+- `loading-target`: propriedade pública do componente.
+- `hint`: propriedade pública do componente.
+- `error`: propriedade pública do componente.
+- `state`: propriedade pública do componente.
+- `required`: propriedade pública do componente.
+- `clearable`: propriedade pública do componente.
+- `clear-label`: propriedade pública do componente.
+
+## Exemplos
+
+```blade
+<x-sampaui::select-multiple name="roles" label="Perfis" :options="$roles" wire:model.live="roles" />
+```
+
+## Boas práticas
+
+- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
+- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
+- Sincroniza array de valores com Livewire.

@@ -8,7 +8,7 @@ Use para status curtos, prioridade, contadores e tags.
 </x-sampaui::badge>
 ```
 
-## Props
+## Propriedades
 
 - `variant`: `primary`, `secondary`, `accent`, `danger`, `success`, `warning`, `info`, `purple`, `muted`, `light`.
 - `size`: `xs`, `sm`, `md`, `lg`.
@@ -59,3 +59,23 @@ public function statusVariant(string $status): string
 ```
 
 Use `appearance="soft|solid|outline"` com qualquer `variant`. Os tamanhos disponiveis sao `xs`, `sm`, `md` e `lg`.
+
+## Uso
+
+Use `<x-sampaui::badge />` como ponto de partida e adapte apenas o layout com `class=""`.
+
+## Propriedades adicionais
+
+- `appearance`: propriedade pública do componente.
+
+## Exemplos
+
+```blade
+<x-sampaui::badge variant="accent">Novo</x-sampaui::badge>
+```
+
+## Boas práticas
+
+- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
+- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
+- Pode receber textos e estados calculados pelo Livewire.

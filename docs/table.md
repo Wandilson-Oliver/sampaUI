@@ -80,3 +80,59 @@ Props principais do `table`: `columns`, `rows`, `title`, `description`, `empty`,
 O `table-search` adiciona `search`, `search-model`, o slot `filters`, `selectable`, `selected-rows`, `row-key`, `export-href`, `per-page`, `page`, `total`, `pagination-method`, `pagination-type`, `sortBy`, `sortDirection` e `sortMethod`.
 
 `sticky-header` fixa o cabecalho dentro do container rolavel. `mobile-cards` transforma rows estruturadas em cards no mobile. `aria-sort` fica no cabecalho da coluna e a ordenacao Livewire bloqueia cliques repetidos durante loading.
+
+## Uso
+
+Use `<x-sampaui::table />` como ponto de partida e adapte apenas o layout com `class=""`.
+
+## Propriedades
+
+- `columns`: propriedade pública do componente.
+- `rows`: propriedade pública do componente.
+- `title`: propriedade pública do componente.
+- `description`: propriedade pública do componente.
+- `empty`: propriedade pública do componente.
+- `empty-title`: propriedade pública do componente.
+- `empty-description`: propriedade pública do componente.
+- `empty-icon`: propriedade pública do componente.
+- `striped`: propriedade pública do componente.
+- `hover`: propriedade pública do componente.
+- `sort-by`: propriedade pública do componente.
+- `sort-direction`: propriedade pública do componente.
+- `sort-method`: propriedade pública do componente.
+- `searchable`: propriedade pública do componente.
+- `search`: propriedade pública do componente.
+- `search-name`: propriedade pública do componente.
+- `search-model`: propriedade pública do componente.
+- `search-placeholder`: propriedade pública do componente.
+- `per-page`: propriedade pública do componente.
+- `page`: propriedade pública do componente.
+- `total`: propriedade pública do componente.
+- `pagination-method`: propriedade pública do componente.
+- `pagination-type`: propriedade pública do componente.
+- `selectable`: propriedade pública do componente.
+- `selected-rows`: propriedade pública do componente.
+- `select-name`: propriedade pública do componente.
+- `row-key`: propriedade pública do componente.
+- `export-href`: propriedade pública do componente.
+- `export-label`: propriedade pública do componente.
+- `sticky-header`: propriedade pública do componente.
+- `mobile-cards`: propriedade pública do componente.
+- `compact`: propriedade pública do componente.
+- `bordered`: propriedade pública do componente.
+- `flush`: propriedade pública do componente.
+- `bleed`: propriedade pública do componente.
+- `loading`: propriedade pública do componente.
+- `loading-target`: propriedade pública do componente.
+
+## Exemplos
+
+```blade
+<x-sampaui::table :columns="$columns" :rows="$rows" />
+```
+
+## Boas práticas
+
+- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
+- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
+- Listagem simples por arrays ou slots. As props avancadas foram preservadas por compatibilidade; para novas tabelas com pesquisa, use table-search.

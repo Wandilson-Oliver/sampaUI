@@ -52,17 +52,17 @@ const portalMenu = (config = {}) => ({
   positionMenu() {
     const triggerElement = this.triggerElement();
     const menu = this.menuElement();
-    if (!this.open || !triggerElement || !menu) return;
+    const isOpen = Boolean(this.open || this.showTooltip);
+    if (!isOpen || !triggerElement || !menu) return;
     const trigger = triggerElement.getBoundingClientRect();
-    const gap = 8;
-    const viewportPadding = 12;
-    const below = window.innerHeight - trigger.bottom - viewportPadding;
-    const above = trigger.top - viewportPadding;
-    const preferredHeight = Number(config.preferredHeight ?? 240);
-    const opensUp = config.placement === 'top' || (below < preferredHeight && above > below);
-    const available = Math.max(144, (opensUp ? above : below) - gap);
-    const menuHeight = Math.min(menu.scrollHeight || 288, available);
-    const naturalWidth = menu.getBoundingClientRect().width || trigger.width;
+    const gap = Number(config.gap ?? 8);
+    const viewportPadding = Number(config.viewportPadding ?? 12);
+    const placement = config.placement ?? 'bottom';
+    const align = config.align ?? 'left';
+
+    const isTooltip = Boolean(config.isTooltip || this.showTooltip);
+    const rect = menu.getBoundingClientRect();
+    const naturalWidth = rect.width || menu.offsetWidth || menu.scrollWidth || trigger.width;
     const preferredWidth = config.matchTriggerWidth === false
       ? naturalWidth
       : Math.max(trigger.width, Number(config.minWidth ?? 0));
@@ -70,22 +70,65 @@ const portalMenu = (config = {}) => ({
       preferredWidth,
       window.innerWidth - (viewportPadding * 2),
     );
-    const overlay = triggerElement.closest('[data-sampaui-overlay]');
+
+    const naturalHeight = rect.height || menu.offsetHeight || menu.scrollHeight || (isTooltip ? 28 : 288);
+    const preferredHeight = Number(config.preferredHeight ?? (isTooltip ? naturalHeight + gap : 240));
+    const below = window.innerHeight - trigger.bottom - viewportPadding;
+    const above = trigger.top - viewportPadding;
+
+    let opensUp = placement === 'top';
+    if (placement === 'top' || placement === 'bottom') {
+      if (placement === 'bottom' && below < (isTooltip ? naturalHeight + gap : preferredHeight) && above > below) opensUp = true;
+      if (placement === 'top' && above < (isTooltip ? naturalHeight + gap : preferredHeight) && below > above) opensUp = false;
+    }
+
+    const availableHeight = Math.max(isTooltip ? 28 : 120, (opensUp ? above : below) - gap);
+    const menuHeight = isTooltip ? naturalHeight : Math.min(naturalHeight, availableHeight);
+
+    let left = trigger.left;
+    let top = trigger.bottom + gap;
+
+    if (placement === 'left' || placement === 'right') {
+      let opensRight = placement === 'right';
+      const rightSpace = window.innerWidth - trigger.right - viewportPadding;
+      const leftSpace = trigger.left - viewportPadding;
+      if (opensRight && rightSpace < menuWidth && leftSpace > rightSpace) opensRight = false;
+      if (!opensRight && leftSpace < menuWidth && rightSpace > leftSpace) opensRight = true;
+
+      left = opensRight ? trigger.right + gap : trigger.left - menuWidth - gap;
+      top = trigger.top + (trigger.height / 2) - (menuHeight / 2);
+    } else {
+      top = opensUp ? trigger.top - menuHeight - gap : trigger.bottom + gap;
+      if (align === 'right') {
+        left = trigger.right - menuWidth;
+      } else if (align === 'center') {
+        left = trigger.left + (trigger.width / 2) - (menuWidth / 2);
+      } else {
+        left = trigger.left;
+      }
+    }
+
+    left = Math.max(viewportPadding, Math.min(left, window.innerWidth - menuWidth - viewportPadding));
+    top = Math.max(viewportPadding, Math.min(top, window.innerHeight - menuHeight - viewportPadding));
+
+    const activeOverlay = document.querySelector('[data-sampaui-overlay-active="true"]');
+    const overlay = triggerElement.closest('[data-sampaui-overlay]') || activeOverlay;
     const overlayLayer = Number.parseInt(overlay ? window.getComputedStyle(overlay).zIndex : '', 10);
 
     this.menuStyle = {
       position: 'fixed',
-      left: `${Math.max(viewportPadding, Math.min(config.align === 'right' ? trigger.right - menuWidth : trigger.left, window.innerWidth - menuWidth - viewportPadding))}px`,
-      top: `${opensUp ? Math.max(viewportPadding, trigger.top - menuHeight - gap) : trigger.bottom + gap}px`,
-      width: `${menuWidth}px`,
-      maxHeight: `${available}px`,
-      zIndex: Number.isFinite(overlayLayer) ? overlayLayer + 10 : 120,
+      left: `${left}px`,
+      top: `${top}px`,
+      ...(isTooltip ? {} : { width: `${menuWidth}px`, maxHeight: `${availableHeight}px` }),
+      zIndex: Number.isFinite(overlayLayer) ? overlayLayer + 20 : 120,
     };
   },
   handleMenuOutside(event) {
-    if (!this.open) return;
+    const isOpen = Boolean(this.open || this.showTooltip);
+    if (!isOpen) return;
     if (this.$root.contains(event.target) || this.menuElement()?.contains(event.target)) return;
-    this.close();
+    if (typeof this.close === 'function') this.close();
+    else if (typeof this.hide === 'function') this.hide();
   },
 });
 
@@ -543,18 +586,26 @@ const SampaUI = {
         this.closing = false;
         this.opener = document.activeElement;
         this.visible = true;
+        this.active = true;
         const openOverlays = document.querySelectorAll('[data-sampaui-overlay-active="true"]').length;
         this.layer = 200 + (openOverlays * 20);
         if (!this.scrollLocked) {
           lockPageScroll();
           this.scrollLocked = true;
         }
-        this.$nextTick(() => {
-          if (this.$refs.dialog && !this.$refs.dialog.open) this.$refs.dialog.showModal();
-          this.active = true;
+
+        if (this.$refs.dialog && !this.$refs.dialog.open) this.$refs.dialog.showModal();
+
+        const focusElement = () => {
           const focusables = focusableElements(this.$refs.panel);
           (focusables[0] || this.$refs.panel)?.focus();
-        });
+        };
+
+        if (typeof this.$nextTick === 'function') {
+          this.$nextTick(focusElement);
+        } else {
+          setTimeout(focusElement, 40);
+        }
       },
       close(sync = true) {
         if (sync) this.serverOpen = false;
@@ -710,10 +761,70 @@ const SampaUI = {
       },
     };
   },
+
+  tooltip(config = {}) {
+    return {
+      ...portalMenu({
+        align: 'center',
+        matchTriggerWidth: false,
+        isTooltip: true,
+        gap: 6,
+        ...config,
+      }),
+      showTooltip: false,
+      init() {
+        this.initPortalMenu();
+      },
+      show() {
+        this.showTooltip = true;
+        this.$nextTick(() => {
+          this.positionMenu();
+          requestAnimationFrame(() => this.positionMenu());
+        });
+      },
+      hide() {
+        this.showTooltip = false;
+      },
+      toggle() {
+        this.showTooltip ? this.hide() : this.show();
+      },
+      destroy() {
+        this.destroyPortalMenu();
+      },
+    };
+  },
+
+  openModal(idOrModel) {
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('open-modal', { detail: idOrModel }));
+    }
+  },
+
+  closeModal(idOrModel) {
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('close-modal', { detail: idOrModel }));
+    }
+  },
+
+  openDrawer(idOrModel) {
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('open-drawer', { detail: idOrModel }));
+    }
+  },
+
+  closeDrawer(idOrModel) {
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('close-drawer', { detail: idOrModel }));
+    }
+  },
 };
 
 if (typeof window !== 'undefined') {
   window.SampaUI = { ...(window.SampaUI ?? {}), ...SampaUI };
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = SampaUI;
 }
 
 export default SampaUI;

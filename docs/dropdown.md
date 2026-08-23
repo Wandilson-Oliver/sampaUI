@@ -14,7 +14,7 @@ Use para menus de acoes, filtros e seletores compactos.
 </x-sampaui::dropdown>
 ```
 
-## Props
+## Propriedades
 
 - `label`: texto do trigger.
 - `icon`: Bootstrap Icon opcional.
@@ -27,3 +27,19 @@ Use para menus de acoes, filtros e seletores compactos.
 `x-sampaui::dropdown-item` e parte do dropdown. Ele aceita `href`, `type`, `icon`, `disabled` e preserva atributos Livewire como `wire:click`.
 
 O menu e teletransportado para o `body` e posicionado com `position: fixed`, portanto nao e recortado por Card, Modal, Drawer ou areas rolaveis. Ele acompanha o trigger em scroll e resize, move o foco ao abrir, suporta setas, Home e Esc e devolve o foco ao trigger. Use `close-on-escape` e `close-on-outside` para configurar o fechamento.
+
+## Uso
+
+Use `<x-sampaui::dropdown />` como ponto de partida e adapte apenas o layout com `class=""`.
+
+## Exemplos
+
+```blade
+<x-sampaui::dropdown align="right" placement="top"><x-slot:trigger>Menu</x-slot:trigger>Conteudo</x-sampaui::dropdown>
+```
+
+## Boas práticas
+
+- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
+- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
+- Itens internos podem usar wire:click ou wire:navigate; o menu usa portal fixo para nao ser recortado por overlays e areas rolaveis.

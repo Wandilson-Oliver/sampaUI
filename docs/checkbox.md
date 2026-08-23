@@ -22,7 +22,7 @@ O controle usa `border-secondary/40` como borda padrao.
 <x-sampaui::checkbox label="Editor" value="editor" wire:model="roles" />
 ```
 
-## Props
+## Propriedades
 
 - `label`
 - `name`
@@ -33,3 +33,15 @@ O controle usa `border-secondary/40` como borda padrao.
 - `disabled`
 
 Tambem aceita `hint`, `required`, `readonly`, `loading`, `loading-target` e `state` (`error`, `success`, `warning`). O input recebe `aria-invalid` e `aria-describedby` automaticamente.
+
+## Exemplos
+
+```blade
+<x-sampaui::checkbox name="terms" label="Aceito os termos" wire:model="terms" />
+```
+
+## Boas práticas
+
+- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
+- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
+- Use wire:model diretamente no input real.

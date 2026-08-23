@@ -51,7 +51,7 @@
 @endphp
 
 <div
-    {{ $modelAttributes }}
+    {{ $modelAttributes->merge(['class' => 'w-full space-y-2']) }}
     x-data="SampaUI.selectSearch(@js([
         'id' => $id,
         'triggerId' => $id.'-button',

@@ -14,7 +14,7 @@ O componente remove caracteres nao numericos, limita o valor a 8 digitos e forma
 />
 ```
 
-## Props
+## Propriedades
 
 - `label`
 - `name`
@@ -25,3 +25,15 @@ O componente remove caracteres nao numericos, limita o valor a 8 digitos e forma
 
 - `prefix`
 - `suffix`
+
+## Exemplos
+
+```blade
+<x-sampaui::cep name="postal_code" label="CEP" wire:model.live="postal_code" />
+```
+
+## Boas práticas
+
+- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
+- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
+- Formata internamente 12345678 como 12345-678 e nao depende de plugin externo de mascara.

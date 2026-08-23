@@ -2,6 +2,14 @@
 
 Todas as mudanças notáveis do SampaUI serão documentadas neste arquivo.
 
+## v0.1.29 - 2026-08-23
+
+### Adicionado e Melhorado
+- **Comunicação / Chat**: Modernização completa dos componentes `chat-layout`, `chat-sidebar`, `chat-conversation`, `chat-message` e `chat-composer` com design moderno, cantos consistentes, suporte a status dinâmicos (`sent`, `delivered`, `read`, `failed`), avatares, tags, estado animado de digitação e redimensionamento automático de textarea.
+- **Documentação e Exemplos**: Atualização de todos os 14 blocos e templates de exemplo da documentação com abas interativas de código copiável (Blade View e Livewire Component).
+- **Playground Interativo**: Suporte completo à compilação reativa com componentes Livewire e resolução de variáveis e expressões `$this`.
+- **Catálogo de Componentes**: Metadados, contratos de props e guias markdown atualizados para todos os componentes do pacote.
+
 ## v0.1.28 - 2026-07-13
 
 ### Corrigido

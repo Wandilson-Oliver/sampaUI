@@ -46,7 +46,7 @@ Topbar com busca e notificacoes:
 />
 ```
 
-## Props
+## Propriedades
 
 - `title`: titulo principal.
 - `subtitle`: texto auxiliar abaixo do titulo.
@@ -61,3 +61,19 @@ Topbar com busca e notificacoes:
 
 Os slots padrao `left`, `center` e `right` permitem composicoes responsivas; `actions` permanece compativel como atalho da area direita. O titulo rotula o `<header>` automaticamente, ou use `aria-label`.
 A area de acoes usa largura estrutural automatica em desktop, preservando o espaco do titulo mesmo quando o CSS do projeto e compilado em outra ordem.
+
+## Uso
+
+Use `<x-sampaui::header />` como ponto de partida e adapte apenas o layout com `class=""`.
+
+## Exemplos
+
+```blade
+<x-sampaui::header title="Clientes"><x-slot:actions>Acoes</x-slot:actions></x-sampaui::header>
+```
+
+## Boas práticas
+
+- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
+- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
+- Acoes internas podem chamar metodos Livewire.

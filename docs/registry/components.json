@@ -34,7 +34,7 @@
                 "type",
                 "title",
                 "icon",
-                "dismissible"
+                "role"
             ],
             "slots": [
                 "default"
@@ -57,7 +57,9 @@
                 "src",
                 "alt",
                 "name",
-                "size"
+                "size",
+                "rounded",
+                "status"
             ],
             "slots": [],
             "variants": [],
@@ -73,8 +75,15 @@
                 "label",
                 "src",
                 "alt",
+                "size",
                 "accept",
+                "placeholder",
+                "help",
                 "hint",
+                "remove-name",
+                "remove-model",
+                "remove-label",
+                "upload-label",
                 "error",
                 "disabled",
                 "loading",
@@ -94,7 +103,8 @@
                 "variant",
                 "appearance",
                 "size",
-                "icon"
+                "icon",
+                "rounded"
             ],
             "slots": [
                 "default"
@@ -155,8 +165,10 @@
                 "href",
                 "rounded",
                 "loading",
+                "loading-target",
                 "disabled",
-                "full"
+                "full",
+                "type"
             ],
             "slots": [
                 "default"
@@ -237,6 +249,7 @@
                 "name",
                 "placeholder",
                 "button-label",
+                "button-icon",
                 "rows",
                 "disabled",
                 "loading",
@@ -328,6 +341,7 @@
                 "conversations",
                 "search-placeholder",
                 "search-name",
+                "searchable",
                 "empty-title",
                 "empty-description"
             ],
@@ -382,7 +396,7 @@
             "props": [
                 "items",
                 "placeholder",
-                "open"
+                "open-event"
             ],
             "slots": [],
             "variants": [],
@@ -418,9 +432,11 @@
                 "value",
                 "min",
                 "max",
+                "placeholder",
                 "clearable",
                 "disabled",
-                "error"
+                "error",
+                "required"
             ],
             "slots": [],
             "variants": [],
@@ -441,7 +457,10 @@
                 "persistent",
                 "close-on-escape",
                 "close-on-outside",
-                "close-button"
+                "close-button",
+                "close-event",
+                "after-close",
+                "panel-class"
             ],
             "slots": [
                 "default",
@@ -555,7 +574,11 @@
                 "error",
                 "max-size",
                 "retry",
-                "chunk-size"
+                "chunk-size",
+                "type-error",
+                "size-error",
+                "cancel-label",
+                "retry-label"
             ],
             "slots": [],
             "variants": [],
@@ -572,6 +595,7 @@
                 "eyebrow",
                 "status",
                 "menu",
+                "menu-event",
                 "aria-label",
                 "search",
                 "search-name",
@@ -637,7 +661,8 @@
                 "required",
                 "icon",
                 "revealable",
-                "clearable"
+                "clearable",
+                "clear-label"
             ],
             "slots": [
                 "prefix",
@@ -660,7 +685,10 @@
                 "persistent",
                 "close-on-escape",
                 "close-on-outside",
-                "close-button"
+                "close-button",
+                "close-event",
+                "after-close",
+                "panel-class"
             ],
             "slots": [
                 "default",
@@ -681,6 +709,8 @@
                 "last-page",
                 "total",
                 "per-page",
+                "previous-url",
+                "next-url",
                 "window",
                 "wire-method",
                 "simple",
@@ -725,13 +755,17 @@
             "props": [
                 "name",
                 "label",
+                "hint",
+                "value",
                 "length",
+                "prefix",
                 "numbers",
                 "letters",
                 "clear",
                 "smart",
                 "disabled",
-                "error"
+                "error",
+                "required"
             ],
             "slots": [],
             "variants": [],
@@ -746,7 +780,8 @@
                 "value",
                 "max",
                 "variant",
-                "label"
+                "label",
+                "show-value"
             ],
             "slots": [],
             "variants": [
@@ -774,7 +809,7 @@
                 "value",
                 "options",
                 "inline",
-                "checked",
+                "error",
                 "disabled",
                 "color"
             ],
@@ -812,7 +847,8 @@
                 "loading",
                 "loading-target",
                 "required",
-                "clearable"
+                "clearable",
+                "clear-label"
             ],
             "slots": [
                 "default",
@@ -833,6 +869,9 @@
                 "placeholder",
                 "options",
                 "value",
+                "search-placeholder",
+                "empty-text",
+                "loading-text",
                 "disabled",
                 "readonly",
                 "loading",
@@ -841,7 +880,8 @@
                 "error",
                 "state",
                 "required",
-                "clearable"
+                "clearable",
+                "clear-label"
             ],
             "slots": [
                 "prefix",
@@ -861,9 +901,11 @@
                 "placeholder",
                 "options",
                 "value",
+                "search-placeholder",
+                "empty-text",
                 "disabled",
-                "loading",
-                "error"
+                "error",
+                "required"
             ],
             "slots": [],
             "variants": [],
@@ -907,7 +949,7 @@
             "tag": "<x-sampaui::skeleton />",
             "props": [
                 "lines",
-                "avatar"
+                "circle"
             ],
             "slots": [],
             "variants": [],
@@ -953,12 +995,17 @@
                 "empty",
                 "empty-title",
                 "empty-description",
+                "empty-icon",
+                "striped",
+                "hover",
                 "sort-by",
                 "sort-direction",
                 "sort-method",
                 "searchable",
                 "search",
+                "search-name",
                 "search-model",
+                "search-placeholder",
                 "per-page",
                 "page",
                 "total",
@@ -966,8 +1013,10 @@
                 "pagination-type",
                 "selectable",
                 "selected-rows",
+                "select-name",
                 "row-key",
                 "export-href",
+                "export-label",
                 "sticky-header",
                 "mobile-cards",
                 "compact",
@@ -981,13 +1030,15 @@
                 "toolbar",
                 "filters",
                 "actions",
+                "selectionActions",
+                "emptyAction",
                 "head",
                 "body",
                 "pagination"
             ],
             "variants": [],
-            "example": "<x-sampaui::table :columns=\"$columns\" :rows=\"$rows\" />",
-            "livewire": "Listagem simples por arrays ou slots. As props avancadas foram preservadas por compatibilidade; para novas tabelas com pesquisa, use table-search."
+            "example": "<x-sampaui::table title=\"Clientes\" searchable :columns=\"$columns\" :rows=\"$rows\" />",
+            "livewire": "DataTable unificada com busca, ordenacao, paginacao, selecao multipla, filtros e exportacao."
         },
         "table-search": {
             "name": "Table Search",
@@ -1001,6 +1052,9 @@
                 "empty",
                 "empty-title",
                 "empty-description",
+                "empty-icon",
+                "striped",
+                "hover",
                 "sort-by",
                 "sort-direction",
                 "sort-method",
@@ -1015,8 +1069,10 @@
                 "pagination-type",
                 "selectable",
                 "selected-rows",
+                "select-name",
                 "row-key",
                 "export-href",
+                "export-label",
                 "sticky-header",
                 "mobile-cards",
                 "compact",
@@ -1030,13 +1086,15 @@
                 "toolbar",
                 "filters",
                 "actions",
+                "selectionActions",
+                "emptyAction",
                 "head",
                 "body",
                 "pagination"
             ],
             "variants": [],
             "example": "<x-sampaui::table-search title=\"Clientes\" search-model=\"search\" :columns=\"$columns\" :rows=\"$rows\" />",
-            "livewire": "Pesquisa, paginacao, selecao e ordenacao podem vir de propriedades e metodos Livewire."
+            "livewire": "Alias direto para o componente Table unificado com searchable ativado por padrao."
         },
         "tabs": {
             "name": "Tabs",
@@ -1113,6 +1171,7 @@
                 "hint",
                 "error",
                 "state",
+                "value",
                 "color"
             ],
             "slots": [],
@@ -1137,7 +1196,7 @@
             "tag": "<x-sampaui::tooltip />",
             "props": [
                 "text",
-                "placement"
+                "position"
             ],
             "slots": [
                 "default"

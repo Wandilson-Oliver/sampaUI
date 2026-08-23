@@ -9,7 +9,7 @@ Use para fluxos sequenciais.
 />
 ```
 
-## Props
+## Propriedades
 
 - `steps`: array de etapas.
 - `current`: indice atual baseado em `1`.
@@ -53,3 +53,19 @@ Etapas completas, atual e futuras recebem estilos diferentes com a paleta oficia
     </x-sampaui::button>
 </form>
 ```
+
+## Uso
+
+Use `<x-sampaui::stepper />` como ponto de partida e adapte apenas o layout com `class=""`.
+
+## Exemplos
+
+```blade
+<x-sampaui::stepper :steps="$steps" :current="2" />
+```
+
+## Boas práticas
+
+- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
+- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
+- Passos podem refletir estado de formulario Livewire.

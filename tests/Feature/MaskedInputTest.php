@@ -53,7 +53,20 @@ class MaskedInputTest extends TestCase
         $html->assertSee('border border-secondary/20', false);
         $html->assertSee('inputmode="decimal"', false);
         $html->assertSee('R$');
+        $html->assertSee('placeholder="0,00"', false);
         $html->assertSee('x-on:input="$el.value = format($el.value); if ($el._x_model) { $el._x_model.set($el.value); }"', false);
+    }
+
+    public function test_currency_br_custom_symbol_does_not_duplicate_placeholder_prefix(): void
+    {
+        $html = $this->blade(
+            '<x-sampaui::currency-br name="fee" label="Taxa" symbol="BRL" />'
+        );
+
+        $html->assertSee('BRL');
+        $html->assertSee('placeholder="0,00"', false);
+        $html->assertDontSee('BRLR$', false);
+        $html->assertDontSee('R$ 0,00', false);
     }
 
     public function test_cep_uses_input_base_and_postal_code_mask(): void

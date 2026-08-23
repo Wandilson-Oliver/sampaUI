@@ -15,7 +15,7 @@ Quando desligado, o trilho e o botao interno usam a cor definida em `color`. Qua
 />
 ```
 
-## Props
+## Propriedades
 
 - `name`, `label`, `checked`, `disabled`, `error`.
 - `color`: tokens da paleta oficial (`primary`, `secondary`, `accent`, `danger`, `success`, `warning`, `info`, `purple`, `muted`, `light`).
@@ -23,3 +23,23 @@ Quando desligado, o trilho e o botao interno usam a cor definida em `color`. Qua
 O input real preserva `wire:model`, `required` e atributos HTML.
 
 O controle usa `role="switch"` e aceita `hint`, `error`, `readonly`, `loading`, `loading-target` e estados visuais consistentes.
+
+## Uso
+
+Use `<x-sampaui::toggle />` como ponto de partida e adapte apenas o layout com `class=""`.
+
+## Propriedades adicionais
+
+- `state`: propriedade pública do componente.
+
+## Exemplos
+
+```blade
+<x-sampaui::toggle name="active" label="Ativo" color="accent" wire:model="active" />
+```
+
+## Boas práticas
+
+- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
+- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
+- wire:model fica no checkbox real.

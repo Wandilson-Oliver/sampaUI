@@ -44,7 +44,7 @@ Com secoes:
 />
 ```
 
-## Props
+## Propriedades
 
 - `logoSrc`: URL da logo exibida no topo. Em Blade, use `logo-src`.
 - `logoAlt`: texto alternativo da logo.
@@ -65,3 +65,25 @@ Com secoes:
 Cada item aceita `label`, `href`, `icon`, `active` e `navigate`. Use `navigate => true` para adicionar `wire:navigate`.
 
 A largura expandida padrao e `18rem`; recolhida, `6rem`. A Sidebar nao cria faixa de fundo externa. O item ativo reutiliza o mesmo circulo suave do hover, sem fundo no link inteiro, e o espaco entre icone e texto usa `gap-3.5`. O link de saida e outline danger sem sombra.
+
+## Uso
+
+Use `<x-sampaui::sidebar />` como ponto de partida e adapte apenas o layout com `class=""`.
+
+## Propriedades adicionais
+
+- `avatar-alt`: propriedade pública do componente.
+- `active-color`: propriedade pública do componente.
+- `logout-label`: propriedade pública do componente.
+
+## Exemplos
+
+```blade
+<x-sampaui::sidebar logo-src="/images/logo.svg" :items="$items" />
+```
+
+## Boas práticas
+
+- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
+- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
+- Itens podem usar wire:navigate.

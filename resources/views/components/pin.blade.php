@@ -34,7 +34,7 @@
 @endphp
 
 <div
-    {{ $rootAttributes }}
+    {{ $rootAttributes->merge(['class' => 'w-full space-y-2']) }}
     x-data="{
         value: @js($initialValue),
         digits: Array(@js($pinLength)).fill(''),

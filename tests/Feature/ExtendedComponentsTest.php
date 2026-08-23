@@ -143,7 +143,9 @@ BLADE)
             ->assertSee('role="tooltip"', false);
 
         $this->blade('<x-sampaui::tooltip text="Ajuda" position="right"><button>Icone</button></x-sampaui::tooltip>')
-            ->assertSee('left-full top-1/2 ml-2 -translate-y-1/2', false);
+            ->assertSee('SampaUI.tooltip', false)
+            ->assertSee('placement', false)
+            ->assertSee('right', false);
 
         $this->blade('<x-sampaui::breadcrumb :items="[[\'label\' => \'Home\', \'href\' => \'/\'], [\'label\' => \'Clientes\']]" />')
             ->assertSee('Home')
@@ -203,10 +205,13 @@ BLADE)
             ->assertSee('Pagamento')
             ->assertSee('Resumo');
 
-        $this->blade('<x-sampaui::accordion :items="[[\'title\' => \'Detalhes\', \'content\' => \'Conteudo aberto\', \'open\' => true]]" />')
+        $this->blade('<x-sampaui::accordion :items="[[\'title\' => \'Detalhes\', \'content\' => \'Conteudo aberto\', \'open\' => true]]" :multiple="false" />')
             ->assertSee('Detalhes')
             ->assertSee('Conteudo aberto')
-            ->assertSee('x-transition.opacity.duration.150ms', false);
+            ->assertSee('x-transition.opacity.duration.150ms', false)
+            ->assertSee('aria-controls="sampaui-accordion-', false)
+            ->assertSee('role="region"', false)
+            ->assertSee('this.openItems = this.openItems[index] ? {} : { [index]: true }', false);
 
         $this->blade('<x-sampaui::command-palette :items="[[\'label\' => \'Novo lead\', \'href\' => \'/leads\', \'icon\' => \'plus\']]" />')
             ->assertSee('Novo lead')

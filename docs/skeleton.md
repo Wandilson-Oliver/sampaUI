@@ -6,7 +6,7 @@ Use para estados de carregamento quando o layout final ja e conhecido. Skeleton 
 <x-sampaui::skeleton :lines="3" />
 ```
 
-## Props
+## Propriedades
 
 - `lines`: quantidade de linhas.
 - `circle`: renderiza bloco circular para avatar, icone ou thumbnail.
@@ -56,3 +56,19 @@ Prefira skeletons quando o layout final ja e conhecido e a espera e curta.
     {{-- conteudo real da lista --}}
 </div>
 ```
+
+## Uso
+
+Use `<x-sampaui::skeleton />` como ponto de partida e adapte apenas o layout com `class=""`.
+
+## Exemplos
+
+```blade
+<x-sampaui::skeleton lines="3" />
+```
+
+## Boas práticas
+
+- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
+- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
+- Use com wire:loading para estados de carregamento.

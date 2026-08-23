@@ -1,5 +1,5 @@
 @props([
-    'model',
+    'model' => null,
     'title' => null,
     'subtitle' => null,
     'placement' => 'right',
@@ -12,6 +12,7 @@
     'closeEvent' => null,
     'afterClose' => null,
     'panelClass' => null,
+    'backdropClass' => null,
 ])
 
 @php
@@ -19,7 +20,8 @@
     $livewireId = is_object($currentLivewire) && method_exists($currentLivewire, 'getId')
         ? $currentLivewire->getId()
         : 'standalone';
-    $generatedId = preg_replace('/[^A-Za-z0-9\\-_:.]/', '-', "sampaui-drawer-{$livewireId}-{$model}");
+    $modelKey = $model ?? 'drawer';
+    $generatedId = preg_replace('/[^A-Za-z0-9\\-_:.]/', '-', "sampaui-drawer-{$livewireId}-{$modelKey}");
     $id = $attributes->get('id') ?? $generatedId;
     $titleId = $title ? $id.'-title' : null;
     $subtitleId = $subtitle ? $id.'-subtitle' : null;
@@ -48,26 +50,22 @@
         'left' => [
             'root' => 'items-stretch justify-start',
             'panel' => 'h-full w-full rounded-r-default',
-            'enterStart' => '-translate-x-full opacity-0',
-            'leaveEnd' => '-translate-x-full opacity-0',
+            'hidden' => '-translate-x-full opacity-0',
         ],
         'right' => [
             'root' => 'items-stretch justify-end',
             'panel' => 'h-full w-full rounded-l-default',
-            'enterStart' => 'translate-x-full opacity-0',
-            'leaveEnd' => 'translate-x-full opacity-0',
+            'hidden' => 'translate-x-full opacity-0',
         ],
         'top' => [
             'root' => 'items-start justify-stretch',
             'panel' => 'max-h-full w-full rounded-b-default',
-            'enterStart' => '-translate-y-full opacity-0',
-            'leaveEnd' => '-translate-y-full opacity-0',
+            'hidden' => '-translate-y-full opacity-0',
         ],
         'bottom' => [
             'root' => 'items-end justify-stretch',
             'panel' => 'max-h-full w-full rounded-t-default',
-            'enterStart' => 'translate-y-full opacity-0',
-            'leaveEnd' => 'translate-y-full opacity-0',
+            'hidden' => 'translate-y-full opacity-0',
         ],
     ];
 
@@ -85,7 +83,7 @@
     ];
 
     $placementUi = $placements[$normalizedPlacement];
-    $panelHidden = $placementUi['leaveEnd'];
+    $panelHidden = $placementUi['hidden'];
     $panelSize = in_array($normalizedPlacement, ['left', 'right'], true)
         ? ($sideSizes[$size] ?? $sideSizes['md'])
         : ($stackSizes[$size] ?? $stackSizes['md']);
@@ -94,23 +92,25 @@
     $escapeEnabled = is_null($closeOnEscape) ? ! $persistent : (bool) $closeOnEscape;
     $outsideEnabled = is_null($closeOnOutside) ? ! $persistent : (bool) $closeOnOutside;
     $hasHeader = filled($title) || filled($subtitle) || isset($header) || $closeButton;
+    $resolvedBackdropClass = $backdropClass ?? 'bg-secondary/25 backdrop-blur-[2px]';
 @endphp
 
 <div
     style="display: contents;"
     x-data="SampaUI.overlay({
-        serverOpen: $wire.entangle({{ \Illuminate\Support\Js::from($model) }}).live,
+        serverOpen: @if(filled($model)) $wire.entangle(@js($model)).live @else false @endif,
         closeDelay: {{ $closeDelay }},
         closeOnEscape: @js($escapeEnabled),
         closeOnOutside: @js($outsideEnabled),
         afterClose: @js($afterClose),
     })"
+    x-on:open-drawer.window="if ($event.detail === '{{ $id }}' || $event.detail === '{{ $model }}' || $event.detail?.id === '{{ $id }}' || $event.detail?.model === '{{ $model }}') openOverlay()"
+    x-on:close-drawer.window="if ($event.detail === '{{ $id }}' || $event.detail === '{{ $model }}' || $event.detail?.id === '{{ $id }}' || $event.detail?.model === '{{ $model }}' || !$event.detail) close()"
 >
     <template x-teleport="body">
         <div
             id="{{ $id }}"
             x-show="visible"
-            x-cloak
             role="dialog"
             aria-modal="true"
             @if ($titleId) aria-labelledby="{{ $titleId }}" @endif
@@ -125,15 +125,8 @@
             {{ $attributes->except('id')->merge(['class' => "fixed inset-0 flex {$placementUi['root']}"]) }}
         >
             <div
-                x-show="active"
-                x-transition:enter="transition-opacity duration-500 ease-out"
-                x-transition:enter-start="opacity-0"
-                x-transition:enter-end="opacity-100"
-                x-transition:leave="transition-opacity duration-400 ease-in"
-                x-transition:leave-start="opacity-100"
-                x-transition:leave-end="opacity-0"
-                class="absolute inset-0 bg-primary/40 transition-[backdrop-filter,opacity] duration-500 ease-out"
-                x-bind:class="active ? 'backdrop-blur-[2px]' : 'backdrop-blur-none'"
+                class="absolute inset-0 {{ $resolvedBackdropClass }} transition-[backdrop-filter,opacity] duration-500 ease-out"
+                x-bind:class="active ? 'opacity-100' : 'opacity-0 backdrop-blur-none'"
                 @click="handleOutside()"
                 aria-hidden="true"
             ></div>

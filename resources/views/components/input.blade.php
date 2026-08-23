@@ -30,8 +30,10 @@
     $hasSuffix = $hasCustomSuffix || $hasPasswordToggle || $clearable || $loading;
     $classes = sampaui_field_classes($errorMessage, $disabled, [
         'h-12 py-0',
-        'pl-11' => $hasPrefix,
+        'pl-14' => $hasPrefix,
+        'pl-4' => ! $hasPrefix,
         'pr-11' => $hasSuffix,
+        'pr-4' => ! $hasSuffix,
     ], $state, $readonly, $loading);
 @endphp
 
@@ -41,7 +43,7 @@
         @if ($hasSuffix) x-data="SampaUI.input({ clearable: @js($clearable) })" @endif
     >
         @if ($hasPrefix)
-            <span class="pointer-events-none absolute inset-y-0 left-4 flex items-center text-secondary/60" aria-hidden="true">
+            <span class="pointer-events-none absolute inset-y-0 left-4 flex items-center font-medium text-secondary/70 select-none" aria-hidden="true">
                 @isset($prefix)
                     {{ $prefix }}
                 @else

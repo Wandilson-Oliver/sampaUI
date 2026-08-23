@@ -1,15 +1,19 @@
 @props([
     'label' => null,
     'name' => null,
-    'placeholder' => 'R$ 0,00',
+    'placeholder' => null,
     'symbol' => 'R$',
     'icon' => null,
 ])
 
+@php
+    $effectivePlaceholder = $placeholder ?? '0,00';
+@endphp
+
 <x-sampaui::input
     :label="$label"
     :name="$name"
-    :placeholder="$placeholder"
+    :placeholder="$effectivePlaceholder"
     :icon="$icon"
     inputmode="decimal"
     x-data="{

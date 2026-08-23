@@ -7,7 +7,7 @@
     'required' => false,
 ])
 
-<div {{ $attributes->merge(['class' => 'space-y-2']) }}>
+<div {{ $attributes->merge(['class' => 'w-full space-y-2']) }}>
     @if ($label)
         <label for="{{ $labelFor ?? $id }}" class="block text-sm font-medium text-secondary">
             {{ $label }}

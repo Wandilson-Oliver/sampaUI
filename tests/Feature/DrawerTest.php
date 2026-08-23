@@ -59,6 +59,7 @@ BLADE);
     close-event="filters-applied"
     after-close="afterDrawerClose"
     panel-class="border border-primary/20"
+    backdrop-class="bg-black/50"
     class="custom-drawer"
     wire:key="filters-drawer"
 >
@@ -71,6 +72,7 @@ BLADE);
         $html->assertSee('wire:key="filters-drawer"', false);
         $html->assertSee('max-w-sm', false);
         $html->assertSee('rounded-r-default', false);
+        $html->assertSee('bg-black/50', false);
         $html->assertSee('-translate-x-full opacity-0', false);
         $html->assertSee('translate-x-0 translate-y-0 opacity-100', false);
         $html->assertSee('x-on:filters-applied.window="close()"', false);

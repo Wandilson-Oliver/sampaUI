@@ -34,7 +34,7 @@ BLADE);
         $html->assertDontSee('2147483647', false);
         $html->assertSee('data-sampaui-overlay', false);
         $html->assertSee('x-bind:style="{ zIndex: layer }"', false);
-        $html->assertSee('bg-primary/40 backdrop-blur-[2px]', false);
+        $html->assertSee('bg-secondary/25 backdrop-blur-[2px]', false);
         $html->assertSeeInOrder(['x-data="SampaUI.overlay', 'x-teleport="body"', 'x-show="visible"'], false);
         $html->assertSee('min-h-dvh', false);
         $html->assertSee('max-h-[calc(100dvh-2rem)]', false);
@@ -62,6 +62,7 @@ BLADE);
     close-event="lead-saved"
     after-close="afterModalClose"
     panel-class="border border-primary/20"
+    backdrop-class="bg-black/50"
     class="custom-modal"
     wire:key="lead-modal"
 >
@@ -72,6 +73,7 @@ BLADE);
         $html->assertSee('id="lead-modal"', false);
         $html->assertSee('custom-modal', false);
         $html->assertSee('border border-primary/20', false);
+        $html->assertSee('bg-black/50', false);
         $html->assertSee('wire:key="lead-modal"', false);
         $html->assertSee('x-on:lead-saved.window="close()"', false);
         $html->assertSee("afterClose: 'afterModalClose'", false);

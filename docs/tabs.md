@@ -9,7 +9,7 @@ Use para alternar secoes relacionadas na mesma tela.
 </x-sampaui::tabs>
 ```
 
-## Props
+## Propriedades
 
 - `tabs`: mapa `chave => label`.
 - `active`: chave inicial.
@@ -18,3 +18,18 @@ Use para alternar secoes relacionadas na mesma tela.
 
 `x-sampaui::tab-panel` deve ser usado dentro de `x-sampaui::tabs` e recebe `name`.
 
+## Uso
+
+Use `<x-sampaui::tabs />` como ponto de partida e adapte apenas o layout com `class=""`.
+
+## Exemplos
+
+```blade
+<x-sampaui::tabs :tabs="$tabs" active="overview" />
+```
+
+## Boas práticas
+
+- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
+- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
+- Pode controlar a aba ativa via estado Alpine/Livewire.

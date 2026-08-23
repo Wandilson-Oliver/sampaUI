@@ -31,4 +31,21 @@ class CommandsTest extends TestCase
         $this->assertStringContainsString('"name": "SampaUI"', file_get_contents($jsonPath));
         $this->assertStringContainsString('# SampaUI Component Registry', file_get_contents($markdownPath));
     }
+
+    public function test_doctor_detects_outdated_published_views(): void
+    {
+        $publishedDir = resource_path('views/vendor/sampaui/components');
+        \Illuminate\Support\Facades\File::makeDirectory($publishedDir, 0755, true, true);
+        $publishedFile = $publishedDir.'/button.blade.php';
+
+        try {
+            \Illuminate\Support\Facades\File::put($publishedFile, '<!-- outdated button view -->');
+
+            $this->artisan('sampaui:doctor')
+                ->expectsOutputToContain('components/button.blade.php')
+                ->assertExitCode(0);
+        } finally {
+            \Illuminate\Support\Facades\File::deleteDirectory(resource_path('views/vendor/sampaui'));
+        }
+    }
 }

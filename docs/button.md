@@ -10,7 +10,7 @@ Botao principal do SampaUI.
 </x-sampaui::button>
 ```
 
-## Props
+## Propriedades
 
 - `variant`: `primary`, `secondary`, `accent`, `danger`, `success`, `warning`, `info`, `purple`, `muted`, `outline`, `ghost`, `light`
 - `size`: `sm`, `md`, `lg`, `xl`, `2xl`
@@ -44,3 +44,13 @@ Botao principal do SampaUI.
 ## Customizacao
 
 `class=""` substitui os utilitarios visuais conflitantes do Button. Cores, hover, espacamento, largura, raio, sombra e tipografia podem ser ajustados normalmente, sem `!important`. O estado `disabled` preserva `cursor-not-allowed` e opacidade reduzida.
+
+## Propriedades adicionais
+
+- `type`: propriedade pública do componente.
+
+## Boas práticas
+
+- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
+- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
+- Preserva wire:click, wire:navigate e demais atributos no elemento interativo real; class substitui defaults visuais conflitantes.

@@ -10,21 +10,25 @@
 
 @php
     $paddings = [
+        'none' => 'p-0',
         'sm' => 'px-4 py-4',
         'md' => 'px-5 py-5',
         'lg' => 'px-6 py-6',
     ];
     $headerPaddings = [
+        'none' => 'p-0',
         'sm' => 'px-4 pt-4',
         'md' => 'px-5 pt-5',
         'lg' => 'px-6 pt-6',
     ];
     $bodyAfterHeaderPaddings = [
+        'none' => 'p-0',
         'sm' => 'px-4 pb-4 pt-[15px]',
         'md' => 'px-5 pb-5 pt-[15px]',
         'lg' => 'px-6 pb-6 pt-[15px]',
     ];
     $horizontalPaddings = [
+        'none' => '0px',
         'sm' => '1rem',
         'md' => '1.25rem',
         'lg' => '1.5rem',
