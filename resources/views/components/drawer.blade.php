@@ -104,8 +104,10 @@
         closeOnOutside: @js($outsideEnabled),
         afterClose: @js($afterClose),
     })"
-    x-on:open-drawer.window="if ($event.detail === '{{ $id }}' || $event.detail === '{{ $model }}' || $event.detail?.id === '{{ $id }}' || $event.detail?.model === '{{ $model }}') openOverlay()"
-    x-on:close-drawer.window="if ($event.detail === '{{ $id }}' || $event.detail === '{{ $model }}' || $event.detail?.id === '{{ $id }}' || $event.detail?.model === '{{ $model }}' || !$event.detail) close()"
+    x-on:open-drawer.window="if ($event.detail === '{{ $id }}' || $event.detail === '{{ $model }}' || $event.detail?.id === '{{ $id }}' || $event.detail?.model === '{{ $model }}' || $event.detail?.name === '{{ $id }}') openOverlay()"
+    x-on:open-drawer-{{ $id }}.window="openOverlay()"
+    x-on:close-drawer.window="if ($event.detail === '{{ $id }}' || $event.detail === '{{ $model }}' || $event.detail?.id === '{{ $id }}' || $event.detail?.model === '{{ $model }}' || $event.detail?.name === '{{ $id }}' || !$event.detail) close()"
+    x-on:close-drawer-{{ $id }}.window="close()"
 >
     <template x-teleport="body">
         <div
