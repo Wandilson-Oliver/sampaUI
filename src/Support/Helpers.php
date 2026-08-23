@@ -85,6 +85,16 @@ if (! function_exists('sampaui_classes')) {
     }
 }
 
+if (! function_exists('sampaui_cn')) {
+    /**
+     * Helper universal estilo cn() para mesclagem inteligente e resolução de conflitos Tailwind.
+     */
+    function sampaui_cn(...$classes): string
+    {
+        return \SampaUI\Support\ClassNames::merge(...$classes);
+    }
+}
+
 if (! function_exists('sampaui_tailwind_class_group')) {
     /**
      * Identifica grupos de utilitarios Tailwind que ocupam a mesma propriedade visual.
