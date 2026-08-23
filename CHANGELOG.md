@@ -2,6 +2,14 @@
 
 Todas as mudanças notáveis do SampaUI serão documentadas neste arquivo.
 
+## v0.1.30 - 2026-08-23
+
+### Adicionado e Melhorado
+- **Playground Livewire Bridge Plugin (`playground-bridge.js`)**: Emulador reativo oficial para Livewire 3 no navegador com suporte a `$wire.entangle()`, `$wire.$set()`, `$wire.$toggle()`, `$wire.$dispatch()`, `wire:click` e diretivas de loading.
+- **Overlays Universais (`modal` e `drawer`)**: Suporte agnóstico para `id`, `name`, `model`, `wire:model`, `wire:model.live` e eventos customizados com focus trap acessível.
+- **Templates Padrão Oficiais 100% SampaUI**: Galeria renovada com Card Profile, Tabela Completa (DataTable), Modal, Drawer e Toast, Formulário de Login e Formulário com Tabs e Uploads (Avatar e Arquivos).
+- **Resiliência e Performance**: Prevenção de loops recursivos de eventos e eliminação de erros de seletores CSS em navegadores modernos.
+
 ## v0.1.29 - 2026-08-23
 
 ### Adicionado e Melhorado
