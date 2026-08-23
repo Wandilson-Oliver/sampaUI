@@ -67,7 +67,7 @@
         <i class="bi bi-arrow-repeat animate-spin" aria-hidden="true"></i>
     @else
         @if ($hasLoadingTarget)
-            <i class="bi bi-arrow-repeat animate-spin" wire:loading @if($targetString) wire:target="{{ $targetString }}" @endif aria-hidden="true"></i>
+            <i class="bi bi-arrow-repeat animate-spin" wire:loading @if($targetString) wire:target="{{ $targetString }}" @endif style="display: none;" aria-hidden="true"></i>
         @endif
 
         @if ($icon && $iconPosition !== 'right')
