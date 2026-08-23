@@ -1,31 +1,25 @@
 # Accordion
 
-Use para agrupar conteudo em secoes expansivas sem tirar o usuario da pagina.
+Lista expansivel para perguntas, detalhes e configuracoes.
 
-```blade
-<x-sampaui::accordion
-    :items="[
-        ['title' => 'Dados do imovel', 'content' => 'Area, quartos e endereco.', 'open' => true],
-        ['title' => 'Publicacao', 'content' => 'SEO, destaque e revisao.'],
-    ]"
-/>
-```
-
-## Contrato
-
-- `items`: array com `title`, `content` e `open` opcional.
-- `multiple`: permite manter mais de uma seção aberta. O padrão é `true`, preservando o comportamento anterior.
-- O componente usa Alpine local e preserva classes adicionais via `class=""`.
-- Cada trigger atualiza `aria-expanded` e referencia seu painel com `aria-controls`.
+Lista expansivel para perguntas, detalhes e configuracoes. O componente preserva atributos HTML, Alpine e Livewire passados pelo consumidor.
 
 ## Uso
 
-Use `<x-sampaui::accordion />` como ponto de partida e adapte apenas o layout com `class=""`.
+```blade
+<x-sampaui::accordion :items="$items" />
+```
 
 ## Propriedades
 
-- `items`: propriedade pública do componente.
-- `multiple`: propriedade pública do componente.
+| Propriedade | Tipo | Padrão | Descrição |
+| :--- | :--- | :--- | :--- |
+| `items` | `array` | `[]` | Lista de itens ou opções estruturadas em array. |
+| `multiple` | `bool` | `false` | Permite a seleção ou abertura de múltiplos itens simultaneamente. |
+
+## Slots
+
+- `default`
 
 ## Exemplos
 
@@ -35,6 +29,6 @@ Use `<x-sampaui::accordion />` como ponto de partida e adapte apenas o layout co
 
 ## Boas práticas
 
-- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
-- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
 - Preserva atributos wire:* no elemento raiz.
+- Atributos HTML adicionais (`class`, `id`, `aria-*`, `data-*`) são repassados ao elemento nativo correspondente.
+- Use as diretivas oficiais do Blade e Livewire para controle de estado sem mutar o DOM diretamente.

@@ -1,27 +1,29 @@
 # Field
 
-Wrapper estrutural para padronizar label, indicador obrigatorio, hint e erro acessivel.
+Wrapper estrutural para label, hint, erro, indicador obrigatório e slot de controle.
 
-```blade
-<x-sampaui::field id="email" label="Email" hint="Use seu email profissional" required>
-    <input id="email" name="email" wire:model="email">
-</x-sampaui::field>
-```
-
-Use `label-for` quando o elemento rotulado possuir outro id. Os componentes de formulario do SampaUI ja usam este wrapper internamente; em usos manuais, mantenha `wire:model`, `aria-invalid` e `aria-describedby` no controle real.
+Wrapper estrutural; mantenha wire:model no controle real dentro do slot.
 
 ## Uso
 
-Use `<x-sampaui::field />` como ponto de partida e adapte apenas o layout com `class=""`.
+```blade
+<x-sampaui::field id="email" label="Email" hint="Use seu email profissional"><input id="email" /></x-sampaui::field>
+```
 
 ## Propriedades
 
-- `id`: propriedade pública do componente.
-- `label-for`: propriedade pública do componente.
-- `label`: propriedade pública do componente.
-- `hint`: propriedade pública do componente.
-- `error`: propriedade pública do componente.
-- `required`: propriedade pública do componente.
+| Propriedade | Tipo | Padrão | Descrição |
+| :--- | :--- | :--- | :--- |
+| `id` | `string|null` | `null` | Identificador único no DOM. |
+| `label-for` | `string|null` | `null` | ID do elemento associado para acessibilidade. |
+| `label` | `string|null` | `null` | Rótulo textual exibido acima ou ao lado do componente. |
+| `hint` | `string|null` | `null` | Texto informativo auxiliar posicionado abaixo do componente. |
+| `error` | `string|null` | `null` | Mensagem customizada de erro de validação. |
+| `required` | `bool` | `false` | Adiciona indicador de obrigatoriedade e validação nativa. |
+
+## Slots
+
+- `default`
 
 ## Exemplos
 
@@ -31,6 +33,6 @@ Use `<x-sampaui::field />` como ponto de partida e adapte apenas o layout com `c
 
 ## Boas práticas
 
-- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
-- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
 - Wrapper estrutural; mantenha wire:model no controle real dentro do slot.
+- Atributos HTML adicionais (`class`, `id`, `aria-*`, `data-*`) são repassados ao elemento nativo correspondente.
+- Use as diretivas oficiais do Blade e Livewire para controle de estado sem mutar o DOM diretamente.

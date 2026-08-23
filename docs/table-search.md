@@ -1,119 +1,66 @@
 # Table Search
 
-Use `table-search` quando a listagem precisar de pesquisa. O componente compoe o `table` oficial e ativa a busca sem duplicar o markup da tabela.
+DataTable premium unificada com busca, ordenação, paginação, seleção, exportação, loading e empty state.
 
-```blade
-<x-sampaui::table-search
-    title="Clientes"
-    description="Contas ativas"
-    search-model="search"
-    :columns="[
-        'name' => 'Nome',
-        'email' => 'Email',
-        'status' => 'Status',
-    ]"
-    :rows="$customers"
-/>
-```
-
-Para pesquisa local, passe `search`. Para consultas Livewire, use `search-model`; o campo aplica `wire:model.live.debounce.300ms`.
-
-## Campos de pesquisa personalizados
-
-Use o slot `filters` para substituir o campo padrão por qualquer combinação de componentes SampaUI:
-
-```blade
-<x-sampaui::table-search
-    :columns="$columns"
-    :rows="$customers"
-    per-page="15"
-    :page="$page"
-    :total="$total"
->
-    <x-slot:filters>
-        <x-sampaui::select
-            name="status"
-            wire:model.live="filters.status"
-            :options="['all' => 'Todos', 'active' => 'Ativos']"
-        />
-
-        <x-sampaui::input
-            type="search"
-            name="customer-search"
-            icon="search"
-            placeholder="Buscar cliente ou email"
-            wire:model.live.debounce.300ms="filters.search"
-        />
-    </x-slot:filters>
-</x-sampaui::table-search>
-```
-
-Inputs e selects usam altura mínima de `3rem` para permanecer alinhados na toolbar.
-
-## Paginação
-
-Altere o visual com `pagination-type="simple"`, `pagination-type="numbers"` ou `pagination-type="compact"`. O slot `pagination` continua disponível para uma implementação totalmente personalizada.
-
-```blade
-<x-sampaui::table-search
-    search-model="search"
-    per-page="15"
-    :page="$page"
-    :total="$total"
-    pagination-method="gotoPage"
-    pagination-type="numbers"
-    selectable
-    :columns="$columns"
-    :rows="$rows"
-/>
-```
-
-`table-search` usa `flush`, `bleed` e `bordered="false"` por padrão. Dentro de um `Card`, ele compensa automaticamente o padding lateral e encosta a listagem nas duas bordas. Fora do card, a compensação é zero. Use `:bleed="false"` para respeitar o padding do container ou `:flush="false" bordered` para renderizá-lo como superfície independente.
-
-Use `<x-sampaui::table>` para listagens simples sem campo de pesquisa. As props avançadas antigas continuam aceitas pelo `table` para preservar compatibilidade.
+Alias 100% consistente com o componente Table unificado. Compartilha exatamente as mesmas props, slots, eventos e capacidades de busca, paginação e seleção.
 
 ## Uso
 
-Use `<x-sampaui::table-search />` como ponto de partida e adapte apenas o layout com `class=""`.
+```blade
+<x-sampaui::table-search title="Clientes" search-model="search" :columns="$columns" :rows="$rows" />
+```
 
 ## Propriedades
 
-- `columns`: propriedade pública do componente.
-- `rows`: propriedade pública do componente.
-- `title`: propriedade pública do componente.
-- `description`: propriedade pública do componente.
-- `empty`: propriedade pública do componente.
-- `empty-title`: propriedade pública do componente.
-- `empty-description`: propriedade pública do componente.
-- `empty-icon`: propriedade pública do componente.
-- `striped`: propriedade pública do componente.
-- `hover`: propriedade pública do componente.
-- `sort-by`: propriedade pública do componente.
-- `sort-direction`: propriedade pública do componente.
-- `sort-method`: propriedade pública do componente.
-- `search`: propriedade pública do componente.
-- `search-name`: propriedade pública do componente.
-- `search-model`: propriedade pública do componente.
-- `search-placeholder`: propriedade pública do componente.
-- `per-page`: propriedade pública do componente.
-- `page`: propriedade pública do componente.
-- `total`: propriedade pública do componente.
-- `pagination-method`: propriedade pública do componente.
-- `pagination-type`: propriedade pública do componente.
-- `selectable`: propriedade pública do componente.
-- `selected-rows`: propriedade pública do componente.
-- `select-name`: propriedade pública do componente.
-- `row-key`: propriedade pública do componente.
-- `export-href`: propriedade pública do componente.
-- `export-label`: propriedade pública do componente.
-- `sticky-header`: propriedade pública do componente.
-- `mobile-cards`: propriedade pública do componente.
-- `compact`: propriedade pública do componente.
-- `bordered`: propriedade pública do componente.
-- `flush`: propriedade pública do componente.
-- `bleed`: propriedade pública do componente.
-- `loading`: propriedade pública do componente.
-- `loading-target`: propriedade pública do componente.
+| Propriedade | Tipo | Padrão | Descrição |
+| :--- | :--- | :--- | :--- |
+| `columns` | `array` | `[]` | Mapa `chave => label` ou arrays com `label`, `key` e `align`. |
+| `rows` | `array` | `[]` | Linhas em array ou objeto lidas por `data_get`. |
+| `title` | `string|null` | `null` | Título opcional da toolbar. |
+| `description` | `string|null` | `null` | Descrição curta abaixo do título. |
+| `empty` | `string` | `Nenhum registro encontrado.` | Mensagem exibida quando nao ha linhas. |
+| `empty-title` | `string` | `Nenhum registro encontrado` | Título do estado vazio premium. |
+| `empty-description` | `string|null` | `null` | Descrição do estado vazio. |
+| `empty-icon` | `string` | `inbox` | Ícone Bootstrap Icons do estado vazio. |
+| `striped` | `bool` | `false` | Alterna fundo discreto em linhas pares. |
+| `hover` | `bool` | `true` | Ativa destaque ao passar o mouse nas linhas. |
+| `sort-by` | `string|null` | `null` | Chave da coluna ordenada quando a coluna tem `sortable => true`. |
+| `sort-direction` | `asc|desc` | `asc` | Direcao ativa da ordenacao. |
+| `sort-method` | `string|null` | `null` | Metodo Livewire chamado nos botoes de ordenacao. |
+| `search` | `string|null` | `null` | Valor atual do termo pesquisado. |
+| `search-name` | `string` | `search` | Nome do input de busca. |
+| `search-model` | `string|null` | `null` | Quando informado, aplica `wire:model.live.debounce.300ms` ao campo de busca. |
+| `search-placeholder` | `string` | `Buscar...` | Texto de busca do campo de filtro embutido. |
+| `per-page` | `int|null` | `null` | Quantidade de registros exibidos por página. |
+| `page` | `int` | `1` | Número da página atual. |
+| `total` | `int|null` | `null` | Total geral de registros para cálculo de páginas. |
+| `pagination-method` | `string|null` | `null` | Método Livewire chamado ao navegar entre páginas. |
+| `pagination-type` | `numbered|simple` | `numbered` | Estilo dos controles de paginação. |
+| `selectable` | `bool` | `false` | Ativa seleção múltipla local com Alpine. |
+| `selected-rows` | `array` | `[]` | IDs selecionados inicialmente. |
+| `select-name` | `string` | `selected` | Nome do campo de seleção de linhas. |
+| `row-key` | `string` | `id` | Chave usada como value dos checkboxes. |
+| `export-href` | `string|null` | `null` | Link para exportação CSV ou endpoint próprio. Export Excel segue planejado no roadmap. |
+| `export-label` | `string` | `Exportar` | Rótulo textual do botão de exportação. |
+| `sticky-header` | `bool` | `false` | Fixa o cabeçalho no topo durante a rolagem. |
+| `mobile-cards` | `bool` | `false` | Converte as linhas da tabela em cards elegantes no mobile. |
+| `compact` | `bool` | `false` | Reduz padding das celulas. |
+| `bordered` | `bool` | `true` | Controla borda externa da tabela. |
+| `flush` | `bool` | `false` | Remove bordas externas para embutir perfeitamente em Cards. |
+| `bleed` | `bool` | `false` | Estende a tabela até as margens do container. |
+| `loading` | `bool` | `false` | Renderiza skeletons e marca `aria-busy`. |
+| `loading-target` | `string|null` | `null` | Ação do Livewire monitorada para feedback de loading (wire:target). |
+
+## Slots
+
+- `toolbar`
+- `filters`
+- `actions`
+- `selectionActions`
+- `emptyAction`
+- `head`
+- `body`
+- `pagination`
 
 ## Exemplos
 
@@ -123,6 +70,6 @@ Use `<x-sampaui::table-search />` como ponto de partida e adapte apenas o layout
 
 ## Boas práticas
 
-- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
-- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
-- Pesquisa, paginacao, selecao e ordenacao podem vir de propriedades e metodos Livewire.
+- Alias direto para o componente Table unificado com searchable ativado por padrao.
+- Atributos HTML adicionais (`class`, `id`, `aria-*`, `data-*`) são repassados ao elemento nativo correspondente.
+- Use as diretivas oficiais do Blade e Livewire para controle de estado sem mutar o DOM diretamente.

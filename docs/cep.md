@@ -1,25 +1,23 @@
 # CEP
 
-Campo de CEP com mascara interna `99999-999`, `autocomplete="postal-code"` e base visual do componente `input`.
+Campo de CEP com mascara `99999-999`, autocomplete postal e suporte direto a Livewire.
 
-O componente remove caracteres nao numericos, limita o valor a 8 digitos e formata `12345678` como `12345-678`. Ele nao depende de plugin externo de mascara do Alpine.
+Campo de CEP com mascara `99999-999`, autocomplete postal e suporte direto a Livewire. O componente preserva atributos HTML, Alpine e Livewire passados pelo consumidor.
 
 ## Uso
 
 ```blade
-<x-sampaui::cep
-    name="postal_code"
-    label="CEP"
-    wire:model.live="postal_code"
-/>
+<x-sampaui::cep name="postal_code" label="CEP" wire:model.live="postal_code" />
 ```
 
 ## Propriedades
 
-- `label`
-- `name`
-- `placeholder`
-- `icon`: nome Bootstrap Icons sem o prefixo `bi-`
+| Propriedade | Tipo | Padrão | Descrição |
+| :--- | :--- | :--- | :--- |
+| `label` | `string|null` | `null` | Texto exibido acima do campo. |
+| `name` | `string|null` | `null` | Nome do campo, id fallback e chave do ErrorBag. |
+| `placeholder` | `string|null` | `mascara do componente` | Texto auxiliar exibido dentro do input. |
+| `icon` | `string|null` | `icone do componente` | Nome Bootstrap Icons sem o prefixo `bi-`. |
 
 ## Slots
 
@@ -34,6 +32,6 @@ O componente remove caracteres nao numericos, limita o valor a 8 digitos e forma
 
 ## Boas práticas
 
-- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
-- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
 - Formata internamente 12345678 como 12345-678 e nao depende de plugin externo de mascara.
+- Atributos HTML adicionais (`class`, `id`, `aria-*`, `data-*`) são repassados ao elemento nativo correspondente.
+- Use as diretivas oficiais do Blade e Livewire para controle de estado sem mutar o DOM diretamente.

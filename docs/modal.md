@@ -1,35 +1,38 @@
 # Modal
 
-Use para confirmacoes, formularios curtos e detalhes importantes.
+Dialog Livewire com entangle, backdrop, header, actions e fechamento por evento.
+
+Use para formularios curtos, confirmacoes e fluxos que precisam interromper a pagina sem sair do contexto. O painel usa camada dinamica a partir de 200, permitindo menus do modal ativo e modais aninhados sem z-index maximo.
+
+## Uso
 
 ```blade
-<x-sampaui::modal model="deleteOpen" title="Remover imovel">
-    Confirme antes de remover este registro.
-</x-sampaui::modal>
+<x-sampaui::modal model="confirmOpen" title="Confirmar">Conteudo</x-sampaui::modal>
 ```
 
 ## Propriedades
 
-- `model`: propriedade Livewire booleana entangled.
-- `title`, `subtitle`: cabecalho acessivel.
-- `size`: controla largura.
-- `persistent`: impede fechar clicando fora.
-- `close-button`: controla o botao de fechar.
+| Propriedade | Tipo | Padrão | Descrição |
+| :--- | :--- | :--- | :--- |
+| `model` | `string` | `null` | Nome da propriedade booleana Livewire usada por `@entangle(...).live`. |
+| `title` | `string|null` | `null` | Titulo padrao do header. |
+| `subtitle` | `string|null` | `null` | Texto auxiliar associado por `aria-describedby`. |
+| `size` | `sm|md|lg|xl|2xl|4xl|5xl|6xl|7xl|full` | `lg` | Controla a largura maxima do painel. |
+| `variant` | `default|primary|secondary|accent|danger|success|warning|info|purple|muted` | `default` | Define a cor de borda do painel. |
+| `persistent` | `bool` | `false` | Impede fechamento por ESC ou clique no backdrop. |
+| `close-on-escape` | `bool` | `true` | Fecha o overlay ao pressionar a tecla Escape. |
+| `close-on-outside` | `bool` | `true` | Fecha o overlay ao clicar fora da área principal. |
+| `close-button` | `bool` | `true` | Exibe ou remove o botao de fechar no header. |
+| `close-event` | `string|null` | `null` | Evento browser que fecha o modal, como `customer-saved`. |
+| `after-close` | `string|null` | `null` | Metodo Livewire chamado apos a animacao de fechamento. |
+| `panel-class` | `string|null` | `null` | Classes extras aplicadas ao painel interno, uteis para trocar ou remover a borda. |
+| `backdrop-class` | `string|null` | `null` | Classes Tailwind para customizar o fundo escurecido (backdrop), ex: `bg-black/50` ou `bg-slate-900/40`. |
 
-O modal bloqueia scroll, e teletransportado para o `body`, preserva `role="dialog"` e recebe foco ao abrir. A camada fixa evita que o morph do Livewire remonte um `<dialog>` nativo fechado e mantem o overlay acima de sidebars, topbars e containers com `overflow`.
+## Slots
 
-O foco fica preso no painel e retorna ao acionador. `close-on-escape` e `close-on-outside` configuram o fechamento; `persistent` desativa ambos por padrao.
-
-## Uso
-
-Use `<x-sampaui::modal />` como ponto de partida e adapte apenas o layout com `class=""`.
-
-## Propriedades adicionais
-
-- `variant`: propriedade pública do componente.
-- `close-event`: propriedade pública do componente.
-- `after-close`: propriedade pública do componente.
-- `panel-class`: propriedade pública do componente.
+- `default`
+- `header`
+- `actions`
 
 ## Exemplos
 
@@ -39,6 +42,6 @@ Use `<x-sampaui::modal />` como ponto de partida e adapte apenas o layout com `c
 
 ## Boas práticas
 
-- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
-- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
 - Controle abertura com uma propriedade booleana Livewire informada em model.
+- Atributos HTML adicionais (`class`, `id`, `aria-*`, `data-*`) são repassados ao elemento nativo correspondente.
+- Use as diretivas oficiais do Blade e Livewire para controle de estado sem mutar o DOM diretamente.

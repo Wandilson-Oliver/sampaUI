@@ -1,72 +1,28 @@
 # Badge
 
-Use para status curtos, prioridade, contadores e tags.
+Marcadores compactos para status, tags e classificacoes.
+
+Marcadores compactos para status, tags e classificacoes. O componente preserva atributos HTML, Alpine e Livewire passados pelo consumidor.
+
+## Uso
 
 ```blade
-<x-sampaui::badge variant="success" icon="check2-circle">
-    Publicado
-</x-sampaui::badge>
+<x-sampaui::badge variant="accent">Novo</x-sampaui::badge>
 ```
 
 ## Propriedades
 
-- `variant`: `primary`, `secondary`, `accent`, `danger`, `success`, `warning`, `info`, `purple`, `muted`, `light`.
-- `size`: `xs`, `sm`, `md`, `lg`.
-- `icon`: nome Bootstrap Icons sem `bi-`.
-- `rounded`: troca entre `rounded-full` e `rounded-default`.
+| Propriedade | Tipo | Padrão | Descrição |
+| :--- | :--- | :--- | :--- |
+| `variant` | `primary|secondary|accent|danger|success|warning|info|purple|muted|light` | `primary` | Define cor semantica. Variantes invalidas retornam para `primary`. |
+| `appearance` | `string` | `subtle` | Estilo visual de preenchimento e superfície. |
+| `size` | `xs|sm|md|lg` | `md` | Controla padding, gap, tipografia e altura de linha. |
+| `icon` | `string|null` | `null` | Nome Bootstrap Icons sem o prefixo `bi-`. |
+| `rounded` | `bool` | `true` | Usa `rounded-full`; quando false usa `rounded-default`. |
 
-Variantes invalidas retornam para `primary`.
+## Slots
 
-## Exemplos comuns
-
-### Status
-
-```blade
-<div class="flex flex-wrap gap-2">
-    <x-sampaui::badge variant="success" icon="check2-circle">Publicado</x-sampaui::badge>
-    <x-sampaui::badge variant="warning" icon="clock">Pendente</x-sampaui::badge>
-    <x-sampaui::badge variant="danger" icon="exclamation-triangle">Revisar</x-sampaui::badge>
-    <x-sampaui::badge variant="muted" icon="archive">Arquivado</x-sampaui::badge>
-</div>
-```
-
-### Prioridade
-
-```blade
-<x-sampaui::badge variant="danger" size="lg">Alta</x-sampaui::badge>
-<x-sampaui::badge variant="accent">Media</x-sampaui::badge>
-<x-sampaui::badge variant="secondary" size="sm">Baixa</x-sampaui::badge>
-<x-sampaui::badge variant="info" size="xs">Novo</x-sampaui::badge>
-```
-
-### Em tabela com Livewire
-
-```blade
-<x-sampaui::badge :variant="$this->statusVariant($property->status)">
-    {{ $property->status_label }}
-</x-sampaui::badge>
-```
-
-```php
-public function statusVariant(string $status): string
-{
-    return [
-        'published' => 'success',
-        'pending' => 'warning',
-        'review' => 'danger',
-    ][$status] ?? 'muted';
-}
-```
-
-Use `appearance="soft|solid|outline"` com qualquer `variant`. Os tamanhos disponiveis sao `xs`, `sm`, `md` e `lg`.
-
-## Uso
-
-Use `<x-sampaui::badge />` como ponto de partida e adapte apenas o layout com `class=""`.
-
-## Propriedades adicionais
-
-- `appearance`: propriedade pública do componente.
+- `default`
 
 ## Exemplos
 
@@ -76,6 +32,6 @@ Use `<x-sampaui::badge />` como ponto de partida e adapte apenas o layout com `c
 
 ## Boas práticas
 
-- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
-- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
 - Pode receber textos e estados calculados pelo Livewire.
+- Atributos HTML adicionais (`class`, `id`, `aria-*`, `data-*`) são repassados ao elemento nativo correspondente.
+- Use as diretivas oficiais do Blade e Livewire para controle de estado sem mutar o DOM diretamente.

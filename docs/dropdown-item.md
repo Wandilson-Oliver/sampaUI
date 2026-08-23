@@ -1,30 +1,27 @@
 # Dropdown Item
 
-Subcomponente de `Dropdown`. Use apenas dentro de `x-sampaui::dropdown`.
+Subcomponente de item acionavel para menus Dropdown.
 
-```blade
-<x-sampaui::dropdown-item icon="archive" wire:click="archive">
-    Arquivar
-</x-sampaui::dropdown-item>
-```
-
-## Contrato
-
-- Renderiza `a` quando `href` e informado.
-- Renderiza `button` quando nao houver `href`.
-- Preserva atributos Livewire, Alpine e HTML.
-- Usa `role="menuitem"` para acessibilidade.
+Subcomponente de item acionavel para menus Dropdown. O componente preserva atributos HTML, Alpine e Livewire passados pelo consumidor.
 
 ## Uso
 
-Use `<x-sampaui::dropdown-item />` como ponto de partida e adapte apenas o layout com `class=""`.
+```blade
+<x-sampaui::dropdown-item icon="pencil" wire:click="edit">Editar</x-sampaui::dropdown-item>
+```
 
 ## Propriedades
 
-- `href`: propriedade pública do componente.
-- `icon`: propriedade pública do componente.
-- `danger`: propriedade pública do componente.
-- `disabled`: propriedade pública do componente.
+| Propriedade | Tipo | Padrão | Descrição |
+| :--- | :--- | :--- | :--- |
+| `href` | `string|null` | `null` | URL de destino para links de navegação. |
+| `icon` | `string|null` | `null` | Nome do ícone Bootstrap Icons (sem o prefixo bi-). |
+| `danger` | `bool` | `false` | Aplica estilo visual de ação destrutiva (vermelho). |
+| `disabled` | `bool` | `false` | Desabilita a interação e aplica estilo desativado. |
+
+## Slots
+
+- `default`
 
 ## Exemplos
 
@@ -34,6 +31,6 @@ Use `<x-sampaui::dropdown-item />` como ponto de partida e adapte apenas o layou
 
 ## Boas práticas
 
-- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
-- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
 - Preserva wire:click no item interativo.
+- Atributos HTML adicionais (`class`, `id`, `aria-*`, `data-*`) são repassados ao elemento nativo correspondente.
+- Use as diretivas oficiais do Blade e Livewire para controle de estado sem mutar o DOM diretamente.

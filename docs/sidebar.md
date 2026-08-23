@@ -1,80 +1,41 @@
 # Sidebar
 
-Navegacao lateral para areas internas. O componente nao depende de rotas fixas nem de `auth()`: todos os links e dados do usuario entram por props.
+Navegacao lateral responsiva de 18rem, sem faixa externa, com estados hover/ativo circulares e saida outline danger.
 
-Sem secoes:
+Use em areas autenticadas e dashboards. A Sidebar nao cria fundo fora da superficie principal; o item ativo reutiliza o circulo do hover, o gap entre icone e texto e 30% menor, e a saida usa outline danger sem sombra.
 
-```blade
-<x-sampaui::sidebar
-    logo-src="/images/minha-logo.png"
-    logo-alt="Minha marca"
-    initial-state="open"
-    brand-href="/dashboard"
-    :user="[
-        'name' => 'Administrador Lia',
-        'email' => 'admin@sampa.dev',
-        'avatar' => '/images/avatar.jpg',
-    ]"
-    :items="[
-        ['label' => 'Dashboard', 'href' => '/dashboard', 'icon' => 'grid'],
-        ['label' => 'Clientes', 'href' => '/clients', 'icon' => 'people', 'navigate' => true],
-        ['label' => 'Imóveis', 'href' => '/properties', 'icon' => 'buildings'],
-        ['label' => 'Mapa', 'href' => '/map', 'icon' => 'map'],
-        ['label' => 'Tarefa', 'href' => '/tasks', 'icon' => 'kanban'],
-    ]"
-/>
-```
-
-Com secoes:
+## Uso
 
 ```blade
-<x-sampaui::sidebar
-    logo-src="/images/logo-operacao.svg"
-    initial-state="closed"
-    :items="[
-        ['label' => 'Dashboard', 'href' => '/dashboard', 'icon' => 'grid', 'active' => true],
-    ]"
-    :sections="[
-        ['label' => 'Gestao', 'items' => [
-            ['label' => 'Clientes', 'href' => '/clients', 'icon' => 'people'],
-            ['label' => 'Contratos', 'href' => '/contracts', 'icon' => 'file-earmark-text'],
-        ]],
-    ]"
-    logout-href="/logout"
-/>
+<x-sampaui::sidebar logo-src="/images/logo.svg" :items="$items" />
 ```
 
 ## Propriedades
 
-- `logoSrc`: URL da logo exibida no topo. Em Blade, use `logo-src`.
-- `logoAlt`: texto alternativo da logo.
-- `brandHref`: destino do link da marca.
-- `items`: links principais.
-- `sections`: grupos adicionais com `label` e `items`.
-- `user`: array opcional com `name`, `email` e `avatar`.
-- `initial-state`: `open`, `closed` ou `collapsed`. Define se inicia aberta ou recolhida.
-- `collapsed`: alias legado para iniciar recolhida em desktop.
-- `collapsible`: exibe botao flutuante para recolher/expandir.
-- `openEvent`: evento Alpine para abrir no mobile.
-- `closeEvent`: evento Alpine para fechar no mobile.
-- `stateEvent`: informa a largura atual para o layout ajustar o conteudo.
-- `position`: `fixed` em dashboards ou `static` quando estiver dentro de um container/preview.
-- `logoutHref`: exibe link de saida quando informado.
-- `footer`: slot nomeado para substituir o rodape.
+| Propriedade | Tipo | Padrão | Descrição |
+| :--- | :--- | :--- | :--- |
+| `logo-src` | `string|null` | `null` | URL da logo do cliente. Em Blade, use `logo-src`. |
+| `logo-alt` | `string|null` | `Logo` | Texto alternativo da logo. |
+| `brand-href` | `string` | `#` | Destino do link da marca. |
+| `items` | `array` | `[]` | Links principais do menu. |
+| `sections` | `array` | `[]` | Grupos adicionais com `label` e `items`. |
+| `user` | `array|null` | `null` | Dados opcionais: `name`, `email`, `avatar`. |
+| `avatar` | `string|null` | `null` | Atalho para avatar do usuario quando preferir nao passar `user[avatar]`. |
+| `avatar-alt` | `string|null` | `user.name` | Texto alternativo da imagem do avatar. |
+| `initial-state` | `open|closed|collapsed|null` | `null` | Define se a sidebar inicia aberta ou recolhida. `closed` e `collapsed` sao equivalentes. |
+| `collapsed` | `bool` | `false` | Alias legado para iniciar recolhida. Em novos usos, prefira `initial-state="closed"`. |
+| `collapsible` | `bool` | `true` | Exibe botao flutuante para recolher ou expandir. |
+| `close-event` | `string` | `sampaui:sidebar-close` | Evento Alpine para fechar no mobile. |
+| `open-event` | `string` | `sampaui:sidebar-open` | Evento Alpine para abrir no mobile. |
+| `state-event` | `string` | `sampaui:sidebar-state` | Evento emitido ao iniciar, abrir, fechar ou recolher. Use para ajustar `margin-left` do conteudo. |
+| `active-color` | `string` | `primary` | Cor de destaque do item ativo. |
+| `logout-href` | `string|null` | `null` | Exibe link de saida quando informado. |
+| `logout-label` | `string` | `Sair` | Rótulo acessível do botão de logout. |
+| `position` | `fixed|static` | `fixed` | Use `static` apenas quando a sidebar participar de um container ou preview; dashboards usam `fixed`. |
 
-Cada item aceita `label`, `href`, `icon`, `active` e `navigate`. Use `navigate => true` para adicionar `wire:navigate`.
+## Slots
 
-A largura expandida padrao e `18rem`; recolhida, `6rem`. A Sidebar nao cria faixa de fundo externa. O item ativo reutiliza o mesmo circulo suave do hover, sem fundo no link inteiro, e o espaco entre icone e texto usa `gap-3.5`. O link de saida e outline danger sem sombra.
-
-## Uso
-
-Use `<x-sampaui::sidebar />` como ponto de partida e adapte apenas o layout com `class=""`.
-
-## Propriedades adicionais
-
-- `avatar-alt`: propriedade pública do componente.
-- `active-color`: propriedade pública do componente.
-- `logout-label`: propriedade pública do componente.
+- `footer`
 
 ## Exemplos
 
@@ -84,6 +45,6 @@ Use `<x-sampaui::sidebar />` como ponto de partida e adapte apenas o layout com 
 
 ## Boas práticas
 
-- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
-- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
 - Itens podem usar wire:navigate.
+- Atributos HTML adicionais (`class`, `id`, `aria-*`, `data-*`) são repassados ao elemento nativo correspondente.
+- Use as diretivas oficiais do Blade e Livewire para controle de estado sem mutar o DOM diretamente.

@@ -1,45 +1,27 @@
 # Radio
 
-Grupo de opcoes exclusivas com suporte a arrays, slot manual, cores oficiais, erro e Livewire.
+Grupo de opcoes exclusivas com cores oficiais, suporte a array de opcoes, slot e atributos Livewire.
 
-Com Livewire, nao informe a prop `value` do componente: `wire:model` seleciona automaticamente a opcao correspondente ao estado.
-
-Cada opcao usa `border-secondary/40` como borda padrao.
-
-```blade
-<x-sampaui::radio
-    name="priority"
-    label="Prioridade"
-    color="accent"
-    wire:model.live="priority"
-    inline
-    :options="[
-        'low' => 'Baixa',
-        'medium' => 'Media',
-        'high' => 'Alta',
-    ]"
-/>
-```
-
-Props principais: `label`, `name`, `value`, `options`, `color`, `inline`, `error`, `disabled`. A prop `value` permanece disponivel apenas para selecao inicial fora do Livewire.
-
-`color` aceita os tokens oficiais: `primary`, `secondary`, `accent`, `danger`, `success`, `warning`, `info`, `purple`, `muted` e `light`.
+Use quando o usuario precisa escolher exatamente uma opcao em um conjunto curto. Cada controle usa `border-secondary/40`, e o componente resolve label, ids, estado selecionado, erro visual e atributos Livewire.
 
 ## Uso
 
-Use `<x-sampaui::radio />` como ponto de partida e adapte apenas o layout com `class=""`.
+```blade
+<x-sampaui::radio name="status" :options="['active' => 'Ativo']" wire:model="status" />
+```
 
 ## Propriedades
 
-- `name`: propriedade pública do componente.
-- `label`: propriedade pública do componente.
-- `value`: propriedade pública do componente.
-- `options`: propriedade pública do componente.
-- `inline`: propriedade pública do componente.
-- `error`: propriedade pública do componente.
-- `disabled`: propriedade pública do componente.
-- `color`: propriedade pública do componente.
-- `variant`: `primary`, `secondary`, `accent`, `danger`, `success`, `warning`, `info`, `purple`, `muted`.
+| Propriedade | Tipo | Padrão | Descrição |
+| :--- | :--- | :--- | :--- |
+| `name` | `string|null` | `null` | Usado como `name`, base de `id` e chave de erro. |
+| `label` | `string|null` | `null` | Renderiza a legenda do fieldset. |
+| `value` | `string|int|null` | `null` | Valor selecionado inicialmente. |
+| `options` | `array` | `[]` | Aceita `valor => label` ou arrays com `value`, `label` e `disabled`. |
+| `inline` | `bool` | `false` | Alinha as opcoes na horizontal. |
+| `error` | `string|null` | `null` | Mensagem manual ou vinda do ErrorBag. |
+| `disabled` | `bool` | `false` | Desabilita todas as opcoes. |
+| `color` | `primary|secondary|accent|danger|success|warning|info|purple|muted|light` | `primary` | Define cor do controle marcado. |
 
 ## Exemplos
 
@@ -49,6 +31,6 @@ Use `<x-sampaui::radio />` como ponto de partida e adapte apenas o layout com `c
 
 ## Boas práticas
 
-- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
-- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
 - Use wire:model para vincular a opcao selecionada.
+- Atributos HTML adicionais (`class`, `id`, `aria-*`, `data-*`) são repassados ao elemento nativo correspondente.
+- Use as diretivas oficiais do Blade e Livewire para controle de estado sem mutar o DOM diretamente.

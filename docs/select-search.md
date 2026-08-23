@@ -1,73 +1,29 @@
-# Select Search
+# Select com busca
 
-O painel usa teleport para `body`, calcula posicao no viewport e devolve foco ao campo de busca ao abrir. Pode ser usado em Modal e Drawer sem ser cortado pelo scroll interno.
+Select pesquisavel com busca local, opcoes via array e sincronizacao por input hidden para formularios e Livewire.
 
-Select pesquisavel com busca local em Alpine e valor real em input hidden.
-
-Use para listas medias carregadas no HTML. Para milhares de registros ou busca remota, prefira criar uma integracao Livewire especifica.
-
-O trigger e o campo de busca interno usam `border-secondary/20`, seguindo a mesma linguagem visual do `input` e do `select`.
-
-```blade
-<x-sampaui::select-search
-    name="owner"
-    label="Responsavel"
-    placeholder="Selecione um responsavel"
-    search-placeholder="Buscar por nome"
-    :options="[
-        'ana' => 'Ana Souza',
-        'bruno' => 'Bruno Lima',
-        'carla' => 'Carla Martins',
-    ]"
-/>
-```
-
-Com valor inicial:
-
-```blade
-<x-sampaui::select-search
-    name="city"
-    label="Cidade"
-    value="campinas"
-    :options="[
-        ['value' => 'sp', 'label' => 'Sao Paulo'],
-        ['value' => 'campinas', 'label' => 'Campinas'],
-    ]"
-/>
-```
-
-Com Livewire:
-
-```blade
-<x-sampaui::select-search
-    name="customer_id"
-    label="Cliente"
-    wire:model.live="customerId"
-    :options="$customers"
-/>
-```
-
-O componente usa `x-modelable` para receber o valor inicial e manter sincronizacao bidirecional. Nao passe `value` junto com `wire:model`.
-Erros do validator sao exibidos automaticamente usando `name` ou o caminho de `wire:model`.
-
-O componente tambem dispara `select-search:changed` com `id`, `name`, `value` e `label`.
+Use quando a lista de opcoes e maior que um select simples, mas ainda pequena o suficiente para busca local no navegador. O painel usa teleport com IDs estaveis, acompanha o trigger e foca a busca ao abrir, sem ser cortado por overlays com scroll.
 
 ## Uso
 
-Use `<x-sampaui::select-search />` como ponto de partida e adapte apenas o layout com `class=""`.
+```blade
+<x-sampaui::select-search name="owner" label="Responsavel" :options="$owners" wire:model.live="owner" />
+```
 
 ## Propriedades
 
-- `name`: propriedade pública do componente.
-- `label`: propriedade pública do componente.
-- `placeholder`: propriedade pública do componente.
-- `options`: propriedade pública do componente.
-- `value`: propriedade pública do componente.
-- `search-placeholder`: propriedade pública do componente.
-- `empty-text`: propriedade pública do componente.
-- `disabled`: propriedade pública do componente.
-- `error`: propriedade pública do componente.
-- `required`: propriedade pública do componente.
+| Propriedade | Tipo | Padrão | Descrição |
+| :--- | :--- | :--- | :--- |
+| `name` | `string|null` | `null` | Usado como `name`, `id` fallback, chave de erro e payload do evento. |
+| `label` | `string|null` | `null` | Renderiza `<label>` associado ao botao do combobox. |
+| `placeholder` | `string` | `Selecione` | Texto exibido antes de selecionar uma opcao. |
+| `options` | `array` | `[]` | Aceita `valor => label` ou arrays com `value` e `label`. |
+| `value` | `string|int|null` | `null` | Valor inicial selecionado. |
+| `search-placeholder` | `string` | `Buscar...` | Placeholder do campo de busca interno. |
+| `empty-text` | `string` | `Nenhum resultado encontrado.` | Mensagem quando a busca nao encontra opcoes. |
+| `disabled` | `bool` | `false` | Bloqueia interacao e reduz contraste. |
+| `error` | `string|null` | `null` | Mensagem manual ou fallback do ErrorBag. |
+| `required` | `bool` | `false` | Aplica `required` ao input hidden para formularios nativos. |
 
 ## Exemplos
 
@@ -77,6 +33,6 @@ Use `<x-sampaui::select-search />` como ponto de partida e adapte apenas o layou
 
 ## Boas práticas
 
-- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
-- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
 - Usa x-modelable e preserva wire:model para busca local.
+- Atributos HTML adicionais (`class`, `id`, `aria-*`, `data-*`) são repassados ao elemento nativo correspondente.
+- Use as diretivas oficiais do Blade e Livewire para controle de estado sem mutar o DOM diretamente.

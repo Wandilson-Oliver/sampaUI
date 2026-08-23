@@ -1,36 +1,39 @@
 # Drawer
 
-Use para fluxos laterais como filtros, edicao rapida e detalhes.
+Painel lateral ou vertical com Livewire entangle, backdrop, header, actions e transicao suave.
+
+Use para filtros, formularios auxiliares, detalhes de registro e fluxos secundarios sem tirar o usuario da tela atual. O painel usa camada dinamica e preserva o scroll interno sem cortar selects teletransportados.
+
+## Uso
 
 ```blade
-<x-sampaui::drawer model="filtersOpen" title="Filtros" variant="primary">
-    Conteudo dos filtros.
-</x-sampaui::drawer>
+<x-sampaui::drawer model="filtersOpen" title="Filtros">Conteudo</x-sampaui::drawer>
 ```
 
 ## Propriedades
 
-- `model`: propriedade Livewire booleana entangled.
-- `title`, `subtitle`: cabecalho acessivel.
-- `placement`: `left`, `right`, `top`, `bottom`.
-- `size`: `sm`, `md`, `lg`, `xl`, `2xl`, `full`.
-- `variant`: `default`, `primary`, `secondary`, `accent`, `danger`, `success`, `warning`, `info`, `purple`, `muted`.
-- `persistent`: impede fechar clicando fora.
-- `close-button`: controla o botao de fechar.
+| Propriedade | Tipo | Padrão | Descrição |
+| :--- | :--- | :--- | :--- |
+| `model` | `string` | `null` | Nome da propriedade booleana Livewire usada por `@entangle(...).live`. |
+| `title` | `string|null` | `null` | Titulo padrao do header. |
+| `subtitle` | `string|null` | `null` | Texto auxiliar associado por `aria-describedby`. |
+| `placement` | `right|left|top|bottom` | `right` | Define de qual borda o painel entra. |
+| `size` | `sm|md|lg|xl|2xl|full` | `md` | Controla largura em drawers laterais e altura em drawers superior/inferior. |
+| `variant` | `default|primary|secondary|accent|danger|success|warning|info|purple|muted` | `default` | Define a cor de borda do painel. |
+| `persistent` | `bool` | `false` | Impede fechamento por ESC ou clique no backdrop. |
+| `close-on-escape` | `bool` | `true` | Fecha o overlay ao pressionar a tecla Escape. |
+| `close-on-outside` | `bool` | `true` | Fecha o overlay ao clicar fora da área principal. |
+| `close-button` | `bool` | `true` | Exibe ou remove o botao de fechar no header. |
+| `close-event` | `string|null` | `null` | Evento browser que fecha o drawer, como `filters-applied`. |
+| `after-close` | `string|null` | `null` | Metodo Livewire chamado apos a animacao de fechamento. |
+| `panel-class` | `string|null` | `null` | Classes extras aplicadas ao painel interno, uteis para trocar ou remover a borda. |
+| `backdrop-class` | `string|null` | `null` | Classes Tailwind para customizar o fundo escurecido (backdrop), ex: `bg-black/50` ou `bg-slate-900/40`. |
 
-O painel e teletransportado para o `body`, sempre entra pela borda real da janela e fecha na mesma direcao de `placement`. Ele recebe foco ao abrir e bloqueia o scroll do documento.
+## Slots
 
-O foco fica preso no painel e retorna ao acionador ao fechar. `close-on-escape` e `close-on-outside` permitem configurar cada comportamento; `persistent` desativa ambos por padrao.
-
-## Uso
-
-Use `<x-sampaui::drawer />` como ponto de partida e adapte apenas o layout com `class=""`.
-
-## Propriedades adicionais
-
-- `close-event`: propriedade pública do componente.
-- `after-close`: propriedade pública do componente.
-- `panel-class`: propriedade pública do componente.
+- `default`
+- `header`
+- `actions`
 
 ## Exemplos
 
@@ -40,6 +43,6 @@ Use `<x-sampaui::drawer />` como ponto de partida e adapte apenas o layout com `
 
 ## Boas práticas
 
-- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
-- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
 - Controle abertura com uma propriedade booleana Livewire informada em model.
+- Atributos HTML adicionais (`class`, `id`, `aria-*`, `data-*`) são repassados ao elemento nativo correspondente.
+- Use as diretivas oficiais do Blade e Livewire para controle de estado sem mutar o DOM diretamente.

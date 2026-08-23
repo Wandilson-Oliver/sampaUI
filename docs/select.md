@@ -1,64 +1,41 @@
 # Select
 
-O painel e renderizado por teleport no `body`, acompanha o trigger em scroll/resize e abre acima quando nao houver espaco abaixo. Isso permite uso dentro de Modal, Drawer e containers com `overflow-hidden` sem recorte.
+Select com combobox Alpine, dropdown customizado, placeholder, erro e sombra forte na listagem.
 
-Campo de selecao com combobox Alpine, dropdown customizado e `<select>` real oculto para formularios e Livewire.
-
-O trigger usa a mesma linguagem visual do `input`: `border-secondary/20`, `rounded-default`, `focus:border-primary`, `focus:ring-primary/20`, hover suave, estados de erro/loading/disabled e suporte a `readonly`.
+Bom para formularios administrativos e filtros curtos. O painel e teletransportado para o body com IDs estaveis, acompanha o trigger e abre acima quando necessario, evitando corte em Modal, Drawer e Card com scroll.
 
 ## Uso
 
 ```blade
-<x-sampaui::select name="status" label="Status" placeholder="Selecione">
-    <option value="active">Ativo</option>
-    <option value="inactive">Inativo</option>
-</x-sampaui::select>
+<x-sampaui::select name="status" label="Status" :options="['active' => 'Ativo']" wire:model.live="status" />
 ```
-
-Tambem aceita `options`:
-
-```blade
-<x-sampaui::select
-    name="status"
-    label="Status"
-    placeholder="Selecione"
-    :options="[
-        'active' => 'Ativo',
-        'inactive' => 'Inativo',
-    ]"
-/>
-```
-
-Com Livewire, `wire:model` sincroniza pelo `x-modelable` e atualiza o `<select>` real oculto:
-
-```blade
-<x-sampaui::select
-    label="Status"
-    wire:model.live="status"
-    required
-    :options="$statuses"
-/>
-```
-
-O `wire:model` fica no container `x-modelable`. Assim, selecao do usuario, valor inicial e atualizacoes posteriores do servidor mantem o valor nativo e o label visivel sincronizados. Erros do validator usam automaticamente o caminho do model quando `name` nao foi informado.
 
 ## Propriedades
 
-- `label`
-- `name`
-- `value`
-- `options`
-- `placeholder`
-- `emptyText`
-- `error`
-- `disabled`
-- `required`
+| Propriedade | Tipo | Padrão | Descrição |
+| :--- | :--- | :--- | :--- |
+| `name` | `string|null` | `null` | Usado como atributo `name`; id e erro tambem podem ser derivados de `wire:model`. |
+| `label` | `string|null` | `null` | Renderiza `<label>` associado. |
+| `value` | `string|int|null` | `null` | Valor inicial selecionado. |
+| `options` | `array` | `[]` | Aceita `valor => label` ou arrays com `value`, `label` e `disabled`. |
+| `placeholder` | `string|null` | `null` | Texto exibido antes de selecionar uma opcao. |
+| `empty-text` | `string` | `Nenhuma opcao encontrada.` | Mensagem quando nao ha opcoes. |
+| `hint` | `string|null` | `null` | Texto informativo auxiliar posicionado abaixo do componente. |
+| `error` | `string|null` | `null` | Mensagem de erro manual ou fallback do ErrorBag. |
+| `state` | `valid|invalid|null` | `null` | Estado visual explícito de validação do campo. |
+| `disabled` | `bool` | `false` | Desliga interacao e reduz opacidade. |
+| `readonly` | `bool` | `false` | Bloqueia alteração mantendo o controle focalizável. |
+| `loading` | `bool` | `false` | Exibe spinner ou estado de carregamento durante requisições. |
+| `loading-target` | `string|null` | `null` | Ação do Livewire monitorada para feedback de loading (wire:target). |
+| `required` | `bool` | `false` | Aplica `required` ao select real. |
+| `clearable` | `bool` | `false` | Exibe botão rápido para limpar o valor selecionado ou digitado. |
+| `clear-label` | `string` | `Limpar` | Rótulo acessível do botão de limpar. |
 
-O trigger suporta setas, Home, End, Enter, Espaco e Esc, com opcao ativa anunciada por `aria-activedescendant`. Use `clearable`, `hint`, `readonly`, `loading`, `loading-target`, `state`, `prefix` e `suffix`. O `<select>` real permanece oculto para formularios e acessibilidade.
+## Slots
 
-## Propriedades adicionais
-
-- `clear-label`: propriedade pública do componente.
+- `default`
+- `prefix`
+- `suffix`
 
 ## Exemplos
 
@@ -68,6 +45,6 @@ O trigger suporta setas, Home, End, Enter, Espaco e Esc, com opcao ativa anuncia
 
 ## Boas práticas
 
-- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
-- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
 - Usa x-modelable para manter valor e label sincronizados quando o servidor atualiza wire:model.
+- Atributos HTML adicionais (`class`, `id`, `aria-*`, `data-*`) são repassados ao elemento nativo correspondente.
+- Use as diretivas oficiais do Blade e Livewire para controle de estado sem mutar o DOM diretamente.

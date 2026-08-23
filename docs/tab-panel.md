@@ -1,26 +1,24 @@
 # Tab Panel
 
-Subcomponente de `Tabs`. Use apenas dentro de `x-sampaui::tabs`.
+Subcomponente de painel para conteudo renderizado dentro de Tabs.
 
-```blade
-<x-sampaui::tab-panel name="details">
-    Conteudo da aba.
-</x-sampaui::tab-panel>
-```
-
-## Contrato
-
-- `name`: mesma chave declarada em `tabs`.
-- O painel aparece quando a aba ativa corresponde ao nome.
-- O componente mantem o conteudo no DOM para preservar estado local simples.
+Subcomponente de painel para conteudo renderizado dentro de Tabs. O componente preserva atributos HTML, Alpine e Livewire passados pelo consumidor.
 
 ## Uso
 
-Use `<x-sampaui::tab-panel />` como ponto de partida e adapte apenas o layout com `class=""`.
+```blade
+<x-sampaui::tab-panel name="details">Detalhes</x-sampaui::tab-panel>
+```
 
 ## Propriedades
 
-- `name`: propriedade pública do componente.
+| Propriedade | Tipo | Padrão | Descrição |
+| :--- | :--- | :--- | :--- |
+| `name` | `string|null` | `null` | Nome do campo no formulário e chave vinculada ao ErrorBag. |
+
+## Slots
+
+- `default`
 
 ## Exemplos
 
@@ -30,6 +28,6 @@ Use `<x-sampaui::tab-panel />` como ponto de partida e adapte apenas o layout co
 
 ## Boas práticas
 
-- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
-- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
 - Conteudo interno pode ser Livewire.
+- Atributos HTML adicionais (`class`, `id`, `aria-*`, `data-*`) são repassados ao elemento nativo correspondente.
+- Use as diretivas oficiais do Blade e Livewire para controle de estado sem mutar o DOM diretamente.

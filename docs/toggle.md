@@ -1,36 +1,32 @@
 # Toggle
 
-Use para estados booleanos.
+Controle booleano colorido para preferencias e configuracoes.
 
-O estado e lido diretamente de `wire:model`, sem necessidade de `checked` ou `value`.
+Controle booleano colorido para preferencias e configuracoes. O componente preserva atributos HTML, Alpine e Livewire passados pelo consumidor.
 
-Quando desligado, o trilho e o botao interno usam a cor definida em `color`. Quando ligado, o trilho recebe o fundo da mesma cor e o botao interno fica branco.
+## Uso
 
 ```blade
-<x-sampaui::toggle
-    name="featured"
-    label="Destacar na home"
-    color="accent"
-    wire:model.live="featured"
-/>
+<x-sampaui::toggle name="active" label="Ativo" color="accent" wire:model="active" />
 ```
 
 ## Propriedades
 
-- `name`, `label`, `checked`, `disabled`, `error`.
-- `color`: tokens da paleta oficial (`primary`, `secondary`, `accent`, `danger`, `success`, `warning`, `info`, `purple`, `muted`, `light`).
-
-O input real preserva `wire:model`, `required` e atributos HTML.
-
-O controle usa `role="switch"` e aceita `hint`, `error`, `readonly`, `loading`, `loading-target` e estados visuais consistentes.
-
-## Uso
-
-Use `<x-sampaui::toggle />` como ponto de partida e adapte apenas o layout com `class=""`.
-
-## Propriedades adicionais
-
-- `state`: propriedade pública do componente.
+| Propriedade | Tipo | Padrão | Descrição |
+| :--- | :--- | :--- | :--- |
+| `name` | `string|null` | `null` | Nome e id fallback do input checkbox. |
+| `label` | `string|null` | `null` | Texto exibido ao lado do controle. |
+| `checked` | `bool` | `false` | Estado inicial ligado. |
+| `disabled` | `bool` | `false` | Desabilita a interacao. |
+| `readonly` | `bool` | `false` | Bloqueia alteração mantendo o controle focalizável. |
+| `loading` | `bool` | `false` | Exibe spinner ou estado de carregamento durante requisições. |
+| `loading-target` | `string|null` | `null` | Ação do Livewire monitorada para feedback de loading (wire:target). |
+| `required` | `bool` | `false` | Adiciona indicador de obrigatoriedade e validação nativa. |
+| `hint` | `string|null` | `null` | Texto informativo auxiliar posicionado abaixo do componente. |
+| `error` | `string|null` | `null` | Mensagem customizada de erro de validação. |
+| `state` | `valid|invalid|null` | `null` | Estado visual explícito de validação do campo. |
+| `value` | `string` | `1` | Valor enviado quando marcado. |
+| `color` | `primary|secondary|accent|danger|success|warning|info|purple|muted|light` | `primary` | Cor do controle quando marcado. |
 
 ## Exemplos
 
@@ -40,6 +36,6 @@ Use `<x-sampaui::toggle />` como ponto de partida e adapte apenas o layout com `
 
 ## Boas práticas
 
-- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
-- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
 - wire:model fica no checkbox real.
+- Atributos HTML adicionais (`class`, `id`, `aria-*`, `data-*`) são repassados ao elemento nativo correspondente.
+- Use as diretivas oficiais do Blade e Livewire para controle de estado sem mutar o DOM diretamente.

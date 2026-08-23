@@ -1,43 +1,25 @@
 # Brand Mark
 
-Marca visual compacta do SampaUI. Normalmente e usada por `Sidebar` e previews da documentacao.
+Marca compacta do SampaUI para sidebars, headers e estados de marca.
 
-```blade
-<x-sampaui::brand-mark />
-```
-
-Com logo, tamanho e link:
-
-```blade
-<x-sampaui::brand-mark
-    logo="/images/logo.svg"
-    alt="Minha empresa"
-    label="Minha empresa"
-    href="/dashboard"
-    size="lg"
-/>
-```
-
-## Uso recomendado
-
-- Trate como subcomponente visual do pacote.
-- Pode ser usado em layouts proprios quando a identidade SampaUI for desejada.
-- Usa o simbolo oficial multicolorido do SampaUI por padrao.
-- `size` aceita `sm`, `md`, `lg` e `xl`.
-- `logo` substitui a marca padrao por uma imagem real; sempre informe `alt`.
+Marca compacta do SampaUI para sidebars, headers e estados de marca. O componente preserva atributos HTML, Alpine e Livewire passados pelo consumidor.
 
 ## Uso
 
-Use `<x-sampaui::brand-mark />` como ponto de partida e adapte apenas o layout com `class=""`.
+```blade
+<x-sampaui::brand-mark label="SampaUI" href="/" />
+```
 
 ## Propriedades
 
-- `icon`: propriedade pública do componente.
-- `logo`: propriedade pública do componente.
-- `alt`: propriedade pública do componente.
-- `label`: propriedade pública do componente.
-- `href`: propriedade pública do componente.
-- `size`: propriedade pública do componente.
+| Propriedade | Tipo | Padrão | Descrição |
+| :--- | :--- | :--- | :--- |
+| `icon` | `string|null` | `null` | Nome do ícone Bootstrap Icons (sem o prefixo bi-). |
+| `logo` | `string|null` | `null` | URL de arquivo SVG ou imagem de logotipo. |
+| `alt` | `string` | `SampaUI` | Texto alternativo para acessibilidade. |
+| `label` | `string|null` | `null` | Rótulo textual exibido acima ou ao lado do componente. |
+| `href` | `string|null` | `null` | URL de destino para links de navegação. |
+| `size` | `xs|sm|md|lg|xl` | `md` | Dimensão física e espaçamento interno do componente. |
 
 ## Exemplos
 
@@ -47,6 +29,6 @@ Use `<x-sampaui::brand-mark />` como ponto de partida e adapte apenas o layout c
 
 ## Boas práticas
 
-- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
-- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
 - Aceita wire:navigate quando usado como link.
+- Atributos HTML adicionais (`class`, `id`, `aria-*`, `data-*`) são repassados ao elemento nativo correspondente.
+- Use as diretivas oficiais do Blade e Livewire para controle de estado sem mutar o DOM diretamente.

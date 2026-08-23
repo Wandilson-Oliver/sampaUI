@@ -1,31 +1,25 @@
 # Avatar
 
-Use para representar usuarios, clientes ou responsaveis.
+Imagem ou iniciais de usuario com tamanho, status e fallback.
+
+Imagem ou iniciais de usuario com tamanho, status e fallback. O componente preserva atributos HTML, Alpine e Livewire passados pelo consumidor.
+
+## Uso
 
 ```blade
-<x-sampaui::avatar name="Wandilson Oliveira" status="online" />
-
-<x-sampaui::avatar
-    src="/users/wandilson.jpg"
-    name="Wandilson Oliveira"
-    size="xl"
-/>
+<x-sampaui::avatar name="Ana Souza" />
 ```
 
 ## Propriedades
 
-- `src`: imagem opcional.
-- `name`: usado para iniciais e `alt` padrao.
-- `alt`: texto alternativo quando `src` existir.
-- `size`: `xs`, `sm`, `md`, `lg`, `xl`, `2xl`.
-- `rounded`: usa circulo quando verdadeiro.
-- `status`: `online`, `busy`, `away`, `offline`.
-
-Status usam a paleta oficial: `success`, `danger`, `accent` e `secondary`.
-
-## Uso
-
-Use `<x-sampaui::avatar />` como ponto de partida e adapte apenas o layout com `class=""`.
+| Propriedade | Tipo | Padrão | Descrição |
+| :--- | :--- | :--- | :--- |
+| `src` | `string|null` | `null` | URL da imagem. Quando ausente, usa iniciais. |
+| `alt` | `string|null` | `name` | Texto alternativo da imagem. |
+| `name` | `string|null` | `null` | Nome usado para alt e iniciais. |
+| `size` | `xs|sm|md|lg|xl|2xl` | `md` | Tamanho do avatar e do status. |
+| `rounded` | `bool` | `true` | Usa circulo quando true ou raio padrao quando false. |
+| `status` | `online|busy|away|offline|null` | `null` | Indicador visual no canto inferior. |
 
 ## Exemplos
 
@@ -35,6 +29,6 @@ Use `<x-sampaui::avatar />` como ponto de partida e adapte apenas o layout com `
 
 ## Boas práticas
 
-- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
-- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
 - Componente visual estatico, seguro em renders Livewire.
+- Atributos HTML adicionais (`class`, `id`, `aria-*`, `data-*`) são repassados ao elemento nativo correspondente.
+- Use as diretivas oficiais do Blade e Livewire para controle de estado sem mutar o DOM diretamente.

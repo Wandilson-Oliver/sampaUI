@@ -1,22 +1,28 @@
 # Alert
 
-Mensagem contextual no fluxo da pagina.
+Mensagem contextual com icone, titulo opcional, role acessivel e variantes nos tokens oficiais.
+
+Use para feedback persistente em formularios, avisos operacionais e estados de sistema que precisam ficar no fluxo da pagina.
 
 ## Uso
 
 ```blade
-<x-sampaui::alert variant="success" title="Lead atualizado">
-    As alteracoes foram sincronizadas.
-</x-sampaui::alert>
+<x-sampaui::alert variant="success" title="Salvo">Alteracoes publicadas.</x-sampaui::alert>
 ```
 
 ## Propriedades
 
-- `variant`: `success`, `danger`/`error`, `warning` ou `info`
-- `type`: alias opcional de `variant`
-- `title`
-- `icon`
-- `role`
+| Propriedade | Tipo | Padrão | Descrição |
+| :--- | :--- | :--- | :--- |
+| `variant` | `success|danger|error|warning|info` | `info` | Define cor, icone padrao e role inicial. |
+| `type` | `string|null` | `null` | Alias de compatibilidade para `variant`. |
+| `title` | `string|null` | `null` | Titulo curto acima da mensagem. |
+| `icon` | `string|false|null` | `null` | Nome do Bootstrap Icon sem `bi-`; `false` remove o icone. |
+| `role` | `string|null` | `null` | Sobrescreve `status` ou `alert` quando necessario. |
+
+## Slots
+
+- `default`
 
 ## Exemplos
 
@@ -26,6 +32,6 @@ Mensagem contextual no fluxo da pagina.
 
 ## Boas práticas
 
-- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
-- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
 - Pode ser exibido condicionalmente por estado Livewire.
+- Atributos HTML adicionais (`class`, `id`, `aria-*`, `data-*`) são repassados ao elemento nativo correspondente.
+- Use as diretivas oficiais do Blade e Livewire para controle de estado sem mutar o DOM diretamente.

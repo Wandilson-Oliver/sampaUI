@@ -1,0 +1,1201 @@
+{
+    "accordion": {
+        "name": "Accordion",
+        "category": "disclosure",
+        "tag": "<x-sampaui::accordion />",
+        "props": [
+            "items",
+            "multiple"
+        ],
+        "slots": [
+            "default"
+        ],
+        "variants": [],
+        "example": "<x-sampaui::accordion :items=\"$items\" />",
+        "livewire": "Preserva atributos wire:* no elemento raiz."
+    },
+    "alert": {
+        "name": "Alert",
+        "category": "feedback",
+        "tag": "<x-sampaui::alert />",
+        "props": [
+            "variant",
+            "type",
+            "title",
+            "icon",
+            "role"
+        ],
+        "slots": [
+            "default"
+        ],
+        "variants": [
+            "success",
+            "danger",
+            "error",
+            "warning",
+            "info"
+        ],
+        "example": "<x-sampaui::alert variant=\"success\" title=\"Salvo\">Alteracoes publicadas.</x-sampaui::alert>",
+        "livewire": "Pode ser exibido condicionalmente por estado Livewire."
+    },
+    "avatar": {
+        "name": "Avatar",
+        "category": "media",
+        "tag": "<x-sampaui::avatar />",
+        "props": [
+            "src",
+            "alt",
+            "name",
+            "size",
+            "rounded",
+            "status"
+        ],
+        "slots": [],
+        "variants": [],
+        "example": "<x-sampaui::avatar name=\"Ana Souza\" />",
+        "livewire": "Componente visual estatico, seguro em renders Livewire."
+    },
+    "avatar-upload": {
+        "name": "Avatar Upload",
+        "category": "form",
+        "tag": "<x-sampaui::avatar-upload />",
+        "props": [
+            "name",
+            "label",
+            "src",
+            "alt",
+            "size",
+            "accept",
+            "placeholder",
+            "help",
+            "hint",
+            "remove-name",
+            "remove-model",
+            "remove-label",
+            "upload-label",
+            "error",
+            "disabled",
+            "loading",
+            "loading-target",
+            "required"
+        ],
+        "slots": [],
+        "variants": [],
+        "example": "<x-sampaui::avatar-upload name=\"avatar\" label=\"Foto\" wire:model=\"avatar\" />",
+        "livewire": "Use com wire:model para uploads do Livewire."
+    },
+    "badge": {
+        "name": "Badge",
+        "category": "feedback",
+        "tag": "<x-sampaui::badge />",
+        "props": [
+            "variant",
+            "appearance",
+            "size",
+            "icon",
+            "rounded"
+        ],
+        "slots": [
+            "default"
+        ],
+        "variants": [
+            "primary",
+            "secondary",
+            "accent",
+            "danger",
+            "success",
+            "warning",
+            "info",
+            "purple",
+            "muted",
+            "light"
+        ],
+        "example": "<x-sampaui::badge variant=\"accent\">Novo</x-sampaui::badge>",
+        "livewire": "Pode receber textos e estados calculados pelo Livewire."
+    },
+    "brand-mark": {
+        "name": "Brand Mark",
+        "category": "navigation",
+        "tag": "<x-sampaui::brand-mark />",
+        "props": [
+            "icon",
+            "logo",
+            "alt",
+            "label",
+            "href",
+            "size"
+        ],
+        "slots": [],
+        "variants": [],
+        "example": "<x-sampaui::brand-mark label=\"SampaUI\" href=\"/\" />",
+        "livewire": "Aceita wire:navigate quando usado como link."
+    },
+    "breadcrumb": {
+        "name": "Breadcrumb",
+        "category": "navigation",
+        "tag": "<x-sampaui::breadcrumb />",
+        "props": [
+            "items"
+        ],
+        "slots": [],
+        "variants": [],
+        "example": "<x-sampaui::breadcrumb :items=\"$items\" />",
+        "livewire": "Links podem usar wire:navigate nos itens."
+    },
+    "button": {
+        "name": "Button",
+        "category": "action",
+        "tag": "<x-sampaui::button />",
+        "props": [
+            "variant",
+            "size",
+            "icon",
+            "icon-position",
+            "href",
+            "rounded",
+            "loading",
+            "loading-target",
+            "disabled",
+            "full",
+            "type"
+        ],
+        "slots": [
+            "default"
+        ],
+        "variants": [
+            "primary",
+            "secondary",
+            "accent",
+            "danger",
+            "success",
+            "warning",
+            "info",
+            "purple",
+            "muted",
+            "light",
+            "outline",
+            "ghost"
+        ],
+        "example": "<x-sampaui::button variant=\"primary\" icon=\"plus\" wire:click=\"save\">Salvar</x-sampaui::button>",
+        "livewire": "Preserva wire:click, wire:navigate e demais atributos no elemento interativo real; class substitui defaults visuais conflitantes."
+    },
+    "card": {
+        "name": "Card",
+        "category": "surface",
+        "tag": "<x-sampaui::card />",
+        "props": [
+            "title",
+            "description",
+            "variant",
+            "appearance",
+            "padding",
+            "divided",
+            "overflow"
+        ],
+        "slots": [
+            "default",
+            "footer",
+            "actions"
+        ],
+        "variants": [
+            "default",
+            "muted",
+            "primary",
+            "secondary",
+            "accent",
+            "danger",
+            "success",
+            "warning",
+            "info",
+            "purple"
+        ],
+        "example": "<x-sampaui::card title=\"Resumo\">Conteudo do card.</x-sampaui::card>",
+        "livewire": "Superficie segura para conteudo reativo renderizado pelo Livewire, com overflow visivel por padrao para menus e calendarios."
+    },
+    "cep": {
+        "name": "CEP",
+        "category": "form",
+        "tag": "<x-sampaui::cep />",
+        "props": [
+            "label",
+            "name",
+            "placeholder",
+            "icon"
+        ],
+        "slots": [
+            "prefix",
+            "suffix"
+        ],
+        "variants": [],
+        "example": "<x-sampaui::cep name=\"postal_code\" label=\"CEP\" wire:model.live=\"postal_code\" />",
+        "livewire": "Formata internamente 12345678 como 12345-678 e nao depende de plugin externo de mascara."
+    },
+    "checkbox": {
+        "name": "Checkbox",
+        "category": "form",
+        "tag": "<x-sampaui::checkbox />",
+        "props": [
+            "name",
+            "label",
+            "value",
+            "checked",
+            "disabled",
+            "readonly",
+            "loading",
+            "loading-target",
+            "required",
+            "hint",
+            "error",
+            "state",
+            "color"
+        ],
+        "slots": [
+            "default"
+        ],
+        "variants": [
+            "primary",
+            "secondary",
+            "accent",
+            "danger",
+            "success",
+            "warning",
+            "info",
+            "purple",
+            "muted"
+        ],
+        "example": "<x-sampaui::checkbox name=\"terms\" label=\"Aceito os termos\" wire:model=\"terms\" />",
+        "livewire": "Use wire:model diretamente no input real."
+    },
+    "chat-composer": {
+        "name": "Chat Composer",
+        "category": "communication",
+        "tag": "<x-sampaui::chat-composer />",
+        "props": [
+            "name",
+            "placeholder",
+            "button-label",
+            "button-icon",
+            "rows",
+            "disabled",
+            "loading",
+            "loading-target",
+            "max-length",
+            "show-counter",
+            "auto-resize",
+            "submit-on-enter"
+        ],
+        "slots": [
+            "default",
+            "before",
+            "after"
+        ],
+        "variants": [],
+        "example": "<x-sampaui::chat-composer wire:submit.prevent=\"sendMessage\" />",
+        "livewire": "Use wire:submit.prevent no form e wire:model no textarea quando precisar controlar a mensagem."
+    },
+    "chat-conversation": {
+        "name": "Chat Conversation",
+        "category": "communication",
+        "tag": "<x-sampaui::chat-conversation />",
+        "props": [
+            "name",
+            "subtitle",
+            "avatar",
+            "status",
+            "back-button",
+            "auto-scroll",
+            "empty",
+            "empty-title",
+            "empty-description"
+        ],
+        "slots": [
+            "default",
+            "actions",
+            "composer"
+        ],
+        "variants": [],
+        "example": "<x-sampaui::chat-conversation name=\"Ana Souza\" subtitle=\"Online\"><x-sampaui::chat-message>Oi</x-sampaui::chat-message></x-sampaui::chat-conversation>",
+        "livewire": "Mensagens e composer podem ser renderizados por estado Livewire."
+    },
+    "chat-layout": {
+        "name": "Chat Layout",
+        "category": "communication",
+        "tag": "<x-sampaui::chat-layout />",
+        "props": [
+            "height",
+            "mobile-panel"
+        ],
+        "slots": [
+            "default",
+            "sidebar"
+        ],
+        "variants": [],
+        "example": "<x-sampaui::chat-layout><x-slot:sidebar>Conversas</x-slot:sidebar>Chat</x-sampaui::chat-layout>",
+        "livewire": "Estrutura segura para listas e conversas reativas."
+    },
+    "chat-message": {
+        "name": "Chat Message",
+        "category": "communication",
+        "tag": "<x-sampaui::chat-message />",
+        "props": [
+            "from",
+            "author",
+            "time",
+            "status",
+            "avatar",
+            "show-avatar"
+        ],
+        "slots": [
+            "default"
+        ],
+        "variants": [
+            "contact",
+            "me",
+            "system"
+        ],
+        "example": "<x-sampaui::chat-message from=\"me\" time=\"09:42\" status=\"Lida\">Mensagem enviada.</x-sampaui::chat-message>",
+        "livewire": "Renderize em loops com mensagens vindas de propriedades Livewire."
+    },
+    "chat-sidebar": {
+        "name": "Chat Sidebar",
+        "category": "communication",
+        "tag": "<x-sampaui::chat-sidebar />",
+        "props": [
+            "title",
+            "subtitle",
+            "conversations",
+            "search-placeholder",
+            "search-name",
+            "searchable",
+            "empty-title",
+            "empty-description"
+        ],
+        "slots": [
+            "default",
+            "actions"
+        ],
+        "variants": [],
+        "example": "<x-sampaui::chat-sidebar :conversations=\"$conversations\" />",
+        "livewire": "A lista de conversas pode vir de propriedades computadas e filtros Livewire."
+    },
+    "command-palette": {
+        "name": "Command Palette",
+        "category": "overlay",
+        "tag": "<x-sampaui::command-palette />",
+        "props": [
+            "items",
+            "placeholder",
+            "open-event"
+        ],
+        "slots": [],
+        "variants": [],
+        "example": "<x-sampaui::command-palette :items=\"$items\" />",
+        "livewire": "Pode disparar navegacao ou acoes via eventos do browser."
+    },
+    "currency-br": {
+        "name": "Currency BR",
+        "category": "form",
+        "tag": "<x-sampaui::currency-br />",
+        "props": [
+            "label",
+            "name",
+            "placeholder",
+            "symbol",
+            "icon"
+        ],
+        "slots": [
+            "prefix",
+            "suffix"
+        ],
+        "variants": [],
+        "example": "<x-sampaui::currency-br name=\"price\" label=\"Valor\" wire:model.live=\"price\" />",
+        "livewire": "Formata valores no padrao brasileiro e sincroniza o model Alpine/Livewire."
+    },
+    "date-picker": {
+        "name": "DatePicker",
+        "category": "form",
+        "tag": "<x-sampaui::date-picker />",
+        "props": [
+            "name",
+            "label",
+            "value",
+            "min",
+            "max",
+            "placeholder",
+            "clearable",
+            "disabled",
+            "error",
+            "required"
+        ],
+        "slots": [],
+        "variants": [],
+        "example": "<x-sampaui::date-picker name=\"scheduled_at\" label=\"Data\" wire:model.live=\"scheduledAt\" />",
+        "livewire": "Usa x-modelable e preserva wire:model; o calendario e teletransportado para o body com posicao fixa, evitando recorte em Modal, Drawer e containers com scroll."
+    },
+    "drawer": {
+        "name": "Drawer",
+        "category": "overlay",
+        "tag": "<x-sampaui::drawer />",
+        "props": [
+            "model",
+            "title",
+            "subtitle",
+            "placement",
+            "size",
+            "variant",
+            "persistent",
+            "close-on-escape",
+            "close-on-outside",
+            "close-button",
+            "close-event",
+            "after-close",
+            "panel-class",
+            "backdrop-class"
+        ],
+        "slots": [
+            "default",
+            "header",
+            "actions"
+        ],
+        "variants": [
+            "default",
+            "muted",
+            "primary",
+            "secondary",
+            "accent",
+            "danger",
+            "success",
+            "warning",
+            "info",
+            "purple"
+        ],
+        "example": "<x-sampaui::drawer model=\"filtersOpen\" title=\"Filtros\">Conteudo</x-sampaui::drawer>",
+        "livewire": "Controle abertura com uma propriedade booleana Livewire informada em model."
+    },
+    "dropdown": {
+        "name": "Dropdown",
+        "category": "overlay",
+        "tag": "<x-sampaui::dropdown />",
+        "props": [
+            "label",
+            "icon",
+            "align",
+            "placement",
+            "width",
+            "close-on-escape",
+            "close-on-outside"
+        ],
+        "slots": [
+            "trigger",
+            "default"
+        ],
+        "variants": [],
+        "example": "<x-sampaui::dropdown align=\"right\" placement=\"top\"><x-slot:trigger>Menu</x-slot:trigger>Conteudo</x-sampaui::dropdown>",
+        "livewire": "Itens internos podem usar wire:click ou wire:navigate; o menu usa portal fixo para nao ser recortado por overlays e areas rolaveis."
+    },
+    "dropdown-item": {
+        "name": "Dropdown Item",
+        "category": "overlay",
+        "tag": "<x-sampaui::dropdown-item />",
+        "props": [
+            "href",
+            "icon",
+            "danger",
+            "disabled"
+        ],
+        "slots": [
+            "default"
+        ],
+        "variants": [],
+        "example": "<x-sampaui::dropdown-item icon=\"pencil\" wire:click=\"edit\">Editar</x-sampaui::dropdown-item>",
+        "livewire": "Preserva wire:click no item interativo."
+    },
+    "empty-state": {
+        "name": "Empty State",
+        "category": "feedback",
+        "tag": "<x-sampaui::empty-state />",
+        "props": [
+            "title",
+            "description",
+            "icon"
+        ],
+        "slots": [
+            "default",
+            "actions"
+        ],
+        "variants": [],
+        "example": "<x-sampaui::empty-state title=\"Nada encontrado\" icon=\"inbox\" />",
+        "livewire": "Use em estados condicionais de listas Livewire."
+    },
+    "field": {
+        "name": "Field",
+        "category": "form",
+        "tag": "<x-sampaui::field />",
+        "props": [
+            "id",
+            "label-for",
+            "label",
+            "hint",
+            "error",
+            "required"
+        ],
+        "slots": [
+            "default"
+        ],
+        "variants": [],
+        "example": "<x-sampaui::field id=\"email\" label=\"Email\" hint=\"Use seu email profissional\"><input id=\"email\" /></x-sampaui::field>",
+        "livewire": "Wrapper estrutural; mantenha wire:model no controle real dentro do slot."
+    },
+    "file-upload": {
+        "name": "File Upload",
+        "category": "form",
+        "tag": "<x-sampaui::file-upload />",
+        "props": [
+            "name",
+            "label",
+            "accept",
+            "multiple",
+            "preview",
+            "hint",
+            "disabled",
+            "loading",
+            "loading-target",
+            "required",
+            "error",
+            "max-size",
+            "retry",
+            "chunk-size",
+            "type-error",
+            "size-error",
+            "cancel-label",
+            "retry-label"
+        ],
+        "slots": [],
+        "variants": [],
+        "example": "<x-sampaui::file-upload name=\"contract\" label=\"Contrato\" wire:model=\"contract\" />",
+        "livewire": "Importe o SampaUI antes de Livewire.start(); previews sao limpos no destroy e em beforeunload protegido."
+    },
+    "header": {
+        "name": "Header",
+        "category": "layout",
+        "tag": "<x-sampaui::header />",
+        "props": [
+            "title",
+            "subtitle",
+            "eyebrow",
+            "status",
+            "menu",
+            "menu-event",
+            "aria-label",
+            "search",
+            "search-name",
+            "search-model",
+            "search-placeholder",
+            "notifications",
+            "notification-count",
+            "notification-event",
+            "sticky"
+        ],
+        "slots": [
+            "left",
+            "center",
+            "right",
+            "actions"
+        ],
+        "variants": [],
+        "example": "<x-sampaui::header title=\"Clientes\"><x-slot:actions>Acoes</x-slot:actions></x-sampaui::header>",
+        "livewire": "Acoes internas podem chamar metodos Livewire."
+    },
+    "indicator": {
+        "name": "Indicator",
+        "category": "feedback",
+        "tag": "<x-sampaui::indicator />",
+        "props": [
+            "variant",
+            "pulse",
+            "label"
+        ],
+        "slots": [],
+        "variants": [
+            "primary",
+            "secondary",
+            "accent",
+            "danger",
+            "success",
+            "warning",
+            "info",
+            "purple",
+            "muted",
+            "light"
+        ],
+        "example": "<x-sampaui::indicator variant=\"success\" label=\"Online\" />",
+        "livewire": "Bom para estados calculados de disponibilidade."
+    },
+    "input": {
+        "name": "Input",
+        "category": "form",
+        "tag": "<x-sampaui::input />",
+        "props": [
+            "type",
+            "label",
+            "name",
+            "value",
+            "placeholder",
+            "hint",
+            "error",
+            "state",
+            "disabled",
+            "readonly",
+            "loading",
+            "loading-target",
+            "required",
+            "icon",
+            "revealable",
+            "clearable",
+            "clear-label"
+        ],
+        "slots": [
+            "prefix",
+            "suffix"
+        ],
+        "variants": [],
+        "example": "<x-sampaui::input name=\"email\" label=\"Email\" icon=\"envelope\" wire:model.live=\"email\" />",
+        "livewire": "wire:model fica no input real e nao exige prop value."
+    },
+    "modal": {
+        "name": "Modal",
+        "category": "overlay",
+        "tag": "<x-sampaui::modal />",
+        "props": [
+            "model",
+            "title",
+            "subtitle",
+            "size",
+            "variant",
+            "persistent",
+            "close-on-escape",
+            "close-on-outside",
+            "close-button",
+            "close-event",
+            "after-close",
+            "panel-class",
+            "backdrop-class"
+        ],
+        "slots": [
+            "default",
+            "header",
+            "actions"
+        ],
+        "variants": [],
+        "example": "<x-sampaui::modal model=\"confirmOpen\" title=\"Confirmar\">Conteudo</x-sampaui::modal>",
+        "livewire": "Controle abertura com uma propriedade booleana Livewire informada em model."
+    },
+    "pagination": {
+        "name": "Pagination",
+        "category": "navigation",
+        "tag": "<x-sampaui::pagination />",
+        "props": [
+            "paginator",
+            "current-page",
+            "last-page",
+            "total",
+            "per-page",
+            "previous-url",
+            "next-url",
+            "window",
+            "wire-method",
+            "simple",
+            "compact"
+        ],
+        "slots": [],
+        "variants": [],
+        "example": "<x-sampaui::pagination :current-page=\"1\" :last-page=\"8\" wire-method=\"gotoPage\" />",
+        "livewire": "Pode chamar metodo Livewire definido em wire-method."
+    },
+    "phone": {
+        "name": "Phone",
+        "category": "form",
+        "tag": "<x-sampaui::phone />",
+        "props": [
+            "label",
+            "name",
+            "placeholder",
+            "icon"
+        ],
+        "slots": [
+            "prefix",
+            "suffix"
+        ],
+        "variants": [],
+        "example": "<x-sampaui::phone name=\"phone\" label=\"Telefone\" wire:model.live=\"phone\" />",
+        "livewire": "Formata telefone brasileiro internamente e sincroniza o model Alpine/Livewire."
+    },
+    "pin": {
+        "name": "Pin",
+        "category": "form",
+        "tag": "<x-sampaui::pin />",
+        "props": [
+            "name",
+            "label",
+            "hint",
+            "value",
+            "length",
+            "prefix",
+            "numbers",
+            "letters",
+            "clear",
+            "smart",
+            "disabled",
+            "error",
+            "required"
+        ],
+        "slots": [],
+        "variants": [],
+        "example": "<x-sampaui::pin name=\"code\" label=\"Codigo\" length=\"6\" numbers wire:model.live=\"code\" />",
+        "livewire": "Suporta x-modelable e sincronizacao bidirecional com Livewire."
+    },
+    "progress": {
+        "name": "Progress",
+        "category": "feedback",
+        "tag": "<x-sampaui::progress />",
+        "props": [
+            "value",
+            "max",
+            "variant",
+            "label",
+            "show-value"
+        ],
+        "slots": [],
+        "variants": [
+            "primary",
+            "secondary",
+            "accent",
+            "danger",
+            "success",
+            "warning",
+            "info",
+            "purple",
+            "muted",
+            "light"
+        ],
+        "example": "<x-sampaui::progress value=\"60\" variant=\"primary\" />",
+        "livewire": "Valor pode ser atualizado por propriedades Livewire."
+    },
+    "radio": {
+        "name": "Radio",
+        "category": "form",
+        "tag": "<x-sampaui::radio />",
+        "props": [
+            "name",
+            "label",
+            "value",
+            "options",
+            "inline",
+            "error",
+            "disabled",
+            "color"
+        ],
+        "slots": [],
+        "variants": [
+            "primary",
+            "secondary",
+            "accent",
+            "danger",
+            "success",
+            "warning",
+            "info",
+            "purple",
+            "muted"
+        ],
+        "example": "<x-sampaui::radio name=\"status\" :options=\"['active' => 'Ativo']\" wire:model=\"status\" />",
+        "livewire": "Use wire:model para vincular a opcao selecionada."
+    },
+    "select": {
+        "name": "Select",
+        "category": "form",
+        "tag": "<x-sampaui::select />",
+        "props": [
+            "name",
+            "label",
+            "value",
+            "options",
+            "placeholder",
+            "empty-text",
+            "hint",
+            "error",
+            "state",
+            "disabled",
+            "readonly",
+            "loading",
+            "loading-target",
+            "required",
+            "clearable",
+            "clear-label"
+        ],
+        "slots": [
+            "default",
+            "prefix",
+            "suffix"
+        ],
+        "variants": [],
+        "example": "<x-sampaui::select name=\"status\" label=\"Status\" :options=\"['active' => 'Ativo']\" wire:model.live=\"status\" />",
+        "livewire": "Usa x-modelable para manter valor e label sincronizados quando o servidor atualiza wire:model."
+    },
+    "select-multiple": {
+        "name": "Select Multiple",
+        "category": "form",
+        "tag": "<x-sampaui::select-multiple />",
+        "props": [
+            "name",
+            "label",
+            "placeholder",
+            "options",
+            "value",
+            "search-placeholder",
+            "empty-text",
+            "loading-text",
+            "disabled",
+            "readonly",
+            "loading",
+            "loading-target",
+            "hint",
+            "error",
+            "state",
+            "required",
+            "clearable",
+            "clear-label"
+        ],
+        "slots": [
+            "prefix",
+            "suffix"
+        ],
+        "variants": [],
+        "example": "<x-sampaui::select-multiple name=\"roles\" label=\"Perfis\" :options=\"$roles\" wire:model.live=\"roles\" />",
+        "livewire": "Sincroniza array de valores com Livewire."
+    },
+    "select-search": {
+        "name": "Select Search",
+        "category": "form",
+        "tag": "<x-sampaui::select-search />",
+        "props": [
+            "name",
+            "label",
+            "placeholder",
+            "options",
+            "value",
+            "search-placeholder",
+            "empty-text",
+            "disabled",
+            "error",
+            "required"
+        ],
+        "slots": [],
+        "variants": [],
+        "example": "<x-sampaui::select-search name=\"owner\" label=\"Responsavel\" :options=\"$owners\" wire:model.live=\"owner\" />",
+        "livewire": "Usa x-modelable e preserva wire:model para busca local."
+    },
+    "sidebar": {
+        "name": "Sidebar",
+        "category": "navigation",
+        "tag": "<x-sampaui::sidebar />",
+        "props": [
+            "logo-src",
+            "logo-alt",
+            "brand-href",
+            "items",
+            "sections",
+            "user",
+            "avatar",
+            "avatar-alt",
+            "initial-state",
+            "collapsed",
+            "collapsible",
+            "close-event",
+            "open-event",
+            "state-event",
+            "active-color",
+            "logout-href",
+            "logout-label",
+            "position"
+        ],
+        "slots": [
+            "footer"
+        ],
+        "variants": [],
+        "example": "<x-sampaui::sidebar logo-src=\"/images/logo.svg\" :items=\"$items\" />",
+        "livewire": "Itens podem usar wire:navigate."
+    },
+    "skeleton": {
+        "name": "Skeleton",
+        "category": "feedback",
+        "tag": "<x-sampaui::skeleton />",
+        "props": [
+            "lines",
+            "circle"
+        ],
+        "slots": [],
+        "variants": [],
+        "example": "<x-sampaui::skeleton lines=\"3\" />",
+        "livewire": "Use com wire:loading para estados de carregamento."
+    },
+    "stepper": {
+        "name": "Stepper",
+        "category": "navigation",
+        "tag": "<x-sampaui::stepper />",
+        "props": [
+            "steps",
+            "current"
+        ],
+        "slots": [],
+        "variants": [],
+        "example": "<x-sampaui::stepper :steps=\"$steps\" :current=\"2\" />",
+        "livewire": "Passos podem refletir estado de formulario Livewire."
+    },
+    "tab-panel": {
+        "name": "Tab Panel",
+        "category": "navigation",
+        "tag": "<x-sampaui::tab-panel />",
+        "props": [
+            "name"
+        ],
+        "slots": [
+            "default"
+        ],
+        "variants": [],
+        "example": "<x-sampaui::tab-panel name=\"details\">Detalhes</x-sampaui::tab-panel>",
+        "livewire": "Conteudo interno pode ser Livewire."
+    },
+    "table": {
+        "name": "Table",
+        "category": "data",
+        "tag": "<x-sampaui::table />",
+        "props": [
+            "columns",
+            "rows",
+            "title",
+            "description",
+            "empty",
+            "empty-title",
+            "empty-description",
+            "empty-icon",
+            "striped",
+            "hover",
+            "sort-by",
+            "sort-direction",
+            "sort-method",
+            "searchable",
+            "search",
+            "search-name",
+            "search-model",
+            "search-placeholder",
+            "per-page",
+            "page",
+            "total",
+            "pagination-method",
+            "pagination-type",
+            "selectable",
+            "selected-rows",
+            "select-name",
+            "row-key",
+            "export-href",
+            "export-label",
+            "sticky-header",
+            "mobile-cards",
+            "compact",
+            "bordered",
+            "flush",
+            "bleed",
+            "loading",
+            "loading-target"
+        ],
+        "slots": [
+            "toolbar",
+            "filters",
+            "actions",
+            "selectionActions",
+            "emptyAction",
+            "head",
+            "body",
+            "pagination"
+        ],
+        "variants": [],
+        "example": "<x-sampaui::table title=\"Clientes\" searchable :columns=\"$columns\" :rows=\"$rows\" />",
+        "livewire": "DataTable unificada com busca, ordenacao, paginacao, selecao multipla, filtros e exportacao."
+    },
+    "table-search": {
+        "name": "Table Search",
+        "category": "data",
+        "tag": "<x-sampaui::table-search />",
+        "props": [
+            "columns",
+            "rows",
+            "title",
+            "description",
+            "empty",
+            "empty-title",
+            "empty-description",
+            "empty-icon",
+            "striped",
+            "hover",
+            "sort-by",
+            "sort-direction",
+            "sort-method",
+            "search",
+            "search-name",
+            "search-model",
+            "search-placeholder",
+            "per-page",
+            "page",
+            "total",
+            "pagination-method",
+            "pagination-type",
+            "selectable",
+            "selected-rows",
+            "select-name",
+            "row-key",
+            "export-href",
+            "export-label",
+            "sticky-header",
+            "mobile-cards",
+            "compact",
+            "bordered",
+            "flush",
+            "bleed",
+            "loading",
+            "loading-target"
+        ],
+        "slots": [
+            "toolbar",
+            "filters",
+            "actions",
+            "selectionActions",
+            "emptyAction",
+            "head",
+            "body",
+            "pagination"
+        ],
+        "variants": [],
+        "example": "<x-sampaui::table-search title=\"Clientes\" search-model=\"search\" :columns=\"$columns\" :rows=\"$rows\" />",
+        "livewire": "Alias direto para o componente Table unificado com searchable ativado por padrao."
+    },
+    "tabs": {
+        "name": "Tabs",
+        "category": "navigation",
+        "tag": "<x-sampaui::tabs />",
+        "props": [
+            "tabs",
+            "active"
+        ],
+        "slots": [
+            "default"
+        ],
+        "variants": [],
+        "example": "<x-sampaui::tabs :tabs=\"$tabs\" active=\"overview\" />",
+        "livewire": "Pode controlar a aba ativa via estado Alpine/Livewire."
+    },
+    "textarea": {
+        "name": "Textarea",
+        "category": "form",
+        "tag": "<x-sampaui::textarea />",
+        "props": [
+            "label",
+            "name",
+            "value",
+            "rows",
+            "min-rows",
+            "max-rows",
+            "placeholder",
+            "hint",
+            "error",
+            "state",
+            "disabled",
+            "readonly",
+            "loading",
+            "loading-target",
+            "required",
+            "auto-resize",
+            "counter",
+            "maxlength",
+            "clearable",
+            "clear-label",
+            "copyable",
+            "copy-label",
+            "resize"
+        ],
+        "slots": [],
+        "variants": [],
+        "example": "<x-sampaui::textarea name=\"notes\" label=\"Observacoes\" auto-resize counter maxlength=\"500\" wire:model.live=\"notes\" />",
+        "livewire": "Textarea reativo com suporte a auto-resize, contador de caracteres, botao de copiar e binding direto Livewire."
+    },
+    "toast": {
+        "name": "Toast",
+        "category": "feedback",
+        "tag": "<x-sampaui::toast />",
+        "props": [
+            "position",
+            "max",
+            "duration",
+            "variant",
+            "size"
+        ],
+        "slots": [],
+        "variants": [
+            "success",
+            "danger",
+            "warning",
+            "info"
+        ],
+        "example": "<x-sampaui::toast />",
+        "livewire": "Dispare CustomEvent(\"toast\") pelo browser a partir de acoes Livewire."
+    },
+    "toggle": {
+        "name": "Toggle",
+        "category": "form",
+        "tag": "<x-sampaui::toggle />",
+        "props": [
+            "name",
+            "label",
+            "checked",
+            "disabled",
+            "readonly",
+            "loading",
+            "loading-target",
+            "required",
+            "hint",
+            "error",
+            "state",
+            "value",
+            "color"
+        ],
+        "slots": [],
+        "variants": [
+            "primary",
+            "secondary",
+            "accent",
+            "danger",
+            "success",
+            "warning",
+            "info",
+            "purple",
+            "muted",
+            "light"
+        ],
+        "example": "<x-sampaui::toggle name=\"active\" label=\"Ativo\" color=\"accent\" wire:model=\"active\" />",
+        "livewire": "wire:model fica no checkbox real."
+    },
+    "tooltip": {
+        "name": "Tooltip",
+        "category": "overlay",
+        "tag": "<x-sampaui::tooltip />",
+        "props": [
+            "text",
+            "position"
+        ],
+        "slots": [
+            "default"
+        ],
+        "variants": [],
+        "example": "<x-sampaui::tooltip text=\"Ajuda\"><x-sampaui::button icon=\"question\" /></x-sampaui::tooltip>",
+        "livewire": "Componente visual, seguro em re-renderizacoes."
+    }
+}

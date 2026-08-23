@@ -460,7 +460,8 @@
                 "close-button",
                 "close-event",
                 "after-close",
-                "panel-class"
+                "panel-class",
+                "backdrop-class"
             ],
             "slots": [
                 "default",
@@ -688,7 +689,8 @@
                 "close-button",
                 "close-event",
                 "after-close",
-                "panel-class"
+                "panel-class",
+                "backdrop-class"
             ],
             "slots": [
                 "default",
@@ -729,16 +731,7 @@
                 "label",
                 "name",
                 "placeholder",
-                "icon",
-                "hint",
-                "error",
-                "state",
-                "disabled",
-                "readonly",
-                "loading",
-                "loading-target",
-                "required",
-                "clearable"
+                "icon"
             ],
             "slots": [
                 "prefix",
@@ -1116,9 +1109,12 @@
             "category": "form",
             "tag": "<x-sampaui::textarea />",
             "props": [
-                "name",
                 "label",
+                "name",
+                "value",
                 "rows",
+                "min-rows",
+                "max-rows",
                 "placeholder",
                 "hint",
                 "error",
@@ -1127,12 +1123,20 @@
                 "readonly",
                 "loading",
                 "loading-target",
-                "required"
+                "required",
+                "auto-resize",
+                "counter",
+                "maxlength",
+                "clearable",
+                "clear-label",
+                "copyable",
+                "copy-label",
+                "resize"
             ],
             "slots": [],
             "variants": [],
-            "example": "<x-sampaui::textarea name=\"notes\" label=\"Observacoes\" wire:model.live=\"notes\" />",
-            "livewire": "wire:model fica no textarea real."
+            "example": "<x-sampaui::textarea name=\"notes\" label=\"Observacoes\" auto-resize counter maxlength=\"500\" wire:model.live=\"notes\" />",
+            "livewire": "Textarea reativo com suporte a auto-resize, contador de caracteres, botao de copiar e binding direto Livewire."
         },
         "toast": {
             "name": "Toast",

@@ -1,26 +1,25 @@
 # Tabs
 
-Use para alternar secoes relacionadas na mesma tela.
+Navegacao local entre secoes do mesmo contexto.
+
+Navegacao local entre secoes do mesmo contexto. O componente preserva atributos HTML, Alpine e Livewire passados pelo consumidor.
+
+## Uso
 
 ```blade
-<x-sampaui::tabs :tabs="['overview' => 'Resumo', 'media' => 'Midia']" active="overview">
-    <x-sampaui::tab-panel name="overview">Resumo do imovel.</x-sampaui::tab-panel>
-    <x-sampaui::tab-panel name="media">Galeria e videos.</x-sampaui::tab-panel>
-</x-sampaui::tabs>
+<x-sampaui::tabs :tabs="$tabs" active="overview" />
 ```
 
 ## Propriedades
 
-- `tabs`: mapa `chave => label`.
-- `active`: chave inicial.
+| Propriedade | Tipo | Padrão | Descrição |
+| :--- | :--- | :--- | :--- |
+| `tabs` | `array` | `[]` | Abas disponíveis [ chave => Rótulo ]. |
+| `active` | `string|null` | `null` | Identificador da aba inicialmente ativa. |
 
-## Subcomponente
+## Slots
 
-`x-sampaui::tab-panel` deve ser usado dentro de `x-sampaui::tabs` e recebe `name`.
-
-## Uso
-
-Use `<x-sampaui::tabs />` como ponto de partida e adapte apenas o layout com `class=""`.
+- `default`
 
 ## Exemplos
 
@@ -30,6 +29,6 @@ Use `<x-sampaui::tabs />` como ponto de partida e adapte apenas o layout com `cl
 
 ## Boas práticas
 
-- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
-- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
 - Pode controlar a aba ativa via estado Alpine/Livewire.
+- Atributos HTML adicionais (`class`, `id`, `aria-*`, `data-*`) são repassados ao elemento nativo correspondente.
+- Use as diretivas oficiais do Blade e Livewire para controle de estado sem mutar o DOM diretamente.

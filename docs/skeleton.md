@@ -1,65 +1,21 @@
 # Skeleton
 
-Use para estados de carregamento quando o layout final ja e conhecido. Skeleton evita salto visual em listas, cards, tabelas e buscas Livewire.
+Placeholder de carregamento para listas, cards e textos.
+
+Use Skeleton quando o layout final ja e conhecido e a espera e curta. Ele evita salto visual enquanto Livewire, filtros ou requisicoes assíncronas atualizam a tela.
+
+## Uso
 
 ```blade
-<x-sampaui::skeleton :lines="3" />
+<x-sampaui::skeleton lines="3" />
 ```
 
 ## Propriedades
 
-- `lines`: quantidade de linhas.
-- `circle`: renderiza bloco circular para avatar, icone ou thumbnail.
-- `class`: ajusta largura, altura e espacamento.
-
-Prefira skeletons quando o layout final ja e conhecido e a espera e curta.
-
-## Card carregando
-
-```blade
-<div class="rounded-default border border-border bg-white p-5">
-    <div class="flex items-center gap-4">
-        <x-sampaui::skeleton circle class="h-14 w-14" />
-
-        <div class="flex-1">
-            <x-sampaui::skeleton class="h-4 w-2/3" />
-            <x-sampaui::skeleton class="mt-3 h-3 w-1/2" />
-        </div>
-    </div>
-
-    <div class="mt-6">
-        <x-sampaui::skeleton :lines="3" />
-    </div>
-</div>
-```
-
-## Lista ou tabela
-
-```blade
-@foreach (range(1, 4) as $row)
-    <div class="flex items-center gap-4 rounded-default border border-border bg-white p-4">
-        <x-sampaui::skeleton circle class="h-10 w-10" />
-        <x-sampaui::skeleton class="h-4 flex-1" />
-        <x-sampaui::skeleton class="h-4 w-24" />
-    </div>
-@endforeach
-```
-
-## Com Livewire
-
-```blade
-<div wire:loading wire:target="filter">
-    <x-sampaui::skeleton :lines="4" />
-</div>
-
-<div wire:loading.remove wire:target="filter">
-    {{-- conteudo real da lista --}}
-</div>
-```
-
-## Uso
-
-Use `<x-sampaui::skeleton />` como ponto de partida e adapte apenas o layout com `class=""`.
+| Propriedade | Tipo | Padrão | Descrição |
+| :--- | :--- | :--- | :--- |
+| `lines` | `int` | `1` | Quantidade de linhas horizontais. A ultima linha fica menor para simular texto real. |
+| `circle` | `bool` | `false` | Renderiza bloco circular para avatar, icone ou thumbnail. |
 
 ## Exemplos
 
@@ -69,6 +25,6 @@ Use `<x-sampaui::skeleton />` como ponto de partida e adapte apenas o layout com
 
 ## Boas práticas
 
-- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
-- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
 - Use com wire:loading para estados de carregamento.
+- Atributos HTML adicionais (`class`, `id`, `aria-*`, `data-*`) são repassados ao elemento nativo correspondente.
+- Use as diretivas oficiais do Blade e Livewire para controle de estado sem mutar o DOM diretamente.

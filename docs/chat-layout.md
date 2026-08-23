@@ -1,65 +1,35 @@
 # Chat Layout
 
-Container estrutural responsivo com sidebar e área de conversa ativa para atendimento, suporte e mensageria.
+Container estrutural responsivo com sidebar e área de conversa ativa para atendimento e mensageria.
 
-```blade
-<x-sampaui::chat-layout height="44rem">
-    <x-slot:sidebar>
-        <x-sampaui::chat-sidebar
-            title="Atendimentos"
-            :conversations="$conversations"
-        />
-    </x-slot:sidebar>
-
-    <x-sampaui::chat-conversation name="Ana Souza" subtitle="Online agora" status="online">
-        <x-sampaui::chat-message time="09:40">Bom dia!</x-sampaui::chat-message>
-        <x-sampaui::chat-message from="me" time="09:41" status="Lida">Olá Ana, tudo bem?</x-sampaui::chat-message>
-
-        <x-slot:composer>
-            <x-sampaui::chat-composer wire:submit.prevent="sendMessage" />
-        </x-slot:composer>
-    </x-sampaui::chat-conversation>
-</x-sampaui::chat-layout>
-```
+Organiza o fluxo de mensagens em duas colunas no desktop (lista de conversas e conversa ativa) e alterna automaticamente para visualização em tela cheia no mobile via eventos Alpine (chat:open-conversation e chat:back). Suporta altura customizada e classes utilitárias sem quebrar o alinhamento.
 
 ## Uso
 
-Use `<x-sampaui::chat-layout />` como base para construir telas de chat com lista lateral e conversa ativa. No mobile, a navegação entre a lista e a conversa é gerenciada automaticamente via eventos CustomEvent Alpine (`chat:open-conversation` e `chat:back`).
+```blade
+<x-sampaui::chat-layout><x-slot:sidebar>Conversas</x-slot:sidebar>Chat</x-sampaui::chat-layout>
+```
 
 ## Propriedades
 
-| Prop | Tipo | Padrão | Descrição |
-| --- | --- | --- | --- |
-| `height` | `string` | `'44rem'` | Altura total do container (ex: `'44rem'`, `'600px'`, `'100%'`). |
-| `mobile-panel` | `sidebar\|conversation` | `'sidebar'` | Define qual painel fica visível inicialmente em telas mobile. |
+| Propriedade | Tipo | Padrão | Descrição |
+| :--- | :--- | :--- | :--- |
+| `height` | `string` | `44rem` | Altura total do layout de mensagens (ex: 44rem, 600px, 100%). |
+| `mobile-panel` | `sidebar|conversation` | `sidebar` | Define qual painel fica visível inicialmente em telas mobile. |
 
 ## Slots
 
-- `sidebar`: Conteúdo da barra lateral (geralmente `<x-sampaui::chat-sidebar />`).
-- `default`: Painel da conversa ativa (geralmente `<x-sampaui::chat-conversation />`).
+- `default`
+- `sidebar`
 
 ## Exemplos
 
 ```blade
-<x-sampaui::chat-layout height="44rem">
-    <x-slot:sidebar>
-        <x-sampaui::chat-sidebar title="Atendimentos" :conversations="$conversations" />
-    </x-slot:sidebar>
-
-    <x-sampaui::chat-conversation name="Ana Souza" subtitle="Online agora" status="online">
-        <x-sampaui::chat-message time="09:40">Bom dia!</x-sampaui::chat-message>
-        <x-sampaui::chat-message from="me" time="09:41" status="Lida">Olá Ana, tudo bem?</x-sampaui::chat-message>
-
-        <x-slot:composer>
-            <x-sampaui::chat-composer wire:submit.prevent="sendMessage" />
-        </x-slot:composer>
-    </x-sampaui::chat-conversation>
-</x-sampaui::chat-layout>
+<x-sampaui::chat-layout><x-slot:sidebar>Conversas</x-slot:sidebar>Chat</x-sampaui::chat-layout>
 ```
 
 ## Boas práticas
 
-- Defina uma altura fixa (`height="44rem"` ou `h-[calc(100vh-8rem)]`) para rolagem independente na lista e na timeline.
-- Mantenha os atributos de integração Livewire (`wire:model`, `wire:click`) nos componentes internos.
-- Estrutura segura e semântica para listas e conversas reativas.
-
+- Estrutura segura para listas e conversas reativas.
+- Atributos HTML adicionais (`class`, `id`, `aria-*`, `data-*`) são repassados ao elemento nativo correspondente.
+- Use as diretivas oficiais do Blade e Livewire para controle de estado sem mutar o DOM diretamente.

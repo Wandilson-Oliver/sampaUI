@@ -1,29 +1,24 @@
 # Progress
 
-Use para progresso, score e acompanhamento de qualidade.
+Barra de progresso com label, percentual e variantes.
+
+Barra de progresso com label, percentual e variantes. O componente preserva atributos HTML, Alpine e Livewire passados pelo consumidor.
+
+## Uso
 
 ```blade
-<x-sampaui::progress
-    label="Carteira revisada"
-    :value="84"
-    show-value
-    variant="success"
-/>
+<x-sampaui::progress value="60" variant="primary" />
 ```
 
 ## Propriedades
 
-- `value`: valor atual.
-- `max`: valor maximo, padrao `100`.
-- `label`: texto opcional.
-- `show-value`: mostra percentual calculado.
-- `variant`: `primary`, `secondary`, `accent`, `danger`, `success`, `warning`, `info`, `purple`, `muted`, `light`.
-
-O track usa `role="progressbar"` com `aria-valuenow`, `aria-valuemin` e `aria-valuemax`.
-
-## Uso
-
-Use `<x-sampaui::progress />` como ponto de partida e adapte apenas o layout com `class=""`.
+| Propriedade | Tipo | Padrão | Descrição |
+| :--- | :--- | :--- | :--- |
+| `value` | `int|float` | `0` | Valor atual. |
+| `max` | `int|float` | `100` | Valor maximo usado para calcular percentual. |
+| `variant` | `primary|secondary|accent|danger|success|warning|info|purple|muted|light` | `primary` | Cor da barra. |
+| `label` | `string|null` | `null` | Texto acima da barra. |
+| `show-value` | `bool` | `false` | Exibe percentual calculado. |
 
 ## Exemplos
 
@@ -33,6 +28,6 @@ Use `<x-sampaui::progress />` como ponto de partida e adapte apenas o layout com
 
 ## Boas práticas
 
-- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
-- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
 - Valor pode ser atualizado por propriedades Livewire.
+- Atributos HTML adicionais (`class`, `id`, `aria-*`, `data-*`) são repassados ao elemento nativo correspondente.
+- Use as diretivas oficiais do Blade e Livewire para controle de estado sem mutar o DOM diretamente.

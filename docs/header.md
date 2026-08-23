@@ -1,70 +1,41 @@
 # Header
 
-Cabecalho de pagina para dashboards e telas internas.
+Cabecalho de pagina com titulo, subtitulo, status, acoes e botao mobile para navegacao.
+
+Use no topo de dashboards e telas internas. O componente organiza contexto e comandos principais; em desktop, a area de acoes usa largura automatica estrutural para nunca reduzir o titulo a zero.
+
+## Uso
 
 ```blade
-<x-sampaui::header
-    title="Clientes"
-    subtitle="Gerencie relacionamentos comerciais"
-    eyebrow="CRM"
-    status="Atualizado agora"
-/>
-```
-
-Com acoes:
-
-```blade
-<x-sampaui::header title="Clientes" subtitle="Pipeline comercial">
-    <x-slot:actions>
-        <x-sampaui::button icon="plus">Novo cliente</x-sampaui::button>
-        <x-sampaui::button variant="outline" icon="download">Exportar</x-sampaui::button>
-    </x-slot:actions>
-</x-sampaui::header>
-```
-
-Com botao mobile para abrir sidebar:
-
-```blade
-<x-sampaui::header
-    title="Dashboard"
-    subtitle="Resumo operacional"
-    menu
-    menu-event="sampaui:sidebar-open"
-/>
-```
-
-Topbar com busca e notificacoes:
-
-```blade
-<x-sampaui::header
-    title="Dashboard"
-    search
-    search-model="search"
-    notifications
-    notification-count="3"
-    sticky
-/>
+<x-sampaui::header title="Clientes"><x-slot:actions>Acoes</x-slot:actions></x-sampaui::header>
 ```
 
 ## Propriedades
 
-- `title`: titulo principal.
-- `subtitle`: texto auxiliar abaixo do titulo.
-- `eyebrow`: label curto acima do titulo.
-- `status`: pill exibida na direita.
-- `menu`: exibe botao mobile de navegacao.
-- `menu-event`: evento Alpine disparado pelo botao mobile.
-- `search`, `search-name`, `search-model`, `search-placeholder`: busca integrada opcional.
-- `notifications`, `notification-count`, `notification-event`: atalho opcional para notificacoes.
-- `sticky`: fixa o header no topo do container.
-- `actions`: slot nomeado para comandos.
+| Propriedade | Tipo | Padrão | Descrição |
+| :--- | :--- | :--- | :--- |
+| `title` | `string` | `Dashboard` | Titulo principal exibido no header. |
+| `subtitle` | `string|null` | `null` | Texto auxiliar abaixo do titulo. |
+| `eyebrow` | `string|null` | `null` | Label curto acima do titulo. |
+| `status` | `string|null` | `null` | Pill de status exibida na direita. |
+| `menu` | `bool` | `false` | Exibe botao mobile para abrir navegacao. |
+| `menu-event` | `string` | `sampaui:sidebar-open` | Evento Alpine disparado pelo botao mobile. |
+| `aria-label` | `string` | `Container` | Rótulo de acessibilidade para leitores de tela. |
+| `search` | `bool` | `false` | Exibe o campo de busca responsivo no centro do header. |
+| `search-name` | `string` | `header_search` | Nome do input de busca. |
+| `search-model` | `string|null` | `null` | Aplica `wire:model.live.debounce.300ms` quando informado. |
+| `search-placeholder` | `string` | `Buscar...` | Placeholder do campo de busca. |
+| `notifications` | `bool` | `false` | Exibe o botao de notificacoes. |
+| `notification-count` | `int` | `0` | Badge numerico limitado visualmente a `99+`. |
+| `notification-event` | `string` | `sampaui:notifications-open` | Evento disparado pelo botao de notificacoes. |
+| `sticky` | `bool` | `false` | Mantem o header no topo durante a rolagem. |
 
-Os slots padrao `left`, `center` e `right` permitem composicoes responsivas; `actions` permanece compativel como atalho da area direita. O titulo rotula o `<header>` automaticamente, ou use `aria-label`.
-A area de acoes usa largura estrutural automatica em desktop, preservando o espaco do titulo mesmo quando o CSS do projeto e compilado em outra ordem.
+## Slots
 
-## Uso
-
-Use `<x-sampaui::header />` como ponto de partida e adapte apenas o layout com `class=""`.
+- `left`
+- `center`
+- `right`
+- `actions`
 
 ## Exemplos
 
@@ -74,6 +45,6 @@ Use `<x-sampaui::header />` como ponto de partida e adapte apenas o layout com `
 
 ## Boas práticas
 
-- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
-- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
 - Acoes internas podem chamar metodos Livewire.
+- Atributos HTML adicionais (`class`, `id`, `aria-*`, `data-*`) são repassados ao elemento nativo correspondente.
+- Use as diretivas oficiais do Blade e Livewire para controle de estado sem mutar o DOM diretamente.

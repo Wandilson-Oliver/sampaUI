@@ -1,37 +1,32 @@
 # Card
 
-Container para agrupar conteudo com header, actions e footer opcionais.
+Container com header, descricao, actions, footer e variantes discretas para superficies de conteudo.
+
+Use para agrupar dados operacionais, formularios curtos e blocos de resumo sem recriar sombra e espacamento. Quando existe header, o conteudo inicia 15px abaixo dele; dropdowns absolutos abrem integralmente porque o overflow e visivel por padrao.
 
 ## Uso
 
 ```blade
-<x-sampaui::card title="Contrato" description="Em analise" variant="primary">
-    Proposta aguardando revisao juridica.
-
-    <x-slot:footer>
-        Atualizado ha 3 minutos.
-    </x-slot:footer>
-</x-sampaui::card>
+<x-sampaui::card title="Resumo">Conteudo do card.</x-sampaui::card>
 ```
 
 ## Propriedades
 
-- `title`
-- `description`
-- `variant`: `default`, `muted`, `primary`, `secondary`, `accent`, `danger`, `success`, `warning`, `info` ou `purple`
-- `padding`: `sm`, `md` ou `lg`
-- `divided`: `false` por padrao. Use `:divided="true"` quando precisar separar header e conteudo.
-- `overflow`: `visible` por padrao, para que DatePicker, selects, dropdowns e popovers absolutos possam abrir integralmente. Use `hidden` quando o conteudo precisar ser recortado; `auto` habilita rolagem interna.
+| Propriedade | Tipo | Padrão | Descrição |
+| :--- | :--- | :--- | :--- |
+| `title` | `string|null` | `null` | Titulo padrao do header. |
+| `description` | `string|null` | `null` | Texto auxiliar abaixo do titulo. |
+| `variant` | `default|muted|primary|secondary|accent|danger|success|warning|info|purple` | `default` | Define a superficie e a cor de borda com tokens oficiais. |
+| `appearance` | `string` | `subtle` | Estilo visual de preenchimento e superfície. |
+| `padding` | `none|sm|md|lg` | `md` | Controla espacamento interno do header, body e footer. Use `none` para remover padding (`p-0`). |
+| `divided` | `bool` | `false` | Exibe divisor entre header e body quando ativado. |
+| `overflow` | `visible|hidden|auto` | `visible` | Padrao seguro para dropdowns, DatePicker e popovers absolutos. Use `hidden` para recorte intencional; `auto` cria rolagem interna. |
 
-`appearance` aceita `outline` (padrao), `soft` e `solid`, sempre com tokens semanticos do SampaUI.
+## Slots
 
-Quando existe header, o conteudo inicia a `15px` do bloco de titulo/descricao para manter o card compacto sem perder hierarquia.
-
-```blade
-<x-sampaui::card title="Filtros">
-    <x-sampaui::select label="Status" :options="$statuses" />
-</x-sampaui::card>
-```
+- `default`
+- `footer`
+- `actions`
 
 ## Exemplos
 
@@ -41,6 +36,6 @@ Quando existe header, o conteudo inicia a `15px` do bloco de titulo/descricao pa
 
 ## Boas práticas
 
-- Preserve os atributos `wire:*`, `x-*`, `aria-*` e HTML no elemento interativo real.
-- Use os tokens semânticos do SampaUI e `class=""` para layout, sem duplicar o componente com HTML solto.
 - Superficie segura para conteudo reativo renderizado pelo Livewire, com overflow visivel por padrao para menus e calendarios.
+- Atributos HTML adicionais (`class`, `id`, `aria-*`, `data-*`) são repassados ao elemento nativo correspondente.
+- Use as diretivas oficiais do Blade e Livewire para controle de estado sem mutar o DOM diretamente.
