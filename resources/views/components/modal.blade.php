@@ -15,13 +15,15 @@
 ])
 
 @php
+    $wireModel = method_exists($attributes, 'wire') ? $attributes->wire('model')->value() : ($attributes->get('wire:model') ?? $attributes->get('wire:model.live'));
+    $model = $model ?? $wireModel;
     $currentLivewire = app()->bound('livewire') ? app('livewire')->current() : null;
     $livewireId = is_object($currentLivewire) && method_exists($currentLivewire, 'getId')
         ? $currentLivewire->getId()
         : 'standalone';
     $modelKey = $model ?? 'modal';
     $generatedId = preg_replace('/[^A-Za-z0-9\\-_:.]/', '-', "sampaui-modal-{$livewireId}-{$modelKey}");
-    $id = $attributes->get('id') ?? $generatedId;
+    $id = $attributes->get('id') ?? $attributes->get('name') ?? $generatedId;
     $titleId = $title ? $id.'-title' : null;
     $subtitleId = $subtitle ? $id.'-subtitle' : null;
 
@@ -64,9 +66,9 @@
         closeOnOutside: @js($outsideEnabled),
         afterClose: @js($afterClose),
     })"
-    x-on:open-modal.window="if ($event.detail === '{{ $id }}' || $event.detail?.id === '{{ $id }}' || $event.detail?.name === '{{ $id }}'@if(filled($model)) || $event.detail === '{{ $model }}' || $event.detail?.model === '{{ $model }}'@endif) openOverlay()"
+    x-on:open-modal.window="if (!$event.detail || $event.detail === '{{ $id }}' || $event.detail?.id === '{{ $id }}' || $event.detail?.name === '{{ $id }}'@if(filled($model)) || $event.detail === '{{ $model }}' || $event.detail?.model === '{{ $model }}' || $event.detail?.name === '{{ $model }}'@endif || '{{ $id }}'.endsWith('-' + ($event.detail?.id || $event.detail?.name || $event.detail))) openOverlay()"
     x-on:open-modal-{{ $id }}.window="openOverlay()"
-    x-on:close-modal.window="if ($event.detail === '{{ $id }}' || $event.detail?.id === '{{ $id }}' || $event.detail?.name === '{{ $id }}'@if(filled($model)) || $event.detail === '{{ $model }}' || $event.detail?.model === '{{ $model }}'@endif) close()"
+    x-on:close-modal.window="if (!$event.detail || $event.detail === '{{ $id }}' || $event.detail?.id === '{{ $id }}' || $event.detail?.name === '{{ $id }}'@if(filled($model)) || $event.detail === '{{ $model }}' || $event.detail?.model === '{{ $model }}' || $event.detail?.name === '{{ $model }}'@endif || '{{ $id }}'.endsWith('-' + ($event.detail?.id || $event.detail?.name || $event.detail))) close()"
     x-on:close-modal-{{ $id }}.window="close()"
 >
     <template x-teleport="body">
