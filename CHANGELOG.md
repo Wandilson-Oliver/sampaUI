@@ -2,6 +2,23 @@
 
 Todas as mudanças notáveis do SampaUI serão documentadas neste arquivo.
 
+## v0.1.31 - 2026-08-25
+
+### Adicionado e Melhorado
+- **Componente Sidebar (`<x-sampaui::sidebar />`)**:
+  - Suporte a badges e contadores em itens de menu (`badge`, `badgeVariant`, `badgeAppearance`), transformando-se em ponto indicador quando recolhido (`collapsed`).
+  - Subitens aninhados em formato accordion com expansão suave e chevron animado (`children`).
+  - Backdrop mobile suave (`bg-secondary/40 backdrop-blur-xs`) com suporte à tecla `Escape` e clique externo para fechar.
+  - Slots customizados flexíveis (`<x-slot:brand>`, `<x-slot:userSlot>`, `<x-slot:footer>` e slot padrão `{{ $slot }}`).
+  - Tooltips nativos via atributo `title` ao passar o mouse com a sidebar recolhida.
+- **Componente Brand Mark (`<x-sampaui::brand-mark />`)**:
+  - Suporte a subtítulo institucional descritivo (`subtitle`).
+  - Badges integradas de versão ou plano (`badge`, `badgeVariant`, `badgeAppearance`).
+  - Layouts flexíveis (`layout="horizontal"` ou `layout="vertical"` / `layout="stacked"` para telas de login e hero).
+  - Escala de tamanhos expandida (`xs`, `sm`, `md`, `lg`, `xl`, `2xl`).
+  - Navegação SPA nativa com Livewire (`navigate` para `wire:navigate`).
+  - Slots customizados (`<x-slot:mark>` e `{{ $slot }}`).
+
 ## v0.1.30 - 2026-08-23
 
 ### Adicionado e Melhorado
