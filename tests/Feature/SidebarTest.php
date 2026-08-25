@@ -195,4 +195,78 @@ BLADE);
         $html->assertDontSee('fixed inset-y-0 left-0 h-screen', false);
         $html->assertDontSee('x-bind:class="open ?', false);
     }
+
+    public function test_it_renders_item_badges_and_variants(): void
+    {
+        $html = $this->blade(<<<'BLADE'
+<x-sampaui::sidebar
+    :items="[
+        ['label' => 'Mensagens', 'href' => '/chat', 'icon' => 'chat', 'badge' => '5', 'badgeVariant' => 'danger'],
+        ['label' => 'Novidades', 'href' => '/news', 'icon' => 'stars', 'badge' => 'Novo', 'badgeVariant' => 'primary'],
+    ]"
+/>
+BLADE);
+
+        $html->assertSee('Mensagens');
+        $html->assertSee('Novidades');
+        $html->assertSee('5');
+        $html->assertSee('Novo');
+        $html->assertSee('bg-danger', false);
+    }
+
+    public function test_it_renders_nested_subitems_and_accordion(): void
+    {
+        $html = $this->blade(<<<'BLADE'
+<x-sampaui::sidebar
+    :items="[
+        [
+            'label' => 'Cadastros',
+            'icon' => 'folder',
+            'children' => [
+                ['label' => 'Clientes', 'href' => '/clients', 'active' => true],
+                ['label' => 'Fornecedores', 'href' => '/suppliers'],
+            ],
+        ],
+    ]"
+/>
+BLADE);
+
+        $html->assertSee('Cadastros');
+        $html->assertSee('Clientes');
+        $html->assertSee('Fornecedores');
+        $html->assertSee('expanded: true', false);
+        $html->assertSee('rotate-180', false);
+        $html->assertSee('/clients', false);
+        $html->assertSee('/suppliers', false);
+    }
+
+    public function test_it_supports_brand_user_and_default_slots(): void
+    {
+        $html = $this->blade(<<<'BLADE'
+<x-sampaui::sidebar>
+    <x-slot:brand>
+        <div class="custom-brand">Minha Marca Pro</div>
+    </x-slot:brand>
+
+    <x-slot:userSlot>
+        <div class="custom-user-profile">Perfil VIP</div>
+    </x-slot:userSlot>
+
+    <div class="custom-extra-menu">Bloco Extra de Navegacao</div>
+</x-sampaui::sidebar>
+BLADE);
+
+        $html->assertSee('Minha Marca Pro');
+        $html->assertSee('Perfil VIP');
+        $html->assertSee('Bloco Extra de Navegacao');
+    }
+
+    public function test_it_renders_mobile_backdrop_and_escape_listener(): void
+    {
+        $html = $this->blade('<x-sampaui::sidebar />');
+
+        $html->assertSee('fixed inset-0 z-40 bg-secondary/40 backdrop-blur-xs md:hidden', false);
+        $html->assertSee('x-on:keydown.escape.window', false);
+    }
 }
+
