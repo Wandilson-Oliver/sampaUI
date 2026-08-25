@@ -218,4 +218,29 @@ BLADE)
             ->assertSee('sampaui:command-open', false)
             ->assertSee('x-ref="search"', false);
     }
+
+    public function test_brand_mark_features_and_layouts(): void
+    {
+        $html = $this->blade(<<<'BLADE'
+<x-sampaui::brand-mark
+    label="SampaUI Studio"
+    subtitle="Design System & UI Kit"
+    badge="v1.0"
+    badge-variant="primary"
+    href="/home"
+    navigate
+    size="lg"
+    layout="vertical"
+/>
+BLADE);
+
+        $html->assertSee('href="/home"', false);
+        $html->assertSee('wire:navigate', false);
+        $html->assertSee('SampaUI Studio');
+        $html->assertSee('Design System & UI Kit');
+        $html->assertSee('v1.0');
+        $html->assertSee('flex-col items-center', false);
+        $html->assertSee('text-2xl', false);
+    }
 }
+
