@@ -41,7 +41,7 @@
     <div x-data="SampaUI.avatarUpload({ existing: @js($src) })" class="relative">
         <label
             for="{{ $id }}"
-            class="{{ sampaui_classes(['flex shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-full border-4 border-white bg-light font-semibold text-secondary/45 shadow-lg shadow-secondary/10 ring-1 ring-light transition hover:ring-primary/30 focus-within:ring-2 focus-within:ring-primary/30 focus-within:ring-offset-2', $selectedSize, 'border-danger ring-2 ring-danger/20' => filled($errorMessage), 'cursor-not-allowed opacity-50' => $unavailable]) }}"
+            class="{{ sampaui_classes(['flex shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-full border-4 border-white dark:border-slate-900 bg-light dark:bg-slate-800 font-semibold text-secondary/45 dark:text-slate-400 shadow-lg shadow-secondary/10 dark:shadow-black/40 ring-1 ring-light dark:ring-slate-700 transition hover:ring-primary/30 focus-within:ring-2 focus-within:ring-primary/30 focus-within:ring-offset-2 dark:focus-within:ring-offset-slate-950', $selectedSize, 'border-danger ring-2 ring-danger/20' => filled($errorMessage), 'cursor-not-allowed opacity-50' => $unavailable]) }}"
             aria-label="{{ $uploadLabel }}"
         >
             <template x-if="currentSrc"><img x-bind:src="currentSrc" alt="{{ $alt ?? $label ?? 'Avatar' }}" class="h-full w-full object-cover"></template>

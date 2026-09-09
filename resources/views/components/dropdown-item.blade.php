@@ -8,7 +8,7 @@
 @php
     $classes = sampaui_classes([
         'flex w-full cursor-pointer items-center gap-2 rounded-default px-3 py-2 text-left text-sm transition',
-        $danger ? 'text-danger hover:bg-danger/10' : 'text-secondary hover:bg-light/50 hover:text-primary',
+        $danger ? 'text-danger hover:bg-danger/10' : 'text-secondary dark:text-slate-200 hover:bg-light/50 dark:hover:bg-slate-800/60 hover:text-primary dark:hover:text-primary',
         'pointer-events-none cursor-not-allowed opacity-50' => $disabled,
     ]);
 @endphp

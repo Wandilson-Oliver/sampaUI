@@ -40,11 +40,11 @@
                 @if ($loading) aria-busy="true" @endif
                 {{ $attributes->except(['id', 'aria-describedby'])->merge(['class' => 'peer sr-only']) }}
             >
-            <span class="{{ sampaui_classes(['absolute inset-0 rounded-full border bg-light transition peer-focus:outline-none peer-focus:ring-2', sampaui_toggle_color_classes($color), 'ring-2 ring-danger/20' => filled($errorMessage) || $state === 'error']) }}" aria-hidden="true"></span>
+            <span class="{{ sampaui_classes(['absolute inset-0 rounded-full border bg-light dark:bg-slate-800 dark:border-slate-700 transition peer-focus:outline-none peer-focus:ring-2', sampaui_toggle_color_classes($color), 'ring-2 ring-danger/20' => filled($errorMessage) || $state === 'error']) }}" aria-hidden="true"></span>
             <span class="{{ sampaui_classes(['absolute left-1 top-1 h-5 w-5 rounded-full shadow-sm transition peer-checked:translate-x-5', sampaui_toggle_knob_color_classes($color)]) }}" aria-hidden="true"></span>
         </span>
         @if ($label || trim($slot->toHtml()) !== '')
-            <span class="text-sm font-medium text-secondary">{{ $label ?? $slot }} @if ($required)<span class="text-danger" aria-hidden="true">*</span>@endif</span>
+            <span class="text-sm font-medium text-secondary dark:text-slate-200">{{ $label ?? $slot }} @if ($required)<span class="text-danger" aria-hidden="true">*</span>@endif</span>
         @endif
     </label>
 </x-sampaui::field>

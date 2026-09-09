@@ -25,6 +25,8 @@ class TextareaTest extends TestCase
         );
 
         $html->assertSee('wire:model.live="description"', false);
+        $html->assertSee('x-modelable="value"', false);
+        $html->assertSee('SampaUI.textarea', false);
         $html->assertSee('aria-invalid="true"', false);
         $html->assertSee('Campo obrigatorio');
     }

@@ -2,6 +2,26 @@
 
 Todas as mudanças notáveis do SampaUI serão documentadas neste arquivo.
 
+## v0.1.32 - 2026-09-08
+
+### Corrigido e Melhorado
+- **Suporte Nativo a Dark Mode**:
+  - Atualização de todos os helpers em `src/Support/Helpers.php` (`sampaui_field_classes`, `sampaui_trigger_classes`, `sampaui_surface_variant_classes`, `sampaui_badge_variant_classes`, `sampaui_badge_appearance_classes`, `sampaui_button_variant_classes`, `sampaui_alert_tone`, `sampaui_control_color_classes`).
+  - Adaptação completa de todos os componentes Blade para temas escuros com classes utilitárias `dark:*` (cards, modais, formulários, tabelas, chat, sidebar, header, tabs, toasts, etc.).
+- **Isolamento de Escopo em Navegação SPA (`sampaui.js`)**:
+  - Encapsulamento de todo o script distribuído em IIFE `(() => { ... })();` para prevenir `SyntaxError: Can't create duplicate variable: 'syncControl'` em transições SPA via `wire:navigate`.
+- **Reatividade Bidirecional no Textarea (`<x-sampaui::textarea />`)**:
+  - Adição da diretiva `x-modelable="value"` e integração com o helper `SampaUI.textarea()`, garantindo sincronização imediata de valores do Livewire, resize automático e contador de caracteres.
+- **Camada de Sobreposição do Toast (`<x-sampaui::toast />`)**:
+  - Ajuste da elevação para `z-[99999]`, garantindo visibilidade sobre modais e drawers.
+- **Suporte a Models Eloquent na Sidebar (`<x-sampaui::sidebar />`)**:
+  - Suporte nativo para objetos e instâncias de models Eloquent em `:user="$user"`, extraindo `$user->name`, `$user->email` e `$user->avatar` / `$user->avatar_url`.
+- **Centralização de Formatadores e Máscaras (`cep`, `currencyBr`, `phone`)**:
+  - Centralização dos formatadores em `resources/js/sampaui.js` sob o namespace `SampaUI.*`.
+  - Inclusão de rotina `init()` para formatar valores pré-existentes vindos do banco de dados ou do Livewire.
+- **Dark Mode no Brand Mark (`<x-sampaui::brand-mark />`)**:
+  - Inclusão das variantes de contraste `dark:text-slate-100` e `dark:text-slate-400`.
+
 ## v0.1.31 - 2026-08-25
 
 ### Adicionado e Melhorado

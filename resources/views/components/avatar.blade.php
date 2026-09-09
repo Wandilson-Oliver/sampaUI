@@ -33,7 +33,7 @@
 @endphp
 
 <span {{ $attributes->merge(['class' => 'relative inline-flex shrink-0']) }}>
-    <span class="{{ sampaui_classes(['inline-flex shrink-0 items-center justify-center overflow-hidden bg-light font-semibold text-primary', $selectedSize['box'], $rounded ? 'rounded-full' : 'rounded-default']) }}">
+    <span class="{{ sampaui_classes(['inline-flex shrink-0 items-center justify-center overflow-hidden bg-light dark:bg-slate-800 font-semibold text-primary', $selectedSize['box'], $rounded ? 'rounded-full' : 'rounded-default']) }}">
         @if ($src)
             <img src="{{ $src }}" alt="{{ $alt ?? $name ?? 'Avatar' }}" class="h-full w-full object-cover">
         @else
@@ -42,6 +42,6 @@
     </span>
 
     @if ($status)
-        <span class="{{ sampaui_classes(['absolute bottom-0 right-0 rounded-full border-2 border-white', $selectedSize['dot'], $statusClasses[$status] ?? $statusClasses['online']]) }}" aria-label="{{ $status }}"></span>
+        <span class="{{ sampaui_classes(['absolute bottom-0 right-0 rounded-full border-2 border-white dark:border-slate-900', $selectedSize['dot'], $statusClasses[$status] ?? $statusClasses['online']]) }}" aria-label="{{ $status }}"></span>
     @endif
 </span>

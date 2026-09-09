@@ -27,14 +27,14 @@
             this.openItems = this.openItems[index] ? {} : { [index]: true };
         },
     }"
-    {{ $attributes->merge(['class' => 'divide-y divide-border rounded-default border border-border bg-surface']) }}
+    {{ $attributes->merge(['class' => 'divide-y divide-border dark:divide-slate-800 rounded-default border border-border dark:border-slate-800 bg-surface bg-white dark:bg-slate-900']) }}
 >
     @foreach ($items as $index => $item)
         <div>
             <button
                 id="{{ $id }}-trigger-{{ $index }}"
                 type="button"
-                class="flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-left text-sm font-semibold text-secondary transition hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                class="flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-left text-sm font-semibold text-secondary dark:text-slate-100 transition hover:text-primary dark:hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                 x-on:click="toggle(@js($index))"
                 x-bind:aria-expanded="Boolean(openItems[@js($index)]).toString()"
                 aria-controls="{{ $id }}-panel-{{ $index }}"
@@ -49,7 +49,7 @@
                 x-cloak
                 x-show="openItems[@js($index)]"
                 x-transition.opacity.duration.150ms
-                class="px-5 pb-4 text-sm leading-6 text-secondary"
+                class="px-5 pb-4 text-sm leading-6 text-secondary/80 dark:text-slate-300"
             >
                 {!! $item['content'] ?? '' !!}
             </div>

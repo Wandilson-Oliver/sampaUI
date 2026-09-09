@@ -60,62 +60,13 @@
 <x-sampaui::field :id="$id" :label="$label" :hint="$hint" :error="$errorMessage" :required="$required">
     <div
         {{ $modelAttributes }}
-        x-data="{
-            value: @js($initialValue),
+        x-data="SampaUI.textarea({
+            initialValue: @js($initialValue),
             autoResize: @js((bool) $autoResize),
             maxLimit: @js($maxLimit),
-            maxRows: @js($maxRows ? (int) $maxRows : null),
-            copied: false,
-            resize() {
-                if (! this.autoResize) return;
-                this.$nextTick(() => {
-                    const el = this.$refs.control;
-                    if (! el) return;
-                    el.style.height = 'auto';
-                    const lineHeight = 24;
-                    const maxHeight = this.maxRows ? (this.maxRows * lineHeight) + 20 : null;
-                    const calculated = el.scrollHeight + 2;
-
-                    if (maxHeight && calculated > maxHeight) {
-                        el.style.height = maxHeight + 'px';
-                        el.style.overflowY = 'auto';
-                    } else {
-                        el.style.height = calculated + 'px';
-                        el.style.overflowY = 'hidden';
-                    }
-                });
-            },
-            init() {
-                this.resize();
-                this.$watch('value', () => this.resize());
-            },
-            clear() {
-                this.value = '';
-                if (this.$refs.control) {
-                    this.$refs.control.value = '';
-                    this.$refs.control.dispatchEvent(new Event('input', { bubbles: true }));
-                    this.$refs.control.dispatchEvent(new Event('change', { bubbles: true }));
-                }
-                this.resize();
-            },
-            copy() {
-                if (! this.value) return;
-                navigator.clipboard.writeText(this.value).then(() => {
-                    this.copied = true;
-                    setTimeout(() => { this.copied = false; }, 2000);
-                });
-            },
-            get charCount() {
-                return (this.value || '').length;
-            },
-            get counterColorClass() {
-                if (! this.maxLimit) return 'text-secondary/70';
-                const ratio = this.charCount / this.maxLimit;
-                if (ratio >= 1) return 'text-danger font-bold';
-                if (ratio >= 0.9) return 'text-warning font-semibold';
-                return 'text-secondary/70';
-            }
-        }"
+            maxRows: @js($maxRows ? (int) $maxRows : null)
+        })"
+        x-modelable="value"
         class="relative w-full"
     >
         @isset($header)
@@ -144,7 +95,7 @@
         >{{ $initialValue }}</textarea>
 
         @if ($clearable || $copyable || $showCounter || isset($footer))
-            <div class="mt-1.5 flex items-center justify-between gap-3 text-xs text-secondary/60">
+            <div class="mt-1.5 flex items-center justify-between gap-3 text-xs text-secondary/60 dark:text-slate-400">
                 <div class="flex items-center gap-3">
                     @if ($clearable)
                         <button
@@ -152,7 +103,7 @@
                             x-show="value && value.length > 0"
                             x-cloak
                             x-on:click="clear()"
-                            class="inline-flex cursor-pointer items-center gap-1 font-medium text-secondary/70 transition hover:text-danger focus:outline-none"
+                            class="inline-flex cursor-pointer items-center gap-1 font-medium text-secondary/70 dark:text-slate-400 transition hover:text-danger focus:outline-none"
                             aria-label="{{ $clearLabel }}"
                         >
                             <i class="bi bi-x-circle text-xs" aria-hidden="true"></i>
@@ -166,7 +117,7 @@
                             x-show="value && value.length > 0"
                             x-cloak
                             x-on:click="copy()"
-                            class="inline-flex cursor-pointer items-center gap-1 font-medium text-secondary/70 transition hover:text-primary focus:outline-none"
+                            class="inline-flex cursor-pointer items-center gap-1 font-medium text-secondary/70 dark:text-slate-400 transition hover:text-primary focus:outline-none"
                             aria-label="{{ $copyLabel }}"
                         >
                             <i class="bi" x-bind:class="copied ? 'bi-check2 text-emerald-500' : 'bi-copy'" aria-hidden="true"></i>

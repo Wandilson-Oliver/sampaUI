@@ -24,7 +24,7 @@
 
     <div class="min-w-0 flex-1">
         @if ($title)
-            <p class="font-medium text-primary">{{ $title }}</p>
+            <p class="font-medium text-primary dark:text-slate-100">{{ $title }}</p>
         @endif
 
         <div @class(['mt-1' => $title])>

@@ -20,7 +20,7 @@
     x-data="SampaUI.toast({ max: {{ max((int) $max, 1) }}, defaultDuration: {{ max((int) $duration, 0) }}, variant: @js($variant), size: @js($size) })"
     x-on:toast.window="add($event.detail)"
     x-on:sampaui:toast.window="add($event.detail)"
-    {{ $attributes->except(['x-data', 'x-on:toast.window', 'x-on:sampaui:toast.window'])->merge(['class' => "pointer-events-none fixed z-50 flex w-[calc(100%-2rem)] max-w-sm flex-col gap-3 {$positionClass}"]) }}
+    {{ $attributes->except(['x-data', 'x-on:toast.window', 'x-on:sampaui:toast.window'])->merge(['class' => "pointer-events-none fixed z-[99999] flex w-[calc(100%-2rem)] max-w-sm flex-col gap-3 {$positionClass}"]) }}
     aria-label="Notificacoes"
 >
     <template x-for="toast in toasts" x-bind:key="toast.id">
@@ -32,7 +32,7 @@
             x-transition:leave="transition ease-in duration-150"
             x-transition:leave-start="opacity-100"
             x-transition:leave-end="translate-y-1 opacity-0"
-            class="pointer-events-auto overflow-hidden rounded-default shadow-lg shadow-secondary/10"
+            class="pointer-events-auto overflow-hidden rounded-default shadow-lg shadow-secondary/10 dark:shadow-black/40"
             x-bind:class="toast.wrap"
             x-on:mouseenter="pauseTimer(toast, 'pointer')"
             x-on:mouseleave="resumeTimer(toast, 'pointer')"
@@ -49,9 +49,9 @@
                     <p class="text-sm font-semibold" x-text="toast.title"></p>
                     <p class="mt-1 text-sm leading-6" x-text="toast.message"></p>
                 </div>
-                <button type="button" class="inline-flex h-8 w-8 items-center justify-center rounded-full text-lg leading-none transition hover:bg-light/30 focus:outline-none focus:ring-2 focus:ring-primary/20" x-on:click="remove(toast.id)" aria-label="Fechar notificacao"><i class="bi bi-x-lg text-sm" aria-hidden="true"></i></button>
+                <button type="button" class="inline-flex h-8 w-8 items-center justify-center rounded-full text-lg leading-none transition hover:bg-light/30 dark:hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-primary/20" x-on:click="remove(toast.id)" aria-label="Fechar notificacao"><i class="bi bi-x-lg text-sm" aria-hidden="true"></i></button>
             </div>
-            <div x-show="toast.duration > 0" class="h-1 w-full bg-light/40" aria-hidden="true"><div class="h-full transition-[width] duration-100 ease-linear" x-bind:class="toast.progressClass" x-bind:style="`width: ${toast.progress}%`"></div></div>
+            <div x-show="toast.duration > 0" class="h-1 w-full bg-light/40 dark:bg-slate-800" aria-hidden="true"><div class="h-full transition-[width] duration-100 ease-linear" x-bind:class="toast.progressClass" x-bind:style="`width: ${toast.progress}%`"></div></div>
         </div>
     </template>
 </div>

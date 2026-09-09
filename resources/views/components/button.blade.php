@@ -40,7 +40,7 @@
     }
 
     $classes = sampaui_merge_tailwind_classes(sampaui_classes([
-        'inline-flex items-center justify-center gap-2 font-medium transition focus:outline-none focus:ring-2 focus:ring-primary/30 focus:ring-offset-2',
+        'inline-flex items-center justify-center gap-2 font-medium transition focus:outline-none focus:ring-2 focus:ring-primary/30 focus:ring-offset-2 dark:focus:ring-offset-slate-950',
         sampaui_button_variant_classes($variant),
         $isIconOnly ? ($iconOnlySizeClasses[$size] ?? $iconOnlySizeClasses['md']).' aspect-square' : ($sizeClasses[$size] ?? $sizeClasses['md']),
         $rounded || $isIconOnly ? 'rounded-full' : 'rounded-default',

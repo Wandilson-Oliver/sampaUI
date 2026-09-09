@@ -15,17 +15,17 @@
     );
 @endphp
 
-<div {{ $attributes->whereDoesntStartWith('wire:model')->except('x-model')->merge(['class' => 'flex h-full min-h-0 flex-col bg-surface']) }}>
+<div {{ $attributes->whereDoesntStartWith('wire:model')->except('x-model')->merge(['class' => 'flex h-full min-h-0 flex-col bg-surface bg-white dark:bg-slate-900']) }}>
     {{-- Header da Sidebar --}}
     @isset($header)
         {{ $header }}
     @else
-        <div class="border-b border-border/80 px-4 py-4 sm:px-5">
+        <div class="border-b border-border/80 dark:border-slate-800 px-4 py-4 sm:px-5">
             <div class="flex items-center justify-between gap-3">
                 <div class="min-w-0">
-                    <h2 class="truncate text-base font-bold tracking-tight text-heading">{{ $title }}</h2>
+                    <h2 class="truncate text-base font-bold tracking-tight text-heading dark:text-slate-100">{{ $title }}</h2>
                     @if ($subtitle)
-                        <p class="mt-0.5 truncate text-xs font-medium text-secondary/70">{{ $subtitle }}</p>
+                        <p class="mt-0.5 truncate text-xs font-medium text-secondary/70 dark:text-slate-400">{{ $subtitle }}</p>
                     @endif
                 </div>
 
@@ -38,7 +38,7 @@
                 <div class="mt-3.5">
                     <label class="relative block">
                         <span class="sr-only">{{ $searchPlaceholder }}</span>
-                        <i class="bi bi-search pointer-events-none absolute inset-y-0 left-3.5 flex items-center text-sm text-secondary/45" aria-hidden="true"></i>
+                        <i class="bi bi-search pointer-events-none absolute inset-y-0 left-3.5 flex items-center text-sm text-secondary/45 dark:text-slate-400" aria-hidden="true"></i>
                         <input
                             type="search"
                             name="{{ $searchName }}"
@@ -76,7 +76,7 @@
                         'group flex w-full cursor-pointer items-center gap-3 rounded-xl border px-3 py-3 text-left transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-primary/20',
                         $active
                             ? 'border-primary/20 bg-primary/10 text-primary shadow-xs'
-                            : 'border-transparent hover:border-border/60 hover:bg-light/80 text-secondary',
+                            : 'border-transparent hover:border-border/60 dark:hover:border-slate-700 hover:bg-light/80 dark:hover:bg-slate-800 text-secondary dark:text-slate-200',
                     ]) }}"
                     @if ($active) aria-current="true" @endif
                     x-on:click="$dispatch('chat:open-conversation', { id: @js($conversationId), name: @js($conversation['name'] ?? 'Contato') })"
@@ -93,18 +93,18 @@
                     {{-- Conteúdo do Contato --}}
                     <span class="min-w-0 flex-1">
                         <span class="flex items-center justify-between gap-2">
-                            <span class="truncate text-sm font-semibold {{ $active ? 'text-primary' : 'text-heading' }}">
+                            <span class="truncate text-sm font-semibold {{ $active ? 'text-primary' : 'text-heading dark:text-slate-100' }}">
                                 {{ $conversation['name'] ?? 'Contato' }}
                             </span>
                             @if (! empty($conversation['time']))
-                                <time class="shrink-0 text-[0.6875rem] font-medium {{ $active ? 'text-primary/70' : 'text-secondary/50' }}">
+                                <time class="shrink-0 text-[0.6875rem] font-medium {{ $active ? 'text-primary/70' : 'text-secondary/50 dark:text-slate-400' }}">
                                     {{ $conversation['time'] }}
                                 </time>
                             @endif
                         </span>
 
                         <span class="mt-1 flex items-center justify-between gap-2">
-                            <span class="truncate text-xs leading-4 {{ $isTyping ? 'font-semibold text-emerald-600 animate-pulse' : ($active ? 'text-primary/80' : 'text-secondary/70') }}">
+                            <span class="truncate text-xs leading-4 {{ $isTyping ? 'font-semibold text-emerald-600 animate-pulse' : ($active ? 'text-primary/80' : 'text-secondary/70 dark:text-slate-400') }}">
                                 @if ($isTyping)
                                     <span class="inline-flex items-center gap-1">
                                         <i class="bi bi-chat-dots-fill text-xs" aria-hidden="true"></i>
@@ -117,7 +117,7 @@
 
                             <span class="flex items-center gap-1.5 shrink-0">
                                 @if ($itemTag)
-                                    <span class="rounded-md bg-light px-1.5 py-0.5 text-[0.625rem] font-semibold text-secondary/80 border border-border/50">
+                                    <span class="rounded-md bg-light dark:bg-slate-800 px-1.5 py-0.5 text-[0.625rem] font-semibold text-secondary/80 dark:text-slate-300 border border-border/50 dark:border-slate-700">
                                         {{ $itemTag }}
                                     </span>
                                 @endif
@@ -141,7 +141,7 @@
 
     {{-- Footer opcional --}}
     @isset($footer)
-        <div class="border-t border-border/80 bg-surface px-4 py-3 sm:px-5">
+        <div class="border-t border-border/80 dark:border-slate-800 bg-surface bg-white dark:bg-slate-900 px-4 py-3 sm:px-5">
             {{ $footer }}
         </div>
     @endisset

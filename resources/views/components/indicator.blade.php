@@ -4,7 +4,7 @@
     'label' => null,
 ])
 
-<span {{ $attributes->merge(['class' => 'inline-flex items-center gap-2 text-sm font-medium text-secondary']) }}>
+<span {{ $attributes->merge(['class' => 'inline-flex items-center gap-2 text-sm font-medium text-secondary dark:text-slate-200']) }}>
     <span class="relative inline-flex h-2.5 w-2.5">
         @if ($pulse)
             <span class="{{ sampaui_classes(['absolute inline-flex h-full w-full animate-ping rounded-full opacity-40', sampaui_progress_variant_classes($variant)]) }}"></span>

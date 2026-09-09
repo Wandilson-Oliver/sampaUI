@@ -12,13 +12,13 @@
 
 <section
     x-data="SampaUI.chatConversation({ autoScroll: @js($autoScroll) })"
-    {{ $attributes->merge(['class' => 'flex h-full min-h-0 flex-col bg-light/40']) }}
+    {{ $attributes->merge(['class' => 'flex h-full min-h-0 flex-col bg-light/40 dark:bg-slate-950']) }}
 >
     {{-- Header da Conversa --}}
     @isset($header)
         {{ $header }}
     @else
-        <header class="flex items-center justify-between gap-3 border-b border-border/80 bg-surface px-4 py-3 sm:px-5">
+        <header class="flex items-center justify-between gap-3 border-b border-border/80 dark:border-slate-800 bg-surface bg-white dark:bg-slate-900 px-4 py-3 sm:px-5">
             <div class="flex min-w-0 items-center gap-3">
                 @if ($backButton)
                     <x-sampaui::button
@@ -36,9 +36,9 @@
                 </div>
 
                 <div class="min-w-0">
-                    <h2 class="truncate text-sm sm:text-base font-bold text-heading">{{ $name }}</h2>
+                    <h2 class="truncate text-sm sm:text-base font-bold text-heading dark:text-slate-100">{{ $name }}</h2>
                     @if ($subtitle)
-                        <p class="mt-0.5 flex items-center gap-1.5 truncate text-xs font-medium text-secondary/70">
+                        <p class="mt-0.5 flex items-center gap-1.5 truncate text-xs font-medium text-secondary/70 dark:text-slate-400">
                             @if ($status === 'online')
                                 <span class="relative flex h-2 w-2">
                                     <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
@@ -49,7 +49,7 @@
                             @elseif ($status === 'busy')
                                 <span class="h-2 w-2 shrink-0 rounded-full bg-rose-500" aria-hidden="true"></span>
                             @elseif ($status)
-                                <span class="h-2 w-2 shrink-0 rounded-full bg-muted" aria-hidden="true"></span>
+                                <span class="h-2 w-2 shrink-0 rounded-full bg-muted dark:bg-slate-600" aria-hidden="true"></span>
                             @endif
                             {{ $subtitle }}
                         </p>
@@ -84,7 +84,7 @@
 
     {{-- Composer de Envio --}}
     @isset($composer)
-        <footer class="border-t border-border/80 bg-surface p-3 sm:p-4">
+        <footer class="border-t border-border/80 dark:border-slate-800 bg-surface bg-white dark:bg-slate-900 p-3 sm:p-4">
             {{ $composer }}
         </footer>
     @endisset

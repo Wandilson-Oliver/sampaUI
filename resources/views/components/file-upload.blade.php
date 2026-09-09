@@ -42,10 +42,10 @@
         class="space-y-3"
         @if ($chunkSize) data-chunk-size="{{ (int) $chunkSize }}" @endif
     >
-        <label for="{{ $id }}" class="{{ sampaui_classes(['flex cursor-pointer flex-col items-center justify-center rounded-default border border-dashed border-secondary/40 bg-surface px-6 py-8 text-center transition hover:border-primary hover:bg-light/30 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20', $attributes->get('class'), 'border-danger ring-2 ring-danger/20' => filled($errorMessage), 'cursor-not-allowed opacity-50' => $unavailable]) }}">
+        <label for="{{ $id }}" class="{{ sampaui_classes(['flex cursor-pointer flex-col items-center justify-center rounded-default border border-dashed border-secondary/40 bg-surface bg-white dark:border-slate-700 dark:bg-slate-900 px-6 py-8 text-center transition hover:border-primary dark:hover:border-primary hover:bg-light/30 dark:hover:bg-slate-800/50 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20', $attributes->get('class'), 'border-danger ring-2 ring-danger/20' => filled($errorMessage), 'cursor-not-allowed opacity-50' => $unavailable]) }}">
             <i class="bi bi-cloud-arrow-up text-2xl text-primary" aria-hidden="true"></i>
-            <span class="mt-2 text-sm font-medium text-secondary">{{ trim($slot->toHtml()) !== '' ? $slot : 'Clique para selecionar arquivo' }}</span>
-            @if ($maxSize)<span class="mt-1 text-xs text-secondary/60">Maximo: {{ $maxSize }} KB</span>@endif
+            <span class="mt-2 text-sm font-medium text-secondary dark:text-slate-200">{{ trim($slot->toHtml()) !== '' ? $slot : 'Clique para selecionar arquivo' }}</span>
+            @if ($maxSize)<span class="mt-1 text-xs text-secondary/60 dark:text-slate-400">Maximo: {{ $maxSize }} KB</span>@endif
             <input
                 x-ref="input"
                 id="{{ $id }}"
@@ -69,12 +69,12 @@
 
         <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4" x-show="files.length > 0" x-cloak>
             <template x-for="(file, index) in files" x-bind:key="file.id">
-                <article class="relative overflow-hidden rounded-default border border-border bg-surface">
+                <article class="relative overflow-hidden rounded-default border border-border dark:border-slate-800 bg-surface bg-white dark:bg-slate-900">
                     <img x-show="@js($preview) && file.url" x-bind:src="file.url" x-bind:alt="file.name" class="aspect-square w-full object-cover">
                     <div class="space-y-2 p-3">
-                        <p class="truncate text-xs font-medium text-secondary" x-text="file.name"></p>
-                        <div class="h-1.5 overflow-hidden rounded-full bg-light" role="progressbar" aria-label="Progresso do upload" aria-valuemin="0" aria-valuemax="100" x-bind:aria-valuenow="Math.round(file.progress)"><div class="h-full bg-primary transition-[width]" x-bind:style="`width: ${file.progress}%`"></div></div>
-                        <div class="flex items-center justify-between gap-2 text-xs text-secondary/70"><span x-text="file.status"></span><span x-text="`${Math.round(file.progress)}%`"></span></div>
+                        <p class="truncate text-xs font-medium text-secondary dark:text-slate-200" x-text="file.name"></p>
+                        <div class="h-1.5 overflow-hidden rounded-full bg-light dark:bg-slate-800" role="progressbar" aria-label="Progresso do upload" aria-valuemin="0" aria-valuemax="100" x-bind:aria-valuenow="Math.round(file.progress)"><div class="h-full bg-primary transition-[width]" x-bind:style="`width: ${file.progress}%`"></div></div>
+                        <div class="flex items-center justify-between gap-2 text-xs text-secondary/70 dark:text-slate-400"><span x-text="file.status"></span><span x-text="`${Math.round(file.progress)}%`"></span></div>
                         <button type="button" class="text-xs font-medium text-danger focus:outline-none focus:ring-2 focus:ring-danger/30" x-on:click="removeFile(index)" x-show="file.status === 'ready'" x-bind:aria-label="'Remover ' + file.name">Remover</button>
                     </div>
                 </article>

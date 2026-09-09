@@ -158,7 +158,7 @@
     x-modelable="value"
 >
     @if ($label)
-        <label id="{{ $id }}-label" class="mb-2 block text-sm font-medium text-secondary">
+        <label id="{{ $id }}-label" class="mb-2 block text-sm font-medium text-secondary dark:text-slate-200">
             {{ $label }}
             @if ($required)
                 <span class="text-danger">*</span>
@@ -167,7 +167,7 @@
     @endif
 
     @if ($hint)
-        <p id="{{ $id }}-hint" class="mb-3 text-sm text-secondary/70">{{ $hint }}</p>
+        <p id="{{ $id }}-hint" class="mb-3 text-sm text-secondary/70 dark:text-slate-400">{{ $hint }}</p>
     @endif
 
     <input
@@ -188,7 +188,7 @@
         @if ($hint || $errorMessage) aria-describedby="{{ collect([$hint ? $id.'-hint' : null, $errorMessage ? $id.'-error' : null])->filter()->implode(' ') }}" @endif
     >
         @if ($prefix)
-            <span class="inline-flex h-12 shrink-0 items-center rounded-default border border-border bg-light px-3 text-base font-semibold text-secondary">
+            <span class="inline-flex h-12 shrink-0 items-center rounded-default border border-border dark:border-slate-800 bg-light dark:bg-slate-800 px-3 text-base font-semibold text-secondary dark:text-slate-200">
                 {{ $prefix }}
             </span>
         @endif
@@ -202,7 +202,7 @@
                 maxlength="1"
                 autocomplete="{{ $index === 0 ? 'one-time-code' : 'off' }}"
                 class="{{ sampaui_classes([
-                    'h-12 w-11 rounded-default border border-border bg-surface text-center text-lg font-semibold text-secondary transition placeholder:text-secondary/50 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 sm:w-12',
+                    'h-12 w-11 rounded-default border border-border dark:border-slate-700 bg-surface bg-white dark:bg-slate-900 text-center text-lg font-semibold text-secondary dark:text-slate-100 transition placeholder:text-secondary/50 dark:placeholder:text-slate-500 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 sm:w-12',
                     'border-danger ring-2 ring-danger/20' => filled($errorMessage),
                     'cursor-not-allowed opacity-50' => $disabled,
                     $attributes->get('class'),
@@ -220,7 +220,7 @@
         @if ($clear)
             <button
                 type="button"
-                class="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-secondary transition hover:bg-light hover:text-danger focus:outline-none focus:ring-2 focus:ring-danger/20 disabled:cursor-not-allowed disabled:opacity-50"
+                class="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-secondary dark:text-slate-400 transition hover:bg-light dark:hover:bg-slate-800 hover:text-danger dark:hover:text-danger focus:outline-none focus:ring-2 focus:ring-danger/20 disabled:cursor-not-allowed disabled:opacity-50"
                 x-show="value.length > 0"
                 x-cloak
                 x-on:click="clearPin()"

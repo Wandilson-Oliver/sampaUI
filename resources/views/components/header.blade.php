@@ -27,7 +27,7 @@
     id="{{ $id }}"
     @if ($ariaLabel) aria-label="{{ $ariaLabel }}" @elseif ($title && ! isset($left)) aria-labelledby="{{ $titleId }}" @elseif ($title) aria-label="{{ $title }}" @endif
     {{ $attributes->except('id')->merge(['class' => sampaui_classes([
-        'rounded-default border border-border bg-surface px-4 py-3 shadow-sm shadow-secondary/5 sm:px-5 sm:py-4',
+        'rounded-default border border-border dark:border-slate-800 bg-surface bg-white dark:bg-slate-900 px-4 py-3 shadow-sm shadow-secondary/5 dark:shadow-black/20 sm:px-5 sm:py-4',
         'sticky top-0 z-40' => $sticky,
     ])]) }}
 >
@@ -41,7 +41,7 @@
                         variant="ghost"
                         icon="list"
                         rounded
-                        class="shrink-0 border border-border md:hidden"
+                        class="shrink-0 border border-border dark:border-slate-800 md:hidden"
                         x-on:click="$dispatch('{{ $menuEvent }}')"
                         aria-label="Abrir navegacao"
                     />
@@ -52,12 +52,12 @@
                         <p class="mb-1 text-xs font-semibold uppercase tracking-[0.18em] text-primary">{{ $eyebrow }}</p>
                     @endif
 
-                    <h1 id="{{ $titleId }}" class="truncate text-xl font-semibold tracking-tight text-secondary sm:text-2xl">
+                    <h1 id="{{ $titleId }}" class="truncate text-xl font-semibold tracking-tight text-secondary dark:text-slate-100 sm:text-2xl">
                         {{ $title }}
                     </h1>
 
                     @if ($subtitle)
-                        <p class="mt-1 truncate text-sm leading-5 text-secondary/65">{{ $subtitle }}</p>
+                        <p class="mt-1 truncate text-sm leading-5 text-secondary/65 dark:text-slate-400">{{ $subtitle }}</p>
                     @endif
                 </div>
             @endisset
@@ -96,7 +96,7 @@
                     {{ $right }}
                 @else
                     @if ($status)
-                        <span class="inline-flex items-center gap-2 rounded-full border border-border bg-light px-3 py-1.5 text-xs font-medium text-secondary">
+                        <span class="inline-flex items-center gap-2 rounded-full border border-border dark:border-slate-800 bg-light dark:bg-slate-800 px-3 py-1.5 text-xs font-medium text-secondary dark:text-slate-200">
                             <span class="h-2 w-2 rounded-full bg-success"></span>
                             {{ $status }}
                         </span>
@@ -108,12 +108,12 @@
                                 variant="ghost"
                                 icon="bell"
                                 rounded
-                                class="border border-border"
+                                class="border border-border dark:border-slate-800"
                                 x-on:click="$dispatch('{{ $notificationEvent }}')"
                                 aria-label="Abrir notificacoes"
                             />
                             @if ((int) $notificationCount > 0)
-                                <span class="pointer-events-none absolute -right-1 -top-1 inline-flex h-5 min-w-5 items-center justify-center rounded-full border-2 border-white bg-danger px-1 text-[0.625rem] font-bold text-white">
+                                <span class="pointer-events-none absolute -right-1 -top-1 inline-flex h-5 min-w-5 items-center justify-center rounded-full border-2 border-white dark:border-slate-900 bg-danger px-1 text-[0.625rem] font-bold text-white">
                                     {{ (int) $notificationCount > 99 ? '99+' : (int) $notificationCount }}
                                 </span>
                             @endif

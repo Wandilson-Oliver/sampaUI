@@ -268,5 +268,24 @@ BLADE);
         $html->assertSee('fixed inset-0 z-40 bg-secondary/40 backdrop-blur-xs md:hidden', false);
         $html->assertSee('x-on:keydown.escape.window', false);
     }
+
+    public function test_it_supports_object_user_model(): void
+    {
+        $userObj = (object) [
+            'name' => 'Carlos Admin',
+            'email' => 'carlos@example.com',
+            'avatar_url' => '/images/carlos.jpg',
+        ];
+
+        $html = $this->blade(
+            '<x-sampaui::sidebar :user="$user" />',
+            ['user' => $userObj]
+        );
+
+        $html->assertSee('Carlos Admin');
+        $html->assertSee('carlos@example.com');
+        $html->assertSee('/images/carlos.jpg');
+    }
 }
+
 

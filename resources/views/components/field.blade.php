@@ -9,7 +9,7 @@
 
 <div {{ $attributes->merge(['class' => 'w-full space-y-2']) }}>
     @if ($label)
-        <label for="{{ $labelFor ?? $id }}" class="block text-sm font-medium text-secondary">
+        <label for="{{ $labelFor ?? $id }}" class="block text-sm font-medium text-secondary dark:text-slate-200">
             {{ $label }}
             @if ($required)
                 <span class="text-danger" aria-hidden="true">*</span>
@@ -21,7 +21,7 @@
     {{ $slot }}
 
     @if ($hint)
-        <p id="{{ $id }}-hint" class="text-sm leading-5 text-secondary/70">{{ $hint }}</p>
+        <p id="{{ $id }}-hint" class="text-sm leading-5 text-secondary/70 dark:text-slate-400">{{ $hint }}</p>
     @endif
 
     @if ($error)

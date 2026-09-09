@@ -54,7 +54,12 @@ class MaskedInputTest extends TestCase
         $html->assertSee('inputmode="decimal"', false);
         $html->assertSee('R$');
         $html->assertSee('placeholder="0,00"', false);
-        $html->assertSee('x-on:input="$el.value = format($el.value); if ($el._x_model) { $el._x_model.set($el.value); }"', false);
+        $html->assertSee('x-data="SampaUI.currencyBr()"', false);
+        $html->assertSee('x-on:input="onInput($event)"', false);
+
+        $javascript = file_get_contents(dirname(__DIR__, 2).'/resources/js/sampaui.js');
+        $this->assertStringContainsString('currencyBr()', $javascript);
+        $this->assertStringContainsString("(parseInt(digits || 0, 10) / 100).toFixed(2)", $javascript);
     }
 
     public function test_currency_br_custom_symbol_does_not_duplicate_placeholder_prefix(): void
@@ -82,9 +87,22 @@ class MaskedInputTest extends TestCase
         $html->assertSee('bi bi-geo-alt', false);
         $html->assertSee('inputmode="numeric"', false);
         $html->assertSee('autocomplete="postal-code"', false);
-        $html->assertSee('value.replace(/\\D/g, \'\').slice(0, 8)', false);
-        $html->assertSee('value.slice(0, 5) + \'-\' + value.slice(5)', false);
-        $html->assertSee('x-on:input="$el.value = format($el.value); if ($el._x_model) { $el._x_model.set($el.value); }"', false);
+        $html->assertSee('x-data="SampaUI.cep()"', false);
+        $html->assertSee('x-on:input="onInput($event)"', false);
         $html->assertDontSee('x-mask', false);
+
+        $javascript = file_get_contents(dirname(__DIR__, 2).'/resources/js/sampaui.js');
+        $this->assertStringContainsString('cep()', $javascript);
+        $this->assertStringContainsString('digits.slice(0, 5)}-${digits.slice(5)}', $javascript);
+    }
+
+    public function test_masks_have_init_methods_for_initial_value_formatting(): void
+    {
+        $javascript = file_get_contents(dirname(__DIR__, 2).'/resources/js/sampaui.js');
+
+        $this->assertStringContainsString('this.$el.value = this.format(this.$el.value)', $javascript);
+        $this->assertMatchesRegularExpression('/phone\(\)\s*\{\s*return\s*\{\s*init\(\)/', $javascript);
+        $this->assertMatchesRegularExpression('/cep\(\)\s*\{\s*return\s*\{\s*init\(\)/', $javascript);
+        $this->assertMatchesRegularExpression('/currencyBr\(\)\s*\{\s*return\s*\{\s*init\(\)/', $javascript);
     }
 }

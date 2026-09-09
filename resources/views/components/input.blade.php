@@ -43,7 +43,7 @@
         @if ($hasSuffix) x-data="SampaUI.input({ clearable: @js($clearable) })" @endif
     >
         @if ($hasPrefix)
-            <span class="pointer-events-none absolute inset-y-0 left-4 flex items-center font-medium text-secondary/70 select-none" aria-hidden="true">
+            <span class="pointer-events-none absolute inset-y-0 left-4 flex items-center font-medium text-secondary/70 dark:text-slate-400 select-none" aria-hidden="true">
                 @isset($prefix)
                     {{ $prefix }}
                 @else
@@ -71,7 +71,7 @@
         >
 
         @if ($hasSuffix)
-            <span class="absolute inset-y-0 right-3 flex items-center gap-1 text-secondary/60">
+            <span class="absolute inset-y-0 right-3 flex items-center gap-1 text-secondary/60 dark:text-slate-400">
                 @isset($suffix)
                     {{ $suffix }}
                 @else
@@ -84,7 +84,7 @@
                             type="button"
                             x-show="hasValue"
                             x-cloak
-                            class="inline-flex h-8 w-8 items-center justify-center rounded-full transition hover:bg-light focus:outline-none focus:ring-2 focus:ring-primary/20"
+                            class="inline-flex h-8 w-8 items-center justify-center rounded-full transition hover:bg-light dark:hover:bg-slate-800 dark:hover:text-slate-200 focus:outline-none focus:ring-2 focus:ring-primary/20"
                             x-on:click="clear()"
                             aria-label="{{ $clearLabel }}"
                             @disabled($disabled || $readonly || $loading)
@@ -94,7 +94,7 @@
                     @if ($hasPasswordToggle)
                         <button
                             type="button"
-                            class="inline-flex h-8 w-8 items-center justify-center rounded-full transition hover:bg-light hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                            class="inline-flex h-8 w-8 items-center justify-center rounded-full transition hover:bg-light hover:text-primary dark:hover:bg-slate-800 dark:hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                             x-on:click="showPassword = ! showPassword"
                             x-bind:aria-label="showPassword ? 'Ocultar senha' : 'Mostrar senha'"
                             x-bind:aria-pressed="showPassword.toString()"

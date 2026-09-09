@@ -21,7 +21,7 @@
     $describedBy = sampaui_described_by($id, $hint, $errorMessage, $attributes->get('aria-describedby'));
     $unavailable = $disabled || $readonly || $loading;
     $classes = sampaui_classes([
-        'h-5 w-5 cursor-pointer rounded border border-secondary/40 transition focus:outline-none focus:ring-2 focus:ring-offset-2',
+        'h-5 w-5 cursor-pointer rounded border border-secondary/40 transition focus:outline-none focus:ring-2 focus:ring-offset-2 dark:border-slate-600 dark:bg-slate-900 dark:focus:ring-offset-slate-950',
         sampaui_control_color_classes($color),
         'border-danger ring-2 ring-danger/20' => filled($errorMessage) || $state === 'error',
         'border-success' => ! $errorMessage && $state === 'success',
@@ -49,7 +49,7 @@
         >
 
         @if ($label || trim($slot->toHtml()) !== '')
-            <label for="{{ $id }}" @class(['text-sm font-medium text-secondary', 'cursor-pointer' => ! $unavailable, 'cursor-not-allowed opacity-50' => $unavailable])>
+            <label for="{{ $id }}" @class(['text-sm font-medium text-secondary dark:text-slate-200', 'cursor-pointer' => ! $unavailable, 'cursor-not-allowed opacity-50' => $unavailable])>
                 {{ $label ?: $slot }}
                 @if ($required)<span class="text-danger" aria-hidden="true">*</span><span class="sr-only">(obrigatorio)</span>@endif
             </label>

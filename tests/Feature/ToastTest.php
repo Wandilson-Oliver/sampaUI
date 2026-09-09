@@ -17,6 +17,7 @@ class ToastTest extends TestCase
         $html->assertSee('SampaUI.toast({ max: 3', false);
         $html->assertSee('custom-toast', false);
         $html->assertSee('wire:ignore', false);
+        $html->assertSee('z-[99999]', false);
         $html->assertSee('rounded-default', false);
         $html->assertSee("x-on:focusin=\"pauseTimer(toast, 'focus')\"", false);
         $html->assertSee("toast.type === 'error' ? 'assertive' : 'polite'", false);

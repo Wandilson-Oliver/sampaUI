@@ -40,7 +40,7 @@
         $attributes->get('class'),
         'pr-20' => $clearable,
         'pr-3' => ! $clearable && ($loading || isset($suffix)),
-        'bg-light/40 text-secondary/80' => $readonly,
+        'bg-light/40 text-secondary/80 dark:bg-slate-800/40 dark:text-slate-300' => $readonly,
     ], $state, $loading);
     $modelAttributes = $attributes->filter(
         fn (mixed $attributeValue, string $attributeName): bool => str_starts_with($attributeName, 'wire:model') || $attributeName === 'x-model'
@@ -111,13 +111,13 @@
             @if ($describedBy) aria-describedby="{{ $describedBy }}" @endif
             @disabled($unavailable)
         >
-            @isset($prefix)<span class="shrink-0 text-secondary/60">{{ $prefix }}</span>@endisset
+            @isset($prefix)<span class="shrink-0 text-secondary/60 dark:text-slate-400">{{ $prefix }}</span>@endisset
 
-            <span class="min-w-0 flex-1 truncate" x-bind:class="selectedLabel ? 'text-secondary' : 'text-secondary/50'" x-text="selectedLabel || placeholder || ''">{{ $selectedOption['label'] ?? $placeholder }}</span>
+            <span class="min-w-0 flex-1 truncate" x-bind:class="selectedLabel ? 'text-secondary dark:text-slate-100' : 'text-secondary/50 dark:text-slate-400'" x-text="selectedLabel || placeholder || ''">{{ $selectedOption['label'] ?? $placeholder }}</span>
 
             <span class="flex shrink-0 items-center gap-1">
                 @if ($loading)<i class="bi bi-arrow-repeat animate-spin text-sm text-primary" aria-hidden="true"></i>@endif
-                @isset($suffix){{ $suffix }}@else<i class="bi bi-chevron-down text-sm text-secondary transition" x-bind:class="open ? 'rotate-180' : ''" aria-hidden="true"></i>@endisset
+                @isset($suffix){{ $suffix }}@else<i class="bi bi-chevron-down text-sm text-secondary dark:text-slate-300 transition" x-bind:class="open ? 'rotate-180' : ''" aria-hidden="true"></i>@endisset
             </span>
         </button>
 
@@ -127,7 +127,7 @@
                 x-show="value"
                 x-cloak
                 x-on:click="clear()"
-                class="absolute right-10 top-1.5 z-10 inline-flex h-8 w-8 items-center justify-center rounded-full text-secondary/60 hover:bg-light focus:outline-none focus:ring-2 focus:ring-primary/20"
+                class="absolute right-10 top-1.5 z-10 inline-flex h-8 w-8 items-center justify-center rounded-full text-secondary/60 dark:text-slate-400 hover:bg-light dark:hover:bg-slate-800 dark:hover:text-slate-200 focus:outline-none focus:ring-2 focus:ring-primary/20"
                 aria-label="{{ $clearLabel }}"
                 @disabled($unavailable || $readonly)
             ><i class="bi bi-x-lg text-xs" aria-hidden="true"></i></button>
@@ -140,7 +140,7 @@
             x-transition.opacity.duration.150ms
             x-bind:style="menuStyle"
             style="display: none;"
-            class="overflow-hidden rounded-default border border-border bg-surface shadow-2xl shadow-secondary/10"
+            class="overflow-hidden rounded-default border border-border bg-surface bg-white dark:bg-slate-900 dark:border-slate-800 shadow-2xl shadow-secondary/10"
         >
             <ul id="{{ $id }}-listbox" role="listbox" class="max-h-64 overflow-y-auto py-1">
                 <template x-for="(option, index) in options" x-bind:key="option.value">
@@ -150,8 +150,8 @@
                             role="option"
                             x-bind:id="@js($id.'-option-') + index"
                             x-ref="option"
-                            class="flex w-full cursor-pointer items-center justify-between gap-3 px-4 py-2.5 text-left text-sm text-secondary transition hover:bg-light/30 focus:bg-light/30 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-                            x-bind:class="activeIndex === index ? 'bg-light/50 text-primary' : ''"
+                            class="flex w-full cursor-pointer items-center justify-between gap-3 px-4 py-2.5 text-left text-sm text-secondary dark:text-slate-200 transition hover:bg-light/30 dark:hover:bg-slate-800/60 focus:bg-light/30 dark:focus:bg-slate-800/60 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                            x-bind:class="activeIndex === index ? 'bg-light/50 text-primary dark:bg-slate-800/80' : ''"
                             x-bind:aria-selected="value === option.value"
                             x-bind:disabled="option.disabled"
                             x-on:mouseenter="activeIndex = index"
@@ -159,7 +159,7 @@
                         ><span class="truncate" x-text="option.label"></span><i x-show="value === option.value" class="bi bi-check2 text-primary" aria-hidden="true"></i></button>
                     </li>
                 </template>
-                <li x-show="options.length === 0" class="px-4 py-3 text-sm text-secondary/70" role="status">{{ $emptyText }}</li>
+                <li x-show="options.length === 0" class="px-4 py-3 text-sm text-secondary/70 dark:text-slate-400" role="status">{{ $emptyText }}</li>
             </ul>
         </div>
         </template>

@@ -34,9 +34,15 @@
     }
 
     $sidebarId = $attributes->get('id') ?? 'sampaui-sidebar-'.\Illuminate\Support\Str::random(6);
-    $userName = is_array($user) ? ($user['name'] ?? 'Usuario') : null;
-    $userEmail = is_array($user) ? ($user['email'] ?? null) : null;
-    $userAvatar = is_array($user) ? ($user['avatar'] ?? $avatar) : $avatar;
+    $userName = is_array($user)
+        ? ($user['name'] ?? 'Usuario')
+        : (is_object($user) ? ($user->name ?? 'Usuario') : null);
+    $userEmail = is_array($user)
+        ? ($user['email'] ?? null)
+        : (is_object($user) ? ($user->email ?? null) : null);
+    $userAvatar = is_array($user)
+        ? ($user['avatar'] ?? $avatar)
+        : (is_object($user) ? ($user->avatar ?? $user->avatar_url ?? $avatar) : $avatar);
     $userAvatarAlt = $avatarAlt ?? $userName ?? 'Avatar';
     $startsCollapsed = $initialState ? in_array($initialState, ['closed', 'collapsed'], true) : (bool) $collapsed;
     $logoAltText = $logoAlt ?? 'Logo';
@@ -67,7 +73,7 @@
 
 <aside
     id="{{ $sidebarId }}"
-    {{ $attributes->except('id')->merge(['class' => "{$positionClasses} z-50 flex flex-col border-r border-border bg-surface text-secondary transition-[width,transform] duration-300 ease-out"]) }}
+    {{ $attributes->except('id')->merge(['class' => "{$positionClasses} z-50 flex flex-col border-r border-border bg-surface bg-white text-secondary dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100 transition-[width,transform] duration-300 ease-out"]) }}
     style="width: {{ $startsCollapsed ? '6rem' : '18rem' }};"
     x-data="{ open: false, collapsed: @js($startsCollapsed), stateEvent: @js($stateEvent), sidebarId: @js($sidebarId), width() { return this.collapsed ? '6rem' : '18rem' }, emitState() { window.dispatchEvent(new CustomEvent(this.stateEvent, { detail: { id: this.sidebarId, collapsed: this.collapsed, width: this.width() } })) }, setCollapsed(value) { this.collapsed = value; this.emitState() }, toggle() { this.setCollapsed(! this.collapsed) } }"
     x-init="emitState()"
@@ -81,7 +87,7 @@
     @if ($collapsible)
         <button
             type="button"
-            class="absolute -right-5 top-6 z-10 inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-default border border-border bg-surface text-secondary/60 shadow-sm transition hover:border-purple hover:text-purple focus:outline-none focus:ring-2 focus:ring-purple/20"
+            class="absolute -right-5 top-6 z-10 inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-default border border-border dark:border-slate-800 bg-surface bg-white dark:bg-slate-900 text-secondary/60 dark:text-slate-400 shadow-sm transition hover:border-purple hover:text-purple focus:outline-none focus:ring-2 focus:ring-purple/20"
             x-on:click.prevent.stop="window.matchMedia('(max-width: 767px)').matches ? (open = false, setCollapsed(true)) : toggle()"
             x-bind:aria-label="window.matchMedia('(max-width: 767px)').matches ? 'Fechar navegacao' : (collapsed ? 'Expandir navegacao' : 'Recolher navegacao')"
         >
@@ -97,20 +103,20 @@
             @elseif (isset($header))
                 {{ $header }}
             @elseif ($logoSrc)
-                <a href="{{ $brandHref }}" class="flex cursor-pointer items-center text-secondary" x-bind:class="collapsed ? 'justify-center' : ''">
+                <a href="{{ $brandHref }}" class="flex cursor-pointer items-center text-secondary dark:text-slate-100" x-bind:class="collapsed ? 'justify-center' : ''">
                     <img src="{{ $logoSrc }}" alt="{{ $logoAltText }}" class="block h-11 max-w-full shrink-0 object-contain">
                 </a>
             @endif
         </div>
     @endif
 
-    @if (isset($userSlot) || is_array($user))
+    @if (isset($userSlot) || is_array($user) || is_object($user))
         <div class="shrink-0 pb-14" x-bind:class="collapsed ? 'px-0' : 'px-8'">
             @isset($userSlot)
                 {{ $userSlot }}
             @else
                 <div class="flex min-w-0 items-center gap-5" x-bind:class="collapsed ? 'justify-center' : ''">
-                    <span class="inline-flex aspect-square h-16 min-h-16 w-16 min-w-16 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-purple bg-light text-base font-semibold text-purple">
+                    <span class="inline-flex aspect-square h-16 min-h-16 w-16 min-w-16 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-purple bg-light dark:bg-slate-800 text-base font-semibold text-purple">
                         @if ($userAvatar)
                             <img src="{{ $userAvatar }}" alt="{{ $userAvatarAlt }}" class="block aspect-square h-full min-h-full w-full min-w-full rounded-full object-cover">
                         @else
@@ -119,9 +125,9 @@
                     </span>
 
                     <div class="min-w-0" x-bind:class="collapsed ? 'md:hidden' : ''">
-                        <p class="truncate text-base font-semibold leading-tight text-secondary">{{ $userName }}</p>
+                        <p class="truncate text-base font-semibold leading-tight text-secondary dark:text-slate-100">{{ $userName }}</p>
                         @if ($userEmail)
-                            <p class="mt-1 truncate text-sm leading-tight text-secondary/45">{{ $userEmail }}</p>
+                            <p class="mt-1 truncate text-sm leading-tight text-secondary/45 dark:text-slate-400">{{ $userEmail }}</p>
                         @endif
                     </div>
                 </div>
@@ -134,7 +140,7 @@
             @foreach ($normalizedSections as $section)
                 <div class="flex flex-col gap-2">
                     @if ($section['label'])
-                        <p class="px-1 pb-1 pt-2 text-base font-medium text-muted" x-bind:class="collapsed ? 'md:hidden' : ''">
+                        <p class="px-1 pb-1 pt-2 text-base font-medium text-muted dark:text-slate-400" x-bind:class="collapsed ? 'md:hidden' : ''">
                             {{ $section['label'] }}
                         </p>
                     @endif
@@ -163,8 +169,8 @@
                                             @if (($item['navigate'] ?? false) && $href !== '#') wire:navigate @endif
                                             @class([
                                                 'group flex flex-1 cursor-pointer items-center gap-3.5 rounded-default !bg-transparent text-base font-medium transition focus:outline-none focus:ring-2 focus:ring-purple/20',
-                                                'text-secondary' => $active || $hasActiveChild,
-                                                'text-secondary/65 hover:text-secondary' => ! ($active || $hasActiveChild),
+                                                'text-secondary dark:text-slate-100' => $active || $hasActiveChild,
+                                                'text-secondary/65 dark:text-slate-400 hover:text-secondary dark:hover:text-slate-100' => ! ($active || $hasActiveChild),
                                             ])
                                             x-bind:class="collapsed ? 'justify-center px-0 py-1' : 'px-1 py-1'"
                                             @if ($active) aria-current="page" @endif
@@ -175,8 +181,8 @@
                                                 <span
                                                     @class([
                                                         'relative inline-flex aspect-square h-14 min-h-14 w-14 min-w-14 items-center justify-center rounded-full transition',
-                                                        'bg-light text-purple' => $active || $hasActiveChild,
-                                                        'text-secondary/45 group-hover:bg-light group-hover:text-purple' => ! ($active || $hasActiveChild),
+                                                        'bg-light text-purple dark:bg-slate-800' => $active || $hasActiveChild,
+                                                        'text-secondary/45 group-hover:bg-light group-hover:text-purple dark:text-slate-400 dark:group-hover:bg-slate-800' => ! ($active || $hasActiveChild),
                                                     ])
                                                     @if ($activeIconStyle) style="{{ $activeIconStyle }}" @endif
                                                 >
@@ -190,7 +196,7 @@
                                             <span
                                                 @class([
                                                     'truncate flex-1',
-                                                    'group-hover:text-secondary' => ! $active,
+                                                    'group-hover:text-secondary dark:group-hover:text-slate-100' => ! $active,
                                                 ])
                                                 x-bind:class="collapsed ? 'md:hidden' : ''"
                                             >
@@ -200,7 +206,7 @@
 
                                         <button
                                             type="button"
-                                            class="inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg text-secondary/45 transition hover:bg-light hover:text-secondary focus:outline-none"
+                                            class="inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg text-secondary/45 dark:text-slate-400 transition hover:bg-light dark:hover:bg-slate-800 hover:text-secondary dark:hover:text-slate-100 focus:outline-none"
                                             x-bind:class="collapsed ? 'hidden' : ''"
                                             x-on:click.stop="expanded = ! expanded"
                                             aria-label="Alternar submenu"
@@ -213,7 +219,7 @@
                                         x-show="expanded && ! collapsed"
                                         x-cloak
                                         x-transition.opacity.duration.200ms
-                                        class="ml-14 flex flex-col gap-1 border-l-2 border-border/80 pl-3 pt-0.5"
+                                        class="ml-14 flex flex-col gap-1 border-l-2 border-border/80 dark:border-slate-800 pl-3 pt-0.5"
                                     >
                                         @foreach ($children as $child)
                                             @php
@@ -227,7 +233,7 @@
                                                 @class([
                                                     'block rounded-lg px-2 py-1.5 text-sm font-medium transition',
                                                     'font-semibold text-purple bg-purple/10' => $childActive,
-                                                    'text-secondary/65 hover:bg-light hover:text-secondary' => ! $childActive,
+                                                    'text-secondary/65 dark:text-slate-400 hover:bg-light dark:hover:bg-slate-800 hover:text-secondary dark:hover:text-slate-100' => ! $childActive,
                                                 ])
                                                 @if ($childActive) aria-current="page" @endif
                                                 x-on:click="if (window.matchMedia('(max-width: 767px)').matches) { open = false }"
@@ -243,8 +249,8 @@
                                     @if (($item['navigate'] ?? false) && $href !== '#') wire:navigate @endif
                                     @class([
                                         'group flex cursor-pointer items-center gap-3.5 rounded-default !bg-transparent text-base font-medium transition focus:outline-none focus:ring-2 focus:ring-purple/20',
-                                        'text-secondary' => $active,
-                                        'text-secondary/65 hover:text-secondary' => ! $active,
+                                        'text-secondary dark:text-slate-100' => $active,
+                                        'text-secondary/65 dark:text-slate-400 hover:text-secondary dark:hover:text-slate-100' => ! $active,
                                     ])
                                     x-bind:class="collapsed ? 'justify-center px-0 py-1' : 'px-1 py-1'"
                                     @if ($active) aria-current="page" @endif
@@ -255,8 +261,8 @@
                                         <span
                                             @class([
                                                 'relative inline-flex aspect-square h-14 min-h-14 w-14 min-w-14 items-center justify-center rounded-full transition',
-                                                'bg-light text-purple' => $active,
-                                                'text-secondary/45 group-hover:bg-light group-hover:text-purple' => ! $active,
+                                                'bg-light text-purple dark:bg-slate-800' => $active,
+                                                'text-secondary/45 group-hover:bg-light group-hover:text-purple dark:text-slate-400 dark:group-hover:bg-slate-800' => ! $active,
                                             ])
                                             @if ($activeIconStyle) style="{{ $activeIconStyle }}" @endif
                                         >
@@ -270,7 +276,7 @@
                                     <span
                                         @class([
                                             'truncate flex-1',
-                                            'group-hover:text-secondary' => ! $active,
+                                            'group-hover:text-secondary dark:group-hover:text-slate-100' => ! $active,
                                         ])
                                         x-bind:class="collapsed ? 'md:hidden' : ''"
                                     >

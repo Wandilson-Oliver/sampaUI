@@ -69,7 +69,7 @@
     x-on:click.window="handleMenuOutside($event)"
 >
     @if ($label)
-        <label for="{{ $id }}-button" class="mb-2 block text-sm font-medium text-secondary">
+        <label for="{{ $id }}-button" class="mb-2 block text-sm font-medium text-secondary dark:text-slate-200">
             {{ $label }}
             @if ($required)
                 <span class="text-danger">*</span>
@@ -111,14 +111,14 @@
         >
             <span
                 class="min-w-0 flex-1 truncate"
-                x-bind:class="selectedLabel ? 'text-secondary' : 'text-secondary/50'"
+                x-bind:class="selectedLabel ? 'text-secondary dark:text-slate-100' : 'text-secondary/50 dark:text-slate-400'"
                 x-text="selectedLabel || placeholder"
             >
                 {{ $selectedOption['label'] ?? $placeholder }}
             </span>
 
             <i
-                class="bi bi-chevron-down shrink-0 text-sm text-secondary transition"
+                class="bi bi-chevron-down shrink-0 text-sm text-secondary dark:text-slate-300 transition"
                 x-bind:class="open ? 'rotate-180' : ''"
                 aria-hidden="true"
             ></i>
@@ -131,17 +131,17 @@
             x-transition.opacity.duration.150ms
             x-bind:style="menuStyle"
             style="display: none;"
-            class="overflow-hidden rounded-default border border-border bg-surface shadow-2xl shadow-secondary/10"
+            class="overflow-hidden rounded-default border border-border bg-surface bg-white dark:bg-slate-900 dark:border-slate-800 shadow-2xl shadow-secondary/10"
         >
-            <div class="border-b border-border p-2">
+            <div class="border-b border-border dark:border-slate-800 p-2">
                 <div class="relative">
-                    <i class="bi bi-search pointer-events-none absolute inset-y-0 left-3 flex items-center text-sm text-secondary/60"></i>
+                    <i class="bi bi-search pointer-events-none absolute inset-y-0 left-3 flex items-center text-sm text-secondary/60 dark:text-slate-400"></i>
                     <input
                         id="{{ $id }}-search"
                         x-model="search"
                         type="search"
                         placeholder="{{ $searchPlaceholder }}"
-                        class="block w-full rounded-default border border-secondary/20 bg-white py-2 pl-9 pr-3 text-sm text-secondary outline-none transition placeholder:text-secondary/50 hover:border-secondary/30 focus:border-primary focus:ring-2 focus:ring-primary/20"
+                        class="block w-full rounded-default border border-secondary/20 bg-white py-2 pl-9 pr-3 text-sm text-secondary outline-none transition placeholder:text-secondary/50 hover:border-secondary/30 focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-400 dark:hover:border-slate-600"
                     >
                 </div>
             </div>
@@ -152,7 +152,7 @@
                         <button
                             type="button"
                             role="option"
-                            class="flex w-full cursor-pointer items-center justify-between gap-3 px-4 py-2.5 text-left text-sm text-secondary transition hover:bg-light/30 focus:bg-light/30 focus:outline-none"
+                            class="flex w-full cursor-pointer items-center justify-between gap-3 px-4 py-2.5 text-left text-sm text-secondary dark:text-slate-200 transition hover:bg-light/30 dark:hover:bg-slate-800/60 focus:bg-light/30 dark:focus:bg-slate-800/60 focus:outline-none"
                             x-bind:aria-selected="value === option.value"
                             x-on:click="select(option)"
                         >
@@ -162,7 +162,7 @@
                     </li>
                 </template>
 
-                <li x-show="filteredOptions().length === 0" class="px-4 py-3 text-sm text-secondary/70" role="status">
+                <li x-show="filteredOptions().length === 0" class="px-4 py-3 text-sm text-secondary/70 dark:text-slate-400" role="status">
                     {{ $emptyText }}
                 </li>
             </ul>

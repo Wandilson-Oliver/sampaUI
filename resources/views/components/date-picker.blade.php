@@ -177,7 +177,7 @@
     x-on:click.window="handleMenuOutside($event)"
 >
     @if ($label)
-        <label id="{{ $id }}-label" for="{{ $id }}-button" class="mb-2 block text-sm font-medium text-secondary">
+        <label id="{{ $id }}-label" for="{{ $id }}-button" class="mb-2 block text-sm font-medium text-secondary dark:text-slate-200">
             {{ $label }}
             @if ($required)
                 <span class="text-danger">*</span>
@@ -215,7 +215,7 @@
             <span
                 class="truncate"
                 x-text="displayValue()"
-                x-bind:class="value ? 'text-current' : 'text-slate-400'"
+                x-bind:class="value ? 'text-current' : 'text-slate-400 dark:text-slate-500'"
             ></span>
         </span>
 
@@ -226,7 +226,7 @@
                     x-cloak
                     role="button"
                     tabindex="-1"
-                    class="inline-flex h-6 w-6 items-center justify-center rounded-full text-current opacity-70 transition hover:bg-light/30 hover:opacity-100"
+                    class="inline-flex h-6 w-6 items-center justify-center rounded-full text-current opacity-70 transition hover:bg-light/30 dark:hover:bg-slate-800 hover:opacity-100"
                     x-on:click.stop="clear()"
                     aria-label="Limpar data"
                 >
@@ -249,23 +249,23 @@
         x-transition:leave-end="opacity-0 translate-y-1"
         x-bind:style="menuStyle"
         style="display: none;"
-        class="overflow-y-auto rounded-default border border-border bg-surface p-4 text-secondary shadow-2xl shadow-secondary/10"
+        class="overflow-y-auto rounded-default border border-border dark:border-slate-800 bg-surface bg-white dark:bg-slate-900 p-4 text-secondary dark:text-slate-200 shadow-2xl shadow-secondary/10 dark:shadow-black/40"
         role="dialog"
         aria-label="Selecionar data"
     >
         <div class="mb-4 flex items-center justify-between gap-3">
-            <button type="button" class="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-secondary transition hover:bg-light/30 focus:outline-none focus:ring-2 focus:ring-primary/20" x-on:click="previousMonth()" aria-label="Mes anterior">
+            <button type="button" class="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-secondary dark:text-slate-200 transition hover:bg-light/30 dark:hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-primary/20" x-on:click="previousMonth()" aria-label="Mes anterior">
                 <i class="bi bi-chevron-left"></i>
             </button>
 
-            <p class="text-sm font-semibold capitalize text-secondary" x-text="monthLabel()"></p>
+            <p class="text-sm font-semibold capitalize text-secondary dark:text-slate-100" x-text="monthLabel()"></p>
 
-            <button type="button" class="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-secondary transition hover:bg-light/30 focus:outline-none focus:ring-2 focus:ring-primary/20" x-on:click="nextMonth()" aria-label="Proximo mes">
+            <button type="button" class="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-secondary dark:text-slate-200 transition hover:bg-light/30 dark:hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-primary/20" x-on:click="nextMonth()" aria-label="Proximo mes">
                 <i class="bi bi-chevron-right"></i>
             </button>
         </div>
 
-        <div class="grid grid-cols-7 gap-1 text-center text-xs font-semibold text-slate-600/70">
+        <div class="grid grid-cols-7 gap-1 text-center text-xs font-semibold text-slate-600/70 dark:text-slate-400">
             <template x-for="dayName in weekDays" x-bind:key="dayName">
                 <span class="py-2" x-text="dayName"></span>
             </template>
@@ -278,9 +278,9 @@
                     class="inline-flex h-10 cursor-pointer items-center justify-center rounded-default text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-primary/20"
                     x-bind:class="{
                         'bg-primary text-white hover:bg-primary': day.selected,
-                        'text-slate-600 ring-1 ring-slate-300': day.today && ! day.selected,
-                        'text-slate-600 hover:bg-light/30': day.currentMonth && ! day.selected && ! day.disabled,
-                        'text-slate-400': ! day.currentMonth && ! day.selected,
+                        'text-slate-600 dark:text-slate-200 ring-1 ring-slate-300 dark:ring-slate-700': day.today && ! day.selected,
+                        'text-slate-600 dark:text-slate-200 hover:bg-light/30 dark:hover:bg-slate-800': day.currentMonth && ! day.selected && ! day.disabled,
+                        'text-slate-400 dark:text-slate-600': ! day.currentMonth && ! day.selected,
                         'cursor-not-allowed opacity-35 hover:bg-transparent': day.disabled,
                     }"
                     x-bind:disabled="day.disabled"

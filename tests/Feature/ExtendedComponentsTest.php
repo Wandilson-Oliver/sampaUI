@@ -241,6 +241,8 @@ BLADE);
         $html->assertSee('v1.0');
         $html->assertSee('flex-col items-center', false);
         $html->assertSee('text-2xl', false);
+        $html->assertSee('dark:text-slate-100', false);
+        $html->assertSee('dark:text-slate-400', false);
     }
 }
 

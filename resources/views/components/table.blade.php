@@ -45,12 +45,12 @@
         : 'simple';
     $columnCount = count($columns) + ($selectable ? 1 : 0);
     $tableClasses = sampaui_classes([
-        'min-w-full divide-y divide-border text-left text-sm text-secondary',
+        'min-w-full divide-y divide-border dark:divide-slate-800 text-left text-sm text-secondary dark:text-slate-200',
     ]);
     $cellPadding = $compact ? 'px-3 py-2' : 'px-4 py-3';
     $rowClasses = sampaui_classes([
         'transition' => $hover,
-        $hover ? 'hover:bg-light/30' : null,
+        $hover ? 'hover:bg-light/30 dark:hover:bg-slate-800/50' : null,
     ]);
     $sortableColumnKeys = collect($columns)
         ->mapWithKeys(function (mixed $columnLabel, mixed $columnKey): array {
@@ -119,7 +119,7 @@
         ->sort()
         ->values()
         ->all();
-    $paginationButtonClasses = 'inline-flex h-10 min-w-10 items-center justify-center rounded-default border border-border bg-surface px-3 font-semibold text-secondary transition hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-50';
+    $paginationButtonClasses = 'inline-flex h-10 min-w-10 items-center justify-center rounded-default border border-border dark:border-slate-800 bg-surface bg-white dark:bg-slate-900 px-3 font-semibold text-secondary dark:text-slate-200 transition hover:border-primary hover:text-primary dark:hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-50';
     $bleedStyle = $bleed
         ? 'margin-inline: calc(var(--sampaui-card-padding-x, 0px) * -1); width: calc(100% + (var(--sampaui-card-padding-x, 0px) * 2));'
         : '';
@@ -128,10 +128,10 @@
         ->except('style')
         ->merge([
             'class' => sampaui_classes([
-                'overflow-hidden bg-surface',
+                'overflow-hidden bg-surface bg-white dark:bg-slate-900',
                 'rounded-none border-0 shadow-none' => $flush,
                 'rounded-default shadow-sm shadow-secondary/5' => ! $flush,
-                'border border-border' => $bordered && ! $flush,
+                'border border-border dark:border-slate-800' => $bordered && ! $flush,
             ]),
         ]);
     $rootStyle = trim($bleedStyle.' '.$existingStyle);
@@ -259,14 +259,14 @@
     @endif
 
     @if ($showToolbar)
-        <div class="flex flex-col gap-4 border-b border-border bg-surface p-4 sm:flex-row sm:items-center sm:justify-between">
+        <div class="flex flex-col gap-4 border-b border-border dark:border-slate-800 bg-surface bg-white dark:bg-slate-900 p-4 sm:flex-row sm:items-center sm:justify-between">
             <div class="min-w-0">
                 @if ($title)
-                    <h3 class="truncate text-base font-semibold text-secondary">{{ $title }}</h3>
+                    <h3 class="truncate text-base font-semibold text-secondary dark:text-slate-100">{{ $title }}</h3>
                 @endif
 
                 @if ($description)
-                    <p class="mt-1 text-sm text-secondary/70">{{ $description }}</p>
+                    <p class="mt-1 text-sm text-secondary/70 dark:text-slate-400">{{ $description }}</p>
                 @endif
 
                 @isset($toolbar)
@@ -309,7 +309,7 @@
                         @if ($exportHref === '#export')
                             x-on:click.prevent="$dispatch('toast', { message: 'Exportando relatório de clientes em CSV...', variant: 'info' })"
                         @endif
-                        class="inline-flex items-center justify-center gap-2 rounded-default border border-border bg-surface px-3 py-2 text-sm font-semibold text-secondary transition hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                        class="inline-flex items-center justify-center gap-2 rounded-default border border-border dark:border-slate-800 bg-surface bg-white dark:bg-slate-900 px-3 py-2 text-sm font-semibold text-secondary dark:text-slate-200 transition hover:border-primary hover:text-primary dark:hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                     >
                         <i class="bi bi-download" aria-hidden="true"></i>
                         {{ $exportLabel }}
@@ -328,7 +328,7 @@
             x-show="selectedRows && selectedRows.length > 0"
             x-cloak
             x-transition.opacity.duration.150ms
-            class="flex flex-wrap items-center justify-between gap-3 border-b border-primary/20 bg-primary/5 px-4 py-2.5 text-xs text-primary"
+            class="flex flex-wrap items-center justify-between gap-3 border-b border-primary/20 bg-primary/5 dark:bg-primary/10 px-4 py-2.5 text-xs text-primary"
         >
             <div class="flex items-center gap-2 font-medium">
                 <i class="bi bi-check2-circle text-base" aria-hidden="true"></i>
@@ -341,7 +341,7 @@
                 <button
                     type="button"
                     x-on:click="toggleAll(false)"
-                    class="cursor-pointer font-medium text-secondary underline hover:text-primary focus:outline-none"
+                    class="cursor-pointer font-medium text-secondary dark:text-slate-300 underline hover:text-primary dark:hover:text-primary focus:outline-none"
                 >
                     Desmarcar todos
                 </button>
@@ -355,7 +355,7 @@
                 {{ $head }}
             @else
                 @if (count($columns) > 0)
-                    <thead @class(['bg-light/50 text-xs font-semibold uppercase tracking-[0.22em] text-secondary', 'sticky top-0 z-10' => $stickyHeader])>
+                    <thead @class(['bg-light/50 dark:bg-slate-800/60 text-xs font-semibold uppercase tracking-[0.22em] text-secondary dark:text-slate-400', 'sticky top-0 z-10' => $stickyHeader])>
                         <tr>
                             @if ($selectable)
                                 <th scope="col" class="{{ $cellPadding }} w-12">
@@ -385,7 +385,7 @@
                                         <button
                                             type="button"
                                             class="{{ sampaui_classes([
-                                                 'inline-flex cursor-pointer items-center gap-2 rounded-md text-left transition hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20',
+                                                 'inline-flex cursor-pointer items-center gap-2 rounded-md text-left transition hover:text-primary dark:hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20',
                                                  'ml-auto' => $align === 'right',
                                                  'mx-auto' => $align === 'center',
                                                  $sortMethod && $isActiveSort ? 'text-primary' : null,
@@ -429,19 +429,19 @@
             @isset($body)
                 {{ $body }}
             @else
-                <tbody class="divide-y divide-border">
+                <tbody class="divide-y divide-border dark:divide-slate-800">
                     @if ($loading)
                         @for ($index = 0; $index < max(3, min((int) ($normalizedPerPage ?? 5), 8)); $index++)
                             <tr>
                                 <td colspan="{{ max($columnCount, 1) }}" class="{{ $cellPadding }}">
-                                    <div class="h-4 w-full max-w-3xl animate-pulse rounded-default bg-light"></div>
+                                    <div class="h-4 w-full max-w-3xl animate-pulse rounded-default bg-light dark:bg-slate-800"></div>
                                 </td>
                             </tr>
                         @endfor
                     @elseif (! $sortMethod && ! $searchModel && ! $paginationMethod && count($rows) > 0)
                         <template x-for="(row, rowIndex) in paginatedRows" :key="String(row['{{ $rowKey }}'] !== undefined ? row['{{ $rowKey }}'] : rowIndex)">
                             <tr
-                                @class([$rowClasses, 'bg-light/30' => $striped])
+                                @class([$rowClasses, 'bg-light/30 dark:bg-slate-800/40' => $striped])
                                 @if ($selectable)
                                     x-bind:class="{ '!bg-primary/5': isSelected(row['{{ $rowKey }}'] !== undefined ? row['{{ $rowKey }}'] : rowIndex) }"
                                 @endif
@@ -474,11 +474,11 @@
                         <tr x-show="totalRowsCount === 0" x-cloak>
                             <td colspan="{{ max($columnCount, 1) }}" class="{{ $compact ? 'px-3 py-8' : 'px-4 py-12' }} text-center">
                                 <div class="mx-auto flex max-w-sm flex-col items-center">
-                                    <span class="inline-flex h-12 w-12 items-center justify-center rounded-full bg-light text-secondary/60">
+                                    <span class="inline-flex h-12 w-12 items-center justify-center rounded-full bg-light dark:bg-slate-800 text-secondary/60 dark:text-slate-400">
                                         <i class="bi bi-{{ $emptyIcon }} text-xl" aria-hidden="true"></i>
                                     </span>
-                                    <p class="mt-3 text-sm font-semibold text-secondary">{{ $emptyTitle ?: $empty }}</p>
-                                    <p class="mt-1 text-sm text-secondary/70">{{ $emptyDescription ?: $empty }}</p>
+                                    <p class="mt-3 text-sm font-semibold text-secondary dark:text-slate-100">{{ $emptyTitle ?: $empty }}</p>
+                                    <p class="mt-1 text-sm text-secondary/70 dark:text-slate-400">{{ $emptyDescription ?: $empty }}</p>
                                     @isset($emptyAction)
                                         <div class="mt-4">{{ $emptyAction }}</div>
                                     @endisset
@@ -492,7 +492,7 @@
                             @endphp
 
                             <tr
-                                @class([$rowClasses, 'bg-light/30' => $striped && $rowIndex % 2 === 1])
+                                @class([$rowClasses, 'bg-light/30 dark:bg-slate-800/40' => $striped && $rowIndex % 2 === 1])
                                 @if ($searchable && ! $searchModel)
                                     x-show="matchesSearch(@js(implode(' ', array_filter(array_map(fn($v) => is_scalar($v) ? strip_tags((string)$v) : '', (array) $row)))))"
                                 @endif
@@ -527,11 +527,11 @@
                             <tr>
                                 <td colspan="{{ max($columnCount, 1) }}" class="{{ $compact ? 'px-3 py-8' : 'px-4 py-12' }} text-center">
                                     <div class="mx-auto flex max-w-sm flex-col items-center">
-                                        <span class="inline-flex h-12 w-12 items-center justify-center rounded-full bg-light text-secondary/60">
+                                        <span class="inline-flex h-12 w-12 items-center justify-center rounded-full bg-light dark:bg-slate-800 text-secondary/60 dark:text-slate-400">
                                             <i class="bi bi-{{ $emptyIcon }} text-xl" aria-hidden="true"></i>
                                         </span>
-                                        <p class="mt-3 text-sm font-semibold text-secondary">{{ $emptyTitle ?: $empty }}</p>
-                                        <p class="mt-1 text-sm text-secondary/70">{{ $emptyDescription ?: $empty }}</p>
+                                        <p class="mt-3 text-sm font-semibold text-secondary dark:text-slate-100">{{ $emptyTitle ?: $empty }}</p>
+                                        <p class="mt-1 text-sm text-secondary/70 dark:text-slate-400">{{ $emptyDescription ?: $empty }}</p>
                                         @isset($emptyAction)
                                             <div class="mt-4">{{ $emptyAction }}</div>
                                         @endisset
@@ -548,7 +548,7 @@
     </div>
 
     @if ($mobileCards && count($columns) > 0)
-        <div class="divide-y divide-border sm:hidden">
+        <div class="divide-y divide-border dark:divide-slate-800 sm:hidden">
             @if (! $sortMethod && ! $searchModel && ! $paginationMethod && count($rows) > 0)
                 <template x-for="(row, rowIndex) in paginatedRows" :key="'m-' + String(row['{{ $rowKey }}'] !== undefined ? row['{{ $rowKey }}'] : rowIndex)">
                     <article class="space-y-3 p-4">
@@ -567,8 +567,8 @@
                                 $label = is_array($columnLabel) ? ($columnLabel['label'] ?? $columnKey) : $columnLabel;
                             @endphp
                             <div class="flex items-start justify-between gap-4">
-                                <span class="text-xs font-semibold uppercase tracking-wide text-secondary/60">{{ $label }}</span>
-                                <span class="min-w-0 text-right text-sm text-secondary" x-html="row['{{ $key }}']"></span>
+                                <span class="text-xs font-semibold uppercase tracking-wide text-secondary/60 dark:text-slate-400">{{ $label }}</span>
+                                <span class="min-w-0 text-right text-sm text-secondary dark:text-slate-200" x-html="row['{{ $key }}']"></span>
                             </div>
                         @endforeach
                     </article>
@@ -595,15 +595,15 @@
                                 $label = is_array($columnLabel) ? ($columnLabel['label'] ?? $columnKey) : $columnLabel;
                             @endphp
                             <div class="flex items-start justify-between gap-4">
-                                <span class="text-xs font-semibold uppercase tracking-wide text-secondary/60">{{ $label }}</span>
-                                <span class="min-w-0 text-right text-sm text-secondary">{!! data_get($row, $key) !!}</span>
+                                <span class="text-xs font-semibold uppercase tracking-wide text-secondary/60 dark:text-slate-400">{{ $label }}</span>
+                                <span class="min-w-0 text-right text-sm text-secondary dark:text-slate-200">{!! data_get($row, $key) !!}</span>
                             </div>
                         @endforeach
                     </article>
                 @empty
                     <div class="p-6 text-center">
-                        <p class="text-sm font-semibold text-secondary">{{ $emptyTitle ?: $empty }}</p>
-                        <p class="mt-1 text-sm text-secondary/70">{{ $emptyDescription ?: $empty }}</p>
+                        <p class="text-sm font-semibold text-secondary dark:text-slate-100">{{ $emptyTitle ?: $empty }}</p>
+                        <p class="mt-1 text-sm text-secondary/70 dark:text-slate-400">{{ $emptyDescription ?: $empty }}</p>
                     </div>
                 @endforelse
             @endif
@@ -611,14 +611,14 @@
     @endif
 
     @if ($showPagination)
-        <div class="flex flex-col gap-3 border-t border-border bg-surface px-4 py-3 text-sm text-secondary/70 sm:flex-row sm:items-center sm:justify-between">
+        <div class="flex flex-col gap-3 border-t border-border dark:border-slate-800 bg-surface bg-white dark:bg-slate-900 px-4 py-3 text-sm text-secondary/70 dark:text-slate-400 sm:flex-row sm:items-center sm:justify-between">
             @isset($pagination)
                 {{ $pagination }}
             @else
                 <p>
-                    Mostrando <span class="font-semibold text-secondary" @if(! $paginationMethod) x-text="firstRow()" @endif>{{ $firstRow }}</span>
-                    a <span class="font-semibold text-secondary" @if(! $paginationMethod) x-text="lastRow()" @endif>{{ $lastRow }}</span>
-                    de <span class="font-semibold text-secondary" @if(! $paginationMethod) x-text="totalRowsCount" @endif>{{ $totalRows }}</span>
+                    Mostrando <span class="font-semibold text-secondary dark:text-slate-200" @if(! $paginationMethod) x-text="firstRow()" @endif>{{ $firstRow }}</span>
+                    a <span class="font-semibold text-secondary dark:text-slate-200" @if(! $paginationMethod) x-text="lastRow()" @endif>{{ $lastRow }}</span>
+                    de <span class="font-semibold text-secondary dark:text-slate-200" @if(! $paginationMethod) x-text="totalRowsCount" @endif>{{ $totalRows }}</span>
                     registros
                 </p>
 
@@ -646,7 +646,7 @@
                         @php $previousPaginationPage = null; @endphp
                         @foreach ($paginationPages as $paginationPage)
                             @if (! is_null($previousPaginationPage) && $paginationPage > $previousPaginationPage + 1)
-                                <span class="inline-flex h-10 items-center px-1 font-semibold text-secondary/60" aria-hidden="true">...</span>
+                                <span class="inline-flex h-10 items-center px-1 font-semibold text-secondary/60 dark:text-slate-400" aria-hidden="true">...</span>
                             @endif
 
                             <button
@@ -666,7 +666,7 @@
                             @php $previousPaginationPage = $paginationPage; @endphp
                         @endforeach
                     @else
-                        <span class="inline-flex h-10 items-center rounded-default bg-light px-3 font-semibold text-secondary" @if(! $paginationMethod) x-text="currentPage + ' / ' + totalPagesCount" @endif>
+                        <span class="inline-flex h-10 items-center rounded-default bg-light dark:bg-slate-800 px-3 font-semibold text-secondary dark:text-slate-200" @if(! $paginationMethod) x-text="currentPage + ' / ' + totalPagesCount" @endif>
                             {{ $currentPage }} / {{ $totalPages }}
                         </span>
                     @endif

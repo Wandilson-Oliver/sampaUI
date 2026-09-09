@@ -32,7 +32,7 @@
         ->values();
 
     $inputClasses = sampaui_classes([
-        'h-5 w-5 cursor-pointer border-secondary/40 transition focus:ring-2 focus:ring-offset-2',
+        'h-5 w-5 cursor-pointer border-secondary/40 transition focus:ring-2 focus:ring-offset-2 dark:border-slate-600 dark:bg-slate-900 dark:focus:ring-offset-slate-950',
         sampaui_control_color_classes($color),
         $errorMessage ? 'ring-2 ring-danger/20' : null,
     ]);
@@ -43,7 +43,7 @@
     @if ($errorMessage) aria-invalid="true" aria-describedby="{{ $id }}-error" @endif
 >
     @if ($label)
-        <legend class="text-sm font-medium text-secondary">{{ $label }}</legend>
+        <legend class="text-sm font-medium text-secondary dark:text-slate-200">{{ $label }}</legend>
     @endif
 
     @if ($normalizedOptions->isNotEmpty())
@@ -57,7 +57,7 @@
                 <label
                     for="{{ $optionId }}"
                     @class([
-                        'flex items-center gap-3 text-sm font-medium text-secondary',
+                        'flex items-center gap-3 text-sm font-medium text-secondary dark:text-slate-200',
                         'cursor-pointer' => ! $optionDisabled,
                         'cursor-not-allowed opacity-50' => $optionDisabled,
                     ])

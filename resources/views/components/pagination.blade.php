@@ -35,7 +35,7 @@
         ->all();
 
     $itemBase = sampaui_classes([
-        'inline-flex cursor-pointer items-center justify-center rounded-default border border-border bg-surface text-sm font-semibold text-secondary transition hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20',
+        'inline-flex cursor-pointer items-center justify-center rounded-default border border-border dark:border-slate-800 bg-surface bg-white dark:bg-slate-900 text-sm font-semibold text-secondary dark:text-slate-200 transition hover:border-primary hover:text-primary dark:hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20',
         $compact ? 'h-9 min-w-9 px-2' : 'h-11 min-w-11 px-3',
     ]);
     $itemActive = '!border-primary !bg-primary !text-white hover:!text-white';
@@ -44,10 +44,10 @@
 
 <nav {{ $attributes->merge(['class' => 'flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between']) }} aria-label="Paginacao">
     @if (! is_null($total))
-        <p class="text-sm font-medium text-secondary">
+        <p class="text-sm font-medium text-secondary dark:text-slate-300">
             <span class="font-semibold text-primary">{{ $total }}</span> registros
             @if ($perPage)
-                <span class="text-secondary/60">· {{ $perPage }} por pagina</span>
+                <span class="text-secondary/60 dark:text-slate-400">· {{ $perPage }} por pagina</span>
             @endif
         </p>
     @endif
@@ -67,7 +67,7 @@
             @php $previousPage = null; @endphp
             @foreach ($pages as $page)
                 @if (! is_null($previousPage) && $page > $previousPage + 1)
-                    <span class="inline-flex {{ $compact ? 'h-9' : 'h-11' }} items-center px-2 text-sm font-semibold text-secondary/60" aria-hidden="true">...</span>
+                    <span class="inline-flex {{ $compact ? 'h-9' : 'h-11' }} items-center px-2 text-sm font-semibold text-secondary/60 dark:text-slate-400" aria-hidden="true">...</span>
                 @endif
 
                 @if ($wireMethod)

@@ -33,7 +33,7 @@
             x-transition.opacity.duration.150ms
             x-bind:style="menuStyle"
             style="display: none;"
-            class="pointer-events-none fixed z-50 whitespace-nowrap rounded-default bg-secondary px-2.5 py-1.5 text-xs font-medium text-white shadow-md"
+            class="pointer-events-none fixed z-50 whitespace-nowrap rounded-default bg-secondary dark:bg-slate-800 dark:border dark:border-slate-700 px-2.5 py-1.5 text-xs font-medium text-white shadow-md"
             role="tooltip"
         >
             {{ $text }}

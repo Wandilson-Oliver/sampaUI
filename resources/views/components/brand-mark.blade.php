@@ -36,7 +36,7 @@
         aria-label="{{ $accessibleLabel }}"
         @if ($navigate) wire:navigate @endif
     @endif
-    {{ $attributes->merge(['class' => 'inline-flex shrink-0 ' . ($isStacked ? 'flex-col items-center text-center ' . $selectedSize['gap'] : 'items-center ' . $selectedSize['gap']) . ' text-secondary group transition']) }}
+    {{ $attributes->merge(['class' => 'inline-flex shrink-0 ' . ($isStacked ? 'flex-col items-center text-center ' . $selectedSize['gap'] : 'items-center ' . $selectedSize['gap']) . ' text-secondary dark:text-slate-100 group transition']) }}
 >
     @if (isset($mark))
         {{ $mark }}
@@ -66,7 +66,7 @@
         <span class="inline-flex min-w-0 {{ $isStacked ? 'flex-col items-center' : 'flex-col' }}">
             <span class="inline-flex items-center gap-2">
                 @if ($label)
-                    <span class="{{ $selectedSize['label'] }} truncate tracking-tight text-secondary group-hover:text-primary transition-colors">
+                    <span class="{{ $selectedSize['label'] }} truncate tracking-tight text-secondary dark:text-slate-100 group-hover:text-primary transition-colors">
                         {{ $label }}
                     </span>
                 @endif
@@ -83,7 +83,7 @@
             </span>
 
             @if ($subtitle)
-                <span class="{{ $selectedSize['subtitle'] }} font-medium text-secondary/60 truncate">
+                <span class="{{ $selectedSize['subtitle'] }} font-medium text-secondary/60 dark:text-slate-400 truncate">
                     {{ $subtitle }}
                 </span>
             @endif

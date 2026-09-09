@@ -41,7 +41,7 @@
     ];
 
     $variants = [
-        'default' => 'border-border',
+        'default' => 'border-border dark:border-slate-800',
         'primary' => 'border-primary',
         'secondary' => 'border-secondary',
         'accent' => 'border-accent',
@@ -86,7 +86,7 @@
             data-sampaui-overlay
             x-bind:data-sampaui-overlay-active="visible ? 'true' : 'false'"
             x-bind:style="{ zIndex: layer }"
-            {{ $attributes->except('id')->merge(['class' => 'fixed inset-0 flex min-h-dvh w-screen items-center justify-center overflow-y-auto p-4 text-secondary outline-none sm:p-6']) }}
+            {{ $attributes->except('id')->merge(['class' => 'fixed inset-0 flex min-h-dvh w-screen items-center justify-center overflow-y-auto p-4 text-secondary dark:text-slate-100 outline-none sm:p-6']) }}
         >
             <div
                 x-show="active"
@@ -112,20 +112,20 @@
                     x-transition:leave-end="translate-x-6 -translate-y-6 scale-75 opacity-0"
                     tabindex="-1"
                     x-on:keydown.tab="trapTab($event)"
-                    class="relative flex max-h-[calc(100dvh-2rem)] w-full {{ $panelSize }} origin-top-right flex-col overflow-hidden rounded-default border {{ $panelTone }} {{ $panelClass }} bg-surface shadow-2xl shadow-secondary/15 outline-none"
+                    class="relative flex max-h-[calc(100dvh-2rem)] w-full {{ $panelSize }} origin-top-right flex-col overflow-hidden rounded-default border {{ $panelTone }} {{ $panelClass }} bg-surface bg-white dark:bg-slate-900 shadow-2xl shadow-secondary/15 outline-none"
                 >
                     @if ($hasHeader)
-                        <header class="flex items-start justify-between gap-4 border-b border-border px-5 py-4">
+                        <header class="flex items-start justify-between gap-4 border-b border-border dark:border-slate-800 px-5 py-4">
                             <div class="min-w-0">
                                 @isset($header)
                                     {{ $header }}
                                 @else
                                     @if ($title)
-                                        <h2 id="{{ $titleId }}" class="text-lg font-semibold text-secondary">{{ $title }}</h2>
+                                        <h2 id="{{ $titleId }}" class="text-lg font-semibold text-secondary dark:text-slate-100">{{ $title }}</h2>
                                     @endif
 
                                     @if ($subtitle)
-                                        <p id="{{ $subtitleId }}" class="mt-1 text-sm leading-6 text-secondary/70">{{ $subtitle }}</p>
+                                        <p id="{{ $subtitleId }}" class="mt-1 text-sm leading-6 text-secondary/70 dark:text-slate-400">{{ $subtitle }}</p>
                                     @endif
                                 @endisset
                             </div>
@@ -133,7 +133,7 @@
                             @if ($closeButton)
                                 <button
                                     type="button"
-                                    class="inline-flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-full text-xl leading-none text-secondary/70 transition hover:bg-light hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                                    class="inline-flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-full text-xl leading-none text-secondary/70 dark:text-slate-400 transition hover:bg-light dark:hover:bg-slate-800 hover:text-primary dark:hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                                     aria-label="Fechar modal"
                                     @click="close()"
                                 >
@@ -143,12 +143,12 @@
                         </header>
                     @endif
 
-                    <div class="min-h-0 flex-1 overflow-y-auto px-5 py-5 text-secondary">
+                    <div class="min-h-0 flex-1 overflow-y-auto px-5 py-5 text-secondary dark:text-slate-100">
                         {{ $slot }}
                     </div>
 
                     @isset($actions)
-                        <footer class="flex flex-wrap justify-end gap-3 border-t border-border bg-light/40 px-5 py-4">
+                        <footer class="flex flex-wrap justify-end gap-3 border-t border-border dark:border-slate-800 bg-light/40 dark:bg-slate-900/60 px-5 py-4">
                             {{ $actions }}
                         </footer>
                     @endisset

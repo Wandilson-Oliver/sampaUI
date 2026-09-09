@@ -1,3 +1,4 @@
+(() => {
 const focusableSelector = [
   'a[href]',
   'button:not([disabled])',
@@ -133,7 +134,7 @@ const portalMenu = (config = {}) => ({
 });
 
 const SampaUI = {
-  version: '0.1.31',
+  version: '0.1.32',
 
   input({ clearable = false } = {}) {
     return {
@@ -160,6 +161,11 @@ const SampaUI = {
 
   phone() {
     return {
+      init() {
+        if (this.$el && 'value' in this.$el && this.$el.value) {
+          this.$el.value = this.format(this.$el.value);
+        }
+      },
       format(value) {
         const digits = String(value ?? '').replace(/\D/g, '').slice(0, 11);
         if (digits.length <= 2) return digits;
@@ -170,6 +176,113 @@ const SampaUI = {
       onInput(event) {
         event.target.value = this.format(event.target.value);
         if (event.target._x_model) event.target._x_model.set(event.target.value);
+      },
+    };
+  },
+
+  cep() {
+    return {
+      init() {
+        if (this.$el && 'value' in this.$el && this.$el.value) {
+          this.$el.value = this.format(this.$el.value);
+        }
+      },
+      format(value) {
+        const digits = String(value ?? '').replace(/\D/g, '').slice(0, 8);
+        if (digits.length > 5) {
+          return `${digits.slice(0, 5)}-${digits.slice(5)}`;
+        }
+        return digits;
+      },
+      onInput(event) {
+        event.target.value = this.format(event.target.value);
+        if (event.target._x_model) event.target._x_model.set(event.target.value);
+      },
+    };
+  },
+
+  currencyBr() {
+    return {
+      init() {
+        if (this.$el && 'value' in this.$el && String(this.$el.value).trim().length > 0) {
+          this.$el.value = this.format(this.$el.value);
+        }
+      },
+      format(value) {
+        const digits = String(value ?? '').replace(/\D/g, '');
+        const amount = (parseInt(digits || 0, 10) / 100).toFixed(2);
+        const parts = amount.split('.');
+        const integer = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        return `${integer},${parts[1]}`;
+      },
+      onInput(event) {
+        event.target.value = this.format(event.target.value);
+        if (event.target._x_model) event.target._x_model.set(event.target.value);
+      },
+    };
+  },
+
+  textarea({ initialValue = '', autoResize = false, maxLimit = null, maxRows = null } = {}) {
+    return {
+      value: initialValue,
+      autoResize,
+      maxLimit,
+      maxRows,
+      copied: false,
+      init() {
+        if (!this.value && this.$refs.control?.value) {
+          this.value = this.$refs.control.value;
+        }
+        this.resize();
+        this.$watch('value', () => {
+          this.resize();
+        });
+      },
+      resize() {
+        if (!this.autoResize) return;
+        this.$nextTick(() => {
+          const el = this.$refs.control;
+          if (!el) return;
+          el.style.height = 'auto';
+          const lineHeight = 24;
+          const maxHeight = this.maxRows ? (this.maxRows * lineHeight) + 20 : null;
+          const calculated = el.scrollHeight + 2;
+
+          if (maxHeight && calculated > maxHeight) {
+            el.style.height = `${maxHeight}px`;
+            el.style.overflowY = 'auto';
+          } else {
+            el.style.height = `${calculated}px`;
+            el.style.overflowY = 'hidden';
+          }
+        });
+      },
+      clear() {
+        this.value = '';
+        if (this.$refs.control) {
+          this.$refs.control.value = '';
+          if (this.$refs.control._x_model) this.$refs.control._x_model.set('');
+          syncControl(this.$refs.control);
+        }
+        this.resize();
+      },
+      copy() {
+        const text = this.$refs.control?.value || this.value;
+        if (!text) return;
+        navigator.clipboard.writeText(text).then(() => {
+          this.copied = true;
+          setTimeout(() => { this.copied = false; }, 2000);
+        });
+      },
+      get charCount() {
+        return (this.value || this.$refs.control?.value || '').length;
+      },
+      get counterColorClass() {
+        if (!this.maxLimit) return 'text-secondary/70 dark:text-slate-400';
+        const ratio = this.charCount / this.maxLimit;
+        if (ratio >= 1) return 'text-danger font-bold';
+        if (ratio >= 0.9) return 'text-warning font-semibold';
+        return 'text-secondary/70 dark:text-slate-400';
       },
     };
   },
@@ -718,9 +831,9 @@ const SampaUI = {
         const tone = tones[type];
         const selectedVariant = ['soft', 'solid', 'outline'].includes(incoming.variant) ? incoming.variant : variant;
         const variantClasses = {
-          soft: `border ${tone[0]} ${tone[2]}/10 text-secondary`,
+          soft: `border ${tone[0]} ${tone[2]}/10 text-secondary dark:text-slate-100`,
           solid: `border ${tone[0]} ${tone[2]} text-white`,
-          outline: `border ${tone[0]} bg-white text-secondary`,
+          outline: `border ${tone[0]} bg-white dark:bg-slate-900 text-secondary dark:text-slate-100`,
         };
         const sizeClasses = { sm: 'px-3 py-3', md: 'px-4 py-4', lg: 'px-5 py-5' };
         const toast = { id: `${Date.now()}-${Math.random()}`, show: true, type, title: incoming.title ?? tone[4], message: incoming.message ?? '', duration: safeDuration, remaining: safeDuration, progress: 100, startedAt: null, timerId: null, intervalId: null, pausedBy: [], wrap: `${variantClasses[selectedVariant] ?? variantClasses.outline} ${incoming.class ?? ''}`, contentClass: sizeClasses[incoming.size] ?? sizeClasses[size] ?? sizeClasses.md, icon: selectedVariant === 'solid' ? 'text-white' : tone[1], progressClass: selectedVariant === 'solid' ? 'bg-white' : tone[2], symbol: tone[3] };
@@ -835,3 +948,4 @@ if (typeof window !== 'undefined') {
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = SampaUI;
 }
+})();

@@ -25,8 +25,8 @@
 
 @if ($system)
     <div {{ $attributes->merge(['class' => 'flex justify-center my-2']) }} role="status">
-        <span class="inline-flex items-center gap-1.5 rounded-full border border-border/80 bg-surface px-3.5 py-1 text-center text-xs font-medium text-secondary/70 shadow-xs">
-            <i class="bi bi-info-circle text-secondary/50" aria-hidden="true"></i>
+        <span class="inline-flex items-center gap-1.5 rounded-full border border-border/80 dark:border-slate-800 bg-surface bg-white dark:bg-slate-900 px-3.5 py-1 text-center text-xs font-medium text-secondary/70 dark:text-slate-400 shadow-xs">
+            <i class="bi bi-info-circle text-secondary/50 dark:text-slate-400" aria-hidden="true"></i>
             {{ $slot }}
         </span>
     </div>
@@ -43,7 +43,7 @@
                 'max-w-[min(38rem,85%)] px-4 py-3 shadow-xs transition-shadow',
                 $outgoing
                     ? 'rounded-default rounded-br-sm bg-primary text-white shadow-primary/10'
-                    : 'rounded-default rounded-bl-sm border border-border bg-surface text-secondary',
+                    : 'rounded-default rounded-bl-sm border border-border bg-surface text-secondary dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100',
             ]) }}"
         >
             @if ($author)
@@ -57,7 +57,7 @@
             </div>
 
             @if ($time || $status)
-                <div class="{{ $outgoing ? 'text-white/75' : 'text-secondary/50' }} mt-1.5 flex items-center justify-end gap-1.5 text-[0.6875rem] font-medium">
+                <div class="{{ $outgoing ? 'text-white/75' : 'text-secondary/50 dark:text-slate-400' }} mt-1.5 flex items-center justify-end gap-1.5 text-[0.6875rem] font-medium">
                     @if ($time)
                         <time>{{ $time }}</time>
                     @endif

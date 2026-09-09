@@ -40,10 +40,11 @@
     $horizontalPadding = $horizontalPaddings[$padding] ?? $horizontalPaddings['md'];
     $tone = sampaui_surface_variant_classes($variant);
     $solidTones = [
-        'default' => 'border-secondary bg-secondary text-white',
-        'muted' => 'border-muted bg-muted text-white',
+        'default' => 'border-secondary bg-secondary text-white dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100',
+        'muted' => 'border-muted bg-muted text-white dark:border-slate-700 dark:bg-slate-700 dark:text-slate-100',
+        'neutral' => 'border-slate-700 bg-slate-800 text-white dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100',
         'primary' => 'border-primary bg-primary text-white',
-        'secondary' => 'border-secondary bg-secondary text-white',
+        'secondary' => 'border-secondary bg-secondary text-white dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100',
         'accent' => 'border-accent bg-accent text-white',
         'danger' => 'border-danger bg-danger text-white',
         'success' => 'border-success bg-success text-white',
@@ -52,16 +53,17 @@
         'purple' => 'border-purple bg-purple text-white',
     ];
     $softTones = [
-        'default' => 'border-border bg-light/40 text-secondary',
-        'muted' => 'border-muted/30 bg-muted/10 text-secondary',
-        'primary' => 'border-primary/25 bg-primary/10 text-secondary',
-        'secondary' => 'border-secondary/40 bg-secondary/10 text-secondary',
-        'accent' => 'border-accent/30 bg-accent/10 text-secondary',
-        'danger' => 'border-danger/30 bg-danger/10 text-secondary',
-        'success' => 'border-success/30 bg-success/10 text-secondary',
-        'warning' => 'border-warning/30 bg-warning/10 text-secondary',
-        'info' => 'border-info/30 bg-info/10 text-secondary',
-        'purple' => 'border-purple/30 bg-purple/10 text-secondary',
+        'default' => 'border-border bg-light/40 text-secondary dark:border-slate-800 dark:bg-slate-800/40 dark:text-slate-100',
+        'muted' => 'border-muted/30 bg-muted/10 text-secondary dark:border-slate-800 dark:bg-slate-800/60 dark:text-slate-200',
+        'neutral' => 'border-slate-200 bg-slate-100/60 text-slate-800 dark:border-slate-800 dark:bg-slate-800/60 dark:text-slate-200',
+        'primary' => 'border-primary/25 bg-primary/10 text-secondary dark:border-primary/30 dark:bg-primary/15 dark:text-slate-100',
+        'secondary' => 'border-secondary/40 bg-secondary/10 text-secondary dark:border-slate-700 dark:bg-slate-800/60 dark:text-slate-100',
+        'accent' => 'border-accent/30 bg-accent/10 text-secondary dark:border-accent/30 dark:bg-accent/15 dark:text-slate-100',
+        'danger' => 'border-danger/30 bg-danger/10 text-secondary dark:border-danger/30 dark:bg-danger/15 dark:text-slate-100',
+        'success' => 'border-success/30 bg-success/10 text-secondary dark:border-success/30 dark:bg-success/15 dark:text-slate-100',
+        'warning' => 'border-warning/30 bg-warning/10 text-secondary dark:border-warning/30 dark:bg-warning/15 dark:text-slate-100',
+        'info' => 'border-info/30 bg-info/10 text-secondary dark:border-info/30 dark:bg-info/15 dark:text-slate-100',
+        'purple' => 'border-purple/30 bg-purple/10 text-secondary dark:border-purple/30 dark:bg-purple/15 dark:text-slate-100',
     ];
     $tone = match ($appearance) {
         'solid' => $solidTones[$variant] ?? $solidTones['default'],
@@ -79,8 +81,8 @@
         $overflowClass,
         $tone,
     ]);
-    $titleClass = $appearance === 'solid' ? 'text-white' : 'text-primary';
-    $descriptionClass = $appearance === 'solid' ? 'text-white/80' : 'text-secondary';
+    $titleClass = $appearance === 'solid' ? 'text-white' : 'text-primary dark:text-slate-100';
+    $descriptionClass = $appearance === 'solid' ? 'text-white/80' : 'text-secondary/70 dark:text-slate-400';
 @endphp
 
 <div {{ $attributes->merge(['class' => $classes]) }}>
@@ -108,7 +110,7 @@
         </div>
 
         @if ($divided)
-            <div class="mx-5 mt-[15px] h-px bg-border"></div>
+            <div class="mx-5 mt-[15px] h-px bg-border dark:bg-slate-800"></div>
         @endif
     @endif
 
@@ -120,7 +122,7 @@
     </div>
 
     @isset($footer)
-        <div class="h-px w-full bg-border"></div>
+        <div class="h-px w-full bg-border dark:bg-slate-800"></div>
         <div class="{{ $pad }}">
             {{ $footer }}
         </div>
