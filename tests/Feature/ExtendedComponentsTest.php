@@ -28,6 +28,12 @@ class ExtendedComponentsTest extends TestCase
         $this->blade('<x-sampaui::badge variant="danger" size="lg">Alta</x-sampaui::badge>')
             ->assertSee('text-base leading-6', false);
 
+        $this->blade('<x-sampaui::badge class="rounded-default px-4">Custom</x-sampaui::badge>')
+            ->assertSee('rounded-default', false)
+            ->assertDontSee('rounded-full', false)
+            ->assertSee('px-4', false)
+            ->assertDontSee('px-2.5', false);
+
         $this->blade('<x-sampaui::avatar src="/ana.jpg" name="Ana Silva" status="online" />')
             ->assertSee('src="/ana.jpg"', false)
             ->assertSee('alt="Ana Silva"', false)

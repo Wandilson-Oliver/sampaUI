@@ -35,6 +35,12 @@ BLADE);
 
         $html->assertSee('custom-card', false);
         $html->assertSee('x-data="{ open: true }"', false);
+
+        $overrideHtml = $this->blade(
+            '<x-sampaui::card class="rounded-3xl border-slate-300">Conteudo</x-sampaui::card>'
+        );
+        $overrideHtml->assertSee('rounded-3xl', false);
+        $overrideHtml->assertDontSee('rounded-default', false);
     }
 
     public function test_it_supports_extended_surface_variants_and_default_fallback(): void

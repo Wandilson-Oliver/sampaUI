@@ -76,16 +76,18 @@
         default => 'overflow-visible',
     };
     $hasHeader = filled($title) || filled($description) || isset($header) || isset($actions);
-    $classes = sampaui_classes([
+    $customClasses = (string) $attributes->get('class', '');
+    $baseClasses = sampaui_classes([
         'rounded-default border',
         $overflowClass,
         $tone,
     ]);
+    $classes = sampaui_merge_tailwind_classes($baseClasses, $customClasses);
     $titleClass = $appearance === 'solid' ? 'text-white' : 'text-primary dark:text-slate-100';
     $descriptionClass = $appearance === 'solid' ? 'text-white/80' : 'text-secondary/70 dark:text-slate-400';
 @endphp
 
-<div {{ $attributes->merge(['class' => $classes]) }}>
+<div {{ $attributes->except('class')->merge(['class' => $classes]) }}>
     @if ($hasHeader)
         <div class="{{ $headerPad }}">
             <div class="flex items-start justify-between gap-4">

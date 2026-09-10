@@ -14,15 +14,17 @@
         'lg' => 'gap-2 px-3 py-1.5 text-base leading-6',
     ];
 
-    $classes = sampaui_classes([
+    $customClasses = (string) $attributes->get('class', '');
+    $baseClasses = sampaui_classes([
         'inline-flex items-center border font-medium',
         sampaui_badge_appearance_classes($variant, $appearance),
         $sizes[$size] ?? $sizes['md'],
         $rounded ? 'rounded-full' : 'rounded-default',
     ]);
+    $classes = sampaui_merge_tailwind_classes($baseClasses, $customClasses);
 @endphp
 
-<span {{ $attributes->merge(['class' => $classes]) }}>
+<span {{ $attributes->except('class')->merge(['class' => $classes]) }}>
     @if ($icon)
         <i class="bi bi-{{ $icon }}" aria-hidden="true"></i>
     @endif
