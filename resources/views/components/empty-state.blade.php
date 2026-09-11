@@ -4,7 +4,13 @@
     'icon' => 'inbox',
 ])
 
-<div {{ $attributes->merge(['class' => 'flex flex-col items-center justify-center rounded-default border border-dashed border-border dark:border-slate-800 bg-surface bg-white dark:bg-slate-900 px-6 py-10 text-center']) }}>
+@php
+    $customClasses = (string) $attributes->get('class', '');
+    $baseClasses = 'flex flex-col items-center justify-center rounded-default border border-dashed border-border dark:border-slate-800 bg-surface bg-white dark:bg-slate-900 px-6 py-10 text-center';
+    $classes = sampaui_merge_tailwind_classes($baseClasses, $customClasses);
+@endphp
+
+<div {{ $attributes->except('class')->merge(['class' => $classes]) }}>
     <span class="inline-flex h-14 w-14 items-center justify-center rounded-full bg-light dark:bg-slate-800 text-primary">
         <i class="bi bi-{{ $icon }} text-2xl" aria-hidden="true"></i>
     </span>

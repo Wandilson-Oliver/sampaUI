@@ -2,6 +2,19 @@
 
 Todas as mudanças notáveis do SampaUI serão documentadas neste arquivo.
 
+## v0.1.33 - 2026-09-11
+
+### Corrigido e Melhorado
+- **Resolução Inteligente de Classes Utilitárias Tailwind CSS (v4)**:
+  - Expansão de `sampaui_tailwind_class_group()` em `src/Support/Helpers.php` para suporte a estilos de borda (`border-style` como `border-dashed`, `border-solid`), limites de transbordamento (`overflow`) e separadores (`divide`).
+  - Adoção sistemática de `sampaui_merge_tailwind_classes()` em múltiplos componentes fundamentais:
+    - `<x-sampaui::table>`: Eliminação de conflitos de `rounded-default` e bordas ao repassar classes personalizadas no contêiner raiz.
+    - `<x-sampaui::input>` e `<x-sampaui::textarea>`: Resolução limpa de classes de arredondamento, bordas e padding customizados.
+    - `<x-sampaui::empty-state>`: Substituição fluida de estilo de borda, padding e cantos arredondados.
+    - `<x-sampaui::alert>` e `<x-sampaui::accordion>`: Herança e sobreposição de classes sem duplicação no HTML renderizado.
+    - `<x-sampaui::brand-mark>` e `<x-sampaui::sidebar>`: Merge inteligente com propriedades do consumidor.
+    - `<x-sampaui::modal>`: Suporte a sobrescrita de cantos arredondados, bordas e cores no painel via `panel-class`.
+
 ## v0.1.32 - 2026-09-08
 
 ### Corrigido e Melhorado

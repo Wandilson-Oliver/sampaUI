@@ -53,6 +53,9 @@
     $positionClasses = $isFixed
         ? 'fixed inset-y-0 left-0 h-screen md:translate-x-0'
         : 'relative h-full';
+    $customClasses = (string) $attributes->get('class', '');
+    $baseClasses = "{$positionClasses} z-50 flex flex-col border-r border-border bg-surface bg-white text-secondary dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100 transition-[width,transform] duration-300 ease-out";
+    $classes = sampaui_merge_tailwind_classes($baseClasses, $customClasses);
 @endphp
 
 @if ($isFixed)
@@ -73,7 +76,7 @@
 
 <aside
     id="{{ $sidebarId }}"
-    {{ $attributes->except('id')->merge(['class' => "{$positionClasses} z-50 flex flex-col border-r border-border bg-surface bg-white text-secondary dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100 transition-[width,transform] duration-300 ease-out"]) }}
+    {{ $attributes->except(['id', 'class'])->merge(['class' => $classes]) }}
     style="width: {{ $startsCollapsed ? '6rem' : '18rem' }};"
     x-data="{ open: false, collapsed: @js($startsCollapsed), stateEvent: @js($stateEvent), sidebarId: @js($sidebarId), width() { return this.collapsed ? '6rem' : '18rem' }, emitState() { window.dispatchEvent(new CustomEvent(this.stateEvent, { detail: { id: this.sidebarId, collapsed: this.collapsed, width: this.width() } })) }, setCollapsed(value) { this.collapsed = value; this.emitState() }, toggle() { this.setCollapsed(! this.collapsed) } }"
     x-init="emitState()"

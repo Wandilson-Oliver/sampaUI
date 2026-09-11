@@ -124,16 +124,17 @@
         ? 'margin-inline: calc(var(--sampaui-card-padding-x, 0px) * -1); width: calc(100% + (var(--sampaui-card-padding-x, 0px) * 2));'
         : '';
     $existingStyle = trim((string) $attributes->get('style'));
+    $customClasses = (string) $attributes->get('class', '');
+    $baseClasses = sampaui_classes([
+        'overflow-hidden bg-surface bg-white dark:bg-slate-900',
+        'rounded-none border-0 shadow-none' => $flush,
+        'rounded-default shadow-sm shadow-secondary/5' => ! $flush,
+        'border border-border dark:border-slate-800' => $bordered && ! $flush,
+    ]);
+    $classes = sampaui_merge_tailwind_classes($baseClasses, $customClasses);
     $rootAttributes = $attributes
-        ->except('style')
-        ->merge([
-            'class' => sampaui_classes([
-                'overflow-hidden bg-surface bg-white dark:bg-slate-900',
-                'rounded-none border-0 shadow-none' => $flush,
-                'rounded-default shadow-sm shadow-secondary/5' => ! $flush,
-                'border border-border dark:border-slate-800' => $bordered && ! $flush,
-            ]),
-        ]);
+        ->except(['style', 'class'])
+        ->merge(['class' => $classes]);
     $rootStyle = trim($bleedStyle.' '.$existingStyle);
 
     if ($rootStyle !== '') {

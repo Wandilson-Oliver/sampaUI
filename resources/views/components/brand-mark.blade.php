@@ -28,6 +28,9 @@
     $isStacked = $layout === 'vertical' || $layout === 'stacked';
     $accessibleLabel = filled($alt) ? $alt : (filled($label) ? $label : 'SampaUI');
     $hasText = filled($label) || filled($subtitle) || $slot->isNotEmpty();
+    $customClasses = (string) $attributes->get('class', '');
+    $baseClasses = 'inline-flex shrink-0 ' . ($isStacked ? 'flex-col items-center text-center ' . $selectedSize['gap'] : 'items-center ' . $selectedSize['gap']) . ' text-secondary dark:text-slate-100 group transition';
+    $classes = sampaui_merge_tailwind_classes($baseClasses, $customClasses);
 @endphp
 
 <{{ $tag }}
@@ -36,7 +39,7 @@
         aria-label="{{ $accessibleLabel }}"
         @if ($navigate) wire:navigate @endif
     @endif
-    {{ $attributes->merge(['class' => 'inline-flex shrink-0 ' . ($isStacked ? 'flex-col items-center text-center ' . $selectedSize['gap'] : 'items-center ' . $selectedSize['gap']) . ' text-secondary dark:text-slate-100 group transition']) }}
+    {{ $attributes->except('class')->merge(['class' => $classes]) }}
 >
     @if (isset($mark))
         {{ $mark }}

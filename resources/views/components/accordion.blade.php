@@ -13,6 +13,10 @@
         $firstOpen = array_key_first(array_filter($openItems));
         $openItems = [$firstOpen => true];
     }
+
+    $customClasses = (string) $attributes->get('class', '');
+    $baseClasses = 'divide-y divide-border dark:divide-slate-800 rounded-default border border-border dark:border-slate-800 bg-surface bg-white dark:bg-slate-900';
+    $classes = sampaui_merge_tailwind_classes($baseClasses, $customClasses);
 @endphp
 
 <div
@@ -27,7 +31,7 @@
             this.openItems = this.openItems[index] ? {} : { [index]: true };
         },
     }"
-    {{ $attributes->merge(['class' => 'divide-y divide-border dark:divide-slate-800 rounded-default border border-border dark:border-slate-800 bg-surface bg-white dark:bg-slate-900']) }}
+    {{ $attributes->except('class')->merge(['class' => $classes]) }}
 >
     @foreach ($items as $index => $item)
         <div>

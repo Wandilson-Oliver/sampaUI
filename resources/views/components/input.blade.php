@@ -28,13 +28,15 @@
     $hasPasswordToggle = $isPassword && $revealable && ! $hasCustomSuffix;
     $hasPrefix = filled($icon) || isset($prefix);
     $hasSuffix = $hasCustomSuffix || $hasPasswordToggle || $clearable || $loading;
-    $classes = sampaui_field_classes($errorMessage, $disabled, [
+    $customClasses = (string) $attributes->get('class', '');
+    $baseClasses = sampaui_field_classes($errorMessage, $disabled, [
         'h-12 py-0',
         'pl-14' => $hasPrefix,
         'pl-4' => ! $hasPrefix,
         'pr-11' => $hasSuffix,
         'pr-4' => ! $hasSuffix,
     ], $state, $readonly, $loading);
+    $classes = sampaui_merge_tailwind_classes($baseClasses, $customClasses);
 @endphp
 
 <x-sampaui::field :id="$id" :label="$label" :hint="$hint" :error="$errorMessage" :required="$required">
@@ -67,7 +69,7 @@
             @if ($errorMessage) aria-invalid="true" @else aria-invalid="false" @endif
             @if ($describedBy) aria-describedby="{{ $describedBy }}" @endif
             @if ($loading) aria-busy="true" @endif
-            {{ $attributes->except(['id', 'aria-describedby'])->merge(['class' => $classes]) }}
+            {{ $attributes->except(['id', 'aria-describedby', 'class'])->merge(['class' => $classes]) }}
         >
 
         @if ($hasSuffix)

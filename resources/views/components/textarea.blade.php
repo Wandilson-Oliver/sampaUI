@@ -41,11 +41,12 @@
         default => $autoResize ? 'resize-none' : 'resize-y',
     };
 
-    $classes = sampaui_field_classes($errorMessage, $disabled, [
+    $customClasses = (string) $attributes->get('class', '');
+    $baseClasses = sampaui_field_classes($errorMessage, $disabled, [
         'min-h-[5.5rem] py-2.5',
         $resizeClasses,
-        $attributes->get('class'),
     ], $state, $readonly, $loading);
+    $classes = sampaui_merge_tailwind_classes($baseClasses, $customClasses);
 
     $modelAttributes = $attributes->filter(
         fn (mixed $val, string $key): bool => str_starts_with($key, 'wire:model') || $key === 'x-model'
