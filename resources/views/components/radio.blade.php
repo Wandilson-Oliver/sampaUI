@@ -36,10 +36,13 @@
         sampaui_control_color_classes($color),
         $errorMessage ? 'ring-2 ring-danger/20' : null,
     ]);
+
+    $customFieldsetClasses = (string) $attributes->get('class', '');
+    $fieldsetClasses = sampaui_merge_tailwind_classes('space-y-3', $customFieldsetClasses);
 @endphp
 
 <fieldset
-    {{ $attributes->only('class')->merge(['class' => 'space-y-3']) }}
+    {{ $attributes->except('class')->merge(['class' => $fieldsetClasses]) }}
     @if ($errorMessage) aria-invalid="true" aria-describedby="{{ $id }}-error" @endif
 >
     @if ($label)

@@ -20,7 +20,8 @@
     $errorMessage = sampaui_error($fieldName, $error, $errors ?? null);
     $describedBy = sampaui_described_by($id, $hint, $errorMessage, $attributes->get('aria-describedby'));
     $unavailable = $disabled || $readonly || $loading;
-    $classes = sampaui_classes([
+    $customClasses = (string) $attributes->get('class', '');
+    $baseClasses = sampaui_classes([
         'h-5 w-5 cursor-pointer rounded border border-secondary/40 transition focus:outline-none focus:ring-2 focus:ring-offset-2 dark:border-slate-600 dark:bg-slate-900 dark:focus:ring-offset-slate-950',
         sampaui_control_color_classes($color),
         'border-danger ring-2 ring-danger/20' => filled($errorMessage) || $state === 'error',
@@ -28,6 +29,7 @@
         'border-warning' => ! $errorMessage && $state === 'warning',
         'cursor-not-allowed opacity-50' => $unavailable,
     ]);
+    $classes = sampaui_merge_tailwind_classes($baseClasses, $customClasses);
 @endphp
 
 <x-sampaui::field :id="$id" :hint="$hint" :error="$errorMessage">
@@ -45,7 +47,7 @@
             @if ($errorMessage) aria-invalid="true" @else aria-invalid="false" @endif
             @if ($describedBy) aria-describedby="{{ $describedBy }}" @endif
             @if ($loading) aria-busy="true" @endif
-            {{ $attributes->except(['id', 'aria-describedby'])->merge(['class' => $classes]) }}
+            {{ $attributes->except(['id', 'aria-describedby', 'class'])->merge(['class' => $classes]) }}
         >
 
         @if ($label || trim($slot->toHtml()) !== '')

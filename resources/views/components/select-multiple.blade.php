@@ -38,7 +38,9 @@
     if (is_string($selectedValues)) $selectedValues = filled($selectedValues) ? [$selectedValues] : [];
     $selectedValues = collect($selectedValues ?? [])->flatten()->map(fn (mixed $item): string => (string) $item)->unique()->values()->all();
     $unavailable = $disabled || $loading;
-    $triggerClasses = sampaui_trigger_classes($errorMessage, $disabled, ['min-h-12 flex-wrap items-center gap-2 py-2', $attributes->get('class')], $state, $loading);
+    $customClasses = (string) $attributes->get('class', '');
+    $baseTriggerClasses = sampaui_trigger_classes($errorMessage, $disabled, ['min-h-12 flex-wrap items-center gap-2 py-2'], $state, $loading);
+    $triggerClasses = sampaui_merge_tailwind_classes($baseTriggerClasses, $customClasses);
     $controlAttributes = $attributes->except(['id', 'class', 'aria-describedby']);
 @endphp
 

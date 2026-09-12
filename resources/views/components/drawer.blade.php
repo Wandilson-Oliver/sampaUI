@@ -95,6 +95,8 @@
     $outsideEnabled = is_null($closeOnOutside) ? ! $persistent : (bool) $closeOnOutside;
     $hasHeader = filled($title) || filled($subtitle) || isset($header) || $closeButton;
     $resolvedBackdropClass = $backdropClass ?? 'bg-secondary/25 backdrop-blur-[2px]';
+    $panelBaseClasses = "relative flex {$placementUi['panel']} {$panelSize} border {$panelTone} flex-col overflow-hidden bg-surface bg-white dark:bg-slate-900 shadow-2xl shadow-secondary/15 outline-none transition duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]";
+    $resolvedPanelClass = sampaui_merge_tailwind_classes($panelBaseClasses, (string) $panelClass);
 @endphp
 
 <div
@@ -139,7 +141,7 @@
                 x-ref="panel"
                 tabindex="-1"
                 x-on:keydown.tab="trapTab($event)"
-                class="relative flex {{ $placementUi['panel'] }} {{ $panelSize }} border {{ $panelTone }} {{ $panelClass }} flex-col overflow-hidden bg-surface bg-white dark:bg-slate-900 shadow-2xl shadow-secondary/15 outline-none transition duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                class="{{ $resolvedPanelClass }}"
                 style="will-change: transform, opacity;"
                 x-bind:class="active ? 'translate-x-0 translate-y-0 opacity-100' : '{{ $panelHidden }}'"
             >

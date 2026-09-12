@@ -1,6 +1,12 @@
 @props(['items' => []])
 
-<nav {{ $attributes->merge(['class' => 'flex items-center gap-2 text-sm text-secondary dark:text-slate-400']) }} aria-label="Breadcrumb">
+@php
+    $customClasses = (string) $attributes->get('class', '');
+    $baseClasses = 'flex items-center gap-2 text-sm text-secondary dark:text-slate-400';
+    $classes = sampaui_merge_tailwind_classes($baseClasses, $customClasses);
+@endphp
+
+<nav {{ $attributes->except('class')->merge(['class' => $classes]) }} aria-label="Breadcrumb">
     <ol class="flex flex-wrap items-center gap-2">
         @foreach ($items as $item)
             @php($isLast = $loop->last)

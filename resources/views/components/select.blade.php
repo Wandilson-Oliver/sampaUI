@@ -36,12 +36,13 @@
     $selectedValue = $fieldName ? old($fieldName, $value) : $value;
     $selectedOption = collect($normalizedOptions)->first(fn (array $option): bool => ! is_null($selectedValue) && (string) $option['value'] === (string) $selectedValue);
     $unavailable = $disabled || $loading;
-    $triggerClasses = sampaui_trigger_classes($errorMessage, $disabled, [
-        $attributes->get('class'),
+    $customClasses = (string) $attributes->get('class', '');
+    $baseTriggerClasses = sampaui_trigger_classes($errorMessage, $disabled, [
         'pr-20' => $clearable,
         'pr-3' => ! $clearable && ($loading || isset($suffix)),
         'bg-light/40 text-secondary/80 dark:bg-slate-800/40 dark:text-slate-300' => $readonly,
     ], $state, $loading);
+    $triggerClasses = sampaui_merge_tailwind_classes($baseTriggerClasses, $customClasses);
     $modelAttributes = $attributes->filter(
         fn (mixed $attributeValue, string $attributeName): bool => str_starts_with($attributeName, 'wire:model') || $attributeName === 'x-model'
     );

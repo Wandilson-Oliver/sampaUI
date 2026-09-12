@@ -38,9 +38,9 @@
         fn (array $option): bool => ! is_null($selectedValue) && (string) $option['value'] === (string) $selectedValue
     );
 
-    $triggerClasses = sampaui_trigger_classes($errorMessage, $disabled, [
-        $attributes->get('class'),
-    ]);
+    $customClasses = (string) $attributes->get('class', '');
+    $baseTriggerClasses = sampaui_trigger_classes($errorMessage, $disabled);
+    $triggerClasses = sampaui_merge_tailwind_classes($baseTriggerClasses, $customClasses);
     $modelAttributes = $attributes->filter(
         fn (mixed $attributeValue, string $attributeName): bool => str_starts_with($attributeName, 'wire:model') || $attributeName === 'x-model'
     );
