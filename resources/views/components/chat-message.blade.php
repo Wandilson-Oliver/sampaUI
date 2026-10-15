@@ -21,17 +21,25 @@
     };
     $isRead = in_array($normalizedStatus, ['lida', 'read'], true);
     $isError = in_array($normalizedStatus, ['erro', 'falhou', 'failed'], true);
+    $customClasses = (string) $attributes->get('class', '');
 @endphp
 
 @if ($system)
-    <div {{ $attributes->merge(['class' => 'flex justify-center my-2']) }} role="status">
+    @php
+        $systemClasses = sampaui_merge_tailwind_classes('flex justify-center my-2', $customClasses);
+    @endphp
+    <div {{ $attributes->except('class')->merge(['class' => $systemClasses]) }} role="status">
         <span class="inline-flex items-center gap-1.5 rounded-full border border-border/80 dark:border-slate-800 bg-surface bg-white dark:bg-slate-900 px-3.5 py-1 text-center text-xs font-medium text-secondary/70 dark:text-slate-400 shadow-xs">
             <i class="bi bi-info-circle text-secondary/50 dark:text-slate-400" aria-hidden="true"></i>
             {{ $slot }}
         </span>
     </div>
 @else
-    <div {{ $attributes->merge(['class' => $outgoing ? 'flex items-end justify-end gap-2.5' : 'flex items-end justify-start gap-2.5']) }}>
+    @php
+        $baseMsgClasses = $outgoing ? 'flex items-end justify-end gap-2.5' : 'flex items-end justify-start gap-2.5';
+        $msgClasses = sampaui_merge_tailwind_classes($baseMsgClasses, $customClasses);
+    @endphp
+    <div {{ $attributes->except('class')->merge(['class' => $msgClasses]) }}>
         @if ($showAvatar && ! $outgoing)
             <div class="mb-0.5 shrink-0">
                 <x-sampaui::avatar :src="$avatar" :name="$author" size="sm" />

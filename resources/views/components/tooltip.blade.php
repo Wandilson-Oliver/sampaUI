@@ -5,11 +5,13 @@
 
 @php
     $id = $attributes->get('id') ?? 'sampaui-tooltip-'.uniqid();
+    $customClasses = (string) $attributes->get('class', '');
+    $classes = sampaui_merge_tailwind_classes('inline-flex w-max', $customClasses);
 @endphp
 
 <span
     id="{{ $id }}"
-    {{ $attributes->except('id')->merge(['class' => 'inline-flex w-max']) }}
+    {{ $attributes->except(['id', 'class'])->merge(['class' => $classes]) }}
     x-data="SampaUI.tooltip(@js([
         'triggerId' => $id.'-trigger',
         'menuId' => $id.'-content',

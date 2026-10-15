@@ -2,8 +2,12 @@
     'steps' => [],
     'current' => 1,
 ])
+@php
+    $customClasses = (string) $attributes->get('class', '');
+    $classes = sampaui_merge_tailwind_classes('flex flex-col gap-4 md:flex-row', $customClasses);
+@endphp
 
-<ol {{ $attributes->merge(['class' => 'flex flex-col gap-4 md:flex-row']) }}>
+<ol {{ $attributes->except('class')->merge(['class' => $classes]) }}>
     @foreach ($steps as $index => $step)
         @php
             $number = is_int($index) ? $index + 1 : (int) $index;

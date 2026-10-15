@@ -30,9 +30,11 @@
         ->take(2)
         ->map(fn (string $part) => \Illuminate\Support\Str::upper(\Illuminate\Support\Str::substr($part, 0, 1)))
         ->implode('');
+    $customClasses = (string) $attributes->get('class', '');
+    $classes = sampaui_merge_tailwind_classes('relative inline-flex shrink-0', $customClasses);
 @endphp
 
-<span {{ $attributes->merge(['class' => 'relative inline-flex shrink-0']) }}>
+<span {{ $attributes->except('class')->merge(['class' => $classes]) }}>
     <span class="{{ sampaui_classes(['inline-flex shrink-0 items-center justify-center overflow-hidden bg-light dark:bg-slate-800 font-semibold text-primary', $selectedSize['box'], $rounded ? 'rounded-full' : 'rounded-default']) }}">
         @if ($src)
             <img src="{{ $src }}" alt="{{ $alt ?? $name ?? 'Avatar' }}" class="h-full w-full object-cover">

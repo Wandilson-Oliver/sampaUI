@@ -25,6 +25,13 @@
     $describedBy = sampaui_described_by($id, $hint, $errorMessage, $attributes->get('aria-describedby'));
     $wireModel = collect($attributes->getAttributes())->filter(fn (mixed $value, string $key): bool => str_starts_with($key, 'wire:model'))->first();
     $unavailable = $disabled || $loading;
+    $customClasses = (string) $attributes->get('class', '');
+    $baseLabelClasses = sampaui_classes([
+        'flex cursor-pointer flex-col items-center justify-center rounded-default border border-dashed border-secondary/40 bg-surface bg-white dark:border-slate-700 dark:bg-slate-900 px-6 py-8 text-center transition hover:border-primary dark:hover:border-primary hover:bg-light/30 dark:hover:bg-slate-800/50 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20',
+        'border-danger ring-2 ring-danger/20' => filled($errorMessage),
+        'cursor-not-allowed opacity-50' => $unavailable,
+    ]);
+    $labelClasses = sampaui_merge_tailwind_classes($baseLabelClasses, $customClasses);
 @endphp
 
 <x-sampaui::field :id="$id" :label="$label" :hint="$hint" :error="$errorMessage" :required="$required">
@@ -42,7 +49,7 @@
         class="space-y-3"
         @if ($chunkSize) data-chunk-size="{{ (int) $chunkSize }}" @endif
     >
-        <label for="{{ $id }}" class="{{ sampaui_classes(['flex cursor-pointer flex-col items-center justify-center rounded-default border border-dashed border-secondary/40 bg-surface bg-white dark:border-slate-700 dark:bg-slate-900 px-6 py-8 text-center transition hover:border-primary dark:hover:border-primary hover:bg-light/30 dark:hover:bg-slate-800/50 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20', $attributes->get('class'), 'border-danger ring-2 ring-danger/20' => filled($errorMessage), 'cursor-not-allowed opacity-50' => $unavailable]) }}">
+        <label for="{{ $id }}" class="{{ $labelClasses }}">
             <i class="bi bi-cloud-arrow-up text-2xl text-primary" aria-hidden="true"></i>
             <span class="mt-2 text-sm font-medium text-secondary dark:text-slate-200">{{ trim($slot->toHtml()) !== '' ? $slot : 'Clique para selecionar arquivo' }}</span>
             @if ($maxSize)<span class="mt-1 text-xs text-secondary/60 dark:text-slate-400">Maximo: {{ $maxSize }} KB</span>@endif

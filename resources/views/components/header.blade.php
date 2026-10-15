@@ -21,15 +21,18 @@
     $titleId = $id.'-title';
     $hasCenter = isset($center) || $search;
     $hasRight = $status || $notifications || isset($actions) || isset($right);
+    $customClasses = (string) $attributes->get('class', '');
+    $baseClasses = sampaui_classes([
+        'rounded-default border border-border dark:border-slate-800 bg-surface bg-white dark:bg-slate-900 px-4 py-3 shadow-sm shadow-secondary/5 dark:shadow-black/20 sm:px-5 sm:py-4',
+        'sticky top-0 z-40' => $sticky,
+    ]);
+    $classes = sampaui_merge_tailwind_classes($baseClasses, $customClasses);
 @endphp
 
 <header
     id="{{ $id }}"
     @if ($ariaLabel) aria-label="{{ $ariaLabel }}" @elseif ($title && ! isset($left)) aria-labelledby="{{ $titleId }}" @elseif ($title) aria-label="{{ $title }}" @endif
-    {{ $attributes->except('id')->merge(['class' => sampaui_classes([
-        'rounded-default border border-border dark:border-slate-800 bg-surface bg-white dark:bg-slate-900 px-4 py-3 shadow-sm shadow-secondary/5 dark:shadow-black/20 sm:px-5 sm:py-4',
-        'sticky top-0 z-40' => $sticky,
-    ])]) }}
+    {{ $attributes->except(['id', 'class'])->merge(['class' => $classes]) }}
 >
     <div class="flex flex-col gap-3 lg:flex-row lg:items-center lg:gap-5">
         <div class="flex min-w-0 items-center gap-3 lg:flex-1">

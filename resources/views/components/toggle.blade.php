@@ -19,10 +19,13 @@
     $errorMessage = sampaui_error($name, $error, $errors ?? null);
     $describedBy = sampaui_described_by($id, $hint, $errorMessage, $attributes->get('aria-describedby'));
     $unavailable = $disabled || $readonly || $loading;
+    $customClasses = (string) $attributes->get('class', '');
+    $baseLabelClasses = sampaui_classes(['inline-flex cursor-pointer items-center gap-3', 'cursor-not-allowed opacity-50' => $unavailable]);
+    $labelClasses = sampaui_merge_tailwind_classes($baseLabelClasses, $customClasses);
 @endphp
 
 <x-sampaui::field :id="$id" :hint="$hint" :error="$errorMessage">
-    <label class="{{ sampaui_classes(['inline-flex cursor-pointer items-center gap-3', 'cursor-not-allowed opacity-50' => $unavailable]) }}" for="{{ $id }}">
+    <label class="{{ $labelClasses }}" for="{{ $id }}">
         <span class="relative inline-flex h-7 w-12 shrink-0">
             <input
                 id="{{ $id }}"
@@ -38,7 +41,7 @@
                 @if ($errorMessage) aria-invalid="true" @else aria-invalid="false" @endif
                 @if ($describedBy) aria-describedby="{{ $describedBy }}" @endif
                 @if ($loading) aria-busy="true" @endif
-                {{ $attributes->except(['id', 'aria-describedby'])->merge(['class' => 'peer sr-only']) }}
+                {{ $attributes->except(['id', 'aria-describedby', 'class'])->merge(['class' => 'peer sr-only']) }}
             >
             <span class="{{ sampaui_classes(['absolute inset-0 rounded-full border bg-light dark:bg-slate-800 dark:border-slate-700 transition peer-focus:outline-none peer-focus:ring-2', sampaui_toggle_color_classes($color), 'ring-2 ring-danger/20' => filled($errorMessage) || $state === 'error']) }}" aria-hidden="true"></span>
             <span class="{{ sampaui_classes(['absolute left-1 top-1 h-5 w-5 rounded-full shadow-sm transition peer-checked:translate-x-5', sampaui_toggle_knob_color_classes($color)]) }}" aria-hidden="true"></span>

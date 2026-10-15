@@ -20,10 +20,17 @@ class DoctorCommand extends Command
         $this->check('Component prefix', filled(config('sampaui.component_prefix')), 'Prefix: '.config('sampaui.component_prefix', 'sampaui'));
         $this->check('Package views', view()->exists('sampaui::components.button'), 'Blade views registered.');
         $this->check('Config file', File::exists(config_path('sampaui.php')), 'Run php artisan vendor:publish --tag=sampaui-config if you need overrides.', warningOnly: true);
-        $this->check('Published CSS', File::exists(public_path('vendor/sampaui/sampaui.css')), 'Run php artisan vendor:publish --tag=sampaui-assets --force.', warningOnly: true);
-        $this->check('Published JS', File::exists(public_path('vendor/sampaui/sampaui.js')), 'Run php artisan vendor:publish --tag=sampaui-assets --force.', warningOnly: true);
-        $this->check('CSS import', $this->fileContains(resource_path('css/app.css'), 'vendor/sampaui/sampaui/dist/sampaui.css'), 'Import dist/sampaui.css in resources/css/app.css.', warningOnly: true);
-        $this->check('JS import', $this->fileContains(resource_path('js/app.js'), 'vendor/sampaui/sampaui/dist/sampaui.js'), 'Import dist/sampaui.js in resources/js/app.js.', warningOnly: true);
+        $publishedCss = File::exists(public_path('vendor/sampaui/sampaui.css'));
+        $publishedJs = File::exists(public_path('vendor/sampaui/sampaui.js'));
+        $cssImported = $this->fileContains(resource_path('css/app.css'), 'vendor/sampaui/sampaui/dist/sampaui.css')
+            || $this->fileContains(resource_path('css/app.css'), 'sampaui.css');
+        $jsImported = $this->fileContains(resource_path('js/app.js'), 'vendor/sampaui/sampaui/dist/sampaui.js')
+            || $this->fileContains(resource_path('js/app.js'), 'sampaui.js');
+
+        $this->check('Published CSS', $publishedCss, 'Run php artisan vendor:publish --tag=sampaui-assets --force.', warningOnly: true);
+        $this->check('Published JS', $publishedJs, 'Run php artisan vendor:publish --tag=sampaui-assets --force.', warningOnly: true);
+        $this->check('CSS import', $cssImported || $publishedCss, 'Import dist/sampaui.css in resources/css/app.css or use published asset in layout.', warningOnly: true);
+        $this->check('JS import', $jsImported || $publishedJs, 'Import dist/sampaui.js in resources/js/app.js or use published asset in layout.', warningOnly: true);
         $this->checkPublishedViews();
 
         return self::SUCCESS;

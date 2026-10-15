@@ -17,6 +17,9 @@
     $modelAttributes = $attributes->filter(
         fn (mixed $attributeValue, string $attributeName): bool => str_starts_with($attributeName, 'wire:model') || $attributeName === 'x-model'
     );
+    $customClasses = (string) $attributes->get('class', '');
+    $baseClasses = 'flex items-end gap-2 rounded-2xl border border-border/80 dark:border-slate-800 bg-surface bg-white dark:bg-slate-900 p-2 shadow-xs transition-all duration-150 focus-within:border-primary/60 focus-within:ring-2 focus-within:ring-primary/20';
+    $classes = sampaui_merge_tailwind_classes($baseClasses, $customClasses);
 @endphp
 
 <form
@@ -24,7 +27,7 @@
         autoResize: @js($autoResize),
         submitOnEnter: @js($submitOnEnter),
     })"
-    {{ $attributes->whereDoesntStartWith('wire:model')->except('x-model')->merge(['class' => 'flex items-end gap-2 rounded-2xl border border-border/80 dark:border-slate-800 bg-surface bg-white dark:bg-slate-900 p-2 shadow-xs transition-all duration-150 focus-within:border-primary/60 focus-within:ring-2 focus-within:ring-primary/20']) }}
+    {{ $attributes->whereDoesntStartWith('wire:model')->except(['x-model', 'class'])->merge(['class' => $classes]) }}
 >
     @isset($before)
         <div class="flex shrink-0 items-center pb-0.5 gap-1 text-secondary/60 dark:text-slate-400">{{ $before }}</div>

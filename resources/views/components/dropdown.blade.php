@@ -10,11 +10,13 @@
 
 @php
     $id = $attributes->get('id') ?? 'sampaui-dropdown-'.uniqid();
+    $customClasses = (string) $attributes->get('class', '');
+    $classes = sampaui_merge_tailwind_classes('sampaui-dropdown relative inline-flex w-max', $customClasses);
 @endphp
 
 <div
     id="{{ $id }}"
-    {{ $attributes->except('id')->merge(['class' => 'sampaui-dropdown relative inline-flex w-max']) }}
+    {{ $attributes->except(['id', 'class'])->merge(['class' => $classes]) }}
     x-data="SampaUI.dropdown(@js([
         'triggerId' => $id.'-trigger',
         'menuId' => $id.'-menu',

@@ -40,9 +40,11 @@
     ]);
     $itemActive = '!border-primary !bg-primary !text-white hover:!text-white';
     $itemDisabled = 'cursor-not-allowed opacity-50';
+    $customNavClasses = (string) $attributes->get('class', '');
+    $navClasses = sampaui_merge_tailwind_classes('flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between', $customNavClasses);
 @endphp
 
-<nav {{ $attributes->merge(['class' => 'flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between']) }} aria-label="Paginacao">
+<nav {{ $attributes->except('class')->merge(['class' => $navClasses]) }} aria-label="Paginacao">
     @if (! is_null($total))
         <p class="text-sm font-medium text-secondary dark:text-slate-300">
             <span class="font-semibold text-primary">{{ $total }}</span> registros

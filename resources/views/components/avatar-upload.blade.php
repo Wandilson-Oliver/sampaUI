@@ -35,9 +35,11 @@
     $sizes = ['sm' => 'h-20 w-20', 'md' => 'h-24 w-24', 'lg' => 'h-32 w-32', 'xl' => 'h-40 w-40', '2xl' => 'h-48 w-48'];
     $selectedSize = $sizes[$size] ?? $sizes['xl'];
     $unavailable = $disabled || $loading;
+    $customClasses = (string) $attributes->get('class', '');
+    $wrapperClasses = sampaui_merge_tailwind_classes('inline-flex flex-col items-center text-center', $customClasses);
 @endphp
 
-<x-sampaui::field :id="$id" :label="$label" :hint="$fieldHint" :error="$errorMessage" :required="$required" class="{{ sampaui_classes(['inline-flex flex-col items-center text-center', $attributes->get('class')]) }}">
+<x-sampaui::field :id="$id" :label="$label" :hint="$fieldHint" :error="$errorMessage" :required="$required" class="{{ $wrapperClasses }}">
     <div x-data="SampaUI.avatarUpload({ existing: @js($src) })" class="relative">
         <label
             for="{{ $id }}"

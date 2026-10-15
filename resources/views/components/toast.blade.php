@@ -14,13 +14,16 @@
         'bottom-left' => 'bottom-4 left-4 sm:right-auto sm:bottom-6 sm:left-6',
     ];
     $positionClass = $positions[$position] ?? $positions['top-right'];
+    $customClasses = (string) $attributes->get('class', '');
+    $baseClasses = "pointer-events-none fixed z-[99999] flex w-[calc(100%-2rem)] max-w-sm flex-col gap-3 {$positionClass}";
+    $classes = sampaui_merge_tailwind_classes($baseClasses, $customClasses);
 @endphp
 
 <div
     x-data="SampaUI.toast({ max: {{ max((int) $max, 1) }}, defaultDuration: {{ max((int) $duration, 0) }}, variant: @js($variant), size: @js($size) })"
     x-on:toast.window="add($event.detail)"
     x-on:sampaui:toast.window="add($event.detail)"
-    {{ $attributes->except(['x-data', 'x-on:toast.window', 'x-on:sampaui:toast.window'])->merge(['class' => "pointer-events-none fixed z-[99999] flex w-[calc(100%-2rem)] max-w-sm flex-col gap-3 {$positionClass}"]) }}
+    {{ $attributes->except(['x-data', 'x-on:toast.window', 'x-on:sampaui:toast.window', 'class'])->merge(['class' => $classes]) }}
     aria-label="Notificacoes"
 >
     <template x-for="toast in toasts" x-bind:key="toast.id">

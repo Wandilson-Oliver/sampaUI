@@ -10,9 +10,15 @@
     'emptyDescription' => 'Envie a primeira mensagem para iniciar a conversa.',
 ])
 
+@php
+    $customClasses = (string) $attributes->get('class', '');
+    $baseClasses = 'flex h-full min-h-0 flex-col bg-light/40 dark:bg-slate-950';
+    $classes = sampaui_merge_tailwind_classes($baseClasses, $customClasses);
+@endphp
+
 <section
     x-data="SampaUI.chatConversation({ autoScroll: @js($autoScroll) })"
-    {{ $attributes->merge(['class' => 'flex h-full min-h-0 flex-col bg-light/40 dark:bg-slate-950']) }}
+    {{ $attributes->except('class')->merge(['class' => $classes]) }}
 >
     {{-- Header da Conversa --}}
     @isset($header)

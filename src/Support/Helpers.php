@@ -105,7 +105,7 @@ if (! function_exists('sampaui_tailwind_class_group')) {
     {
         $class = ltrim($class, '!');
 
-        if ($class === '' || str_contains($class, '[')) {
+        if ($class === '') {
             return null;
         }
 
@@ -114,13 +114,30 @@ if (! function_exists('sampaui_tailwind_class_group')) {
         $utility = $separator === false ? $class : substr($class, $separator + 1);
         $utility = ltrim($utility, '-');
 
+        if (str_contains($variant, '[')) {
+            return null;
+        }
+
         $group = match (true) {
+            in_array($utility, ['bg-auto', 'bg-cover', 'bg-contain'], true) => 'bg-size',
+            in_array($utility, ['bg-bottom', 'bg-center', 'bg-left', 'bg-left-bottom', 'bg-left-top', 'bg-right', 'bg-right-bottom', 'bg-right-top', 'bg-top'], true) => 'bg-position',
+            in_array($utility, ['bg-repeat', 'bg-no-repeat', 'bg-repeat-x', 'bg-repeat-y', 'bg-repeat-round', 'bg-repeat-space'], true) => 'bg-repeat',
+            in_array($utility, ['bg-fixed', 'bg-local', 'bg-scroll'], true) => 'bg-attachment',
+            str_starts_with($utility, 'bg-clip-') => 'bg-clip',
+            str_starts_with($utility, 'bg-origin-') => 'bg-origin',
             str_starts_with($utility, 'bg-') => 'background',
             preg_match('/^text-(xs|sm|base|lg|xl|[2-9]xl)$/', $utility) === 1 => 'text-size',
+            str_starts_with($utility, 'text-[') && preg_match('/^text-\[\d+(\.\d+)?(px|rem|em|pt|vh|vw|%)\]$/', $utility) === 1 => 'text-size',
             in_array($utility, ['text-left', 'text-center', 'text-right', 'text-justify', 'text-start', 'text-end'], true) => 'text-align',
+            in_array($utility, ['text-wrap', 'text-nowrap', 'text-balance', 'text-pretty'], true) => 'text-wrap',
+            in_array($utility, ['text-ellipsis', 'text-clip'], true) => 'text-overflow',
             str_starts_with($utility, 'text-') => 'text-color',
-            $utility === 'border' || preg_match('/^border(?:-[trblxy])?-(0|2|4|8)$/', $utility) === 1 => 'border-width',
+            in_array($utility, ['border', 'border-t', 'border-b', 'border-l', 'border-r', 'border-x', 'border-y'], true)
+                || preg_match('/^border(?:-[trblxy])?-(0|1|2|4|8)$/', $utility) === 1
+                || preg_match('/^border(?:-[trblxy])?-\[\d+(\.\d+)?(px|rem|em)\]$/', $utility) === 1 => 'border-width',
             in_array($utility, ['border-solid', 'border-dashed', 'border-dotted', 'border-double', 'border-none'], true) => 'border-style',
+            in_array($utility, ['border-collapse', 'border-separate'], true) => 'border-collapse',
+            str_starts_with($utility, 'border-spacing') => 'border-spacing',
             str_starts_with($utility, 'border-') => 'border-color',
             str_starts_with($utility, 'rounded') => 'rounded',
             preg_match('/^p([trblxy]?)-/', $utility, $matches) === 1 => 'padding-'.($matches[1] === '' ? 'all' : $matches[1]),
@@ -132,9 +149,26 @@ if (! function_exists('sampaui_tailwind_class_group')) {
             str_starts_with($utility, 'shadow') => 'shadow',
             str_starts_with($utility, 'opacity-') => 'opacity',
             str_starts_with($utility, 'cursor-') => 'cursor',
+            str_starts_with($utility, 'pointer-events-') => 'pointer-events',
             str_starts_with($utility, 'justify-') => 'justify',
             str_starts_with($utility, 'items-') => 'items',
-            in_array($utility, ['inline-flex', 'flex', 'inline-block', 'block', 'hidden'], true) => 'display',
+            in_array($utility, ['inline-flex', 'flex', 'inline-block', 'block', 'hidden', 'grid', 'inline-grid', 'inline', 'contents', 'table', 'table-row', 'table-cell'], true) => 'display',
+            in_array($utility, ['flex-row', 'flex-row-reverse', 'flex-col', 'flex-col-reverse'], true) => 'flex-direction',
+            in_array($utility, ['flex-wrap', 'flex-nowrap', 'flex-wrap-reverse'], true) => 'flex-wrap',
+            in_array($utility, ['flex-1', 'flex-auto', 'flex-initial', 'flex-none'], true) => 'flex',
+            str_starts_with($utility, 'grid-cols-') => 'grid-cols',
+            str_starts_with($utility, 'grid-rows-') => 'grid-rows',
+            str_starts_with($utility, 'col-span-') => 'col-span',
+            str_starts_with($utility, 'row-span-') => 'row-span',
+            in_array($utility, ['static', 'fixed', 'absolute', 'relative', 'sticky'], true) => 'position',
+            str_starts_with($utility, 'inset-') => 'inset',
+            str_starts_with($utility, 'top-') => 'top',
+            str_starts_with($utility, 'bottom-') => 'bottom',
+            str_starts_with($utility, 'left-') => 'left',
+            str_starts_with($utility, 'right-') => 'right',
+            str_starts_with($utility, 'start-') => 'inset-start',
+            str_starts_with($utility, 'end-') => 'inset-end',
+            str_starts_with($utility, 'aspect-') => 'aspect-ratio',
             str_starts_with($utility, 'overflow') => 'overflow',
             str_starts_with($utility, 'divide-') => 'divide',
             str_starts_with($utility, 'space-y-') => 'space-y',
@@ -146,7 +180,7 @@ if (! function_exists('sampaui_tailwind_class_group')) {
             str_starts_with($utility, 'leading-') => 'line-height',
             str_starts_with($utility, 'tracking-') => 'letter-spacing',
             str_starts_with($utility, 'z-') => 'z-index',
-            $utility === 'ring' || preg_match('/^ring-(0|1|2|4|8)$/', $utility) === 1 => 'ring-width',
+            $utility === 'ring' || preg_match('/^ring-(0|1|2|4|8)$/', $utility) === 1 || preg_match('/^ring-\[\d+(\.\d+)?(px|rem)\]$/', $utility) === 1 => 'ring-width',
             str_starts_with($utility, 'ring-') => 'ring-color',
             default => null,
         };
@@ -442,7 +476,7 @@ if (! function_exists('sampaui_progress_variant_classes')) {
             'info' => 'bg-info',
             'purple' => 'bg-purple',
             'muted' => 'bg-muted',
-            'light' => 'bg-light',
+            'light' => 'bg-light dark:bg-slate-700',
         ];
 
         return $variants[$variant] ?? $variants['primary'];

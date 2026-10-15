@@ -9,8 +9,13 @@
     x-on:{{ $openEvent }}.window="open = true; $nextTick(() => $refs.search?.focus())"
     x-on:keydown.escape.window="open = false"
 >
+    @php
+        $customClasses = (string) $attributes->get('class', '');
+        $baseClasses = 'w-full max-w-2xl overflow-hidden rounded-lg border border-border dark:border-slate-800 bg-surface bg-white dark:bg-slate-900 shadow-2xl dark:shadow-black/60';
+        $classes = sampaui_merge_tailwind_classes($baseClasses, $customClasses);
+    @endphp
     <div x-cloak x-show="open" x-transition.opacity class="fixed inset-0 z-50 flex items-start justify-center bg-slate-900/50 px-4 pt-[12vh] backdrop-blur-xs" x-on:click.self="open = false">
-        <div {{ $attributes->merge(['class' => 'w-full max-w-2xl overflow-hidden rounded-lg border border-border dark:border-slate-800 bg-surface bg-white dark:bg-slate-900 shadow-2xl dark:shadow-black/60']) }}>
+        <div {{ $attributes->except('class')->merge(['class' => $classes]) }}>
             <div class="flex items-center gap-3 border-b border-border dark:border-slate-800 px-4 py-3">
                 <i class="bi bi-search text-secondary dark:text-slate-400" aria-hidden="true"></i>
                 <input x-ref="search" x-model="query" type="search" placeholder="{{ $placeholder }}" class="w-full border-0 bg-transparent text-base text-secondary dark:text-slate-100 outline-none placeholder:text-secondary/50 dark:placeholder:text-slate-500">

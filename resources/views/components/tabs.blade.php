@@ -6,9 +6,11 @@
 @php
     $firstKey = array_key_first($tabs);
     $initial = $active ?? $firstKey;
+    $customClasses = (string) $attributes->get('class', '');
+    $classes = sampaui_merge_tailwind_classes('w-full', $customClasses);
 @endphp
 
-<div {{ $attributes->merge(['class' => 'w-full']) }} x-data="{ active: @js($initial) }">
+<div {{ $attributes->except('class')->merge(['class' => $classes]) }} x-data="{ active: @js($initial) }">
     <div class="flex flex-wrap gap-2 border-b border-border dark:border-slate-800" role="tablist">
         @foreach ($tabs as $key => $label)
             <button

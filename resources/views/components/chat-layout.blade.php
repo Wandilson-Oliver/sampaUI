@@ -3,11 +3,17 @@
     'mobilePanel' => 'sidebar',
 ])
 
+@php
+    $customClasses = (string) $attributes->get('class', '');
+    $baseClasses = 'grid min-h-0 overflow-hidden rounded-default border border-border/80 dark:border-slate-800 bg-surface bg-white dark:bg-slate-900 text-secondary dark:text-slate-100 shadow-sm shadow-secondary/5 dark:shadow-black/20 transition-all duration-200 lg:grid-cols-[22rem_minmax(0,1fr)] xl:grid-cols-[24rem_minmax(0,1fr)]';
+    $classes = sampaui_merge_tailwind_classes($baseClasses, $customClasses);
+@endphp
+
 <section
     x-data="{ mobilePanel: @js($mobilePanel === 'conversation' ? 'conversation' : 'sidebar') }"
     x-on:chat:open-conversation="mobilePanel = 'conversation'"
     x-on:chat:back="mobilePanel = 'sidebar'"
-    {{ $attributes->merge(['class' => 'grid min-h-0 overflow-hidden rounded-default border border-border/80 dark:border-slate-800 bg-surface bg-white dark:bg-slate-900 text-secondary dark:text-slate-100 shadow-sm shadow-secondary/5 dark:shadow-black/20 transition-all duration-200 lg:grid-cols-[22rem_minmax(0,1fr)] xl:grid-cols-[24rem_minmax(0,1fr)]']) }}
+    {{ $attributes->except('class')->merge(['class' => $classes]) }}
     style="height: {{ $height }};"
 >
     @isset($sidebar)

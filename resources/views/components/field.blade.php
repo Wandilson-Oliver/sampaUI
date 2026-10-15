@@ -6,8 +6,12 @@
     'error' => null,
     'required' => false,
 ])
+@php
+    $customClasses = (string) $attributes->get('class', '');
+    $classes = sampaui_merge_tailwind_classes('w-full space-y-2', $customClasses);
+@endphp
 
-<div {{ $attributes->merge(['class' => 'w-full space-y-2']) }}>
+<div {{ $attributes->except('class')->merge(['class' => $classes]) }}>
     @if ($label)
         <label for="{{ $labelFor ?? $id }}" class="block text-sm font-medium text-secondary dark:text-slate-200">
             {{ $label }}

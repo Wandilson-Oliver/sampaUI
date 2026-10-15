@@ -13,9 +13,12 @@
     $modelAttributes = $attributes->filter(
         fn (mixed $attributeValue, string $attributeName): bool => str_starts_with($attributeName, 'wire:model') || $attributeName === 'x-model'
     );
+    $customClasses = (string) $attributes->get('class', '');
+    $baseClasses = 'flex h-full min-h-0 flex-col bg-surface bg-white dark:bg-slate-900';
+    $classes = sampaui_merge_tailwind_classes($baseClasses, $customClasses);
 @endphp
 
-<div {{ $attributes->whereDoesntStartWith('wire:model')->except('x-model')->merge(['class' => 'flex h-full min-h-0 flex-col bg-surface bg-white dark:bg-slate-900']) }}>
+<div {{ $attributes->whereDoesntStartWith('wire:model')->except(['x-model', 'class'])->merge(['class' => $classes]) }}>
     {{-- Header da Sidebar --}}
     @isset($header)
         {{ $header }}

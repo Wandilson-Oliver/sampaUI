@@ -202,4 +202,127 @@ BLADE);
         $html->assertSee('border-purple-500', false);
         $html->assertDontSee('border-secondary/40', false);
     }
+
+    public function test_tailwind_class_groups_resolve_specialized_utilities(): void
+    {
+        $mergedText = sampaui_merge_tailwind_classes('text-secondary text-sm', 'text-nowrap text-purple-600 text-[13px]');
+        $this->assertStringContainsString('text-nowrap', $mergedText);
+        $this->assertStringContainsString('text-purple-600', $mergedText);
+        $this->assertStringContainsString('text-[13px]', $mergedText);
+        $this->assertStringNotContainsString('text-secondary', $mergedText);
+        $this->assertStringNotContainsString('text-sm', $mergedText);
+
+        $mergedBorder = sampaui_merge_tailwind_classes('border border-border', 'border-t border-purple-500');
+        $this->assertStringContainsString('border-t', $mergedBorder);
+        $this->assertStringContainsString('border-purple-500', $mergedBorder);
+        $this->assertStringNotContainsString('border-border', $mergedBorder);
+
+        $mergedDisplay = sampaui_merge_tailwind_classes('flex', 'grid grid-cols-2');
+        $this->assertStringContainsString('grid', $mergedDisplay);
+        $this->assertStringNotContainsString('flex', $mergedDisplay);
+        $this->assertStringContainsString('grid-cols-2', $mergedDisplay);
+    }
+
+    public function test_header_overrides_rounded_and_border_classes(): void
+    {
+        $html = $this->blade(<<<'BLADE'
+<x-sampaui::header
+    id="test-header"
+    class="rounded-none border-purple-500"
+    title="Dashboard"
+/>
+BLADE);
+
+        $html->assertSee('rounded-none', false);
+        $html->assertDontSee('rounded-default', false);
+        $html->assertSee('border-purple-500', false);
+        $html->assertDontSee('border-border', false);
+    }
+
+    public function test_stepper_overrides_flex_direction(): void
+    {
+        $html = $this->blade(<<<'BLADE'
+<x-sampaui::stepper
+    class="flex-row gap-6"
+    :steps="['Passo 1', 'Passo 2']"
+/>
+BLADE);
+
+        $html->assertSee('flex-row', false);
+        $html->assertDontSee('flex-col', false);
+        $html->assertSee('gap-6', false);
+        $html->assertDontSee('gap-4', false);
+    }
+
+    public function test_avatar_overrides_position_and_display(): void
+    {
+        $html = $this->blade(<<<'BLADE'
+<x-sampaui::avatar
+    name="Maria Silva"
+    class="static block"
+/>
+BLADE);
+
+        preg_match('/<span[^>]*class="([^"]*)"/', (string) $html, $matches);
+        $this->assertNotEmpty($matches);
+        $rootClasses = $matches[1];
+        $this->assertStringContainsString('static', $rootClasses);
+        $this->assertStringNotContainsString('relative', $rootClasses);
+        $this->assertStringContainsString('block', $rootClasses);
+        $this->assertStringNotContainsString('inline-flex', $rootClasses);
+    }
+
+    public function test_toast_overrides_max_width(): void
+    {
+        $html = $this->blade(<<<'BLADE'
+<x-sampaui::toast
+    class="max-w-lg"
+/>
+BLADE);
+
+        $html->assertSee('max-w-lg', false);
+        $html->assertDontSee('max-w-sm', false);
+    }
+
+    public function test_indicator_overrides_text_size_and_color(): void
+    {
+        $html = $this->blade(<<<'BLADE'
+<x-sampaui::indicator
+    class="text-xs text-slate-500"
+    label="Ativo"
+/>
+BLADE);
+
+        $html->assertSee('text-xs', false);
+        $html->assertDontSee('text-sm', false);
+        $html->assertSee('text-slate-500', false);
+        $html->assertDontSee('text-secondary', false);
+    }
+
+    public function test_progress_overrides_space_y(): void
+    {
+        $html = $this->blade(<<<'BLADE'
+<x-sampaui::progress
+    :value="50"
+    label="Progresso"
+    class="space-y-6"
+/>
+BLADE);
+
+        $html->assertSee('space-y-6', false);
+        $html->assertDontSee('space-y-2', false);
+    }
+
+    public function test_skeleton_overrides_space_y(): void
+    {
+        $html = $this->blade(<<<'BLADE'
+<x-sampaui::skeleton
+    :lines="3"
+    class="space-y-6"
+/>
+BLADE);
+
+        $html->assertSee('space-y-6', false);
+        $html->assertDontSee('space-y-2', false);
+    }
 }

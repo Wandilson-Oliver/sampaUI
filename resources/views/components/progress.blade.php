@@ -8,9 +8,11 @@
 
 @php
     $percent = max(0, min(100, ($max > 0 ? ((float) $value / (float) $max) * 100 : 0)));
+    $customClasses = (string) $attributes->get('class', '');
+    $classes = sampaui_merge_tailwind_classes('space-y-2', $customClasses);
 @endphp
 
-<div {{ $attributes->merge(['class' => 'space-y-2']) }}>
+<div {{ $attributes->except('class')->merge(['class' => $classes]) }}>
     @if ($label || $showValue)
         <div class="flex items-center justify-between gap-3 text-sm font-medium text-secondary dark:text-slate-200">
             <span>{{ $label }}</span>
